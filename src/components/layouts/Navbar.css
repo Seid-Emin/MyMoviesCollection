@@ -1,0 +1,15 @@
+.MovieIcon {
+  line-height: inherit;
+  margin: 0 15px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-around;
+}
+
+@media only screen and (max-width: 992px) {
+  nav .brand-logo.center {
+    left: 15px;
+  }
+}

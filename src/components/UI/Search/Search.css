@@ -1,0 +1,15 @@
+.searchField {
+  height: 40px;
+  background-color: inherit;
+  box-shadow: none;
+}
+
+nav .label-icon {
+  height: 40px;
+  line-height: 40px;
+}
+
+div .searchField i {
+  height: 40px;
+  line-height: 40px;
+}
