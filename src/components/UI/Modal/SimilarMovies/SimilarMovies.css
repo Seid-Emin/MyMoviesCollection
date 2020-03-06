@@ -1,0 +1,15 @@
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating) {
+  margin-right: 0;
+}
+
+.inner-wrapper .card-action {
+  width: 30vw;
+}
+
+.similarMovie-img {
+  height: 100%;
+}
+
+#modal1 .inner-wrapper div a {
+  color: grey;
+}

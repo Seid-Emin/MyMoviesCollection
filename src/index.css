@@ -10,7 +10,15 @@ body {
   background-color: #424242;
 }
 
+p {
+  margin: 5px 0;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+#root {
+  height: 100vh;
 }

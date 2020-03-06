@@ -1,0 +1,21 @@
+.card {
+  background-color: #eceff1;
+}
+
+.card .card-title {
+  font-size: 16px;
+  text-align: center;
+  font-weight: 600;
+  margin: 5px;
+  text-transform: uppercase;
+
+}
+
+.card .card-action {
+  padding: 5px;
+  position: relative;
+}
+
+.btn {
+  font-size: 12px;
+}

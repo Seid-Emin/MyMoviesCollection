@@ -10,14 +10,35 @@ export const search = searchText => {
   };
 };
 
-export const fetchSearch = (query) => {
-  return dispatch => {
-    axios.get(`${MovieDB.API_Search}movie?api_key=${MovieDB.API_KEY}&language=en-US&query=${query}&page=1&include_adult=true`)
-      .then(res => {
-        console.log(res);
+export const fetchStart = () => {
+  return {
+    type: actionTypes.FETCH_SEARCH_START
+  };
+};
 
+export const fetchSearchSuccess = (searchResult) => {
+  return {
+    type: actionTypes.FETCH_SEARCH_SUCCESS,
+    searchResult: searchResult
+  };
+};
+
+export const fetchFail = (error) => {
+  return {
+    type: actionTypes.FETCH_SEARCH_FAIL,
+    error: error
+  };
+};
+
+export const fetchMultiSearch = (query) => {
+  return dispatch => {
+    dispatch(fetchStart());
+    axios.get(`${MovieDB.API_MultiSearch}multi?api_key=${MovieDB.API_KEY}&language=en-US&query=${query}&page=1&include_adult=true`)
+      .then(res => {
+        dispatch(fetchSearchSuccess(res.data.results));
       })
       .catch(err => {
+        dispatch(fetchFail(err));
         console.log(err);
 
       });

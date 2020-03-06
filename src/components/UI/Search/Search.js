@@ -14,7 +14,7 @@ class Search extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.fetchSearch(this.props.search);
+    this.props.fetchMultiSearch(this.props.search);
   }
 
   render() {
@@ -43,7 +43,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     searchText: (search) => dispatch(actions.search(search)),
-    fetchSearch: (query) => dispatch(actions.fetchSearch(query))
+    fetchMultiSearch: (query) => dispatch(actions.fetchMultiSearch(query))
   }
 }
 
