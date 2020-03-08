@@ -5,5 +5,9 @@ export {
 
 export {
   fetchSelected,
-  selectedMediaType
+  selectedMediaType,
+  showSelected,
+  hideSelected
 } from './selectedAction'
+
+export { fetchFilteredMedia } from './fetchFilteredMediaAction'

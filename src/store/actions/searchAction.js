@@ -19,7 +19,9 @@ export const fetchStart = () => {
 export const fetchSearchSuccess = (searchResult) => {
   return {
     type: actionTypes.FETCH_SEARCH_SUCCESS,
-    searchResult: searchResult
+    searchResult: searchResult.results,
+    pagesTotal: searchResult.total_pages,
+    totalResults: searchResult.total_results
   };
 };
 
@@ -35,12 +37,12 @@ export const fetchMultiSearch = (query) => {
     dispatch(fetchStart());
     axios.get(`${MovieDB.API_MultiSearch}multi?api_key=${MovieDB.API_KEY}&language=en-US&query=${query}&page=1&include_adult=true`)
       .then(res => {
-        dispatch(fetchSearchSuccess(res.data.results));
+        console.log(res.data);
+
+        dispatch(fetchSearchSuccess(res.data));
       })
       .catch(err => {
         dispatch(fetchFail(err));
-        console.log(err);
-
       });
   }
 }

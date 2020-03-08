@@ -1,5 +1,6 @@
 import searchParam from './searchReducer'
 import selectedMedia from './selectedReducer'
+import filteredMediaReducer from './fetchFilteredMediaReducer'
 //import projectReduces from './projectReduces';
 import { combineReducers } from 'redux';
 // import { firestoreReducer } from 'redux-firestore';
@@ -7,7 +8,8 @@ import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
   search: searchParam,
-  selectedMedia: selectedMedia
+  selectedMedia: selectedMedia,
+  filteredMedia: filteredMediaReducer
 });
 
 export default rootReducer;

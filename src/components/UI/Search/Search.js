@@ -7,9 +7,10 @@ import './Search.css'
 
 
 class Search extends Component {
-  handleSearch = (e) => {
-    console.log(this.props);
-    this.props.searchText(e.target.value);
+  _handleSearch = (e) => {
+    if (e.key === 'Enter') {
+      this.props.searchText(e.target.value);
+    }
   }
 
   handleSubmit = (e) => {
@@ -23,7 +24,7 @@ class Search extends Component {
         <div className="nav-wrapper">
           <form onSubmit={this.handleSubmit}>
             <div className="input-field">
-              <input onChange={this.handleSearch} id="search" type="search" required />
+              <input onKeyDown={this._handleSearch} id="search" type="search" required />
               <label className="label-icon" htmlFor="search"><i className="material-icons">search</i></label>
               <i className="material-icons">close</i>
             </div>

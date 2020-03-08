@@ -1,15 +1,17 @@
-.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating) {
-  margin-right: 0;
+.similarMedia-wrapper {
+  border-top: 1px solid rgba(160, 160, 160, 0.2);
 }
 
-.inner-wrapper .card-action {
-  width: 30vw;
+.similarMedia {
+  height: 40%;
 }
 
-.similarMovie-img {
-  height: 100%;
+.similarMedia-wrapper {
+  display: flex;
+  flex-direction: column;
 }
 
-#modal1 .inner-wrapper div a {
-  color: grey;
+.similarMedia-title {
+  text-transform: uppercase;
+  text-align: center;
 }

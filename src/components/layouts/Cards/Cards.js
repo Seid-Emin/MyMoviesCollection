@@ -3,31 +3,26 @@ import { connect } from 'react-redux';
 
 import Card from './Card/Card'
 
-const Cards = ({ results }) => {
-  console.log(results);
-
-  let cards = results.map(card => {
+const Cards = ({ results, searchText, totalResults }) => {
+  let singleCard = totalResults !== 0 ? results.map(card => {
     return <Card key={card.id} result={card} />
-  })
+  }) : <h6 className='noResults'>No Results Found</h6>
 
+  const mediainfoTitle = searchText !== '' ? <h6 className='currentyLoadedMedia'>Searched for '{searchText}' - {totalResults} results found</h6> : null;
   return (
-    <React.Fragment>
-      {cards}
-    </React.Fragment>
+    <div className='movie-grid'>
+      {mediainfoTitle}
+      {singleCard}
+    </div>
   )
 }
 
 const mapStateToProps = state => {
   return {
-    results: state.search.searchResult
+    results: state.search.searchResult,
+    searchText: state.search.searchText,
+    totalResults: state.search.totalResults
   }
 }
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     searchText: (search) => dispatch(actions.search(search)),
-//     fetchMultiSearch: (query) => dispatch(actions.fetchMultiSearch(query))
-//   }
-// }
 
 export default connect(mapStateToProps)(Cards)

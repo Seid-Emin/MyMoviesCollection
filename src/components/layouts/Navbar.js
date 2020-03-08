@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 //import { connect } from 'react-redux';
 
 import SignedInLinks from './SignedInLinks';
@@ -16,7 +16,7 @@ const Navbar = (props) => {
     <React.Fragment>
       <nav className='blue darken-4'>
         <div className="nav-wrapper">
-          <Link to='/' className="brand-logo material-icons center MovieIcon">movie</Link>
+          <NavLink to='/' className="brand-logo material-icons center MovieIcon">movie</NavLink>
           <SignedInLinks />
         </div>
       </nav>

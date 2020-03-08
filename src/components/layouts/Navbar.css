@@ -3,6 +3,10 @@
   margin: 0 15px;
 }
 
+nav ul {
+  padding: 0 15px;
+}
+
 .tabs {
   display: flex;
   justify-content: space-around;

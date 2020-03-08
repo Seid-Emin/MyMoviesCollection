@@ -44,3 +44,17 @@ export const fetchSelected = (id, mediaType) => {
       });
   }
 }
+
+export const showSelected = () => {
+  return {
+    type: actionTypes.SHOW_SELECTED,
+    show: true
+  };
+};
+
+export const hideSelected = () => {
+  return {
+    type: actionTypes.HIDE_SELECTED,
+    show: false
+  };
+};

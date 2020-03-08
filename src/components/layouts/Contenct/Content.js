@@ -1,21 +1,51 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux';
+
+import * as actions from '../../../store/actions/index'
 
 import './Content.css'
 
 import Cards from '../Cards/Cards';
+import FilteredMedia from '../FilteredMedia/FilteredMedia'
 import Categories from '../Categories/Categories'
+import Spinner from '../../UI/Spinner/Spinner'
+import Modal from '../../UI/Modal/Modal'
+import Backdrop from '../../UI/Backdrop/Backdrop'
 
-const Content = () => {
-  return (
-    <div className='row'>
-      <div className='col s3 m3 l2 sticky'>
+class Content extends Component {
+  render() {
+    const { showInfo, loadingSearch } = this.props;
+    const modal = showInfo ?
+      <React.Fragment>
+        <Backdrop clicked={this.props.hideSelected} show={showInfo} />
+        <Modal />
+      </React.Fragment>
+      : null;
+
+    return (
+      <div className='content-grid'>
         <Categories />
+        {loadingSearch ? <Spinner /> :
+          <React.Fragment>
+            <Cards />
+            <FilteredMedia />
+          </React.Fragment>}
+        {modal}
       </div>
-      <div className='col s9 m9 l10'>
-        <Cards />
-      </div>
-    </div>
-  )
+    )
+  }
+}
+const mapStateToProps = state => {
+  return {
+    showInfo: state.selectedMedia.showInfo,
+    loadingSearch: state.search.loading
+  }
 }
 
-export default Content
+const mapDispatchToProps = dispatch => {
+  return {
+    hideSelected: () => dispatch(actions.hideSelected())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Content)

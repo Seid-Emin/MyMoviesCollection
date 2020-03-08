@@ -1,33 +1,47 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux';
-import * as actions from '../../../../store/actions/index'
 
-import Modal from '../Modal'
+import SimilarMovie from './SimilarMovie/SimilarMovie'
+
 import './SimilarMovies.css'
 
-class SimilarMovies extends Component {
-  getSelectedVideo = (e) => {
-    e.preventDefault();
-    this.props.fetchSelected(this.props.result.id, this.props.mediaType);
-  }
-  render() {
-    console.log(this.props);
-    const { result } = this.props;
-    return (
-      <div className="card-action" onClick={this.getSelectedVideo}>
-        <a className="modal-trigger" href="#modal1" target='_blank'>
-          <img className='similarMovie-img' src={'https://image.tmdb.org/t/p/w500/' + result.poster_path} alt={result.original_name} />
-          {result.title || result.name}
-        </a>
-        <Modal />
+const SimilarMovies = ({ selectedMediaData, selectedMediaType }) => {
+
+
+  //display similar movies
+  let fewSimilarMovies = selectedMediaData.similar ? selectedMediaData.similar.results.splice(0, 10) : null;
+  let similarMovie = selectedMediaData.similar ? fewSimilarMovies.map(result => {
+    return <SimilarMovie key={result.id} result={result} mediaType={selectedMediaType} />
+  }) : null
+
+  //display similar media type
+  let type = selectedMediaType === 'movie' ? 'movies' : 'tv series';
+  return (
+    <div className='similarMedia'>
+      <div className='similarMedia-wrapper'>
+        <div className='similarMedia-title'>
+          <p className="card-info">Similar {type}</p>
+        </div>
+        <div className='similarMedia-content'>
+          <div className='inner-wrapper'>
+            {similarMovie}
+          </div>
+        </div>
       </div>
-    )
-  }
+    </div>
+  )
 }
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = state => {
   return {
-    fetchSelected: (id, mediaType) => dispatch(actions.fetchSelected(id, mediaType))
+    selectedMediaData: state.selectedMedia.selectedMedia,
+    selectedMediaType: state.selectedMedia.selectedMediaType,
   }
 }
 
-export default connect(null, mapDispatchToProps)(SimilarMovies)
+export default connect(mapStateToProps)(SimilarMovies)
+
+
+
+
+
+

@@ -8,14 +8,16 @@ import Footer from './components/layouts/Footer/Footer'
 
 import './App.css';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <Navbar />
-      <Search />
-      <Content />
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Navbar />
+        <Search />
+        <Content />
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }
 

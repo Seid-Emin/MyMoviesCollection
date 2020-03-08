@@ -1,44 +1,35 @@
-.modal .modal-content {
-  padding-bottom: 0;
-}
-
-.modal {
-  overflow-x: hidden;
-  max-height: 80vh;
-  width: 80%;
-}
-
-.modal-bg {
+.modal-info {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 100;
-  opacity: .4;
-}
-
-.modal-wrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateX(50%);
-  transform: translateY(50%);
-  z-index: 110;
   background-color: whitesmoke;
+  width: 90%;
+  height: inherit;
+  top: 4%;
+  left: 5%;
+  z-index: 501;
+  padding: 10px;
+  display: flex;
+  max-height: 100%;
+  flex-direction: column;
 }
 
-.modal-content {
-  /* position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateX(50%);
-  transform: translateY(50%);
-  z-index: 110; */
+.info-wrapper {
+  display: flex;
+  height: 60%;
 }
 
-.row {
-  margin-bottom: 0;
+.card-image {
+  margin: 5px;
+  width: 100%;
+  max-width: 300px;
+  min-width: 250px;
+}
+
+.card-image img {
+  width: 100%;
+}
+
+.movie-info-wrap {
+  margin-left: 20px;
 }
 
 .releaseDate {
@@ -49,11 +40,49 @@
   text-align: center;
   font-size: 30px;
   font-weight: 600;
+  margin-top: 0;
+}
+
+.ratingAdd {
+  display: flex;
+  align-items: center;
+}
+
+.ratingAdd p {
+  margin-right: 30px;
+}
+
+.material-icons:hover {
+  cursor: pointer;
+}
+
+.genre {
+  align-items: center;
+}
+
+.ratingAdd,
+.genre,
+.overwiev {
+  border-top: 1px solid rgba(160, 160, 160, 0.2);
 }
 
 .card-inner-title {
   font-size: 20px;
-  border-top: 1px solid rgba(160, 160, 160, 0.2);
+}
+
+
+.modal .modal-content {
+  padding-bottom: 0;
+}
+
+.modal-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(50%);
+  transform: translateY(50%);
+  z-index: 110;
+  background-color: whitesmoke;
 }
 
 .card-info {
@@ -82,8 +111,7 @@
 .inner-wrapper {
   display: flex;
   flex-direction: row;
-  width: 100%;
-  height: 30vh;
+  height: 200px;
 }
 
 .similarMovies {
@@ -93,8 +121,33 @@
   margin: 5px;
 }
 
-.similarMovies-info {
-  margin: 15px 0 0 20px;
-  text-transform: uppercase;
-  text-align: center;
+.similarMedia-content {
+  overflow-x: scroll;
+  height: 280px;
+  display: flex;
+  flex-direction: column;
+}
+
+.closeModal {
+  line-height: 0;
+}
+
+@media only screen and (max-width:600px) {
+  .info-wrapper {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .card-image {
+    align-self: center;
+  }
+
+  .similarMedia {
+    justify-content: flex-end;
+  }
+
+  .modal-info {
+    overflow: scroll;
+  }
+
 }

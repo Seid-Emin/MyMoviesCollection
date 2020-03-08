@@ -4,33 +4,32 @@ import { connect } from 'react-redux';
 import * as actions from '../../../../store/actions/index'
 
 import './Card.css'
-import Modal from '../../../UI/Modal/Modal'
 
 class Card extends Component {
-
   getSelectedVideo = (e) => {
     e.preventDefault();
-    this.props.fetchSelected(this.props.result.id, this.props.result.media_type);
-    this.props.selectedMediaType(this.props.result.media_type);
+    let mediaType = this.props.result.media_type ? this.props.result.media_type : this.props.mediaType;
+
+    this.props.fetchSelected(this.props.result.id, mediaType);
+    this.props.selectedMediaType(mediaType);
+    this.props.showSelected();
   }
   render() {
     const { result } = this.props;
-
     return (
-
-      <div className="col s12 m6 l3">
-        <div className="card hoverable">
-          <div className="card-image">
-            <img src={'https://image.tmdb.org/t/p/w500/' + result.poster_path} alt={result.original_name} />
+      <div className="movie-grid-item">
+        <div className="item-wrapper">
+          <div className='item-image' onClick={this.getSelectedVideo}>
+            <div className="card-imagePoster">
+              <img src={'https://image.tmdb.org/t/p/w500/' + result.poster_path} alt={result.original_name} />
+            </div>
           </div>
-          <span className="card-title ">{result.original_name || result.original_title}</span>
+          <span className="card-title">{result.original_name || result.original_title}</span>
           <div className="card-action">
-            <button className="blue darken-4 waves-effect waves-light btn modal-trigger" data-target="modal1" onClick={this.getSelectedVideo}>Info</button>
-            <Modal />
+            <button className="blue darken-4 waves-effect waves-light btn modal-trigger" onClick={this.getSelectedVideo}>Info</button>
           </div>
         </div>
       </div>
-
     )
   }
 }
@@ -38,7 +37,8 @@ class Card extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     fetchSelected: (id, mediaType) => dispatch(actions.fetchSelected(id, mediaType)),
-    selectedMediaType: (type) => dispatch(actions.selectedMediaType(type))
+    selectedMediaType: (type) => dispatch(actions.selectedMediaType(type)),
+    showSelected: () => dispatch(actions.showSelected())
   }
 }
 
