@@ -21,7 +21,7 @@
   cursor: pointer;
 }
 
-@media (min-width:300px) {
+@media (max-width:300px) {
   .item-image {
     min-height: 30vw;
   }
@@ -40,9 +40,46 @@
   }
 }
 
-@media (min-width:1025px) {
+@media (max-width:1550px) {
   .item-image {
-    min-height: 30vw;
+    min-height: 210px;
+    max-height: 270px;
+  }
+}
+
+
+@media (max-width:1250px) {
+  .item-image {
+    min-height: 270px;
+    max-height: 370px;
+  }
+}
+
+@media (max-width:1025px) {
+  .item-image {
+    min-height: 270px;
+    max-height: 370px;
+  }
+}
+
+@media (max-width:801px) {
+  .item-image {
+    min-height: 210px;
+    max-height: 270px;
+  }
+}
+
+@media (max-width:641px) {
+  .item-image {
+    min-height: 150px;
+    max-height: 300px;
+  }
+}
+
+@media only screen and (max-width:481px) {
+  .item-image {
+    min-height: 220px;
+    max-height: 310px;
   }
 }
 

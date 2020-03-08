@@ -13,7 +13,7 @@
 .movie-grid {
   position: relative;
   display: grid;
-  grid-template-columns: 24% 24% 24% 24%;
+  grid-template-columns: 15.5% 15.5% 15.5% 15.5% 15.5% 15.5%;
   grid-column-gap: 15px;
   grid-row-gap: 15px;
   align-self: stretch;
@@ -44,12 +44,16 @@
 
 
 
-
+@media only screen and (max-width:1550px) {
+  .movie-grid {
+    grid-template-columns: 19% 19% 19% 19% 19%;
+  }
+}
 
 
 @media only screen and (max-width:1025px) {
   .movie-grid {
-    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-columns: 24% 24% 24% 24%;
   }
 }
 
@@ -72,8 +76,6 @@
 }
 
 @media only screen and (max-width:481px) {
-
-
   .content-grid {
     grid-template-columns: 1fr;
     margin: 0 10px 0 15px;
