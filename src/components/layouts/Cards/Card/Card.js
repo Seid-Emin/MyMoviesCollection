@@ -24,7 +24,7 @@ class Card extends Component {
               <img src={'https://image.tmdb.org/t/p/w500/' + result.poster_path} alt={result.original_name} />
             </div>
           </div>
-          <span className="card-title">{result.original_name || result.original_title}</span>
+          <span className="card-title">{result.original_name || result.title}</span>
           <div className="card-action">
             <button className="blue darken-4 waves-effect waves-light btn modal-trigger" onClick={this.getSelectedVideo}>Info</button>
           </div>

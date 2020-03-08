@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 import '../Categories.css'
 
@@ -8,11 +9,11 @@ const Movies = ({ fetchData }) => {
     <div className='media-side-nav'>
       <div className='white-text lighten-5 main-categirie'>Movies</div>
       <div className='categories-wrap grey-text lighten-3'>
-        <p onClick={() => fetchData(mediaType, 'latest')} >Latest</p>
-        <p onClick={() => fetchData(mediaType, 'now_playing')}>Now Playing</p>
-        <p onClick={() => fetchData(mediaType, 'popular')}>Popular</p>
-        <p onClick={() => fetchData(mediaType, 'top_rated')}>Top Rated</p>
-        <p onClick={() => fetchData(mediaType, 'upcoming')}>Upcoming</p>
+        <p onClick={() => fetchData(mediaType, 'latest')} ><NavLink to='/movies/latest' activeClassName='activeNav'>Latest</NavLink></p>
+        <p onClick={() => fetchData(mediaType, 'now_playing')}><NavLink to='/movies/now-playing' activeClassName='activeNav'>Now Playing</NavLink></p>
+        <p onClick={() => fetchData(mediaType, 'popular')}><NavLink to='/movies/popular' activeClassName='activeNav'>Popular</NavLink></p>
+        <p onClick={() => fetchData(mediaType, 'top_rated')}><NavLink to='/movies/top-rated' activeClassName='activeNav'>Top Rated</NavLink></p>
+        <p onClick={() => fetchData(mediaType, 'upcoming')}><NavLink to='/movies/upcoming' activeClassName='activeNav'>Upcoming</NavLink></p>
       </div>
     </div>
   )

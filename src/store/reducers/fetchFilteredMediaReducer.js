@@ -4,7 +4,6 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
   mediaType: 'movie',
   filterType: 'now_playing',
-  filteredMediaResults: [],
   loading: false,
   pagesTotal: '1',
   displayTitle: ''

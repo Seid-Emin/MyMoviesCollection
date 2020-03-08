@@ -5,7 +5,7 @@ import MovieDB from '../../configs/ApiMovies'
 
 export const fetchFilteredMediaStart = () => {
   return {
-    type: actionTypes.FETCH_FILTERED_RESULTS_START
+    type: actionTypes.FETCH_FILTERED_RESULTS_START,
   };
 };
 
@@ -14,7 +14,8 @@ export const fetchFilteredMediaSuccess = (searchResult, mediaType, filterType) =
     type: actionTypes.FETCH_FILTERED_RESULTS_SUCCESS,
     searchFilteredResult: searchResult,
     mediaType,
-    filterType
+    filterType,
+    clearSearch: ''
   };
 };
 

@@ -25,15 +25,22 @@
 
 }
 
-.categories-wrap p {
-  margin: 5px 0;
+.categories-wrap a {
+  margin: 2px 0;
   font-size: 12px;
-}
-
-
-.categories-wrap p:hover {
   color: #e0e0e0;
 }
+
+
+.categories-wrap a:hover {
+  color: #039be5;
+}
+
+.categories-wrap .activeNav {
+  color: #039be5;
+}
+
+
 
 @media only screen and (max-width:481px) {
   .Categories-wrapper {
@@ -48,7 +55,7 @@
     margin-left: 0;
   }
 
-  .categories-wrap p {
+  .categories-wrap a {
     display: flex;
     flex-direction: row;
 

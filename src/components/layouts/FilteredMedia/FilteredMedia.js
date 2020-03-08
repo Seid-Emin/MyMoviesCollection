@@ -1,14 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
 
 import Card from '../Cards/Card/Card'
 
 const FilteredMedia = ({ results, filteredMediaType, displayTitle }) => {
-  console.log(filteredMediaType);
-
   let singleCard = results ? results.map(card => {
     return <Card key={card.id} result={card} mediaType={filteredMediaType} />
-  }) : <h6 className='noResults'>No Results Found</h6>;
+  }) : <h6 className='noResults'>No Results Found. Try Again Later...</h6>;
 
   const fetchedFilteredTitle = filteredMediaType === 'movie' ? <h6 className='currentyLoadedMedia uppercase'>{displayTitle}s</h6> : <h6 className='currentyLoadedMedia uppercase'>{displayTitle} series</h6>;
   return (
@@ -23,7 +22,7 @@ const mapStateToProps = state => {
   return {
     results: state.filteredMedia.filteredMediaResults,
     filteredMediaType: state.filteredMedia.mediaType,
-    displayTitle: state.filteredMedia.displayTitle
+    displayTitle: state.filteredMedia.displayTitle,
   }
 }
 

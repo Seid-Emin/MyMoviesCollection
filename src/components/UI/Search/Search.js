@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 
 import * as actions from '../../../store/actions/index'
@@ -25,12 +26,12 @@ class Search extends Component {
           <form onSubmit={this.handleSubmit}>
             <div className="input-field">
               <input onKeyDown={this._handleSearch} id="search" type="search" required />
-              <label className="label-icon" htmlFor="search"><i className="material-icons">search</i></label>
+              <label className="label-icon" htmlFor="search"> <Link to={'/search=' + this.props.search} ><i className="material-icons">search</i></Link></label>
               <i className="material-icons">close</i>
             </div>
           </form>
         </div>
-      </nav>
+      </nav >
     )
   }
 }
