@@ -10,4 +10,4 @@ export {
   hideSelected
 } from './selectedAction'
 
-export { fetchFilteredMedia } from './fetchFilteredMediaAction'
+export { fetchFilteredMedia, fetchFilteredMediaSuccess, fetchFilteredMediaFail } from './fetchFilteredMediaAction'

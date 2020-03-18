@@ -8,10 +8,10 @@ import './Card.css'
 class Card extends Component {
   getSelectedVideo = (e) => {
     e.preventDefault();
-    let mediaType = this.props.result.media_type ? this.props.result.media_type : this.props.mediaType;
+    let media = this.props.result.media_type ? this.props.result.media_type : this.props.filteredMediaType;
 
-    this.props.fetchSelected(this.props.result.id, mediaType);
-    this.props.selectedMediaType(mediaType);
+    this.props.fetchSelected(this.props.result.id, media);
+    this.props.selectedMediaType(media);
     this.props.showSelected();
   }
   render() {
@@ -33,6 +33,11 @@ class Card extends Component {
     )
   }
 }
+const mapStateToProps = state => {
+  return {
+    filteredMediaType: state.search.mediaType
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -42,4 +47,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(Card)
+export default connect(mapStateToProps, mapDispatchToProps)(Card)

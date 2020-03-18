@@ -6,8 +6,11 @@ const initialState = {
   searchResult: [],
   loading: false,
   showModal: false,
-  pagesTotal: '1',
-  totalResults: null
+  pagesTotal: '0',
+  totalResults: null,
+  mediaType: 'movie',
+  filterType: 'now_playing',
+  displayTitle: 'NOW PLAYING MOVIES'
 }
 
 const searchParam = (state, action) => {
@@ -47,7 +50,11 @@ export const fetchFilteredMediaSuccess = (state, action) => {
     ...state,
     searchResult: action.searchFilteredResult.results,
     loading: false,
-    searchText: action.clearSearch
+    searchText: action.clearSearch,
+    mediaType: action.mediaType,
+    filterType: action.filterType,
+    pagesTotal: action.searchFilteredResult.total_pages,
+    displayTitle: (action.filterType + ' ' + action.mediaType).replace('_', ' ').replace('_', ' '),
   };
 };
 

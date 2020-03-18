@@ -20,9 +20,9 @@ const FilteredMedia = ({ results, filteredMediaType, displayTitle }) => {
 
 const mapStateToProps = state => {
   return {
-    results: state.filteredMedia.filteredMediaResults,
-    filteredMediaType: state.filteredMedia.mediaType,
-    displayTitle: state.filteredMedia.displayTitle,
+    results: state.search.filteredMediaResults,
+    filteredMediaType: state.search.mediaType,
+    displayTitle: state.search.displayTitle,
   }
 }
 

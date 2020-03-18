@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Card from './Card/Card'
 
 const Cards = ({ results, searchText, totalResults, filteredMediaType, displayTitle }) => {
-  let singleCard = totalResults !== 0 ? results.map(card => {
+  let singleCard = results ? results.map(card => {
     return <Card key={card.id} result={card} />
   }) : <h6 className='noResults'>No Results Found</h6>
 
@@ -25,8 +25,8 @@ const mapStateToProps = state => {
     results: state.search.searchResult,
     searchText: state.search.searchText,
     totalResults: state.search.totalResults,
-    filteredMediaType: state.filteredMedia.mediaType,
-    displayTitle: state.filteredMedia.displayTitle,
+    filteredMediaType: state.search.mediaType,
+    displayTitle: state.search.displayTitle,
   }
 }
 
