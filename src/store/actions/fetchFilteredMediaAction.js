@@ -29,7 +29,7 @@ export const fetchFilteredMediaFail = (error) => {
 export const fetchFilteredMedia = (mediaType, filterType) => {
   return dispatch => {
     dispatch(fetchFilteredMediaStart());
-    axios.get(`${MovieDB.API_V3}${mediaType}/${filterType}?api_key=${MovieDB.API_KEY}&language=en-US&page=1`)
+    axios.get(`${MovieDB.API_V3}/${mediaType}/${filterType}?api_key=${MovieDB.API_KEY}&language=en-US&page=1`)
       .then(res => {
         console.log(res);
 

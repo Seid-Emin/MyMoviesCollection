@@ -2,19 +2,19 @@
   position: fixed;
   background-color: whitesmoke;
   width: 90%;
-  height: inherit;
-  top: 4%;
+  height: 95%;
+  top: 2.5%;
   left: 5%;
   z-index: 501;
   padding: 10px;
   display: flex;
   max-height: 100%;
   flex-direction: column;
+  overflow: scroll;
 }
 
 .info-wrapper {
   display: flex;
-  height: 60%;
 }
 
 .card-image {
@@ -126,6 +126,11 @@
   height: 280px;
   display: flex;
   flex-direction: column;
+}
+
+.btn-wrapper{
+  padding: 10px 0 0 0;
+  align-self: flex-end;
 }
 
 .closeModal {

@@ -16,12 +16,20 @@ import Modal from '../../UI/Modal/Modal'
 import Backdrop from '../../UI/Backdrop/Backdrop'
 
 class Content extends Component {
-  UNSAFE_componentWillMount() {
-    const { mediaType, filterType } = this.props
-    this.props.fetchFilteredMedia(mediaType, filterType);
-    console.log(this.props);
-    this.props.history.push('/movie/now_playing')
-    console.log('Content mounted');
+  componentDidMount() {
+    const { mediaType, filterType, fetchFilteredMedia, preloadSelected } = this.props;
+    const pathName = this.props.history.location.pathname;
+    console.log(pathName);
+
+    if (pathName !== '/') {
+      preloadSelected(pathName);
+    } else {
+      fetchFilteredMedia(mediaType, filterType);
+      console.log(this.props);
+      this.props.history.push('/movie/now_playing')
+      console.log('Content mounted');
+    }
+
   }
   render() {
     const { showInfo, loadingSearch } = this.props;
@@ -56,7 +64,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     hideSelected: () => dispatch(actions.hideSelected()),
-    fetchFilteredMedia: (mediaType, filterType) => dispatch(actions.fetchFilteredMedia(mediaType, filterType))
+    fetchFilteredMedia: (mediaType, filterType) => dispatch(actions.fetchFilteredMedia(mediaType, filterType)),
+    preloadSelected: (pathname) => dispatch(actions.preloadSelected(pathname))
   }
 }
 

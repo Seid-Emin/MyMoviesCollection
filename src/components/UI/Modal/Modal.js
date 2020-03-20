@@ -21,7 +21,7 @@ class Modal extends Component {
     console.log(selectedMediaData);
 
     //check video file existing in the response
-    const video = videos ? videos.results.map(video => {
+    const video = videos ? videos.results.slice(0, 3).map(video => {
       return <Video key={video.id} video={video} />
     }) : null;
 
@@ -65,7 +65,7 @@ class Modal extends Component {
                   </h3>
                 </div>
                 <div className='ratingAdd'>
-                  <p className='card-inner-title'>rating: <span className={ratingClasses.join(' ')}>{selectedMediaData.vote_average}</span></p>
+                  <p className='card-inner-title'>Rating: <span className={ratingClasses.join(' ')}>{selectedMediaData.vote_average}</span></p>
                   <p className="material-icons" title='Add to Collection' alt='Add to Collection'>playlist_add</p>
                   <p className="material-icons" title='Add to WishList' alt='Add to WishList'>list</p>
                 </div>
@@ -79,7 +79,10 @@ class Modal extends Component {
               </div>
             </div>
             {similarMovies}
-            <button className="blue darken-4 waves-effect waves-light btn closeModal" onClick={this.hideModal}>Close</button>
+            <div className='btn-wrapper'>
+              <button className="blue darken-4 waves-effect waves-light btn closeModal" onClick={this.hideModal}>Close</button>
+            </div>
+
           </React.Fragment>}
       </div>)
   }

@@ -35,7 +35,7 @@ export const fetchFail = (error) => {
 export const fetchMultiSearch = (query) => {
   return dispatch => {
     dispatch(fetchStart());
-    axios.get(`${MovieDB.API_MultiSearch}multi?api_key=${MovieDB.API_KEY}&language=en-US&query=${query}&page=1&include_adult=true`)
+    axios.get(`${MovieDB.API_MultiSearch}/multi?api_key=${MovieDB.API_KEY}&language=en-US&query=${query}&page=1&include_adult=true`)
       .then(res => {
         console.log(res.data);
         dispatch(fetchSearchSuccess(res.data));

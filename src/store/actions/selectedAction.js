@@ -33,10 +33,24 @@ export const fetchFail = (error) => {
 export const fetchSelected = (id, mediaType) => {
   return dispatch => {
     dispatch(fetchStart());
-    axios.get(`${MovieDB.API_V3}${mediaType}/${id}?api_key=${MovieDB.API_KEY}&append_to_response=videos,credits,images,similar`)
+    axios.get(`${MovieDB.API_V3}/${mediaType}/${id}?api_key=${MovieDB.API_KEY}&append_to_response=videos,credits,images,similar`)
       .then(res => {
         console.log(res);
 
+        dispatch(fetchSelectedSuccess(res.data));
+      })
+      .catch(err => {
+        dispatch(fetchFail(err));
+      });
+  }
+}
+
+export const preloadSelected = (pathname) => {
+  return dispatch => {
+    dispatch(fetchStart());
+    axios.get(`${MovieDB.API_V3}${pathname}?api_key=${MovieDB.API_KEY}&append_to_response=videos,credits,images,similar`)
+      .then(res => {
+        console.log(res);
         dispatch(fetchSelectedSuccess(res.data));
       })
       .catch(err => {

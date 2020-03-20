@@ -6,6 +6,7 @@ export {
 export {
   fetchSelected,
   selectedMediaType,
+  preloadSelected,
   showSelected,
   hideSelected
 } from './selectedAction'

@@ -8,7 +8,7 @@
   width: 100%;
   background-color: whitesmoke;
   display: grid;
-  grid-template-rows: auto 35px 35px;
+  grid-template-rows: auto 70px 35px;
   max-height: 40%;
 }
 
@@ -42,8 +42,8 @@
 
 @media (max-width:1550px) {
   .item-image {
-    min-height: 210px;
-    max-height: 270px;
+    min-height: 340px;
+    max-height: 400px;
   }
 }
 
@@ -57,15 +57,15 @@
 
 @media (max-width:1025px) {
   .item-image {
-    min-height: 270px;
-    max-height: 370px;
+    min-height: 370px;
+    max-height: 420px;
   }
 }
 
 @media (max-width:801px) {
   .item-image {
-    min-height: 210px;
-    max-height: 270px;
+    min-height: 300px;
+    max-height: 350px;
   }
 }
 
