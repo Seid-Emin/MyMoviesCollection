@@ -17,7 +17,7 @@
   grid-column-gap: 15px;
   grid-row-gap: 15px;
   align-self: stretch;
-  margin-bottom: 15px;
+  margin-bottom: 35px;
   margin-top: 40px;
 }
 
@@ -26,8 +26,38 @@
   position: absolute;
   top: 0;
   left: 50%;
-  transform: translate(-50%, -200%);
+  transform: translate(-100%, -200%);
   color: #ffffff;
+}
+
+.paginate{
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(0, -250%);
+  cursor: pointer;
+  display: flex;
+}
+
+.paginateBottom{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translate(0, 200%);
+  cursor: pointer;
+  display: flex;
+}
+
+.paginateA{
+  color:#e0e0e0;
+}
+
+.paginateLi{
+  padding: 0 3px;
+}
+
+.paginateActiveA{
+  color: #039be5;
 }
 
 .uppercase {
