@@ -24,14 +24,14 @@ class Card extends Component {
         <div className="item-wrapper">
           <div className='item-image' onClick={this.getSelectedVideo}>
             <div className="card-imagePoster">
-              <Link to={`/${media}/${result.id}`}>
+              <Link to={`/${media}/id=${result.id}`}>
                 <img src={'https://image.tmdb.org/t/p/w500/' + result.poster_path} alt={result.original_name} />
               </Link>
             </div>
           </div>
           <span className="card-title">{result.original_name || result.title}</span>
           <div className="card-action">
-            <button className="blue darken-4 waves-effect waves-light btn modal-trigger" onClick={this.getSelectedVideo}><Link to={`/${media}/${result.id}`}>Info</Link></button>
+            <button className="blue darken-4 waves-effect waves-light btn modal-trigger" onClick={this.getSelectedVideo}><Link to={`/${media}/id=${result.id}`}>Info</Link></button>
           </div>
 
         </div>

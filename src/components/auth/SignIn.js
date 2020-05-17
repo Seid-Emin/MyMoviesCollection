@@ -20,7 +20,7 @@ class SignIn extends Component {
 
   render() {
     const { authError, auth } = this.props;
-    // if (auth.uid) return <Redirect to='/movie/now_playing' />
+    if (auth.uid) return <Redirect to='/movie/now_playing/page=1' />
 
     return (
       <div className='container'>

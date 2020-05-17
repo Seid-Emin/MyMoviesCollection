@@ -21,7 +21,7 @@ class SingUp extends Component {
 
   render() {
     const { auth, authError } = this.props;
-    // if (auth.uid) return <Redirect to='/' />
+    if (auth.uid) return <Redirect to='/movie/now_playing/page=1' />
 
     return (
       <div className='container'>

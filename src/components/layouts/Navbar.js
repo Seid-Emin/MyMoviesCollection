@@ -31,7 +31,7 @@ const Navbar = (props) => {
   )
 }
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = (state) => {
   console.log(state);
 
   return {

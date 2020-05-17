@@ -12,11 +12,13 @@ const SignedInLinks = (props) => {
   )
 }
 
-// const mapStateToProps = (state, props) => {
-//   return {
+const mapStateToProps = (state, props) => {
+  console.log(state);
 
-//   }
-// }
+  return {
+
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -24,4 +26,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(SignedInLinks);
+export default connect(mapStateToProps, mapDispatchToProps)(SignedInLinks);

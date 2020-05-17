@@ -1,16 +1,23 @@
 import React from 'react'
 import ReactPaginate from 'react-paginate';
 import { connect } from 'react-redux';
+import { withRouter } from "react-router";
 
 import * as actions from '../../../../store/actions'
 
-const Paginate = ({ pagesCount, containerClassName, fetchFilteredMedia, filterType, mediaType, selected }) => {
+const Paginate = ({ history, pagesCount, containerClassName, fetchFilteredMedia, filterType, mediaType, selected }) => {
 
   // Handle Page Change
   const handlePageChange = data => {
     const selectedPage = data.selected;
     const paginatePage = selectedPage + 1;
     fetchFilteredMedia(mediaType, filterType, paginatePage, selectedPage);
+
+    // Update the url according the page
+    history.push(`/${mediaType}/${filterType}/page=${paginatePage}`);
+
+    //Set hash for preloading from url
+    history.location.hash = paginatePage;
   }
 
   return pagesCount && pagesCount > 1 ?
@@ -23,8 +30,8 @@ const Paginate = ({ pagesCount, containerClassName, fetchFilteredMedia, filterTy
       pageClassName='paginateLi'
       onPageChange={handlePageChange}
       pageCount={pagesCount}
-      pageRangeDisplayed='2'
-      marginPagesDisplayed='1'
+      pageRangeDisplayed={2}
+      marginPagesDisplayed={1}
       forcePage={selected}
     /> : null;
 }
@@ -43,4 +50,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Paginate);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Paginate));

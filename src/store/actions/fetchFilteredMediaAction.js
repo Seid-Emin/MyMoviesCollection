@@ -41,3 +41,17 @@ export const fetchFilteredMedia = (mediaType, filterType, page = 1, selected = 0
       });
   }
 }
+
+export const preloadFilteredMedia = ({ pathMediaType, pathFilterType, pageNum, selected = 0, path }) => {
+  return dispatch => {
+    dispatch(fetchFilteredMediaStart());
+    axios.get(`${MovieDB.API_V3}${path}?api_key=${MovieDB.API_KEY}&language=en-US&${pageNum}`)
+      .then(res => {
+        console.log(res);
+        dispatch(fetchFilteredMediaSuccess(res.data, pathMediaType, pathFilterType, pageNum, selected));
+      })
+      .catch(error => {
+        dispatch(fetchFilteredMediaFail(error));
+      });
+  }
+}

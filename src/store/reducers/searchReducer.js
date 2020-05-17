@@ -7,11 +7,11 @@ const initialState = {
   loading: false,
   showModal: false,
   pagesTotal: '0',
-  currentPage: null,
+  currentPage: 1,
   selected: null,
   totalResults: null,
-  mediaType: '',
-  filterType: '',
+  mediaType: 'movie',
+  filterType: 'now_playing',
   displayTitle: '',
   error: ''
 }

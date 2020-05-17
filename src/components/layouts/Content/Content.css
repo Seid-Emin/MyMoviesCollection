@@ -30,7 +30,7 @@
   color: #ffffff;
 }
 
-.paginate{
+.paginate {
   position: absolute;
   top: 0;
   right: 0;
@@ -39,7 +39,7 @@
   display: flex;
 }
 
-.paginateBottom{
+.paginateBottom {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -48,15 +48,15 @@
   display: flex;
 }
 
-.paginateA{
-  color:#e0e0e0;
+.paginateA {
+  color: #e0e0e0;
 }
 
-.paginateLi{
+.paginateLi {
   padding: 0 3px;
 }
 
-.paginateActiveA{
+.paginateActiveA, .paginateA:hover {
   color: #039be5;
 }
 
@@ -72,14 +72,11 @@
   color: #ec407a;
 }
 
-
-
 @media only screen and (max-width:1550px) {
   .movie-grid {
     grid-template-columns: 19% 19% 19% 19% 19%;
   }
 }
-
 
 @media only screen and (max-width:1025px) {
   .movie-grid {

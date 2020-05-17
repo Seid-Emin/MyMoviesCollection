@@ -1,17 +1,18 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../../store/actions/index'
+import { withRouter } from "react-router";
+import * as actions from '../../../store/actions/index';
 
-import MovieDB from '../../../configs/ApiMovies'
-import Video from './Video/Video'
-import Spinner from '../Spinner/Spinner'
-import SimilarMovies from './SimilarMovies/SimilarMovies'
+import MovieDB from '../../../configs/ApiMovies';
+import Video from './Video/Video';
+import Spinner from '../Spinner/Spinner';
+import SimilarMovies from './SimilarMovies/SimilarMovies';
 
 import './Modal.css'
 
 class Modal extends Component {
   hideModal = () => {
-    this.props.hideSelected();
+    this.props.clicked();
   }
 
   render() {
@@ -50,7 +51,7 @@ class Modal extends Component {
     return (
       <div className='modal-info'>
         {loading_selected ? <Spinner /> :
-          <React.Fragment>
+          <>
             <div className='info-wrapper'>
               <div className='card-image'>
                 {posterPath}
@@ -82,8 +83,7 @@ class Modal extends Component {
             <div className='btn-wrapper'>
               <button className="blue darken-4 waves-effect waves-light btn closeModal" onClick={this.hideModal}>Close</button>
             </div>
-
-          </React.Fragment>}
+          </>}
       </div>)
   }
 }
@@ -96,11 +96,11 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    hideSelected: () => dispatch(actions.hideSelected())
-  }
-}
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     hideSelected: () => dispatch(actions.hideSelected())
+//   }
+// }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Modal)
+export default connect(mapStateToProps)(withRouter(Modal))

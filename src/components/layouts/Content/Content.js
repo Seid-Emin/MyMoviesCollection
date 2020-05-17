@@ -19,27 +19,49 @@ import SignUp from '../../auth/SingUp';
 
 class Content extends Component {
   componentDidMount() {
-    const { mediaType, filterType, fetchFilteredMedia, preloadSelected } = this.props;
+    const { mediaType, filterType, fetchFilteredMedia, preloadSelected, preloadFilteredMedia, currentPage } = this.props;
     const pathName = this.props.history.location.pathname;
-    console.log(pathName);
 
-    if (pathName !== '/') {
-      preloadSelected(pathName);
+    if (pathName.includes('page=')) {
+      console.log(pathName);
+      let pageNum = pathName.slice(pathName.lastIndexOf('/'), pathName.length);
+      let path = pathName.replace(pageNum, '');
+      console.log(path);
+      let pathFilterType = path.slice(path.lastIndexOf('/'), path.length).replace('/', '');
+      let pathMediaType = path.replace(`/${pathFilterType}`, '').replace('/', '');
+
+
+      let selected = pageNum.replace('/page=', '') - 1;
+      pageNum = pageNum.replace('/', '');
+      console.log(pageNum);
+      preloadFilteredMedia(pathMediaType, pathFilterType, pageNum, selected, path);
+    } else if (pathName.includes('id=')) {
+      let path = pathName.replace('id=', '');
+      preloadSelected(path);
     } else {
       fetchFilteredMedia(mediaType, filterType);
       console.log(this.props);
-      // this.props.history.push('/movie/now_playing')
+      this.props.history.push(`/${mediaType}/${filterType}/page=${currentPage}`)
       console.log('Content mounted');
     }
 
   }
+  hideSelectedBackdrop = () => {
+    const { mediaType, filterType, fetchFilteredMedia, preloadSelected, preloadFilteredMedia, currentPage, searchText } = this.props;
+    this.props.hideSelected();
+    if (searchText) {
+      this.props.history.push(`/search=${searchText}`)
+    } else {
+      this.props.history.push(`/${mediaType}/${filterType}/page=${currentPage}`)
+    }
+  }
   render() {
     const { showInfo, loadingSearch, mediaType, filterType } = this.props;
     const modal = showInfo ?
-      <React.Fragment>
-        <Backdrop clicked={this.props.hideSelected} show={showInfo} />
-        <Modal />
-      </React.Fragment>
+      <>
+        <Backdrop clicked={this.hideSelectedBackdrop} show={showInfo} />
+        <Modal clicked={this.hideSelectedBackdrop} />
+      </>
       : null;
 
     return (
@@ -50,8 +72,10 @@ class Content extends Component {
           <Route path='/signin' component={SignIn} />
           <Route path='/signup' component={SignUp} />
           {loadingSearch ? <Spinner /> :
-            <Route path='/:mediaType/:filterType' component={Cards} />
-
+            <>
+              <Route path='/:mediaType/:filterType/page=:number' component={Cards} />
+              <Route path='/search=:query' component={Cards} />
+            </>
           }
         </Switch>
         {modal}
@@ -65,7 +89,8 @@ const mapStateToProps = state => {
     loadingSearch: state.search.loading,
     searchText: state.search.searchtext,
     mediaType: state.search.mediaType,
-    filterType: state.search.filterType
+    filterType: state.search.filterType,
+    currentPage: state.search.currentPage,
   }
 }
 
@@ -73,6 +98,7 @@ const mapDispatchToProps = dispatch => {
   return {
     hideSelected: () => dispatch(actions.hideSelected()),
     fetchFilteredMedia: (mediaType, filterType) => dispatch(actions.fetchFilteredMedia(mediaType, filterType)),
+    preloadFilteredMedia: (pathMediaType, pathFilterType, pageNum, selected, path) => dispatch(actions.preloadFilteredMedia(pathMediaType, pathFilterType, pageNum, selected, path)),
     preloadSelected: (pathname) => dispatch(actions.preloadSelected(pathname))
   }
 }

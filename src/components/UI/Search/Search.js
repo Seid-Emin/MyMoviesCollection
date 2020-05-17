@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
+import { withRouter } from "react-router";
 
 import * as actions from '../../../store/actions/index'
 
@@ -10,13 +11,18 @@ import './Search.css'
 class Search extends Component {
   _handleSearch = (e) => {
     if (e.key === 'Enter') {
+      let search = this.props.search
       this.props.searchText(e.target.value);
+      this.props.fetchMultiSearch(search);
+      this.props.history.push(`/search=${search}`)
     }
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.fetchMultiSearch(this.props.search);
+    let search = this.props.search
+    this.props.fetchMultiSearch(search);
+    this.props.history.push(`/search=${search}`)
   }
 
   render() {
@@ -49,6 +55,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Search));
 
 

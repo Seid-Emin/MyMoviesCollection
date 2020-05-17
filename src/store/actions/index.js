@@ -11,6 +11,6 @@ export {
   hideSelected
 } from './selectedAction';
 
-export { fetchFilteredMedia, fetchFilteredMediaSuccess, fetchFilteredMediaFail } from './fetchFilteredMediaAction';
+export { fetchFilteredMedia, fetchFilteredMediaSuccess, fetchFilteredMediaFail, preloadFilteredMedia } from './fetchFilteredMediaAction';
 
 export { signIn, signOut, signUp } from './authActions';
