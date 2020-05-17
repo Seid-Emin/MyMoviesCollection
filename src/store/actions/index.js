@@ -1,7 +1,7 @@
 export {
   search,
   fetchMultiSearch,
-} from './searchAction'
+} from './searchAction';
 
 export {
   fetchSelected,
@@ -9,6 +9,8 @@ export {
   preloadSelected,
   showSelected,
   hideSelected
-} from './selectedAction'
+} from './selectedAction';
 
-export { fetchFilteredMedia, fetchFilteredMediaSuccess, fetchFilteredMediaFail } from './fetchFilteredMediaAction'
+export { fetchFilteredMedia, fetchFilteredMediaSuccess, fetchFilteredMediaFail } from './fetchFilteredMediaAction';
+
+export { signIn, signOut, signUp } from './authActions';

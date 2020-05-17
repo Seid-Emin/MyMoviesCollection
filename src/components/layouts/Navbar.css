@@ -12,6 +12,10 @@ nav ul {
   justify-content: space-around;
 }
 
+.activeNavLinks {
+  background-color: #0c4091;
+}
+
 @media only screen and (max-width: 992px) {
   nav .brand-logo.center {
     left: 15px;

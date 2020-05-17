@@ -1,50 +1,33 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
-import ReactPaginate from 'react-paginate';
 
-import Card from './Card/Card'
+import Card from './Card/Card';
+import Paginate from './Paginate/Paginate';
 
-const Cards = ({ results, searchText, totalResults, filteredMediaType, displayTitle, pagesCount }) => {
+const Cards = ({ results, searchText, totalResults, filteredMediaType, displayTitle, pagesCount = 0 }) => {
   let singleCard = results ? results.map(card => {
     return <Card key={card.id} result={card} />
   }) : <h6 className='noResults'>No Results Found</h6>
 
   const mediainfoTitle = searchText !== '' ? <h6 className='currentyLoadedMedia'>Searched for '{searchText}' - {totalResults} results found</h6> : null;
-  const filteredText = searchText === '' ? filteredMediaType === 'movie' ? <h6 className='currentyLoadedMedia uppercase'>{displayTitle + 's'}</h6> : <h6 className='currentyLoadedMedia uppercase'>{displayTitle} series</h6> : null;
 
-  // const pagination = 
+  const filteredText = searchText === '' ? filteredMediaType === 'movie' ? <h6 className='currentyLoadedMedia uppercase'>{displayTitle + 's'}</h6> : <h6 className='currentyLoadedMedia uppercase'>{displayTitle} series</h6> : null;
 
   return (
     <div className='movie-grid'>
 
-      <ReactPaginate
-        containerClassName='paginate'
-        pageLinkClassName='paginateA'
-        activeLinkClassName='paginateActiveA'
-        previousLinkClassName='paginateA'
-        nextLinkClassName='paginateA'
-        pageClassName='paginateLi'
-        // initialPage=
-        pageCount={pagesCount}
-        pageRangeDisplayed='2'
-        marginPagesDisplayed='1' />
+      <Paginate
+        pagesCount={pagesCount}
+        containerClassName='paginate' />
 
       {mediainfoTitle}
       {filteredText}
       {singleCard}
 
-      <ReactPaginate
-        containerClassName='paginateBottom'
-        pageLinkClassName='paginateA'
-        activeLinkClassName='paginateActiveA'
-        previousLinkClassName='paginateA'
-        nextLinkClassName='paginateA'
-        pageClassName='paginateLi'
-        pageCount={pagesCount}
-        pageRangeDisplayed='2'
-        marginPagesDisplayed='1' />
-
+      <Paginate
+        pagesCount={pagesCount}
+        containerClassName='paginateBottom' />
     </div>
   )
 }

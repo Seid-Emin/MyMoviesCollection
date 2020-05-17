@@ -1,7 +1,7 @@
-import * as actionTypes from './actionTypes'
-import axios from 'axios'
+import * as actionTypes from './actionTypes';
+import axios from 'axios';
 
-import MovieDB from '../../configs/ApiMovies'
+import MovieDB from '../../configs/ApiMovies';
 
 export const fetchFilteredMediaStart = () => {
   return {
@@ -9,13 +9,15 @@ export const fetchFilteredMediaStart = () => {
   };
 };
 
-export const fetchFilteredMediaSuccess = (searchResult, mediaType, filterType) => {
+export const fetchFilteredMediaSuccess = (searchResult, mediaType, filterType, page, selected) => {
   return {
     type: actionTypes.FETCH_FILTERED_RESULTS_SUCCESS,
     searchFilteredResult: searchResult,
     mediaType,
     filterType,
-    clearSearch: ''
+    clearSearch: '',
+    page,
+    selected
   };
 };
 
@@ -26,17 +28,16 @@ export const fetchFilteredMediaFail = (error) => {
   };
 };
 
-export const fetchFilteredMedia = (mediaType, filterType) => {
+export const fetchFilteredMedia = (mediaType, filterType, page = 1, selected = 0) => {
   return dispatch => {
     dispatch(fetchFilteredMediaStart());
-    axios.get(`${MovieDB.API_V3}/${mediaType}/${filterType}?api_key=${MovieDB.API_KEY}&language=en-US&page=1`)
+    axios.get(`${MovieDB.API_V3}/${mediaType}/${filterType}?api_key=${MovieDB.API_KEY}&language=en-US&page=${page}`)
       .then(res => {
         console.log(res);
-
-        dispatch(fetchFilteredMediaSuccess(res.data, mediaType, filterType));
+        dispatch(fetchFilteredMediaSuccess(res.data, mediaType, filterType, page, selected));
       })
-      .catch(err => {
-        dispatch(fetchFilteredMediaFail(err));
+      .catch(error => {
+        dispatch(fetchFilteredMediaFail(error));
       });
   }
 }

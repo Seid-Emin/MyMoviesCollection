@@ -14,6 +14,8 @@ import Categories from '../Categories/Categories'
 import Spinner from '../../UI/Spinner/Spinner'
 import Modal from '../../UI/Modal/Modal'
 import Backdrop from '../../UI/Backdrop/Backdrop'
+import SignIn from '../../auth/SignIn';
+import SignUp from '../../auth/SingUp';
 
 class Content extends Component {
   componentDidMount() {
@@ -26,13 +28,13 @@ class Content extends Component {
     } else {
       fetchFilteredMedia(mediaType, filterType);
       console.log(this.props);
-      this.props.history.push('/movie/now_playing')
+      // this.props.history.push('/movie/now_playing')
       console.log('Content mounted');
     }
 
   }
   render() {
-    const { showInfo, loadingSearch } = this.props;
+    const { showInfo, loadingSearch, mediaType, filterType } = this.props;
     const modal = showInfo ?
       <React.Fragment>
         <Backdrop clicked={this.props.hideSelected} show={showInfo} />
@@ -43,9 +45,15 @@ class Content extends Component {
     return (
       <div className='content-grid'>
         <Categories />
-        {loadingSearch ? <Spinner /> :
-          <Cards />
-        }
+
+        <Switch>
+          <Route path='/signin' component={SignIn} />
+          <Route path='/signup' component={SignUp} />
+          {loadingSearch ? <Spinner /> :
+            <Route path='/:mediaType/:filterType' component={Cards} />
+
+          }
+        </Switch>
         {modal}
       </div >
     )

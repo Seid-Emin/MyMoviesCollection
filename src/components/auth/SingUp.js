@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import * as actions from '../../store/actions/index';
 import { Redirect } from 'react-router-dom';
-import { signUp } from '../../store/actions/authAction';
 
 class SingUp extends Component {
   state = {
@@ -21,11 +21,11 @@ class SingUp extends Component {
 
   render() {
     const { auth, authError } = this.props;
-    if (auth.uid) return <Redirect to='/' />
+    // if (auth.uid) return <Redirect to='/' />
 
     return (
       <div className='container'>
-        <form className='white' onSubmit={this.handleSubmit}>
+        <form className='white width' onSubmit={this.handleSubmit}>
           <h5 className='grey-text text-darken-3'>Sign up</h5>
           <div className='input-field'>
             <label className='active' htmlFor='fName'>First Name</label>
@@ -46,7 +46,7 @@ class SingUp extends Component {
           <div className='input-field'>
             <button className='btn pink lighten-1 z-depth-0'>Sign up</button>
             <div className='red-text center'>
-              {authError ? <p>{authError}</p> : null}
+              {authError ? <p>{authError.message}</p> : null}
             </div>
           </div>
         </form>
@@ -56,7 +56,7 @@ class SingUp extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
     authError: state.auth.authError
@@ -65,7 +65,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    signUp: (newUser) => dispatch(signUp(newUser))
+    signUp: (newUser) => dispatch(actions.signUp(newUser))
   }
 }
 
