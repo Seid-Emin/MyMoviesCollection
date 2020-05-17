@@ -38,6 +38,9 @@ class Content extends Component {
     } else if (pathName.includes('id=')) {
       let path = pathName.replace('id=', '');
       preloadSelected(path);
+    } else if (pathName === '/') {
+      fetchFilteredMedia(mediaType, filterType);
+      this.props.history.push(`/${mediaType}/${filterType}/page=${currentPage}`)
     } else {
       fetchFilteredMedia(mediaType, filterType);
       console.log(this.props);
