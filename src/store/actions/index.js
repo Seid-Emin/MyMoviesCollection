@@ -14,3 +14,5 @@ export {
 export { fetchFilteredMedia, fetchFilteredMediaSuccess, fetchFilteredMediaFail, preloadFilteredMedia } from './fetchFilteredMediaAction';
 
 export { signIn, signOut, signUp } from './authActions';
+
+export { addMedia, getMoviesCollection } from './mediaActions';

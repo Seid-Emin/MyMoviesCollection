@@ -4,12 +4,11 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
 const SignedInLinks = (props) => {
-  console.log(props.profile);
 
   return (
     <>
       <li><NavLink onClick={props.signOut} to='/movie/now_playing/page=1' >Log Out</NavLink></li>
-      <li><NavLink to='/movie/now_playing/page=1' className='btn btn-floating pink lighten-1'>SS</NavLink></li>
+      <li><NavLink to='/movie/now_playing/page=1' className='btn btn-floating pink lighten-1'>{props.profile.initials}</NavLink></li>
     </>
   )
 }

@@ -11,8 +11,17 @@ import SimilarMovies from './SimilarMovies/SimilarMovies';
 import './Modal.css'
 
 class Modal extends Component {
+  componentDidMount() {
+    this.props.getMoviesCollection();
+  }
   hideModal = () => {
     this.props.clicked();
+  }
+
+  addMedia = () => {
+    const { selectedMediaType, projects } = this.props;
+    const { id, original_title, poster_path } = this.props.selectedMediaData;
+    this.props.addMedia(selectedMediaType, id, original_title, poster_path);
   }
 
   render() {
@@ -20,6 +29,8 @@ class Modal extends Component {
     const videos = selectedMediaData.videos;
 
     console.log(selectedMediaData);
+
+
 
     //check video file existing in the response
     const video = videos ? videos.results.slice(0, 3).map(video => {
@@ -67,7 +78,7 @@ class Modal extends Component {
                 </div>
                 <div className='ratingAdd'>
                   <p className='card-inner-title'>Rating: <span className={ratingClasses.join(' ')}>{selectedMediaData.vote_average}</span></p>
-                  <p className="material-icons" title='Add to Collection' alt='Add to Collection'>playlist_add</p>
+                  <p className="material-icons" title='Add to Collection' alt='Add to Collection' onClick={this.addMedia}>playlist_add</p>
                   <p className="material-icons" title='Add to WishList' alt='Add to WishList'>list</p>
                 </div>
                 <div className='genre'>
@@ -89,18 +100,23 @@ class Modal extends Component {
 }
 
 const mapStateToProps = state => {
+  const projects = state.firestore;
+  console.log(projects);
+
   return {
     selectedMediaData: state.selectedMedia.selectedMedia,
     selectedMediaType: state.selectedMedia.selectedMediaType,
     loading_selected: state.selectedMedia.loading
+
   }
 }
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     hideSelected: () => dispatch(actions.hideSelected())
-//   }
-// }
+const mapDispatchToProps = dispatch => {
+  return {
+    addMedia: (selectedMediaType, id, original_title, poster_path) => dispatch(actions.addMedia(selectedMediaType, id, original_title, poster_path)),
+    getMoviesCollection: () => dispatch(actions.getMoviesCollection())
+  }
+}
 
 
-export default connect(mapStateToProps)(withRouter(Modal))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Modal))

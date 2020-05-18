@@ -26,3 +26,13 @@ export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAIL = 'REGISTER_FAIL';
+
+// Media actionTypes ADD MOVIE
+export const ADD_MOVIE_START = 'ADD_MOVIE_START';
+export const ADD_MOVIE_SUCCESS = 'ADD_MOVIE_SUCCESS';
+export const ADD_MOVIE_FAIL = 'ADD_MOVIE_FAIL';
+
+// Media actionTypes ADD TV
+export const ADD_TV_START = 'ADD_TV_START';
+export const ADD_TV_SUCCESS = 'ADD_TV_SUCCESS';
+export const ADD_TV_FAIL = 'ADD_TV_FAIL';
