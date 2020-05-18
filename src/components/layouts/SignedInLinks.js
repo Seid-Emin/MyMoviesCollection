@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
 const SignedInLinks = (props) => {
+  console.log(props.profile);
+
   return (
     <>
       <li><NavLink onClick={props.signOut} to='/movie/now_playing/page=1' >Log Out</NavLink></li>
