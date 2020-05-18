@@ -26,7 +26,7 @@ class Modal extends Component {
     this.props.clicked();
   }
 
-  addMedia = () => {
+  addToWatched = () => {
     const { projects } = this.props;
     const { id, original_title, poster_path, original_name } = this.props.selectedMediaData;
     let mediaType = 'movie';
@@ -37,7 +37,21 @@ class Modal extends Component {
       title = original_name
     }
 
-    this.props.addMedia(mediaType, id, title, poster_path);
+    this.props.addMediaToWatched(mediaType, id, title, poster_path);
+  }
+
+  addToWatchList = () => {
+    const { projects } = this.props;
+    const { id, original_title, poster_path, original_name } = this.props.selectedMediaData;
+    let mediaType = 'movie';
+    let title = original_title;
+    const pathName = this.props.history.location.pathname;
+    if (pathName.includes('tv')) {
+      mediaType = 'tv'
+      title = original_name
+    }
+
+    this.props.addMediaToWatchList(mediaType, id, title, poster_path);
   }
 
   render() {
@@ -94,8 +108,9 @@ class Modal extends Component {
                 </div>
                 <div className='ratingAdd'>
                   <p className='card-inner-title'>Rating: <span className={ratingClasses.join(' ')}>{selectedMediaData.vote_average}</span></p>
-                  <p className="material-icons" title='Add to Collection' alt='Add to Collection' onClick={this.addMedia}>playlist_add</p>
-                  <p className="material-icons" title='Add to WishList' alt='Add to WishList'>list</p>
+                  <p className="material-icons" title='Add to Collection' alt='Add to Collection' onClick={() => this.addToWatched()}>playlist_add</p>
+                  <p className="material-icons" title='Add to WishList' alt='Add to WishList'
+                    onClick={() => this.addToWatchList()}>list</p>
                 </div>
                 <div className='genre'>
                   <p className='card-inner-title'>Genre: <span className="card-info">{genres.join(', ')}</span></p>
@@ -129,7 +144,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addMedia: (selectedMediaType, id, title, poster_path) => dispatch(actions.addMedia(selectedMediaType, id, title, poster_path)),
+    addMediaToWatched: (selectedMediaType, id, title, poster_path) => dispatch(actions.addMediaToWatched(selectedMediaType, id, title, poster_path)),
+    addMediaToWatchList: (selectedMediaType, id, title, poster_path) => dispatch(actions.addMediaToWatchList(selectedMediaType, id, title, poster_path)),
     getMoviesCollection: (mediaType) => dispatch(actions.getMoviesCollection(mediaType))
   }
 }
@@ -141,15 +157,70 @@ export default compose(
       collection: 'users',
       doc: userId,
       subcollections: [
-        { collection: 'movie', orderBy: ['created', 'desc'] }
-      ]
+        {
+          collection: 'watched',
+          doc: 'watched',
+          subcollections: [
+            {
+              collection: 'movies',
+              orderBy: ['createdAt', 'desc']
+            },
+
+          ]
+        }
+      ],
+      storeAs: 'watched-movies'
     },
     {
       collection: 'users',
       doc: userId,
       subcollections: [
-        { collection: 'tv', orderBy: ['created', 'desc'] }
-      ]
-    }
+        {
+          collection: 'watched',
+          doc: 'watched',
+          subcollections: [
+            {
+              collection: 'tvs',
+              orderBy: ['createdAt', 'desc']
+            },
+          ]
+        }
+      ],
+      storeAs: 'watched-tvs'
+    },
+    {
+      collection: 'users',
+      doc: userId,
+      subcollections: [
+        {
+          collection: 'watchList',
+          doc: 'watchList',
+          subcollections: [
+            {
+              collection: 'movies',
+              orderBy: ['createdAt', 'desc']
+            },
+          ]
+        }
+      ],
+      storeAs: 'watchList-movies'
+    },
+    {
+      collection: 'users',
+      doc: userId,
+      subcollections: [
+        {
+          collection: 'watchList',
+          doc: 'watchList',
+          subcollections: [
+            {
+              collection: 'tvs',
+              orderBy: ['createdAt', 'desc']
+            },
+          ]
+        }
+      ],
+      storeAs: 'watchList-tvs'
+    },
   ])
 )(withRouter(Modal));
