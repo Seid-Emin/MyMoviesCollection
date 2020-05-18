@@ -21,7 +21,10 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(rootReducer, composeEnhancers(
   applyMiddleware(thunk.withExtraArgument({ getFirestore, getFirebase })),
-  reduxFirestore(fbConfig)
+  reduxFirestore(fbConfig, {
+    userProfile: 'users', // where profiles are stored in database,
+    useFirestoreForProfile: true
+  })
 ));
 
 const rrfProps = {

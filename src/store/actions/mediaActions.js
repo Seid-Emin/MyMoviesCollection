@@ -26,35 +26,36 @@ export const addMedia = (mediaType, mediaId, mediaName, posterURL) => {
     const authorId = getState().firebase.auth.uid;
     console.log(authorId);
 
-    firestore.collection('users').doc(authorId).collection('movies').add({
+    let newMedia = {
       mediaType,
       mediaId,
       mediaName,
       posterURL,
       created: Date.now()
-    }).then((response) => {
-      dispatch(addMedia_Success(response))
+    }
+
+    firestore.collection('users').doc(authorId).collection(mediaType).add(newMedia).then((response) => {
+      dispatch(addMedia_Success(newMedia))
     }).catch(error => {
       dispatch(addMedia_Fail(error))
     });
   }
 }
 
-export const getMoviesCollection = () => {
+export const getMoviesCollection = (mediaType) => {
+
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     dispatch(addMedia_Start());
 
     const firestore = getFirestore();
-    const authorId = getState();
+    const authorId = localStorage.getItem('userId');
     console.log(authorId);
 
-
-
-    // firestore.collection('users').doc(authorId).collection('movies').get()
-    //   .then((response) => {
-    //     dispatch(addMedia_Success(response))
-    //   }).catch(error => {
-    //     dispatch(addMedia_Fail(error))
-    //   });
+    firestore.collection('users').doc(authorId).collection(mediaType).get()
+      .then((response) => {
+        dispatch(addMedia_Success(response))
+      }).catch(error => {
+        dispatch(addMedia_Fail(error))
+      });
   }
 }

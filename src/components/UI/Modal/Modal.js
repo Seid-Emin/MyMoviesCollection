@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router";
+import { firestoreConnect } from 'react-redux-firebase'
+import { compose } from 'redux'
 import * as actions from '../../../store/actions/index';
 
 import MovieDB from '../../../configs/ApiMovies';
@@ -11,17 +13,31 @@ import SimilarMovies from './SimilarMovies/SimilarMovies';
 import './Modal.css'
 
 class Modal extends Component {
+
   componentDidMount() {
-    this.props.getMoviesCollection();
+    let mediaType = 'movie';
+    const pathName = this.props.history.location.pathname;
+    if (pathName.includes('tv')) {
+      mediaType = 'tv'
+    }
+    this.props.getMoviesCollection(mediaType);
   }
   hideModal = () => {
     this.props.clicked();
   }
 
   addMedia = () => {
-    const { selectedMediaType, projects } = this.props;
-    const { id, original_title, poster_path } = this.props.selectedMediaData;
-    this.props.addMedia(selectedMediaType, id, original_title, poster_path);
+    const { projects } = this.props;
+    const { id, original_title, poster_path, original_name } = this.props.selectedMediaData;
+    let mediaType = 'movie';
+    let title = original_title;
+    const pathName = this.props.history.location.pathname;
+    if (pathName.includes('tv')) {
+      mediaType = 'tv'
+      title = original_name
+    }
+
+    this.props.addMedia(mediaType, id, title, poster_path);
   }
 
   render() {
@@ -98,6 +114,7 @@ class Modal extends Component {
       </div>)
   }
 }
+const userId = localStorage.getItem('userId');
 
 const mapStateToProps = state => {
   const projects = state.firestore;
@@ -107,16 +124,32 @@ const mapStateToProps = state => {
     selectedMediaData: state.selectedMedia.selectedMedia,
     selectedMediaType: state.selectedMedia.selectedMediaType,
     loading_selected: state.selectedMedia.loading
-
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    addMedia: (selectedMediaType, id, original_title, poster_path) => dispatch(actions.addMedia(selectedMediaType, id, original_title, poster_path)),
-    getMoviesCollection: () => dispatch(actions.getMoviesCollection())
+    addMedia: (selectedMediaType, id, title, poster_path) => dispatch(actions.addMedia(selectedMediaType, id, title, poster_path)),
+    getMoviesCollection: (mediaType) => dispatch(actions.getMoviesCollection(mediaType))
   }
 }
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Modal))
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  firestoreConnect([
+    {
+      collection: 'users',
+      doc: userId,
+      subcollections: [
+        { collection: 'movie', orderBy: ['created', 'desc'] }
+      ]
+    },
+    {
+      collection: 'users',
+      doc: userId,
+      subcollections: [
+        { collection: 'tv', orderBy: ['created', 'desc'] }
+      ]
+    }
+  ])
+)(withRouter(Modal));
