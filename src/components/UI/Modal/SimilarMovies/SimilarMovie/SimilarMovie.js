@@ -7,16 +7,17 @@ import { Link } from 'react-router-dom';
 
 class SimilarMovie extends Component {
   getSelectedVideo = (e) => {
+    const { result, mediaType, fetchSelected, showSelected } = this.props;
     e.preventDefault();
-    this.props.fetchSelected(this.props.result.id, this.props.mediaType);
-    this.props.showSelected();
+    fetchSelected(result.id, mediaType);
+    showSelected();
     console.log('i was excecuted *times');
   }
   render() {
-    const { result } = this.props;
+    const { result, mediaType } = this.props;
     return (
       <div className="card-action" onClick={this.getSelectedVideo}>
-        <Link to={`/${this.props.mediaType}/${result.id}`}>
+        <Link to={`/${mediaType}/id=${result.id}`}>
           <img className='similarMovie-img' src={'https://image.tmdb.org/t/p/w500/' + result.poster_path} alt={result.original_name} />
           <p className='similarMovie-title'>{result.title || result.name}</p>
         </Link>
