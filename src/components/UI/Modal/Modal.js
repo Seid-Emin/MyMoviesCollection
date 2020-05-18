@@ -14,19 +14,19 @@ import './Modal.css'
 
 class Modal extends Component {
 
-  componentDidMount() {
-    let mediaType = 'movie';
-    const pathName = this.props.history.location.pathname;
-    if (pathName.includes('tv')) {
-      mediaType = 'tv'
-    }
-    this.props.getMoviesCollection(mediaType);
-  }
+  // componentDidMount() {
+  //   let mediaType = 'movie';
+  //   const pathName = this.props.history.location.pathname;
+  //   if (pathName.includes('tv')) {
+  //     mediaType = 'tv'
+  //   }
+  //   this.props.getMoviesCollection(mediaType);
+  // }
   hideModal = () => {
     this.props.clicked();
   }
 
-  addToWatched = () => {
+  addMedia = (watchStatus) => {
     const { projects } = this.props;
     const { id, original_title, poster_path, original_name } = this.props.selectedMediaData;
     let mediaType = 'movie';
@@ -37,22 +37,22 @@ class Modal extends Component {
       title = original_name
     }
 
-    this.props.addMediaToWatched(mediaType, id, title, poster_path);
+    this.props.addMediaToFirestoreCollection(mediaType, id, title, poster_path, watchStatus);
   }
 
-  addToWatchList = () => {
-    const { projects } = this.props;
-    const { id, original_title, poster_path, original_name } = this.props.selectedMediaData;
-    let mediaType = 'movie';
-    let title = original_title;
-    const pathName = this.props.history.location.pathname;
-    if (pathName.includes('tv')) {
-      mediaType = 'tv'
-      title = original_name
-    }
+  // addToWatchList = () => {
+  //   const { projects } = this.props;
+  //   const { id, original_title, poster_path, original_name } = this.props.selectedMediaData;
+  //   let mediaType = 'movie';
+  //   let title = original_title;
+  //   const pathName = this.props.history.location.pathname;
+  //   if (pathName.includes('tv')) {
+  //     mediaType = 'tv'
+  //     title = original_name
+  //   }
 
-    this.props.addMediaToWatchList(mediaType, id, title, poster_path);
-  }
+  //   this.props.addMediaToWatchList(mediaType, id, title, poster_path);
+  // }
 
   render() {
     const { selectedMediaData, loading_selected } = this.props;
@@ -108,9 +108,11 @@ class Modal extends Component {
                 </div>
                 <div className='ratingAdd'>
                   <p className='card-inner-title'>Rating: <span className={ratingClasses.join(' ')}>{selectedMediaData.vote_average}</span></p>
-                  <p className="material-icons" title='Add to Collection' alt='Add to Collection' onClick={() => this.addToWatched()}>playlist_add</p>
+                  <p className="material-icons" title='Add to Collection' alt='Add to Collection' onClick={() => this.addMedia('watched')}>playlist_add</p>
                   <p className="material-icons" title='Add to WishList' alt='Add to WishList'
-                    onClick={() => this.addToWatchList()}>list</p>
+                    onClick={() => this.addMedia('watchList')}>list</p>
+                  <p className="material-icons" title='Add to WishList' alt='Add to WishList'
+                    onClick={() => this.addToWatchList()}>delete</p>
                 </div>
                 <div className='genre'>
                   <p className='card-inner-title'>Genre: <span className="card-info">{genres.join(', ')}</span></p>
@@ -144,8 +146,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addMediaToWatched: (selectedMediaType, id, title, poster_path) => dispatch(actions.addMediaToWatched(selectedMediaType, id, title, poster_path)),
-    addMediaToWatchList: (selectedMediaType, id, title, poster_path) => dispatch(actions.addMediaToWatchList(selectedMediaType, id, title, poster_path)),
+    addMediaToFirestoreCollection: (selectedMediaType, id, title, poster_path, watchStatus) => dispatch(actions.addMediaToFirestoreCollection(selectedMediaType, id, title, poster_path, watchStatus)),
+    // addMediaToWatchList: (selectedMediaType, id, title, poster_path) => dispatch(actions.addMediaToWatchList(selectedMediaType, id, title, poster_path)),
     getMoviesCollection: (mediaType) => dispatch(actions.getMoviesCollection(mediaType))
   }
 }
