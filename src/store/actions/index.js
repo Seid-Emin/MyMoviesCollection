@@ -15,4 +15,4 @@ export { fetchFilteredMedia, fetchFilteredMediaSuccess, fetchFilteredMediaFail, 
 
 export { signIn, signOut, signUp } from './authActions';
 
-export { addMediaToFirestoreCollection, getMoviesCollection } from './mediaActions';
+export { addMediaToFirestoreCollection } from './mediaActions';

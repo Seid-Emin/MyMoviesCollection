@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { firestoreConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
 
 import Navbar from './components/layouts/Navbar';
 
@@ -14,7 +16,6 @@ const App = () => {
     <BrowserRouter>
       <div className="App">
         <Navbar />
-
         <Search />
         <Content />
         <Footer />

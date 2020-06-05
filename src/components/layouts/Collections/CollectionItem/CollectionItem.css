@@ -1,0 +1,68 @@
+/* CollectionItem */
+.list-table-data .data {
+  display       : table-cell;
+  padding       : 5px 0 0 0;
+  text-align    : center;
+  vertical-align: middle;
+  border-bottom : 1px solid var(--color-horLine);
+}
+
+.list-table-data .status {
+  width: 4px;
+}
+
+.list-table-data .image a {
+  display: inline-block;
+}
+
+.list-table-data .data.number {
+  color: var(--color-textTitle);
+}
+
+.list-table-data .image .image {
+  width : 48px;
+  height: 68px;
+  border: 1px solid var(--color-tableItemBorder);
+}
+
+.list-table-data .title {
+  padding-left: 8px;
+  text-align  : left;
+}
+
+.list-table-data .title .link {
+  font-size  : 1em;
+  font-weight: bold;
+}
+
+.list-table-data .title .delete-media {
+  float       : right;
+  margin-right: 10px;
+  font-size   : 0.9em;
+  cursor      : pointer;
+}
+
+.list-table-data .data.type {
+  text-transform: uppercase;
+}
+
+/* Status styles */
+.watching {
+  background-color: var(--color-statusWatching);
+}
+
+.completed {
+  background-color: var(--color-tableCompleted);
+}
+
+.onHold {
+  background-color: var(--color-tableOnHold);
+}
+
+.dropped {
+  background-color: var(--color-tableDropped);
+}
+
+.planToWatch {
+  background-color: var(--color-tablePlanToWatch);
+}

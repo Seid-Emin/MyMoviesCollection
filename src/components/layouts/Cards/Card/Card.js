@@ -2,30 +2,27 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { withRouter } from "react-router";
+import TheMovieDB from '../../../../configs/ApiMovies';
 
-import * as actions from '../../../../store/actions/index'
+import * as actions from '../../../../store/actions/index';
+import { singleMedia } from '../../../helpers/silgleMedia';
 
-import './Card.css'
+import './Card.css';
 
 class Card extends Component {
   getSelectedVideo = (e) => {
-    e.preventDefault();
-    let media = this.props.result.media_type ? this.props.result.media_type : this.props.filteredMediaType;
-
-    this.props.fetchSelected(this.props.result.id, media);
-    this.props.selectedMediaType(media);
-    this.props.showSelected();
+    singleMedia(this.props, e);
   }
   render() {
     const media = this.props.result.media_type ? this.props.result.media_type : this.props.filteredMediaType;
-    const { result } = this.props;
+    const { result, filterType, currentPage } = this.props;
     return (
       <div className="movie-grid-item">
         <div className="item-wrapper">
           <div className='item-image' onClick={this.getSelectedVideo}>
             <div className="card-imagePoster">
-              <Link to={`/${media}/id=${result.id}`}>
-                <img src={'https://image.tmdb.org/t/p/w500/' + result.poster_path} alt={result.original_name} />
+              <Link to={`/${media}/${filterType}/page=${currentPage}/id=${result.id}`}>
+                <img src={TheMovieDB.API_Img + result.poster_path} alt={result.original_name} />
               </Link>
             </div>
           </div>
@@ -41,7 +38,9 @@ class Card extends Component {
 }
 const mapStateToProps = state => {
   return {
-    filteredMediaType: state.search.mediaType
+    filteredMediaType: state.search.mediaType,
+    filterType: state.search.filterType,
+    currentPage: state.search.currentPage
   }
 }
 

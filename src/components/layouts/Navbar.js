@@ -12,7 +12,7 @@ const Navbar = (props) => {
   const { auth, profile } = props;
 
   const links = auth.uid ? <SignedInLinks profile={profile} /> : <SignedOutLinks />
-  const collectionPath = auth.uid ? '/myCollection' : '/signin'
+  const collectionPath = auth.uid ? '/Collections/all_media' : '/signin'
 
   return (
     <React.Fragment>
@@ -20,7 +20,7 @@ const Navbar = (props) => {
         <div className="nav-wrapper">
           <NavLink to='/' className="brand-logo material-icons center MovieIcon">movie</NavLink>
           <ul id="nav-mobile" className="right">
-            <li><NavLink to={collectionPath} activeClassName='activeNavLinks'>My Collection</NavLink></li>
+            <li><NavLink to={collectionPath} activeClassName='activeNavLinks'>Collections</NavLink></li>
             {links}
           </ul>
 

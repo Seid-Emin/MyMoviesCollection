@@ -52,3 +52,46 @@ export const addMediaToFirestoreCollection = (mediaType, mediaId, mediaName, pos
       });
   }
 }
+
+
+// TO REMOVE
+// FIRESTORE IS CONNECTED WITH firestoreConnect and this is not need
+// export const getMediaCollections_Start = () => {
+//   return {
+//     type: actionTypes.GET_MEDIA_COLLECTIONS_START
+//   };
+// };
+
+// export const getMediaCollections_Success = (response) => {
+//   return {
+//     type: actionTypes.GET_MEDIA_COLLECTIONS_SUCCESS,
+//     media: response
+//   };
+// };
+
+// export const getMediaCollections_Fail = (error) => {
+//   return {
+//     type: actionTypes.GET_MEDIA_COLLECTIONS_FAIL
+//   };
+// };
+
+// export const getMoviesCollection = (mediaType) => {
+
+//   return (dispatch, getState, { getFirebase, getFirestore }) => {
+//     dispatch(getMediaCollections_Start());
+
+//     // Get firestore
+//     const firestore = getFirestore();
+
+//     // Get uid from localStorage
+//     const authorId = localStorage.getItem('userId');
+
+//     // Get movies collection
+//     firestore.collection('users').doc(authorId).collection(mediaType).get()
+//       .then((response) => {
+//         dispatch(getMediaCollections_Success(response))
+//       }).catch(error => {
+//         dispatch(getMediaCollections_Fail(error))
+//       });
+//   }
+// }

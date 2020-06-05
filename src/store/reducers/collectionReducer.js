@@ -32,13 +32,15 @@ export const addMediaToFirestore_Fail = (state, action) => {
   };
 };
 
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
 
-    // Add Media Reducers
+    // Add to Watched Reducers
     case actionTypes.ADD_MEDIA_TO_FIRESTORE_START: return addMediaToFirestore_Start(state, action);
     case actionTypes.ADD_MEDIA_TO_FIRESTORE_SUCCESS: return addMediaToFirestore_Success(state, action);
     case actionTypes.ADD_MEDIA_TO_FIRESTORE_FAIL: return addMediaToFirestore_Fail(state, action);
+
 
     default: return state;
   }
