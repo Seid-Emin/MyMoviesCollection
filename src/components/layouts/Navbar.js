@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import SignedInLinks from './SignedInLinks';
 import SignedOutLinks from './SignedOutLinks';
 
+import * as actions from '../../store/actions/index';
+
 import './Navbar.css';
 
 
@@ -33,12 +35,17 @@ const Navbar = (props) => {
 
 const mapStateToProps = (state) => {
   console.log(state);
-
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile
   }
 }
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     getCollectionFromFirestore: () => dispatch(actions.getCollectionFromFirestore())
+//   }
+// }
 
 
 

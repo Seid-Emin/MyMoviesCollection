@@ -5,13 +5,14 @@ import { withRouter } from "react-router";
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 
-import './Collections.css'
+import './Collections.css';
 
-import * as actions from '../../../store/actions/index'
+import * as actions from '../../../store/actions/index';
 import CollectionItem from './CollectionItem/CollectionItem';
 
 import TheMovieDB from '../../../configs/ApiMovies';
 import { singleMedia } from '../../helpers/silgleMedia';
+import { spinnerWhileLoading } from '../../helpers/spinnerWhileLoadingpropNames';
 
 export class Collections extends Component {
   constructor(props) {
@@ -22,15 +23,23 @@ export class Collections extends Component {
     }
   }
 
+  componentWillMount() {
+    this.props.getCollectionFromFirestore()
+  }
+
   getSelectedMedia = (mediaId, mediaType) => {
     const { fetchSelected, selectedMediaType, showSelected } = this.props;
     fetchSelected(mediaId, mediaType);
     showSelected();
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.mediaCollections !== this.props.mediaCollections
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if ((nextProps.mediaCollections !== this.props.mediaCollections)
+  //     || (nextProps.collections !== this.props.collections)) {
+  //     return true
+  //   }
+
+  // }
 
   filterByType = (e) => {
     const { value } = e.target;
@@ -41,19 +50,19 @@ export class Collections extends Component {
 
   render() {
     const { statusTitle } = this.state;
-    const { mediaCollections } = this.props;
-    console.log(mediaCollections);
+    const { mediaCollections, collections } = this.props;
+    console.log(collections);
 
     // Guard route
-    // If initial mediaCollections is undefined
+    // If initial collections is undefined
     // means route is pasted directly to /collection/*
     // the load initial state/page
-    if (!mediaCollections) {
+    if (!collections) {
       return <Redirect to={'/'} />;
     }
 
-    let collection = Object.keys(mediaCollections).map((media, index) => {
-      let singleMedia = mediaCollections[media];
+    let collection = Object.keys(collections).map((media, index) => {
+      let singleMedia = collections[media];
       return <CollectionItem key={singleMedia.mediaId} media={singleMedia} number={index} clicked={this.getSelectedMedia} />
     })
 
@@ -102,7 +111,7 @@ export class Collections extends Component {
   }
 }
 
-const userId = localStorage.getItem('userId');
+
 
 const mapStateToProps = state => {
   // const projects = state.firestore.data.mediaCollections;
@@ -113,7 +122,8 @@ const mapStateToProps = state => {
   // }
 
   return {
-    mediaCollections: state.firestore.data.mediaCollections
+    mediaCollections: state.media.collections,
+    collections: state.collections.collections
   }
 }
 
@@ -121,24 +131,30 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchSelected: (id, mediaType) => dispatch(actions.fetchSelected(id, mediaType)),
     selectedMediaType: (type) => dispatch(actions.selectedMediaType(type)),
-    showSelected: () => dispatch(actions.showSelected())
+    showSelected: () => dispatch(actions.showSelected()),
+    getCollectionFromFirestore: () => dispatch(actions.getCollectionFromFirestore())
   }
 }
+
+const userId = localStorage.getItem('userId');
+
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect([
-    {
-      collection: 'users',
-      doc: userId,
-      subcollections: [
-        {
-          collection: 'mediaCollections',
-          orderBy: ['createdAt', 'desc'],
-        }
-      ],
-      storeAs: 'mediaCollections'
-    },
-  ])
+  // connect((state) => ({ auth: state.firebase.auth })),
+  // // show loading spinner while auth is loading
+  // spinnerWhileLoading(['auth']),
+  // firestoreConnect([
+  //   {
+  //     collection: 'users',
+  //     doc: userId,
+  //     subcollections: [
+  //       {
+  //         collection: 'mediaCollections',
+  //         orderBy: ['createdAt', 'desc'],
+  //       }
+  //     ],
+  //     storeAs: 'mediaCollections'
+  //   },
+  // ])
 )(withRouter(Collections));
-// export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Collections));
 

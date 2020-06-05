@@ -25,6 +25,7 @@ export const signIn = ({ email, password }) => {
 
 export const signOut = () => {
   localStorage.removeItem('userId');
+  localStorage.removeItem('token');
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
 

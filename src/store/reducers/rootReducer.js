@@ -3,6 +3,7 @@ import selectedMedia from './selectedReducer';
 import filteredMediaReducer from './fetchFilteredMediaReducer';
 import authReducer from './authReducer';
 import mediaReducer from './mediaReducers';
+import collectionReducer from './collectionReducer';
 import { combineReducers } from 'redux';
 import { firestoreReducer } from 'redux-firestore';
 import { firebaseReducer } from 'react-redux-firebase';
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   firestore: firestoreReducer,
   firebase: firebaseReducer,
   auth: authReducer,
-  media: mediaReducer
+  media: mediaReducer,
+  collections: collectionReducer
 });
 
 export default rootReducer;

@@ -12,13 +12,16 @@ import SimilarMovies from './SimilarMovies/SimilarMovies';
 
 import './Modal.css'
 
-const Modal = ({ selectedMediaData: { id, original_title, poster_path, original_name, videos, vote_average, genres, similar, release_date, overview, first_air_date }, loading_selected, history, clicked, addMediaToFirestoreCollection }) => {
+const Modal = ({
+  selectedMediaData: { id, original_title, poster_path, original_name, videos, vote_average, genres, similar, release_date, overview, first_air_date, name },
+  loading_selected, history, clicked, addMediaToFirestoreCollection }) => {
 
   const hideModal = () => {
     clicked();
   }
 
   const addMedia = (e) => {
+    e.preventDefault();
     const { value } = e.target;
     let title = original_title;
     const pathName = history.location.pathname;
@@ -51,6 +54,8 @@ const Modal = ({ selectedMediaData: { id, original_title, poster_path, original_
   //display ganres of the media
   let modalGenres = [];
   if (genres) {
+    console.log(genres);
+
     genres.map(genre => modalGenres.push(genre.name))
   }
 
@@ -72,7 +77,7 @@ const Modal = ({ selectedMediaData: { id, original_title, poster_path, original_
             </div>
             <div className='movie-info-wrap'>
               <div className='title'>
-                <h3 className="card-main-title">{original_name || original_title}
+                <h3 className="card-main-title">{name ? name : original_name || original_title}
                   <span className='releaseDate'> ({release_date ? release_date.substring(0, 4) : first_air_date.substring(0, 4)})</span>
                 </h3>
               </div>
@@ -87,7 +92,7 @@ const Modal = ({ selectedMediaData: { id, original_title, poster_path, original_
                 </select>
               </div>
               <div className='genre'>
-                <p className='card-inner-title'>Genre: <span className="card-info">{genres.join(', ')}</span></p>
+                <p className='card-inner-title'>Genre: <span className="card-info">{modalGenres.join(', ')}</span></p>
               </div>
               <div className='overwiev'>
                 <p className='card-inner-title'>Overview: </p>

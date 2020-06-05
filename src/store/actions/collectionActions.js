@@ -1,27 +1,73 @@
 import * as actionTypes from './actionTypes';
 
-export const addMediaToFirestore_Start = () => {
+// Get collection
+export const getCollectionFromFirestore_Start = () => {
   return {
-    type: actionTypes.ADD_MEDIA_TO_FIRESTORE_START
+    type: actionTypes.GET_MEDIA_COLLECTIONS_START
   };
 };
 
-export const addMediaToFirestor_Success = (response) => {
+export const getCollectionFromFirestore_Success = (response) => {
   return {
-    type: actionTypes.ADD_MEDIA_TO_FIRESTORE_SUCCESS,
-    media: response
+    type: actionTypes.GET_MEDIA_COLLECTIONS_SUCCESS,
+    collection: response
   };
 };
 
-export const addMediaToFirestor_Fail = (error) => {
+export const getCollectionFromFirestore_Fail = (error) => {
   return {
-    type: actionTypes.ADD_MEDIA_TO_FIRESTORE_FAIL
+    type: actionTypes.GET_MEDIA_COLLECTIONS_FAIL,
+    error
   };
 };
 
-export const addMediaToFirestoreCollection = (mediaType, mediaId, mediaName, posterURL, watchStatus) => {
+export const getCollectionFromFirestore = () => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
-    dispatch(addMediaToFirestore_Start());
+    dispatch(getCollectionFromFirestore_Start());
+
+    // Get firestore
+    const firestore = getFirestore();
+
+    // Get iud to be passed for doc creation
+    const authorId = localStorage.getItem('userId');
+
+    // Set selecte media in firestore
+    firestore.collection('users').doc(authorId)
+      .collection('mediaCollections')
+      .get()
+      .then((response) => {
+        const data = response.docs.map(doc => doc.data());
+        dispatch(getCollectionFromFirestore_Success(data))
+      }).catch(error => {
+        dispatch(getCollectionFromFirestore_Fail(error))
+      });
+  }
+}
+
+// Delete media from collection
+export const deleteMediaFromFirestore_Start = () => {
+  return {
+    type: actionTypes.DELETE_MEDIA_START
+  };
+};
+
+export const deleteMediaFromFirestore_Success = (response) => {
+  return {
+    type: actionTypes.DELETE_MEDIA_SUCCESS,
+    collection: response
+  };
+};
+
+export const deleteMediaFromFirestore_Fail = (error) => {
+  return {
+    type: actionTypes.DELETE_MEDIA_FAIL,
+    error
+  };
+};
+
+export const deleteMediaFromFirestore = (mediaId, collections) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    dispatch(deleteMediaFromFirestore_Start());
 
     // Get firestore
     const firestore = getFirestore();
@@ -29,69 +75,23 @@ export const addMediaToFirestoreCollection = (mediaType, mediaId, mediaName, pos
     // Get iud to be passed for doc creation
     const authorId = getState().firebase.auth.uid;
 
-    // Create media info obj, for simple Collections display
-    let newMedia = {
-      watchStatus,
-      mediaType,
-      mediaId,
-      mediaName,
-      posterURL,
-      createdAt: Date.now()
-    }
+    // To String for firebase 
+    const deleteMediaId = mediaId.toString();
 
-    // Set customID for future doc manipulations and set it to firestore
-    let customID = mediaId.toString();
+    // Remove from stored collections
+    console.log(collections);
+    let newCollections = collections.filter(media => media.mediaId !== mediaId)
+    console.log(newCollections);
 
     // Set selecte media in firestore
     firestore.collection('users').doc(authorId)
-      .collection('mediaCollections').doc(customID).set(newMedia)
-      .then((response) => {
-        dispatch(addMediaToFirestor_Success(newMedia))
-      }).catch(error => {
-        dispatch(addMediaToFirestor_Fail(error))
+      .collection('mediaCollections').doc(deleteMediaId)
+      .delete()
+      .then(() => {
+        dispatch(deleteMediaFromFirestore_Success(newCollections));
+      })
+      .catch(error => {
+        dispatch(deleteMediaFromFirestore_Fail(error))
       });
   }
 }
-
-
-// TO REMOVE
-// FIRESTORE IS CONNECTED WITH firestoreConnect and this is not need
-// export const getMediaCollections_Start = () => {
-//   return {
-//     type: actionTypes.GET_MEDIA_COLLECTIONS_START
-//   };
-// };
-
-// export const getMediaCollections_Success = (response) => {
-//   return {
-//     type: actionTypes.GET_MEDIA_COLLECTIONS_SUCCESS,
-//     media: response
-//   };
-// };
-
-// export const getMediaCollections_Fail = (error) => {
-//   return {
-//     type: actionTypes.GET_MEDIA_COLLECTIONS_FAIL
-//   };
-// };
-
-// export const getMoviesCollection = (mediaType) => {
-
-//   return (dispatch, getState, { getFirebase, getFirestore }) => {
-//     dispatch(getMediaCollections_Start());
-
-//     // Get firestore
-//     const firestore = getFirestore();
-
-//     // Get uid from localStorage
-//     const authorId = localStorage.getItem('userId');
-
-//     // Get movies collection
-//     firestore.collection('users').doc(authorId).collection(mediaType).get()
-//       .then((response) => {
-//         dispatch(getMediaCollections_Success(response))
-//       }).catch(error => {
-//         dispatch(getMediaCollections_Fail(error))
-//       });
-//   }
-// }

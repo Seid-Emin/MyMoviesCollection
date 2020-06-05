@@ -26,7 +26,7 @@ class Card extends Component {
               </Link>
             </div>
           </div>
-          <span className="card-title">{result.original_name || result.title}</span>
+          <span className="card-title">{result.name ? result.name : result.original_name || result.title}</span>
           <div className="card-action">
             <button className="blue darken-4 waves-effect waves-light btn modal-trigger" onClick={this.getSelectedVideo}><Link to={`/${media}/id=${result.id}`}>Info</Link></button>
           </div>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { withRouter } from "react-router";
 import { firestoreConnect } from 'react-redux-firebase';
@@ -12,21 +12,22 @@ import './Content.css'
 
 import Cards from '../Cards/Cards';
 //import FilteredMedia from '../FilteredMedia/FilteredMedia'
-import Categories from '../Categories/Categories'
-import Spinner from '../../UI/Spinner/Spinner'
-import Modal from '../../UI/Modal/Modal'
-import Backdrop from '../../UI/Backdrop/Backdrop'
+import Categories from '../Categories/Categories';
+import Spinner from '../../UI/Spinner/Spinner';
+import Modal from '../../UI/Modal/Modal';
+import Backdrop from '../../UI/Backdrop/Backdrop';
 import SignIn from '../../auth/SignIn';
 import SignUp from '../../auth/SingUp';
-import Collections from '../../layouts/Collections/Collections'
+import Collections from '../../layouts/Collections/Collections';
+import { spinnerWhileLoading } from '../../helpers/spinnerWhileLoadingpropNames';
 
 class Content extends Component {
   componentDidMount() {
     const { mediaType, filterType, fetchFilteredMedia, preloadSelected, preloadFilteredMedia, currentPage } = this.props;
     const pathName = this.props.history.location.pathname;
-    if (pathName.includes('Collections')) {
-      this.props.history.push(`/`);
-    }
+    // if (pathName.includes('Collections')) {
+    //   return <Redirect to={`/${mediaType}/${filterType}/page=${currentPage}`} />
+    // }
     //   if (pathName.includes('page=')) {
     //     console.log(pathName);
     //     let pageNum = pathName.slice(pathName.lastIndexOf('/'), pathName.length);
@@ -106,8 +107,7 @@ const mapStateToProps = state => {
     searchText: state.search.searchtext,
     mediaType: state.search.mediaType,
     filterType: state.search.filterType,
-    currentPage: state.search.currentPage,
-    mediaCollections: state.media.firestoreCollection
+    currentPage: state.search.currentPage
   }
 }
 
@@ -122,17 +122,20 @@ const mapDispatchToProps = dispatch => {
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect([
-    {
-      collection: 'users',
-      doc: userId,
-      subcollections: [
-        {
-          collection: 'mediaCollections',
-          orderBy: ['createdAt', 'desc'],
-        }
-      ],
-      storeAs: 'mediaCollections'
-    },
-  ])
+  // connect((state) => ({ auth: state.firebase.auth })),
+  // // show loading spinner while auth is loading
+  // spinnerWhileLoading(['auth']),
+  // firestoreConnect([
+  //   {
+  //     collection: 'users',
+  //     doc: userId,
+  //     subcollections: [
+  //       {
+  //         collection: 'mediaCollections',
+  //         orderBy: ['createdAt', 'desc'],
+  //       }
+  //     ],
+  //     storeAs: 'mediaCollections'
+  //   },
+  // ])
 )(withRouter(Content));
