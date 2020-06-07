@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { withRouter } from "react-router";
 
-import SimilarMovie from './SimilarMovie/SimilarMovie'
+import SimilarMovie from './SimilarMovie/SimilarMovie';
 
 import './SimilarMovies.css'
 

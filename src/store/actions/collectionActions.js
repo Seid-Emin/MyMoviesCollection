@@ -79,16 +79,14 @@ export const deleteMediaFromFirestore = (mediaId, collections) => {
     const deleteMediaId = mediaId.toString();
 
     // Remove from stored collections
-    console.log(collections);
-    let newCollections = collections.filter(media => media.mediaId !== mediaId)
-    console.log(newCollections);
+    let updateCollections = collections.filter(media => media.mediaId !== mediaId)
 
     // Set selecte media in firestore
     firestore.collection('users').doc(authorId)
       .collection('mediaCollections').doc(deleteMediaId)
       .delete()
       .then(() => {
-        dispatch(deleteMediaFromFirestore_Success(newCollections));
+        dispatch(deleteMediaFromFirestore_Success(updateCollections));
       })
       .catch(error => {
         dispatch(deleteMediaFromFirestore_Fail(error))

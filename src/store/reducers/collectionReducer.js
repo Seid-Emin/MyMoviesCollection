@@ -3,6 +3,7 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
   collections: {},
+  status: 'all',
   loading: false,
   error: null
 }
