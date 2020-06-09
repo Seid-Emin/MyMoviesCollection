@@ -40,8 +40,8 @@ export const fetchMultiSearch = (query) => {
         console.log(res.data);
         dispatch(fetchSearchSuccess(res.data));
       })
-      .catch(err => {
-        dispatch(fetchFail(err));
+      .catch(error => {
+        dispatch(fetchFail(error));
       });
   }
 }

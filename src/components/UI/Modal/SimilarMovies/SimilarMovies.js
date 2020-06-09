@@ -1,17 +1,26 @@
 import React from 'react'
 import { connect } from 'react-redux';
+import { withRouter } from "react-router";
 
-import SimilarMovie from './SimilarMovie/SimilarMovie'
+import SimilarMovie from './SimilarMovie/SimilarMovie';
 
 import './SimilarMovies.css'
 
-const SimilarMovies = ({ selectedMediaData, selectedMediaType }) => {
+const SimilarMovies = ({ selectedMediaData, selectedMediaType, history }) => {
 
+  // Need in case URL is pasted
+  const pathName = history.location.pathname;
+  let mediaType = 'movie';
+  if (pathName.includes('tv')) {
+    mediaType = 'tv'
+  }
+  // Check is there any mediaType selected or URL is pasted
+  let mediaToPass = selectedMediaType == '' ? mediaType : selectedMediaType
 
   //display similar movies
   let fewSimilarMovies = selectedMediaData.similar ? selectedMediaData.similar.results.splice(0, 10) : null;
   let similarMovie = selectedMediaData.similar ? fewSimilarMovies.map(result => {
-    return <SimilarMovie key={result.id} result={result} mediaType={selectedMediaType} />
+    return <SimilarMovie key={result.id} result={result} mediaType={mediaToPass} />
   }) : null
 
   //display similar media type
@@ -38,7 +47,7 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(SimilarMovies)
+export default connect(mapStateToProps)(withRouter(SimilarMovies));
 
 
 

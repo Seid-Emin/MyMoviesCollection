@@ -1,0 +1,129 @@
+/* .collection-container {
+  display       : flex;
+  flex-direction: column;
+} */
+
+.collection-status {
+  height       : 46px;
+  border-bottom: 1px solid var(--color-horLine);
+}
+
+.collection-nav {
+  display        : flex;
+  justify-content: space-around;
+  font-size      : 16px;
+}
+
+.collection-nav a {
+  color: var(--color-textTitle);
+}
+
+a.collection-navlink.activeNavLinks-collection {
+  color: var(--color-activeLinksText);
+}
+
+.collection-list {
+  margin-top: 16px;
+  padding   : 0;
+}
+
+th {
+  padding: 0;
+}
+
+td {
+  line-height: 1.5em;
+}
+
+
+.list-unit {
+  display: block;
+  margin : 0 auto;
+}
+
+.list-status-title {
+  position        : relative;
+  display         : table;
+  background-color: var(--color-textTitleBG);
+  width           : 100%;
+  color           : var(--color-textInner);
+  font-size       : 22px;
+  font-weight     : bold;
+  text-align      : center;
+  vertical-align  : middle;
+  text-transform  : uppercase;
+}
+
+
+
+.list-table-header {
+  color: var(--color-textTitle);
+}
+
+.list-table-header .header-title {
+  background    : var(--color-tableHeaderBG) url(../../../assets/bar-table-header-dark.png) no-repeat right 7px / 1px 22px;
+  display       : table-cell;
+  border-bottom : var(--color-horLine) 1px solid;
+  text-align    : center;
+  vertical-align: middle;
+  font-weight   : normal;
+}
+
+.list-table-header .header-title:last-child {
+  background: var(--color-tableHeaderBG);
+}
+
+.list-table-header .header-title.status {
+  background-image: none;
+  width           : 4px;
+}
+
+.list-table-header .header-title.number {
+  width: 30px;
+}
+
+.list-table-header .header-title.image {
+  width: 66px;
+}
+
+.list-table-header .header-title.title {
+  padding-left: 8px;
+  text-align  : left;
+}
+
+.list-table-header .header-title.score {
+  width: 65px;
+}
+
+.list-table-header .header-title.type {
+  width: 80px;
+}
+
+
+.list-type-select {
+  display         : inline-block;
+  background-color: var(--color-BG-select);
+  width           : auto;
+  margin          : 3px 0;
+  padding         : 5px;
+  border          : 1px solid var(--color-activeLinks);
+  border-radius   : 5px;
+  height          : 60%;
+  color           : var(--color-activeLinks);
+  font-size       : 12px;
+}
+
+.list-type-select:focus {
+  outline-style: none;
+}
+
+.list-unit table tr .image,
+.list-unit table tr .title,
+.list-unit table tr .score,
+.list-unit table tr .type {
+  color: var(--color-tableTextColor)
+}
+
+.list-unit table tr .title a:hover {
+  color: var(--color-tableTextColorHover)
+}

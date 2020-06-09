@@ -8,7 +8,8 @@ export const signIn = ({ email, password }) => {
       email,
       password
     )
-      .then(() => {
+      .then((response) => {
+        localStorage.setItem('userId', response.user.uid);
         dispatch({
           type: actionTypes.LOGIN_SUCCESS
         });
@@ -23,6 +24,8 @@ export const signIn = ({ email, password }) => {
 }
 
 export const signOut = () => {
+  localStorage.removeItem('userId');
+  localStorage.removeItem('token');
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
 
@@ -45,9 +48,11 @@ export const signUp = ({ email, password, firstName, lastName }) => {
       password
     )
       .then((response) => {
+        localStorage.setItem('userId', response.user.uid);
         return firestore.collection('users').doc(response.user.uid).set({
           firstName,
           lastName,
+          email,
           initials: firstName[0] + lastName[0],
           createdAt: Date.now()
         })
