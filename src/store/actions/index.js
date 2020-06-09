@@ -17,4 +17,4 @@ export { signIn, signOut, signUp } from './authActions';
 
 export { addMediaToFirestoreCollection } from './mediaActions';
 
-export { getCollectionFromFirestore, deleteMediaFromFirestore } from './collectionActions';
+export { getCollectionFromFirestore, deleteMediaFromFirestore, filterByStatus } from './collectionActions';

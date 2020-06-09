@@ -15,22 +15,9 @@ import { singleMedia } from '../../helpers/silgleMedia';
 import { spinnerWhileLoading } from '../../helpers/spinnerWhileLoadingpropNames';
 
 export class Collections extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      statusTitle: 'All Media',
-      filterByType: 'all'
-    }
-  }
 
   componentWillMount() {
     this.props.getCollectionFromFirestore()
-  }
-
-  getSelectedMedia = (mediaId, mediaType) => {
-    const { fetchSelected, selectedMediaType, showSelected } = this.props;
-    fetchSelected(mediaId, mediaType);
-    showSelected();
   }
 
   // shouldComponentUpdate(nextProps, nextState) {
@@ -41,6 +28,20 @@ export class Collections extends Component {
 
   // }
 
+  getSelectedMedia = (mediaId, mediaType) => {
+    const { fetchSelected, selectedMediaType, showSelected } = this.props;
+    fetchSelected(mediaId, mediaType);
+    showSelected();
+  }
+
+  filterByStatus = (collections, status) => {
+    const { filterByStatus } = this.props;
+    // e.preventDefault();
+    filterByStatus(collections, status);
+    console.log(status);
+
+  }
+
   filterByType = (e) => {
     const { value } = e.target;
     this.setState({
@@ -49,20 +50,19 @@ export class Collections extends Component {
   }
 
   render() {
-    const { statusTitle } = this.state;
-    const { mediaCollections, collections } = this.props;
+    const { mediaCollections, collections: { collections, status, type, filteredCollections } } = this.props;
     console.log(collections);
 
     // Guard route
-    // If initial collections is undefined
+    // If initial filteredCollections is undefined
     // means route is pasted directly to /collection/*
     // the load initial state/page
-    if (!collections) {
+    if (!filteredCollections) {
       return <Redirect to={'/'} />;
     }
 
-    let collection = Object.keys(collections).map((media, index) => {
-      let singleMedia = collections[media];
+    let collection = Object.keys(filteredCollections).map((media, index) => {
+      let singleMedia = filteredCollections[media];
       return <CollectionItem key={singleMedia.mediaId} media={singleMedia} number={index} clicked={this.getSelectedMedia} />
     })
 
@@ -71,17 +71,17 @@ export class Collections extends Component {
       <div className="collection-container">
         <div className="collection-status">
           <div className='collection-nav'>
-            <NavLink to='/Collections/all_media' className="collection-navlink" activeClassName='activeNavLinks-collection'>All Media</NavLink>
-            <NavLink to='/Collections/currently_watching' className="collection-navlink" activeClassName='activeNavLinks-collection'>Currently Watching</NavLink>
-            <NavLink to='/Collections/completed' className="collection-navlink" activeClassName='activeNavLinks-collection'>Completed</NavLink>
-            <NavLink to='/Collections/on_hold' className="collection-navlink" activeClassName='activeNavLinks-collection'>On Hold</NavLink>
-            <NavLink to='/Collections/dropped' className="collection-navlink" activeClassName='activeNavLinks-collection'>Dropped</NavLink>
-            <NavLink to='/Collections/plan_to_watch' className="collection-navlink" activeClassName='activeNavLinks-collection'>Plan to Watch</NavLink>
+            <NavLink to='/Collections/all_media' className="collection-navlink" activeClassName='activeNavLinks-collection' onClick={() => this.filterByStatus(collections, 'all_media')}>All Media</NavLink>
+            <NavLink to='/Collections/currently_watching' className="collection-navlink" activeClassName='activeNavLinks-collection' onClick={() => this.filterByStatus(collections, 'watching')} >Currently Watching</NavLink>
+            <NavLink to='/Collections/completed' className="collection-navlink" activeClassName='activeNavLinks-collection' onClick={() => this.filterByStatus(collections, 'completed')}>Completed</NavLink>
+            <NavLink to='/Collections/on_hold' className="collection-navlink" activeClassName='activeNavLinks-collection' onClick={() => this.filterByStatus(collections, 'on_hold')}>On Hold</NavLink>
+            <NavLink to='/Collections/dropped' className="collection-navlink" activeClassName='activeNavLinks-collection' onClick={() => this.filterByStatus(collections, 'dropped')}>Dropped</NavLink>
+            <NavLink to='/Collections/plan_to_watch' className="collection-navlink" activeClassName='activeNavLinks-collection' onClick={() => this.filterByStatus(collections, 'plan_to_watch')}>Plan to Watch</NavLink>
           </div>
         </div>
         <div className="collection-list">
           <div className="list-unit">
-            <div className="list-status-title">{statusTitle.replace('_', ' ')}</div>
+            <div className="list-status-title">{status.replace('_', ' ')}</div>
             <table>
               <tbody>
                 <tr className="list-table-header">
@@ -114,16 +114,10 @@ export class Collections extends Component {
 
 
 const mapStateToProps = state => {
-  // const projects = state.firestore.data.mediaCollections;
-  // console.log(projects);
-  // for (let media in projects) {
-  //   console.log(media);
-
-  // }
-
   return {
     mediaCollections: state.media.collections,
-    collections: state.collections.collections
+    collections: state.collections,
+
   }
 }
 
@@ -132,7 +126,8 @@ const mapDispatchToProps = dispatch => {
     fetchSelected: (id, mediaType) => dispatch(actions.fetchSelected(id, mediaType)),
     selectedMediaType: (type) => dispatch(actions.selectedMediaType(type)),
     showSelected: () => dispatch(actions.showSelected()),
-    getCollectionFromFirestore: () => dispatch(actions.getCollectionFromFirestore())
+    getCollectionFromFirestore: () => dispatch(actions.getCollectionFromFirestore()),
+    filterByStatus: (collections, status) => dispatch(actions.filterByStatus(collections, status))
   }
 }
 

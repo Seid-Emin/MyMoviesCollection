@@ -11,7 +11,7 @@ import { singleMedia } from '../../../helpers/silgleMedia';
 
 import './CollectionItem.css'
 
-const CollectionItem = ({ media: { mediaId, mediaName, mediaType, posterURL, watchStatus }, number, clicked, deleteMediaFromFirestore, collections }) => {
+const CollectionItem = ({ media: { mediaId, mediaName, mediaType, posterURL, watchStatus }, number, clicked, deleteMediaFromFirestore, collections, filteredCollections }) => {
 
   let statuStyle = {
     watching: 'watching',
@@ -34,7 +34,7 @@ const CollectionItem = ({ media: { mediaId, mediaName, mediaType, posterURL, wat
         <td className="data title clearfix">
           <NavLink to={'/Collections/all_media/id=' + mediaId} className="link sort" onClick={() => clicked(mediaId, mediaType)}> {mediaName}</NavLink>
           <div className="delete-media">
-            <span href="#" className="List_LightBox" onClick={() => deleteMediaFromFirestore(mediaId, collections)}>delete</span>
+            <span className="List_LightBox" onClick={() => deleteMediaFromFirestore(mediaId, collections, filteredCollections)}>delete</span>
           </div>
         </td>
         <td className="data score">
@@ -49,7 +49,8 @@ const CollectionItem = ({ media: { mediaId, mediaName, mediaType, posterURL, wat
 const mapStateToProps = state => {
   return {
     filteredMediaType: state.search.mediaType,
-    collections: state.collections.collections
+    collections: state.collections.collections,
+    filteredCollections: state.collections.filteredCollections
   }
 }
 
@@ -58,7 +59,7 @@ const mapDispatchToProps = dispatch => {
     fetchSelected: (id, mediaType) => dispatch(actions.fetchSelected(id, mediaType)),
     selectedMediaType: (type) => dispatch(actions.selectedMediaType(type)),
     showSelected: () => dispatch(actions.showSelected()),
-    deleteMediaFromFirestore: (mediaId, collections) => dispatch(actions.deleteMediaFromFirestore(mediaId, collections))
+    deleteMediaFromFirestore: (mediaId, collections, filteredCollections) => dispatch(actions.deleteMediaFromFirestore(mediaId, collections, filteredCollections))
   }
 }
 
