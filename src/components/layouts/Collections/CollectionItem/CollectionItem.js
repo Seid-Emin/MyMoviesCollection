@@ -2,16 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { withRouter } from "react-router";
-import { useSelector } from 'react-redux'
 
 import * as actions from '../../../../store/actions/index';
 
 import TheMovieDB from '../../../../configs/ApiMovies';
-import { singleMedia } from '../../../helpers/silgleMedia';
 
 import './CollectionItem.css'
 
-const CollectionItem = ({ media: { mediaId, mediaName, mediaType, posterURL, watchStatus }, number, clicked, deleteMediaFromFirestore, collections, filteredCollections }) => {
+const CollectionItem = ({ media: { mediaId, mediaName, mediaType, posterURL, watchStatus }, number, clicked, deleteMediaFromFirestore, collections: {
+  collections, filteredCollections, status } }) => {
 
   let statuStyle = {
     watching: 'watching',
@@ -21,24 +20,26 @@ const CollectionItem = ({ media: { mediaId, mediaName, mediaType, posterURL, wat
     plan_to_watch: 'planToWatch'
   }
 
+  let currentMedia = collections.filter(media => media.mediaId == mediaId);
+
   return (
     <tbody className='list-item' >
       <tr className="list-table-data">
         <td className={"data status " + statuStyle[watchStatus]}></td>
         <td className="data number">{number + 1}</td>
         <td className="data image">
-          <NavLink to={'/Collections/all_media/id=' + mediaId} className="link sort"  >
+          <NavLink to={`/Collections/${status}/id=${mediaId}`} className="link sort"  >
             <img src={TheMovieDB.API_Img + posterURL} alt={mediaName + ' image'} className="hover-info image" onClick={() => clicked(mediaId, mediaType)} />
           </NavLink>
         </td>
         <td className="data title clearfix">
-          <NavLink to={'/Collections/all_media/id=' + mediaId} className="link sort" onClick={() => clicked(mediaId, mediaType)}> {mediaName}</NavLink>
+          <NavLink to={`/Collections/${status}/id=${mediaId}`} className="link sort" onClick={() => clicked(mediaId, mediaType)}> {mediaName}</NavLink>
           <div className="delete-media">
             <span className="List_LightBox" onClick={() => deleteMediaFromFirestore(mediaId, collections, filteredCollections)}>delete</span>
           </div>
         </td>
         <td className="data score">
-          <span className="score-label score-na">-</span>
+          {currentMedia[0].userRating !== 'select' ? <span className="score-label score-na">{currentMedia[0].userRating}</span> : <span className="score-label score-na">-</span>}
         </td>
         <td className="data type">{mediaType}</td>
       </tr>
@@ -49,8 +50,7 @@ const CollectionItem = ({ media: { mediaId, mediaName, mediaType, posterURL, wat
 const mapStateToProps = state => {
   return {
     filteredMediaType: state.search.mediaType,
-    collections: state.collections.collections,
-    filteredCollections: state.collections.filteredCollections
+    collections: state.collections
   }
 }
 

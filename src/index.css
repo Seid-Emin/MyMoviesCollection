@@ -19,6 +19,10 @@
   --color-tableItemBorder    : #444;
   --color-tableTextColor     : #039be5;
   --color-tableTextColorHover: #69b2d6;
+  --color-btnAddMedia        : #4f74c8;
+  --color-userScoreEmpty     : #2e51a2;
+  --color-userScoreDefault   : #bebebe;
+  --color-userScoreBadVerybad: #fcb854;
 }
 
 body {

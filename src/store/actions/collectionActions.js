@@ -19,7 +19,7 @@ export const addMediaToFirestor_Fail = (error) => {
   };
 };
 
-export const addMediaToFirestoreCollection = (mediaType, mediaId, mediaName, posterURL, watchStatus, collections) => {
+export const addMediaToFirestoreCollection = (userRating, mediaType, mediaId, mediaName, posterURL, watchStatus, collections) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     dispatch(addMediaToFirestore_Start());
 
@@ -31,6 +31,7 @@ export const addMediaToFirestoreCollection = (mediaType, mediaId, mediaName, pos
 
     // Create media info obj, for simple Collections display
     let newMedia = {
+      userRating,
       watchStatus,
       mediaType,
       mediaId,
@@ -81,7 +82,7 @@ export const updateMediaStatus_Fail = (error) => {
   };
 };
 
-export const updateMediaStatus = (mediaId, watchStatus, collections) => {
+export const updateMediaStatus = (mediaId, watchStatus, name, collections) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     dispatch(updateMediaStatus_Start());
 
@@ -95,19 +96,14 @@ export const updateMediaStatus = (mediaId, watchStatus, collections) => {
     let customID = mediaId.toString();
 
     // Update/Add to collection
-    console.log(collections);
-
     let mediaIndex = collections.findIndex(media => media.mediaId == mediaId);
-    console.log(mediaIndex);
-
-    collections[mediaIndex].watchStatus = watchStatus
-    console.log(collections);
+    collections[mediaIndex][name] = watchStatus;
 
 
     // Set selecte media in firestore
     firestore.collection('users').doc(authorId)
       .collection('mediaCollections').doc(customID).update({
-        "watchStatus": watchStatus
+        [name]: watchStatus
       })
       .then(() => {
         dispatch(updateCollections(collections));
@@ -168,10 +164,11 @@ export const filterByStatus_Start = () => {
   };
 };
 
-export const filterByStatus_Success = (updateCollections) => {
+export const filterByStatus_Success = (updateCollections, status) => {
   return {
     type: actionTypes.FILTER_BY_STATUS_SUCCESS,
-    filterByStatus: updateCollections
+    filterByStatus: updateCollections,
+    status
   };
 };
 
@@ -188,7 +185,7 @@ export const filterByStatus = (collections, status) => {
       dispatch(filterByStatus_Start());
       if (status !== 'all_media') {
         let updateCollections = collections.filter(media => media.watchStatus == status);
-        dispatch(filterByStatus_Success(updateCollections));
+        dispatch(filterByStatus_Success(updateCollections, status));
       } else {
         dispatch(filterByStatus_Success(collections));
       }

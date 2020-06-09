@@ -5,7 +5,7 @@ const initialState = {
   collections: [],
   filteredCollections: [],
   media: [],
-  status: 'All Media',
+  status: 'all_media',
   type: 'all',
   loading: false,
   error: null
@@ -84,6 +84,7 @@ export const filterByStatus_Success = (state, action) => {
   return {
     ...state,
     filteredCollections: action.filterByStatus,
+    status: action.status,
     loading: false,
     error: null
   };
