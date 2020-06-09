@@ -2,14 +2,19 @@
   margin-right: 0;
 }
 
+.card-action {
+  height: 200px;
+  width : inherit;
+}
+
 .inner-wrapper .card-action {
-  width: 130px;
+  width : 130px;
   margin: 0 5px;
   cursor: pointer;
 }
 
 .similarMovie-img {
-  height: 100%;
+  height: 75%;
 }
 
 #modal1 .inner-wrapper div a {

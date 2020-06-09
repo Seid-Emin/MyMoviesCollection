@@ -7,11 +7,29 @@
 } */
 
 .similarMedia-wrapper {
-  display: flex;
+  display       : flex;
   flex-direction: column;
 }
 
 .similarMedia-title {
   text-transform: uppercase;
-  text-align: center;
+  text-align    : center;
+}
+
+.BrainhubCarousel__container {
+  height: 200px;
+}
+
+.BrainhubCarousel {
+  height: inherit;
+}
+
+ul.BrainhubCarousel__track.BrainhubCarousel__track--transition.BrainhubCarousel__track--draggable {
+  transform: translateX(0);
+  height   : 200px;
+}
+
+li.BrainhubCarouselItem.BrainhubCarouselItem--clickable.BrainhubCarouselItem--active {
+  height: inherit;
+  width : auto;
 }
