@@ -36,10 +36,7 @@ export class Collections extends Component {
 
   filterByStatus = (collections, status) => {
     const { filterByStatus } = this.props;
-    // e.preventDefault();
     filterByStatus(collections, status);
-    console.log(status);
-
   }
 
   filterByType = (e) => {
@@ -51,7 +48,7 @@ export class Collections extends Component {
 
   render() {
     const { collections: { collections, status, type, filteredCollections } } = this.props;
-    console.log(collections);
+    console.log(status);
 
     // Guard route
     // If initial filteredCollections is undefined
@@ -65,6 +62,8 @@ export class Collections extends Component {
       //let singleMedia = filteredCollections[media];
       return <CollectionItem key={media.mediaId} media={media} number={index} clicked={this.getSelectedMedia} />
     })
+
+
 
 
     return (

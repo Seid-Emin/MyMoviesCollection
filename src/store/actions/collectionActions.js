@@ -168,7 +168,7 @@ export const filterByStatus_Success = (updateCollections, status) => {
   return {
     type: actionTypes.FILTER_BY_STATUS_SUCCESS,
     filterByStatus: updateCollections,
-    status
+    status: status
   };
 };
 
@@ -187,7 +187,7 @@ export const filterByStatus = (collections, status) => {
         let updateCollections = collections.filter(media => media.watchStatus == status);
         dispatch(filterByStatus_Success(updateCollections, status));
       } else {
-        dispatch(filterByStatus_Success(collections));
+        dispatch(filterByStatus_Success(collections, status));
       }
     } else {
       let error = 'no collection here'

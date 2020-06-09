@@ -10,11 +10,12 @@
   display         : flex;
   max-height      : 100%;
   flex-direction  : column;
-  overflow        : scroll;
+  overflow-y      : scroll;
 }
 
 .info-wrapper {
-  display: flex;
+  display      : flex;
+  margin-bottom: 1rem;
 }
 
 .card-image {
@@ -245,6 +246,10 @@ span.material-icons {
   font-size: 14.5px;
 }
 
+.similarMedia-title .card-info {
+  margin: 10px 0;
+}
+
 .rating {
   font-size: 18px;
 }
@@ -306,9 +311,4 @@ span.material-icons {
   .similarMedia {
     justify-content: flex-end;
   }
-
-  .modal-info {
-    overflow: scroll;
-  }
-
 }

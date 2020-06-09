@@ -21,8 +21,8 @@ const SimilarMovies = ({ selectedMediaData, selectedMediaType, history }) => {
   let mediaToPass = selectedMediaType == '' ? mediaType : selectedMediaType
 
   //display similar movies
-  let fewSimilarMovies = selectedMediaData.similar ? selectedMediaData.similar.results.splice(0, 10) : null;
-  let similarMovie = selectedMediaData.similar ? fewSimilarMovies.map(result => {
+  // let fewSimilarMovies = selectedMediaData.similar ? selectedMediaData.similar.results.splice(0, 10) : null;
+  let similarMovie = selectedMediaData.similar ? selectedMediaData.similar.results.map(result => {
     return <SimilarMovie key={result.id} result={result} mediaType={mediaToPass} />
   }) : null
 
@@ -44,8 +44,8 @@ const SimilarMovies = ({ selectedMediaData, selectedMediaType, history }) => {
           <p className="card-info">Similar {type}</p>
         </div>
         <Carousel
-          slidesPerPage={10}
-          slidesPerScroll={1}
+          // slidesPerPage={2}
+          slidesPerScroll={2}
           animationSpeed={1500}
           autoPlay={3000}
           stopAutoPlayOnHover
@@ -53,6 +53,7 @@ const SimilarMovies = ({ selectedMediaData, selectedMediaType, history }) => {
           itemWidth={115}
           clickToChange
           left
+
           infinite
           slides={similarMovie} />
         {/* <div className='similarMedia-content'>
