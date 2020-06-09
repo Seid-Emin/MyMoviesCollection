@@ -14,26 +14,30 @@ import './Modal.css'
 
 const Modal = ({
   selectedMediaData: { id, original_title, poster_path, original_name, videos, vote_average, genres, similar, release_date, overview, first_air_date, name },
-  loading_selected, history, clicked, addMediaToFirestoreCollection }) => {
+  loading_selected, history, clicked, addMediaToFirestoreCollection, collections: { filteredCollections, collections }, updateMediaStatus }) => {
 
   const hideModal = () => {
     clicked();
   }
 
-  const addMedia = (e) => {
+  const addMedia = (e, watchStatus, collections) => {
     e.preventDefault();
-    const { value } = e.target;
-    let title = original_title;
+
     const pathName = history.location.pathname;
 
+    let title = original_title;
     let mediaType = 'movie';
     if (pathName.includes('tv')) {
       mediaType = 'tv'
       title = original_name
     }
+    addMediaToFirestoreCollection(mediaType, id, title, poster_path, watchStatus, collections);
+  }
 
-    let watchStatus = value;
-    addMediaToFirestoreCollection(mediaType, id, title, poster_path, watchStatus);
+  // handleStatus
+  const handleStatus = (e) => {
+    const { value } = e.target;
+    updateMediaStatus(id, value, collections);
   }
 
   //check video file existing in the response
@@ -54,8 +58,6 @@ const Modal = ({
   //display ganres of the media
   let modalGenres = [];
   if (genres) {
-    console.log(genres);
-
     genres.map(genre => modalGenres.push(genre.name))
   }
 
@@ -64,6 +66,13 @@ const Modal = ({
 
   //check is there any similar movies in the DB
   let similarMovies = similar && similar.total_results !== 0 ? <SimilarMovies /> : null;
+
+  // Check for existing media in collection
+  let currentMedia = collections.filter(media => media.mediaId == id);
+  console.log(currentMedia);
+
+
+
   return (
     <div className='modal-info'>
       {loading_selected ? <Spinner /> :
@@ -83,13 +92,16 @@ const Modal = ({
               </div>
               <div className='ratingAdd'>
                 <p className='card-inner-title'>Rating: <span className={ratingClasses.join(' ')}>{vote_average}</span></p>
-                <select className='select_mediaStatus' name='mediaStatus' onClick={(e) => addMedia(e)}>
-                  <option value="watching">Watching</option>
-                  <option value="completed">Completed</option>
-                  <option value="on_hold">On Hold</option>
-                  <option value="dropped">Dropped</option>
-                  <option value="plan_to_watch">Plan To Watch</option>
-                </select>
+                {!filteredCollections || !currentMedia[0] ? <p className='btn_addMedia' onClick={(e) => addMedia(e, 'watching', collections)}>Add to List</p>
+                  : <select className='select_mediaStatus' name='mediaStatus' onChange={(e) => handleStatus(e)} value={currentMedia[0].watchStatus}>
+                    <option value="watching">Watching</option>
+                    <option value="completed">Completed</option>
+                    <option value="on_hold">On Hold</option>
+                    <option value="dropped">Dropped</option>
+                    <option value="plan_to_watch">Plan To Watch</option>
+                  </select>}
+
+
               </div>
               <div className='genre'>
                 <p className='card-inner-title'>Genre: <span className="card-info">{modalGenres.join(', ')}</span></p>
@@ -112,13 +124,15 @@ const Modal = ({
 const mapStateToProps = state => {
   return {
     selectedMediaData: state.selectedMedia.selectedMedia,
-    loading_selected: state.selectedMedia.loading
+    loading_selected: state.selectedMedia.loading,
+    collections: state.collections
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    addMediaToFirestoreCollection: (selectedMediaType, id, title, poster_path, watchStatus) => dispatch(actions.addMediaToFirestoreCollection(selectedMediaType, id, title, poster_path, watchStatus))
+    addMediaToFirestoreCollection: (selectedMediaType, id, title, poster_path, watchStatus, collections) => dispatch(actions.addMediaToFirestoreCollection(selectedMediaType, id, title, poster_path, watchStatus, collections)),
+    updateMediaStatus: (id, watchStatus, collections) => dispatch(actions.updateMediaStatus(id, watchStatus, collections))
   }
 }
 

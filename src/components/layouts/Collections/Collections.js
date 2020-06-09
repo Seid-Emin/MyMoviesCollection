@@ -50,7 +50,7 @@ export class Collections extends Component {
   }
 
   render() {
-    const { mediaCollections, collections: { collections, status, type, filteredCollections } } = this.props;
+    const { collections: { collections, status, type, filteredCollections } } = this.props;
     console.log(collections);
 
     // Guard route
@@ -61,9 +61,9 @@ export class Collections extends Component {
       return <Redirect to={'/'} />;
     }
 
-    let collection = Object.keys(filteredCollections).map((media, index) => {
-      let singleMedia = filteredCollections[media];
-      return <CollectionItem key={singleMedia.mediaId} media={singleMedia} number={index} clicked={this.getSelectedMedia} />
+    let collection = filteredCollections.map((media, index) => {
+      //let singleMedia = filteredCollections[media];
+      return <CollectionItem key={media.mediaId} media={media} number={index} clicked={this.getSelectedMedia} />
     })
 
 
@@ -115,9 +115,7 @@ export class Collections extends Component {
 
 const mapStateToProps = state => {
   return {
-    mediaCollections: state.media.collections,
-    collections: state.collections,
-
+    collections: state.collections
   }
 }
 

@@ -1,5 +1,122 @@
 import * as actionTypes from './actionTypes';
 
+export const addMediaToFirestore_Start = () => {
+  return {
+    type: actionTypes.ADD_MEDIA_TO_FIRESTORE_START
+  };
+};
+
+export const addMediaToFirestor_Success = (response) => {
+  return {
+    type: actionTypes.ADD_MEDIA_TO_FIRESTORE_SUCCESS,
+    media: response
+  };
+};
+
+export const addMediaToFirestor_Fail = (error) => {
+  return {
+    type: actionTypes.ADD_MEDIA_TO_FIRESTORE_FAIL
+  };
+};
+
+export const addMediaToFirestoreCollection = (mediaType, mediaId, mediaName, posterURL, watchStatus, collections) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    dispatch(addMediaToFirestore_Start());
+
+    // Get firestore
+    const firestore = getFirestore();
+
+    // Get iud to be passed for doc creation
+    const authorId = getState().firebase.auth.uid;
+
+    // Create media info obj, for simple Collections display
+    let newMedia = {
+      watchStatus,
+      mediaType,
+      mediaId,
+      mediaName,
+      posterURL,
+      createdAt: Date.now()
+    }
+
+    // Set customID for future doc manipulations and set it to firestore
+    let customID = mediaId.toString();
+
+    // Update/Add to collection
+    collections.push(newMedia);
+    console.log(collections);
+
+
+    // Set selecte media in firestore
+    firestore.collection('users').doc(authorId)
+      .collection('mediaCollections').doc(customID).set(newMedia)
+      .then(() => {
+        dispatch(addMediaToFirestor_Success(newMedia));
+        dispatch(updateCollections(collections));
+
+      }).catch(error => {
+        dispatch(addMediaToFirestor_Fail(error))
+      });
+  }
+}
+
+// Update media Status
+export const updateMediaStatus_Start = () => {
+  return {
+    type: actionTypes.UPDATE_STATUS_START
+  };
+};
+
+export const updateMediaStatus_Success = (response) => {
+  return {
+    type: actionTypes.UPDATE_STATUS_SUCCESS,
+    media: response
+  };
+};
+
+export const updateMediaStatus_Fail = (error) => {
+  return {
+    type: actionTypes.UPDATE_STATUS_FAIL,
+    error
+  };
+};
+
+export const updateMediaStatus = (mediaId, watchStatus, collections) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    dispatch(updateMediaStatus_Start());
+
+    // Get firestore
+    const firestore = getFirestore();
+
+    // Get iud to be passed for doc creation
+    const authorId = getState().firebase.auth.uid;
+
+    // Set customID for future doc manipulations and set it to firestore
+    let customID = mediaId.toString();
+
+    // Update/Add to collection
+    console.log(collections);
+
+    let mediaIndex = collections.findIndex(media => media.mediaId == mediaId);
+    console.log(mediaIndex);
+
+    collections[mediaIndex].watchStatus = watchStatus
+    console.log(collections);
+
+
+    // Set selecte media in firestore
+    firestore.collection('users').doc(authorId)
+      .collection('mediaCollections').doc(customID).update({
+        "watchStatus": watchStatus
+      })
+      .then(() => {
+        dispatch(updateCollections(collections));
+      }).catch(error => {
+        dispatch(updateMediaStatus_Fail(error))
+      });
+  }
+}
+
 // Get collection
 export const getCollectionFromFirestore_Start = () => {
   return {
@@ -79,18 +196,6 @@ export const filterByStatus = (collections, status) => {
       let error = 'no collection here'
       dispatch(filterByStatus_Fail(error));
     }
-
-
-    // Set selecte media in firestore
-    // firestore.collection('users').doc(authorId)
-    //   .collection('mediaCollections')
-    //   .get()
-    //   .then((response) => {
-    //     const data = response.docs.map(doc => doc.data());
-    //     dispatch(filterByStatus_Success(data))
-    //   }).catch(error => {
-    //     dispatch(filterByStatus_Fail(error))
-    //   });
   }
 }
 
@@ -146,4 +251,12 @@ export const deleteMediaFromFirestore = (mediaId, collections, filteredCollectio
         dispatch(deleteMediaFromFirestore_Fail(error))
       });
   }
+}
+
+
+const updateCollections = (collections) => {
+  return {
+    type: actionTypes.UPDATE_COLLECTION,
+    collections
+  };
 }

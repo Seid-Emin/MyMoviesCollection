@@ -35,10 +35,6 @@ const Navbar = (props) => {
 
 const mapStateToProps = (state) => {
   console.log(state);
-<<<<<<< HEAD
-
-=======
->>>>>>> collections
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile

@@ -2,13 +2,49 @@ import * as actionTypes from '../actions/actionTypes';
 
 
 const initialState = {
-  collections: {},
-  filteredCollections: {},
+  collections: [],
+  filteredCollections: [],
+  media: [],
   status: 'All Media',
   type: 'all',
   loading: false,
   error: null
 }
+
+// ADD Media to Watched Collection on Firestore
+export const addMediaToFirestore_Start = (state, action) => {
+  return {
+    ...state,
+    loading: true
+  };
+};
+
+export const addMediaToFirestore_Success = (state, action) => {
+  return {
+    ...state,
+    media: action.media,
+    loading: false,
+    error: null,
+  };
+};
+
+export const addMediaToFirestore_Fail = (state, action) => {
+  return {
+    ...state,
+    error: action.error,
+    loading: false
+  };
+};
+
+// Update After ADD
+export const updateCollections = (state, action) => {
+  return {
+    ...state,
+    collections: action.collections,
+    loading: false,
+    error: null,
+  };
+};
 
 // Get Collections on Firestore
 export const getCollectionFromFirestore_Start = (state, action) => {
@@ -89,6 +125,13 @@ export const deleteMediaFromFirestore_Fail = (state, action) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    // Add Media Reducers
+    case actionTypes.ADD_MEDIA_TO_FIRESTORE_START: return addMediaToFirestore_Start(state, action);
+    case actionTypes.ADD_MEDIA_TO_FIRESTORE_SUCCESS: return addMediaToFirestore_Success(state, action);
+    case actionTypes.ADD_MEDIA_TO_FIRESTORE_FAIL: return addMediaToFirestore_Fail(state, action);
+
+    // Update after ADD
+    case actionTypes.UPDATE_COLLECTION: return updateCollections(state, action);
 
     // Get Collection
     case actionTypes.GET_MEDIA_COLLECTIONS_START: return getCollectionFromFirestore_Start(state, action);
