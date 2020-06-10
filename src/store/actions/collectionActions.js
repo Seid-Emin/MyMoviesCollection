@@ -234,7 +234,7 @@ export const deleteMediaFromFirestore = (mediaId, collections, filteredCollectio
     let updateCollections = filterExclude(collections, 'mediaId', mediaId);
 
     // Remove from filtered to prevent further issues
-    let updateFilteredCollections = filterExclude(collections, 'mediaId', mediaId);;
+    let updateFilteredCollections = filterExclude(filteredCollections, 'mediaId', mediaId);;
 
     // Set selecte media in firestore
     firestore.collection('users').doc(authorId)
