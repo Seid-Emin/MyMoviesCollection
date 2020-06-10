@@ -4,28 +4,23 @@ import { NavLink } from 'react-router-dom';
 import { withRouter } from "react-router";
 
 import * as actions from '../../../../store/actions/index';
+import { filterMatch } from '../../../helpers/filter';
 
 import TheMovieDB from '../../../../configs/ApiMovies';
 
-import './CollectionItem.css'
+import './CollectionItem.css';
+import { colorThemes } from '../../../helpers/colorThemes';
 
 const CollectionItem = ({ media: { mediaId, mediaName, mediaType, posterURL, watchStatus }, number, clicked, deleteMediaFromFirestore, collections: {
   collections, filteredCollections, status } }) => {
 
-  let statuStyle = {
-    watching: 'watching',
-    completed: 'completed',
-    on_hold: 'onHold',
-    dropped: 'dropped',
-    plan_to_watch: 'planToWatch'
-  }
-
-  let currentMedia = collections.filter(media => media.mediaId == mediaId);
+  // Get selected media userRating
+  let currentMedia = filterMatch(collections, 'mediaId', mediaId);
 
   return (
     <tbody className='list-item' >
       <tr className="list-table-data">
-        <td className={"data status " + statuStyle[watchStatus]}></td>
+        <td className={"data status " + colorThemes.statuStyle[watchStatus]}></td>
         <td className="data number">{number + 1}</td>
         <td className="data image">
           <NavLink to={`/Collections/${status}/id=${mediaId}`} className="link sort"  >
@@ -39,7 +34,7 @@ const CollectionItem = ({ media: { mediaId, mediaName, mediaType, posterURL, wat
           </div>
         </td>
         <td className="data score">
-          {currentMedia[0].userRating !== 'select' ? <span className="score-label score-na">{currentMedia[0].userRating}</span> : <span className="score-label score-na">-</span>}
+          {currentMedia[0].userRating !== 'select' && currentMedia[0].userRating ? <span className="score-label score-na">{currentMedia[0].userRating}</span> : <span className="score-label score-na">-</span>}
         </td>
         <td className="data type">{mediaType}</td>
       </tr>

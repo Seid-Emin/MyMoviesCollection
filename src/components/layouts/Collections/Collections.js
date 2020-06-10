@@ -34,9 +34,16 @@ export class Collections extends Component {
     showSelected();
   }
 
-  filterByStatus = (collections, status) => {
-    const { filterByStatus } = this.props;
-    filterByStatus(collections, status);
+  filterByStatus = (e, collections) => {
+    const { filterStatusAndType, collections: { status, type } } = this.props;
+    const { name, value } = e.target;
+    // Check status nav clicked or option selected
+    if (value) {
+      filterStatusAndType(status, collections, value);
+    } else {
+      filterStatusAndType(name, collections, type);
+    }
+
   }
 
   filterByType = (e) => {
@@ -48,7 +55,8 @@ export class Collections extends Component {
 
   render() {
     const { collections: { collections, status, type, filteredCollections } } = this.props;
-    console.log(status);
+    console.log(type);
+
 
     // Guard route
     // If initial filteredCollections is undefined
@@ -70,12 +78,42 @@ export class Collections extends Component {
       <div className="collection-container">
         <div className="collection-status">
           <div className='collection-nav'>
-            <NavLink to='/Collections/all_media' className="collection-navlink" activeClassName='activeNavLinks-collection' onClick={() => this.filterByStatus(collections, 'all_media')}>All Media</NavLink>
-            <NavLink to='/Collections/currently_watching' className="collection-navlink" activeClassName='activeNavLinks-collection' onClick={() => this.filterByStatus(collections, 'watching')} >Currently Watching</NavLink>
-            <NavLink to='/Collections/completed' className="collection-navlink" activeClassName='activeNavLinks-collection' onClick={() => this.filterByStatus(collections, 'completed')}>Completed</NavLink>
-            <NavLink to='/Collections/on_hold' className="collection-navlink" activeClassName='activeNavLinks-collection' onClick={() => this.filterByStatus(collections, 'on_hold')}>On Hold</NavLink>
-            <NavLink to='/Collections/dropped' className="collection-navlink" activeClassName='activeNavLinks-collection' onClick={() => this.filterByStatus(collections, 'dropped')}>Dropped</NavLink>
-            <NavLink to='/Collections/plan_to_watch' className="collection-navlink" activeClassName='activeNavLinks-collection' onClick={() => this.filterByStatus(collections, 'plan_to_watch')}>Plan to Watch</NavLink>
+            <NavLink
+              to='/Collections/all_media'
+              className="collection-navlink"
+              activeClassName='activeNavLinks-collection'
+              name='all_media'
+              onClick={(e) => this.filterByStatus(e, collections)}>All Media</NavLink>
+            <NavLink
+              to='/Collections/currently_watching'
+              className="collection-navlink"
+              activeClassName='activeNavLinks-collection'
+              name='watching'
+              onClick={(e) => this.filterByStatus(e, collections)} >Currently Watching</NavLink>
+            <NavLink
+              to='/Collections/completed'
+              className="collection-navlink"
+              activeClassName='activeNavLinks-collection'
+              name='completed'
+              onClick={(e) => this.filterByStatus(e, collections)}>Completed</NavLink>
+            <NavLink
+              to='/Collections/on_hold'
+              className="collection-navlink"
+              activeClassName='activeNavLinks-collection'
+              name='on_hold'
+              onClick={(e) => this.filterByStatus(e, collections)}>On Hold</NavLink>
+            <NavLink
+              to='/Collections/dropped'
+              className="collection-navlink"
+              activeClassName='activeNavLinks-collection'
+              name='dropped'
+              onClick={(e) => this.filterByStatus(e, collections)}>Dropped</NavLink>
+            <NavLink
+              to='/Collections/plan_to_watch'
+              className="collection-navlink"
+              activeClassName='activeNavLinks-collection'
+              name='plan_to_watch'
+              onClick={(e) => this.filterByStatus(e, collections)}>Plan to Watch</NavLink>
           </div>
         </div>
         <div className="collection-list">
@@ -91,9 +129,10 @@ export class Collections extends Component {
                   <th className="header-title score">Score</th>
                   <th className="header-title type">
                     <select
+                      name="mediaType-filter"
                       className='list-type-select'
-                      name="list-type"
-                      onClick={(e) => this.filterByType(e)}>
+                      name="mediaType"
+                      onChange={(e) => this.filterByStatus(e, collections)}>
                       <option value="all">All</option>
                       <option value="movie">Movie</option>
                       <option value="tv">Tv</option>
@@ -124,7 +163,7 @@ const mapDispatchToProps = dispatch => {
     selectedMediaType: (type) => dispatch(actions.selectedMediaType(type)),
     showSelected: () => dispatch(actions.showSelected()),
     getCollectionFromFirestore: () => dispatch(actions.getCollectionFromFirestore()),
-    filterByStatus: (collections, status) => dispatch(actions.filterByStatus(collections, status))
+    filterStatusAndType: (status, collections, type) => dispatch(actions.filterStatusAndType(status, collections, type))
   }
 }
 

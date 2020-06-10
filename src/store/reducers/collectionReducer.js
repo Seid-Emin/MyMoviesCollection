@@ -73,24 +73,25 @@ export const getCollectionFromFirestore_Fail = (state, action) => {
 };
 
 // Filter by status Collections on Firestore
-export const filterByStatus_Start = (state, action) => {
+export const filterStatusAndType_Start = (state, action) => {
   return {
     ...state,
     loading: true
   };
 };
 
-export const filterByStatus_Success = (state, action) => {
+export const filterStatusAndType_Success = (state, action) => {
   return {
     ...state,
     filteredCollections: action.filterByStatus,
     status: action.status,
+    type: action.mediaType,
     loading: false,
     error: null
   };
 };
 
-export const filterByStatus_Fail = (state, action) => {
+export const filterStatusAndType_Fail = (state, action) => {
   return {
     ...state,
     error: action.error,
@@ -139,10 +140,10 @@ const reducer = (state = initialState, action) => {
     case actionTypes.GET_MEDIA_COLLECTIONS_SUCCESS: return getCollectionFromFirestore_Success(state, action);
     case actionTypes.GET_MEDIA_COLLECTIONS_FAIL: return getCollectionFromFirestore_Fail(state, action);
 
-    // Filter By Status Collection
-    case actionTypes.FILTER_BY_STATUS_START: return filterByStatus_Start(state, action);
-    case actionTypes.FILTER_BY_STATUS_SUCCESS: return filterByStatus_Success(state, action);
-    case actionTypes.FILTER_BY_STATUS_FAIL: return filterByStatus_Fail(state, action);
+    // Filter By Status and Type Collection
+    case actionTypes.FILTER_BY_STATUS_AND_TYPE_START: return filterStatusAndType_Start(state, action);
+    case actionTypes.FILTER_BY_STATUS_AND_TYPE_SUCCESS: return filterStatusAndType_Success(state, action);
+    case actionTypes.FILTER_BY_STATUS_AND_TYPE_FAIL: return filterStatusAndType_Fail(state, action);
 
     // Delete Collection
     case actionTypes.DELETE_MEDIA_START: return deleteMediaFromFirestore_Start(state, action);

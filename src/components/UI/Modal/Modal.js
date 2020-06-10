@@ -4,13 +4,15 @@ import { withRouter } from "react-router";
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 import * as actions from '../../../store/actions/index';
+import { filterMatch } from '../../helpers/filter';
 
 import MovieDB from '../../../configs/ApiMovies';
 import Video from './Video/Video';
 import Spinner from '../Spinner/Spinner';
 import SimilarMovies from './SimilarMovies/SimilarMovies';
 
-import './Modal.css'
+import './Modal.css';
+import { colorThemes } from '../../helpers/colorThemes';
 
 const Modal = ({
   selectedMediaData: { id, original_title, poster_path, original_name, videos, vote_average, genres, similar, release_date, overview, first_air_date, name, popularity, vote_count },
@@ -68,30 +70,7 @@ const Modal = ({
   let similarMovies = similar && similar.total_results !== 0 ? <SimilarMovies /> : null;
 
   // Check for existing media in collection
-  let currentMedia = collections.filter(media => media.mediaId == id);
-
-  // ColotThemes accorting to user watch_status and rating
-  let colorThemes = {
-    watchStatus: {
-      watching: 'status_watching',
-      completed: 'status_completed',
-      on_hold: 'status_onHold',
-      dropped: 'status_dropped',
-      plan_to_watch: 'status_planToWatch'
-    },
-    userRating: {
-      10: 'rating_masterpiece',
-      9: 'rating_great',
-      8: 'rating_veryGood',
-      7: 'rating_good',
-      6: 'rating_fine',
-      5: 'rating_average',
-      4: 'rating_bad',
-      3: 'rating_veryBad',
-      2: 'rating_Horrible',
-      1: 'rating_appalling'
-    }
-  }
+  let currentMedia = filterMatch(collections, 'mediaId', id);
 
   return (
     <div className='modal-info'>

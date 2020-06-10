@@ -6,7 +6,7 @@ import SimilarMovie from './SimilarMovie/SimilarMovie';
 
 import './SimilarMovies.css'
 
-import Carousel, { Dots } from '@brainhubeu/react-carousel';
+import Carousel from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
 
 const SimilarMovies = ({ selectedMediaData, selectedMediaType, history }) => {
@@ -18,7 +18,7 @@ const SimilarMovies = ({ selectedMediaData, selectedMediaType, history }) => {
     mediaType = 'tv'
   }
   // Check is there any mediaType selected or URL is pasted
-  let mediaToPass = selectedMediaType == '' ? mediaType : selectedMediaType
+  let mediaToPass = selectedMediaType === '' ? mediaType : selectedMediaType
 
   //display similar movies
   // let fewSimilarMovies = selectedMediaData.similar ? selectedMediaData.similar.results.splice(0, 10) : null;
@@ -29,14 +29,6 @@ const SimilarMovies = ({ selectedMediaData, selectedMediaType, history }) => {
   //display similar media type
   let type = selectedMediaType === 'movie' ? 'movies' : 'tv series';
 
-  // Slick carousel settings
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 1
-  };
   return (
     <div className='similarMedia'>
       <div className='similarMedia-wrapper'>
@@ -53,7 +45,6 @@ const SimilarMovies = ({ selectedMediaData, selectedMediaType, history }) => {
           itemWidth={115}
           clickToChange
           left
-
           infinite
           slides={similarMovie} />
         {/* <div className='similarMedia-content'>

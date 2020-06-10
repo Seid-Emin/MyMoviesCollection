@@ -1,4 +1,5 @@
 import * as actionTypes from './actionTypes';
+import { filterSellection, filterMatch, filterExclude } from '../../components/helpers/filter';
 
 export const addMediaToFirestore_Start = () => {
   return {
@@ -96,7 +97,7 @@ export const updateMediaStatus = (mediaId, watchStatus, name, collections) => {
     let customID = mediaId.toString();
 
     // Update/Add to collection
-    let mediaIndex = collections.findIndex(media => media.mediaId == mediaId);
+    let mediaIndex = collections.findIndex(media => media.mediaId === mediaId);
     collections[mediaIndex][name] = watchStatus;
 
 
@@ -157,41 +158,39 @@ export const getCollectionFromFirestore = () => {
   }
 }
 
-// Get collection
-export const filterByStatus_Start = () => {
+// Display picked/filtered by Status collection
+export const filterStatusAndType_Start = () => {
   return {
-    type: actionTypes.FILTER_BY_STATUS_START
+    type: actionTypes.FILTER_BY_STATUS_AND_TYPE_START
   };
 };
 
-export const filterByStatus_Success = (updateCollections, status) => {
+export const filterStatusAndType_Success = (updateCollections, status, type) => {
   return {
-    type: actionTypes.FILTER_BY_STATUS_SUCCESS,
+    type: actionTypes.FILTER_BY_STATUS_AND_TYPE_SUCCESS,
     filterByStatus: updateCollections,
-    status: status
+    status,
+    mediaType: type
   };
 };
 
-export const filterByStatus_Fail = (error) => {
+export const filterStatusAndType_Fail = (error) => {
   return {
-    type: actionTypes.FILTER_BY_STATUS_FAIL,
+    type: actionTypes.FILTER_BY_STATUS_AND_TYPE_FAIL,
     error
   };
 };
 
-export const filterByStatus = (collections, status) => {
+export const filterStatusAndType = (status, collections, type) => {
   return (dispatch) => {
     if (collections) {
-      dispatch(filterByStatus_Start());
-      if (status !== 'all_media') {
-        let updateCollections = collections.filter(media => media.watchStatus == status);
-        dispatch(filterByStatus_Success(updateCollections, status));
-      } else {
-        dispatch(filterByStatus_Success(collections, status));
-      }
+      dispatch(filterStatusAndType_Start());
+
+      let updateCollections = filterSellection(collections, 'watchStatus', status, 'mediaType', type);
+      dispatch(filterStatusAndType_Success(updateCollections, status, type));
     } else {
       let error = 'no collection here'
-      dispatch(filterByStatus_Fail(error));
+      dispatch(filterStatusAndType_Fail(error));
     }
   }
 }
@@ -232,10 +231,10 @@ export const deleteMediaFromFirestore = (mediaId, collections, filteredCollectio
     const deleteMediaId = mediaId.toString();
 
     // Remove from stored collections
-    let updateCollections = collections.filter(media => media.mediaId !== mediaId);
+    let updateCollections = filterExclude(collections, 'mediaId', mediaId);
 
     // Remove from filtered to prevent further issues
-    let updateFilteredCollections = filteredCollections.filter(media => media.mediaId !== mediaId);
+    let updateFilteredCollections = filterExclude(collections, 'mediaId', mediaId);;
 
     // Set selecte media in firestore
     firestore.collection('users').doc(authorId)
