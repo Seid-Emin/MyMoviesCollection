@@ -38,11 +38,12 @@ nav .input-field label i {
 }
 
 .nav-wrapper .input-field input[type=search] {
-  height      : inherit;
-  padding-left: 0;
-  border      : 0;
-  margin      : 0;
-  width       : 100%;
+  height       : inherit;
+  padding-left : 10px;
+  border-radius: 5px;
+  border       : 0;
+  margin       : 0;
+  width        : 100%;
 }
 
 .input-field input[type=search]+.label-icon {

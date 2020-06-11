@@ -78,7 +78,7 @@ class Content extends Component {
       : null;
 
     return (
-      <div className='content-grid'>
+      <div className='content-grid layout'>
         <Categories />
 
         <Switch>

@@ -1,24 +1,47 @@
 .movie-grid-item {
-  width: 100%;
-  height: -webkit-fill-available;
+  width : 100%;
+  height: 100%;
 }
 
 .item-wrapper {
-  padding: 5px;
-  width: 100%;
+  padding         : 5px;
+  width           : 100%;
+  height          : inherit;
   background-color: whitesmoke;
-  display: grid;
-  grid-template-rows: auto 70px 35px;
-  max-height: 40%;
 }
 
+.item-image-container {
+  position: relative;
+  height  : inherit;
+}
 
+.item-image-container .card-title {
+  background-image      : url(../../../../assets/images/card/image_box_shadow_bottom.png);
+  background-position   : left bottom;
+  background-repeat     : no-repeat;
+  background-size       : 100% 100%;
+  bottom                : 0;
+  color                 : #fff;
+  display               : inline-block;
+  font-family           : Avenir, lucida grande, tahoma, verdana, arial, sans-serif;
+  font-size             : 11px;
+  left                  : 0;
+  line-height           : 1.2em;
+  padding               : 15px 5px 5px;
+  /* width              : calc(100% - 5px - 5px); */
+  width                 : 100%;
+  position              : absolute;
+  text-shadow           : rgba(0, 0, 0, .8) 1px 1px 0
+}
 
-.item-image {
-  width: 100%;
-  min-height: 400px;
-  height: 100%;
-  cursor: pointer;
+.card-link {
+  height: inherit;
+}
+
+.singleImg {
+  background-size  : cover;
+  background-repeat: no-repeat;
+  height           : inherit;
 }
 
 @media (max-width:300px) {
@@ -31,16 +54,16 @@
   }
 
   .modal-trigger {
-    width: 50px;
-    height: 30px;
-    font-size: 10px;
-    padding: 0;
+    width      : 50px;
+    height     : 30px;
+    font-size  : 10px;
+    padding    : 0;
     line-height: 0;
-    margin-top: 5px;
+    margin-top : 5px;
   }
 }
 
-@media (max-width:1550px) {
+/* @media (max-width:1550px) {
   .item-image {
     min-height: 340px;
     max-height: 400px;
@@ -81,7 +104,7 @@
     min-height: 220px;
     max-height: 310px;
   }
-}
+} */
 
 .card-imagePoster img {
   width: 100%;

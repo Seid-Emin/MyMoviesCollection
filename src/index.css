@@ -8,6 +8,7 @@
   --color-textTitle          : #fff;
   --color-textTitleBG        : #2196F3;
   --color-textInner          : #e0e0e0;
+  --color-textHover          : #e0e0e0;
   --color-statusTitle        : #444444;
   --color-tableHeaderBG      : #333;
   --color-statusAll          : var(--color-statusTitle);
@@ -73,4 +74,8 @@ code {
   margin   : 0 auto;
   padding  : 0 15px;
   max-width: 1250px;
+}
+
+.layoutMB {
+  margin-bottom: 30px;
 }

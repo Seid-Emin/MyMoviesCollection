@@ -9,7 +9,7 @@ import { filterMatch } from '../../../helpers/filter';
 import TheMovieDB from '../../../../configs/ApiMovies';
 
 import './CollectionItem.css';
-import { colorThemes } from '../../../helpers/colorThemes';
+import { colorThemes } from '../../../UI/Styles/colorThemes';
 
 const CollectionItem = ({ media: { mediaId, mediaName, mediaType, posterURL, watchStatus }, number, clicked, deleteMediaFromFirestore, collections: {
   collections, filteredCollections, status } }) => {

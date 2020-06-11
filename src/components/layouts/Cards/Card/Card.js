@@ -5,36 +5,28 @@ import { withRouter } from "react-router";
 import TheMovieDB from '../../../../configs/ApiMovies';
 
 import * as actions from '../../../../store/actions/index';
-import { singleMedia } from '../../../helpers/silgleMedia';
 
 import './Card.css';
 
-class Card extends Component {
-  getSelectedVideo = (e) => {
-    singleMedia(this.props, e);
-  }
-  render() {
-    const media = this.props.result.media_type ? this.props.result.media_type : this.props.filteredMediaType;
-    const { result, filterType, currentPage } = this.props;
-    return (
-      <div className="movie-grid-item">
-        <div className="item-wrapper">
-          <div className='item-image' onClick={this.getSelectedVideo}>
-            <div className="card-imagePoster">
-              <Link to={`/${media}/${filterType}/page=${currentPage}/id=${result.id}`}>
-                <img src={TheMovieDB.API_Img + result.poster_path} alt={result.original_name} />
-              </Link>
-            </div>
-          </div>
-          <span className="card-title">{result.name ? result.name : result.original_name || result.title}</span>
-          <div className="card-action">
-            <button className="blue darken-4 waves-effect waves-light btn modal-trigger" onClick={this.getSelectedVideo}><Link to={`/${media}/id=${result.id}`}>Info</Link></button>
-          </div>
+const Card = (
+  { result: { name, id, media_type, title, original_name, poster_path },
+    filterType, currentPage, filteredMediaType, fetchSelected, selectedMediaType, showSelected, singleMedia }) => {
 
+  // Check the state - searching or fetching data
+  const media = media_type ? media_type : filteredMediaType;
+
+  return (
+    <div className="movie-grid-item">
+      <div className="item-wrapper">
+        <div className='item-image-container' onClick={() => singleMedia(media, id, fetchSelected, selectedMediaType, showSelected)}>
+          <Link to={`/${media}/${filterType}/page=${currentPage}/id=${id}`} className='card-link'>
+            <span className="card-title">{name ? name : original_name || title}</span>
+            <div className='singleImg' style={{ backgroundImage: "url(" + TheMovieDB.API_Img + poster_path + ")" }} ></div>
+          </Link>
         </div>
       </div>
-    )
-  }
+    </div>
+  )
 }
 const mapStateToProps = state => {
   return {

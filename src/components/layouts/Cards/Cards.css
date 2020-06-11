@@ -1,0 +1,57 @@
+.card-container-grid {
+  display: grid;
+  gap    : 30px;
+}
+
+.cards-title-info-container {
+  display        : flex;
+  width          : 100%;
+  padding        : 0 15px;
+  justify-content: space-between;
+}
+
+.movie-grid {
+  position             : relative;
+  display              : grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows   : 33vw;
+  grid-template-rows   : 1fr;
+  grid-column-gap      : 15px;
+  grid-row-gap         : 15px;
+  align-self           : stretch;
+}
+
+.currentyLoadedMedia {
+  color : var(--color-textTitle);
+  margin: 0;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+@media only screen and (max-width:1550px) {
+  .movie-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media only screen and (max-width:1025px) {
+  .movie-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media only screen and (max-width:961px) {
+  .movie-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows   : 33vw;
+    grid-auto-rows       : 33vw;
+  }
+}
+
+@media (max-width:641px) {
+  .movie-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

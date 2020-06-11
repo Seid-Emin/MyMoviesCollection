@@ -12,7 +12,7 @@ import Spinner from '../Spinner/Spinner';
 import SimilarMovies from './SimilarMovies/SimilarMovies';
 
 import './Modal.css';
-import { colorThemes } from '../../helpers/colorThemes';
+import { colorThemes } from '../Styles/colorThemes';
 
 const Modal = ({
   selectedMediaData: { id, original_title, poster_path, original_name, videos, vote_average, genres, similar, release_date, overview, first_air_date, name, popularity, vote_count },

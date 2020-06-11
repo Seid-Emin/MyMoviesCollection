@@ -19,7 +19,7 @@ const Navbar = (props) => {
 
   return (
     <React.Fragment>
-      <nav className='blue darken-4'>
+      <nav className='blue darken-4 layoutMB'>
         <div className="nav-wrapper layout">
           <NavLink to='/' className="brand-logo material-icons center MovieIcon">movie</NavLink>
           <div className="nav-right-links">

@@ -1,110 +1,25 @@
 .content-grid {
-  display: grid;
+  display              : grid;
   grid-template-columns: 150px 1fr;
-  grid-column-gap: 15px;
-  grid-row-gap: 15px;
-  margin: 10px 20px 0 5px
+  grid-column-gap      : 15px;
+  grid-row-gap         : 15px;
 }
 
 .content-wrap:hover {
-  background-color: #e0e0e0;
-}
-
-.movie-grid {
-  position: relative;
-  display: grid;
-  grid-template-columns: 15.5% 15.5% 15.5% 15.5% 15.5% 15.5%;
-  grid-column-gap: 15px;
-  grid-row-gap: 15px;
-  align-self: stretch;
-  margin-bottom: 35px;
-  margin-top: 40px;
-}
-
-.currentyLoadedMedia {
-  margin-top: 0;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-100%, -200%);
-  color: #ffffff;
-}
-
-.paginate {
-  position: absolute;
-  top: 0;
-  right: 0;
-  transform: translate(0, -250%);
-  cursor: pointer;
-  display: flex;
-}
-
-.paginateBottom {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  transform: translate(0, 200%);
-  cursor: pointer;
-  display: flex;
-}
-
-.paginateA {
-  color: #e0e0e0;
-}
-
-.paginateLi {
-  padding: 0 3px;
-}
-
-.paginateActiveA, .paginateA:hover {
-  color: #039be5;
-}
-
-.uppercase {
-  text-transform: uppercase;
+  background-color: var(--color-textHover);
 }
 
 .noResults {
-  position: absolute;
-  top: 0;
-  left: 50%;
+  position : absolute;
+  top      : 0;
+  left     : 50%;
   transform: translate(-50%, -50%);
-  color: #ec407a;
-}
-
-@media only screen and (max-width:1550px) {
-  .movie-grid {
-    grid-template-columns: 19% 19% 19% 19% 19%;
-  }
-}
-
-@media only screen and (max-width:1025px) {
-  .movie-grid {
-    grid-template-columns: 24% 24% 24% 24%;
-  }
-}
-
-@media only screen and (max-width:961px) {
-  .movie-grid {
-    grid-template-columns: 32.5% 32.5% 32.5%;
-  }
-}
-
-/* @media (max-width:801px) {
-  .movie-grid {
-    grid-template-columns: 31% 31% 31%;
-  }
-} */
-
-@media (max-width:641px) {
-  .movie-grid {
-    grid-template-columns: 49% 49%;
-  }
+  color    : #ec407a;
 }
 
 @media only screen and (max-width:481px) {
   .content-grid {
     grid-template-columns: 1fr;
-    margin: 0 10px 0 15px;
+    margin               : 0 10px 0 15px;
   }
 }
