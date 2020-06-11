@@ -14,10 +14,9 @@
   position             : relative;
   display              : grid;
   grid-template-columns: repeat(6, 1fr);
-  grid-template-rows   : 33vw;
-  grid-template-rows   : 1fr;
-  grid-column-gap      : 15px;
-  grid-row-gap         : 15px;
+  grid-template-rows   : 15vw;
+  grid-auto-rows       : 15vw;
+  gap                  : 15px;
   align-self           : stretch;
 }
 
