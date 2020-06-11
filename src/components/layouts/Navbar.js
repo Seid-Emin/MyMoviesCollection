@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import SignedInLinks from './SignedInLinks';
 import SignedOutLinks from './SignedOutLinks';
+import Search from '../UI/Search/Search';
 
 import * as actions from '../../store/actions/index';
 
@@ -19,14 +20,18 @@ const Navbar = (props) => {
   return (
     <React.Fragment>
       <nav className='blue darken-4'>
-        <div className="nav-wrapper">
+        <div className="nav-wrapper layout">
           <NavLink to='/' className="brand-logo material-icons center MovieIcon">movie</NavLink>
-          <ul id="nav-mobile" className="right">
-            <li><NavLink to={collectionPath} activeClassName='activeNavLinks'>Collections</NavLink></li>
-            {links}
-          </ul>
-
-
+          <div className="nav-right-links">
+            <Search />
+            <ul
+              id="nav-mobile"
+            // className="right"
+            >
+              <li><NavLink to={collectionPath} activeClassName='activeNavLinks'>Collections</NavLink></li>
+              {links}
+            </ul>
+          </div>
         </div>
       </nav>
     </React.Fragment>

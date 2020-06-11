@@ -1,14 +1,39 @@
 .MovieIcon {
-  line-height: inherit;
-  margin: 0 15px;
+  line-height   : inherit;
+  /* margin     : 0 15px; */
 }
 
-nav ul {
+nav .nav-wrapper {
+  display        : flex;
+  justify-content: space-between;
+}
+
+/* nav ul {
   padding: 0 15px;
+} */
+
+/* nav ul li:first-child a {
+  padding: 0 15px;
+} */
+
+.nav-right-links {
+  display        : flex;
+  justify-content: flex-end;
+  align-items    : center;
+}
+
+ul#nav-mobile {
+  min-width      : fit-content;
+  display        : flex;
+  justify-content: flex-end;
+}
+
+#nav-mobile li:last-child a {
+  margin-right: 0;
 }
 
 .tabs {
-  display: flex;
+  display        : flex;
   justify-content: space-around;
 }
 
@@ -16,8 +41,22 @@ nav ul {
   background-color: #0c4091;
 }
 
+nav .brand-logo {
+  position: relative;
+}
+
+nav .brand-logo.center {
+  left     : 0;
+  transform: translateX(0);
+}
+
 @media only screen and (max-width: 992px) {
-  nav .brand-logo.center {
-    left: 15px;
+  nav .brand-logo {
+    left     : 0;
+    transform: translateX(0);
   }
+
+  /* nav .brand-logo.center {
+    left: 15px;
+  } */
 }

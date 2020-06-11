@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router";
 
-import * as actions from '../../../store/actions/index'
+import * as actions from '../../../store/actions/index';
 
-import './Search.css'
+import './Search.css';
 
 
 class Search extends Component {
@@ -33,7 +33,7 @@ class Search extends Component {
             <div className="input-field">
               <input onKeyDown={this._handleSearch} id="search" type="search" required />
               <label className="label-icon" htmlFor="search"> <Link to={'/search=' + this.props.search} ><i className="material-icons">search</i></Link></label>
-              <i className="material-icons">close</i>
+
             </div>
           </form>
         </div>

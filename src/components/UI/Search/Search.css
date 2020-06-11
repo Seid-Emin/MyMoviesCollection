@@ -1,15 +1,67 @@
+nav.searchField {
+  background   : var(--color-textInner);
+  border-radius: 5px;
+  width        : -webkit-fill-available;
+  margin-right : 15px;
+}
+
 .searchField {
-  height: 40px;
+  height          : 50%;
   background-color: inherit;
-  box-shadow: none;
+  box-shadow      : none;
 }
 
 nav .label-icon {
-  height: 40px;
+  height     : 40px;
   line-height: 40px;
 }
 
 div .searchField i {
-  height: 40px;
-  line-height: 40px;
+  height     : 100%;
+  line-height: initial;
+  transform  : translateY(11%);
+}
+
+nav .input-field label i {
+  color: var(--color-horLine);
+}
+
+
+.nav-wrapper form {
+  display: flex;
+  width  : 100%;
+}
+
+.nav-wrapper form .input-field {
+  display: flex;
+  width  : 100%;
+}
+
+.nav-wrapper .input-field input[type=search] {
+  height      : inherit;
+  padding-left: 0;
+  border      : 0;
+  margin      : 0;
+  width       : 100%;
+}
+
+.input-field input[type=search]+.label-icon {
+  -webkit-transform: none;
+  transform        : none;
+  right            : 0;
+  left             : 0;
+  margin           : 0 10px;
+}
+
+label.label-icon {
+  height: 100%;
+}
+
+.input-field>label {
+  position: relative;
+}
+
+
+nav a {
+  color: #fff;
 }
