@@ -15,6 +15,7 @@ import { colorThemes } from '../Styles/colorThemes';
 import Video from './Video/Video';
 import Spinner from '../Spinner/Spinner';
 import SimilarMovies from './SimilarMovies/SimilarMovies';
+import Select from '../Select/Select';
 
 
 class Modal extends Component {
@@ -108,6 +109,7 @@ class Modal extends Component {
     let findInCollection = filterMatch(collections, 'mediaId', id);
     let isMediaInCollection = findInCollection[0];
 
+    // const {watchStatus, userRating} = isMediaInCollection
     return (
       <div className='modal-info'>
         {loading_selected ? <Spinner /> :
@@ -133,42 +135,25 @@ class Modal extends Component {
                     :
                     <>
                       {/* Status of media */}
-                      <select
-                        name='watchStatus'
-                        className={'select_mediaStatus ' + colorThemes.watchStatus[isMediaInCollection.watchStatus]}
-                        onChange={(e) => this.handleStatusAndRating(e)}
-                        value={isMediaInCollection.watchStatus}>
-                        <option value="watching">Watching</option>
-                        <option value="completed">Completed</option>
-                        <option value="on_hold">On Hold</option>
-                        <option value="dropped">Dropped</option>
-                        <option value="plan_to_watch">Plan To Watch</option>
-                      </select>
+                      <Select
+                        selectName='watchStatus'
+                        selectClass={`select_mediaStatus ${colorThemes.watchStatus[isMediaInCollection.watchStatus]}`}
+                        value={isMediaInCollection.watchStatus}
+                        handler={this.handleStatusAndRating}
+                      />
                       {/* User Rating given to media */}
-                      <select
-                        name='userRating'
-                        className={'user-score ' + colorThemes.userRating[isMediaInCollection.userRating]}
+                      <Select
+                        selectName='userRating'
+                        selectClass={`user-score ${colorThemes.userRating[isMediaInCollection.userRating]}`}
                         value={isMediaInCollection.userRating}
-                        onChange={(e) => this.handleStatusAndRating(e)}>
-                        <option value="select">Select</option>
-                        <option value="10">(10) Masterpiece</option>
-                        <option value="9">(9) Great</option>
-                        <option value="8">(8) Very Good</option>
-                        <option value="7">(7) Good</option>
-                        <option value="6">(6) Fine</option>
-                        <option value="5">(5) Average</option>
-                        <option value="4">(4) Bad</option>
-                        <option value="3">(3) Very Bad</option>
-                        <option value="2">(2) Horrible</option>
-                        <option value="1">(1) Appalling</option>
-                      </select>
+                        order={false}
+                        handler={this.handleStatusAndRating}
+                      />
                       {/* delete media */}
                       <div className="delete-media">
                         <span className="material-icons" onClick={() => deleteMediaFromFirestore(id, collections, filteredCollections)}>delete</span>
                       </div>
                     </>}
-
-
                 </div>
                 {/* Actions for Collection Create/Update/Delete - end */}
                 <div className='ratingAdd'>

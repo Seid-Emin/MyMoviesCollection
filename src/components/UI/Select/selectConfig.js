@@ -1,7 +1,6 @@
 export const selectConfig = {
   watchStatus: {
     name: 'watchStatus',
-    className: 'select_mediaStatus',
     options: {
       watching: 'watching',
       completed: 'completed',
@@ -12,8 +11,8 @@ export const selectConfig = {
   },
   userRating: {
     name: 'userRating',
-    className: 'user-score',
     options: {
+      select: 'select',
       10: '(10) Masterpiece',
       9: '(9) Great',
       8: '(8) Very Good',
