@@ -54,9 +54,7 @@ export class Collections extends Component {
   }
 
   render() {
-    const { collections: { collections, status, type, filteredCollections } } = this.props;
-    console.log(type);
-
+    const { collections: { collections, status, type, filteredCollections }, fetchSelected, selectedMediaType, showSelected, deleteMediaFromFirestore } = this.props;
 
     // Guard route
     // If initial filteredCollections is undefined
@@ -67,12 +65,8 @@ export class Collections extends Component {
     }
 
     let collection = filteredCollections.map((media, index) => {
-      //let singleMedia = filteredCollections[media];
-      return <CollectionItem key={media.mediaId} media={media} number={index} clicked={this.getSelectedMedia} />
+      return <CollectionItem key={media.mediaId} media={media} number={index} singleMedia={singleMedia} actions={this.props} />
     })
-
-
-
 
     return (
       <div className="collection-container">
@@ -162,6 +156,7 @@ const mapDispatchToProps = dispatch => {
     fetchSelected: (id, mediaType) => dispatch(actions.fetchSelected(id, mediaType)),
     selectedMediaType: (type) => dispatch(actions.selectedMediaType(type)),
     showSelected: () => dispatch(actions.showSelected()),
+    deleteMediaFromFirestore: (mediaId, collections, filteredCollections) => dispatch(actions.deleteMediaFromFirestore(mediaId, collections, filteredCollections)),
     getCollectionFromFirestore: () => dispatch(actions.getCollectionFromFirestore()),
     filterStatusAndType: (status, collections, type) => dispatch(actions.filterStatusAndType(status, collections, type))
   }
