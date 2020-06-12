@@ -84,7 +84,7 @@ export const updateMediaStatus_Fail = (error) => {
   };
 };
 
-export const updateMediaStatus = (status, mediaId, watchStatus, name, type, collections, filteredCollections) => {
+export const updateMediaStatus = (status, mediaId, watchStatus, name, type, collections) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     dispatch(updateMediaStatus_Start());
 

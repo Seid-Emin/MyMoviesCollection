@@ -33,7 +33,7 @@ const Modal = ({
   // Handle Status And Rating
   const handleStatusAndRating = (e) => {
     const { value, name } = e.target;
-    updateMediaStatus(status, id, value, name, type, collections, filteredCollections);
+    updateMediaStatus(status, id, value, name, type, collections);
   }
 
   //check video file existing in the response
@@ -165,7 +165,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     addMediaToFirestoreCollection: (userRating, selectedMediaType, id, title, poster_path, watchStatus, collections, filteredCollections) => dispatch(actions.addMediaToFirestoreCollection(userRating, selectedMediaType, id, title, poster_path, watchStatus, collections, filteredCollections)),
-    updateMediaStatus: (status, id, watchStatus, name, type, collections, filteredCollections) => dispatch(actions.updateMediaStatus(status, id, watchStatus, name, type, collections, filteredCollections)),
+    updateMediaStatus: (status, id, watchStatus, name, type, collections) => dispatch(actions.updateMediaStatus(status, id, watchStatus, name, type, collections)),
     deleteMediaFromFirestore: (mediaId, collections, filteredCollections) => dispatch(actions.deleteMediaFromFirestore(mediaId, collections, filteredCollections))
   }
 }
