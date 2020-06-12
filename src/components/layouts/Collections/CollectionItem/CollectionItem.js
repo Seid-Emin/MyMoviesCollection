@@ -9,7 +9,7 @@ import TheMovieDB from '../../../../configs/ApiMovies';
 
 const CollectionItem = ({
   media: { mediaId, mediaName, mediaType, posterURL, watchStatus, userRating },
-  fetchSelected, selectedMediaType, showSelected, deleteMediaFromFirestore, collections, filteredCollections, status, number, singleMedia }) => {
+  fetchSelected, selectedMediaType, showModal, deleteMediaFromFirestore, collections, filteredCollections, status, number, singleMedia }) => {
 
   return (
     <tbody className='list-item' >
@@ -18,11 +18,11 @@ const CollectionItem = ({
         <td className="data number">{number + 1}</td>
         <td className="data image">
           <Link to={`/Collections/${status}/id=${mediaId}`} className="link sort"  >
-            <img src={TheMovieDB.API_Img + posterURL} alt={mediaName + ' image'} className="hover-info image" onClick={() => singleMedia(mediaType, mediaId, fetchSelected, selectedMediaType, showSelected)} />
+            <img src={TheMovieDB.API_Img + posterURL} alt={mediaName + ' image'} className="hover-info image" onClick={() => singleMedia(mediaType, mediaId, fetchSelected, selectedMediaType, showModal)} />
           </Link>
         </td>
         <td className="data title clearfix">
-          <Link to={`/Collections/${status}/id=${mediaId}`} className="link sort" onClick={() => singleMedia(mediaType, mediaId, fetchSelected, selectedMediaType, showSelected)}>{mediaName}</Link>
+          <Link to={`/Collections/${status}/id=${mediaId}`} className="link sort" onClick={() => singleMedia(mediaType, mediaId, fetchSelected, selectedMediaType, showModal)}>{mediaName}</Link>
           <div className="delete-media">
             <span className="List_LightBox" onClick={() => deleteMediaFromFirestore(mediaId, collections, filteredCollections)}>delete</span>
           </div>

@@ -77,10 +77,6 @@
   height         : 3em;
 }
 
-.collectionActions .select_mediaStatus {
-  margin-left: 0;
-}
-
 .card-inner-title {
   font-size: 16px;
 }
@@ -91,28 +87,27 @@
 }
 
 .btn_addMedia {
-  background-color                     : var(--color-btnAddMedia);
-  border                               : var(--color-btnAddMedia) 1px solid;
-  border-radius                        : 4px;
-  color                                : #fff !important;
-  cursor                               : pointer;
-  display                              : inline-block;
-  font-family                          : Avenir, lucida grande, tahoma, verdana, arial, sans-serif;
-  font-size                            : 11px;
-  line-height                          : 1.0em;
-  /* margin                            : 0 12px; */
-  opacity                              : 1;
-  padding                              : 6px 12px 6px 12px;
-  position                             : relative;
-  text-align                           : left;
-  text-decoration                      : none !important;
-  -webkit-transition-duration          : .3s;
-  transition-duration                  : .3s;
-  transition-property                  : all;
-  -webkit-transition-property          : all;
-  -webkit-transition-timing-function   : ease-in-out;
-  transition-timing-function           : ease-in-out;
-  vertical-align                       : middle;
+  background-color                  : var(--color-btnAddMedia);
+  border                            : var(--color-btnAddMedia) 1px solid;
+  border-radius                     : 4px;
+  color                             : #fff !important;
+  cursor                            : pointer;
+  display                           : inline-block;
+  font-family                       : Avenir, lucida grande, tahoma, verdana, arial, sans-serif;
+  font-size                         : 11px;
+  line-height                       : 1em;
+  opacity                           : 1;
+  padding                           : 6px 12px 6px 12px;
+  position                          : relative;
+  text-align                        : left;
+  text-decoration                   : none !important;
+  -webkit-transition-duration       : .3s;
+  transition-duration               : .3s;
+  transition-property               : all;
+  -webkit-transition-property       : all;
+  -webkit-transition-timing-function: ease-in-out;
+  transition-timing-function        : ease-in-out;
+  vertical-align                    : middle;
 }
 
 .select_mediaStatus,
@@ -126,7 +121,11 @@
   height          : 60%;
   color           : var(--color-activeLinks);
   font-size       : 12px;
-  margin-left     : 10px;
+
+}
+
+.select_mediaStatus {
+  margin-left: 0;
 }
 
 .user-score {
@@ -145,6 +144,7 @@
   font-size                         : 11px;
   opacity                           : 1;
   padding                           : 3px 6px 3px 20px;
+  margin-left                       : 10px;
   text-align                        : left;
   text-decoration                   : none;
   -webkit-transition-duration       : .3s;
