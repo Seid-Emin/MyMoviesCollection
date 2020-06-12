@@ -7,10 +7,12 @@ export const addMediaToFirestore_Start = () => {
   };
 };
 
-export const addMediaToFirestor_Success = (response) => {
+export const addMediaToFirestor_Success = (newMedia, collections, filteredCollections) => {
   return {
     type: actionTypes.ADD_MEDIA_TO_FIRESTORE_SUCCESS,
-    media: response
+    newMedia,
+    collections,
+    filteredCollections
   };
 };
 
@@ -20,7 +22,7 @@ export const addMediaToFirestor_Fail = (error) => {
   };
 };
 
-export const addMediaToFirestoreCollection = (userRating, mediaType, mediaId, mediaName, posterURL, watchStatus, collections) => {
+export const addMediaToFirestoreCollection = (userRating, mediaType, mediaId, mediaName, posterURL, watchStatus, collections, filteredCollections) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     dispatch(addMediaToFirestore_Start());
 
@@ -46,18 +48,17 @@ export const addMediaToFirestoreCollection = (userRating, mediaType, mediaId, me
 
     // Update/Add to collection
     collections.push(newMedia);
-    console.log(collections);
-
+    if (filteredCollections[0].watchStatus == 'watching') {
+      filteredCollections.push(newMedia);
+    }
 
     // Set selecte media in firestore
     firestore.collection('users').doc(authorId)
       .collection('mediaCollections').doc(customID).set(newMedia)
       .then(() => {
-        dispatch(addMediaToFirestor_Success(newMedia));
-        dispatch(updateCollections(collections));
-
+        dispatch(addMediaToFirestor_Success(newMedia, collections, filteredCollections));
       }).catch(error => {
-        dispatch(addMediaToFirestor_Fail(error))
+        dispatch(addMediaToFirestor_Fail(error));
       });
   }
 }
@@ -83,7 +84,7 @@ export const updateMediaStatus_Fail = (error) => {
   };
 };
 
-export const updateMediaStatus = (mediaId, watchStatus, name, collections) => {
+export const updateMediaStatus = (status, mediaId, watchStatus, name, type, collections, filteredCollections) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     dispatch(updateMediaStatus_Start());
 
@@ -97,9 +98,13 @@ export const updateMediaStatus = (mediaId, watchStatus, name, collections) => {
     let customID = mediaId.toString();
 
     // Update/Add to collection
-    let mediaIndex = collections.findIndex(media => media.mediaId === mediaId);
-    collections[mediaIndex][name] = watchStatus;
+    let collectionIndex = collections.findIndex(media => media.mediaId === mediaId);
+    collections[collectionIndex][name] = watchStatus;
 
+    let updatedFilteredCollections = collections;
+    if (status !== 'all_media') {
+      updatedFilteredCollections = filterSellection(collections, 'watchStatus', status, 'mediaType', type);
+    }
 
     // Set selecte media in firestore
     firestore.collection('users').doc(authorId)
@@ -107,7 +112,7 @@ export const updateMediaStatus = (mediaId, watchStatus, name, collections) => {
         [name]: watchStatus
       })
       .then(() => {
-        dispatch(updateCollections(collections));
+        dispatch(updateCollections(collections, updatedFilteredCollections));
       }).catch(error => {
         dispatch(updateMediaStatus_Fail(error))
       });
@@ -249,10 +254,20 @@ export const deleteMediaFromFirestore = (mediaId, collections, filteredCollectio
   }
 }
 
-
-const updateCollections = (collections) => {
+// update firestore collection only
+const updateCollections = (collections, filteredCollections) => {
   return {
     type: actionTypes.UPDATE_COLLECTION,
-    collections
+    collections,
+    filteredCollections
   };
 }
+
+// update filtered collection in state only
+const updateFilteredCollections = (filteredCollections) => {
+  return {
+    type: actionTypes.UPDATE_FILTERED_COLLECTION,
+    filteredCollections
+  };
+}
+

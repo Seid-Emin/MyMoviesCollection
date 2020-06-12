@@ -23,6 +23,8 @@ export const addMediaToFirestore_Success = (state, action) => {
   return {
     ...state,
     media: action.media,
+    collections: action.collections,
+    filteredCollections: action.filteredCollections,
     loading: false,
     error: null,
   };
@@ -36,13 +38,12 @@ export const addMediaToFirestore_Fail = (state, action) => {
   };
 };
 
-// Update After ADD
+// Update After ADD firestore collection only
 export const updateCollections = (state, action) => {
   return {
     ...state,
     collections: action.collections,
-    loading: false,
-    error: null,
+    filteredCollections: action.filteredCollections
   };
 };
 
@@ -132,8 +133,11 @@ const reducer = (state = initialState, action) => {
     case actionTypes.ADD_MEDIA_TO_FIRESTORE_SUCCESS: return addMediaToFirestore_Success(state, action);
     case actionTypes.ADD_MEDIA_TO_FIRESTORE_FAIL: return addMediaToFirestore_Fail(state, action);
 
-    // Update after ADD
+    // Update after ADD firestore collection only
     case actionTypes.UPDATE_COLLECTION: return updateCollections(state, action);
+
+    // Update after ADD filtered collection in state only
+    // case actionTypes.UPDATE_FILTERED_COLLECTION: return updateCollections(state, action);
 
     // Get Collection
     case actionTypes.GET_MEDIA_COLLECTIONS_START: return getCollectionFromFirestore_Start(state, action);

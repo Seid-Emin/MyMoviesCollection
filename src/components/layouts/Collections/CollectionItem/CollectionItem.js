@@ -2,10 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 //import { withRouter } from "react-router";
 
-import TheMovieDB from '../../../../configs/ApiMovies';
-
 import './CollectionItem.css';
+
+// Colors object for conditional style and configs
 import { colorThemes } from '../../../UI/Styles/colorThemes';
+import TheMovieDB from '../../../../configs/ApiMovies';
 
 const CollectionItem = ({
   media: { mediaId, mediaName, mediaType, posterURL, watchStatus, userRating },
@@ -22,7 +23,7 @@ const CollectionItem = ({
           </Link>
         </td>
         <td className="data title clearfix">
-          <Link to={`/Collections/${status}/id=${mediaId}`} className="link sort" onClick={() => singleMedia(mediaType, mediaId, fetchSelected, selectedMediaType, showSelected)}> {mediaName}</Link>
+          <Link to={`/Collections/${status}/id=${mediaId}`} className="link sort" onClick={() => singleMedia(mediaType, mediaId, fetchSelected, selectedMediaType, showSelected)}>{mediaName}</Link>
           <div className="delete-media">
             <span className="List_LightBox" onClick={() => deleteMediaFromFirestore(mediaId, collections, filteredCollections)}>delete</span>
           </div>

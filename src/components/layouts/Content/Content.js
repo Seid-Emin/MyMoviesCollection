@@ -23,8 +23,11 @@ import { spinnerWhileLoading } from '../../helpers/spinnerWhileLoadingpropNames'
 
 class Content extends Component {
   componentDidMount() {
-    const { mediaType, filterType, fetchFilteredMedia, preloadSelected, preloadFilteredMedia, currentPage } = this.props;
+    const { mediaType, filterType, fetchFilteredMedia, preloadSelected, preloadFilteredMedia, currentPage, getCollectionFromFirestore } = this.props;
     const pathName = this.props.history.location.pathname;
+
+    getCollectionFromFirestore();
+
     // if (pathName.includes('Collections')) {
     //   return <Redirect to={`/${mediaType}/${filterType}/page=${currentPage}`} />
     // }
@@ -117,6 +120,7 @@ const mapDispatchToProps = dispatch => {
     fetchFilteredMedia: (mediaType, filterType) => dispatch(actions.fetchFilteredMedia(mediaType, filterType)),
     preloadFilteredMedia: (pathMediaType, pathFilterType, pageNum, selected, path) => dispatch(actions.preloadFilteredMedia(pathMediaType, pathFilterType, pageNum, selected, path)),
     preloadSelected: (pathname) => dispatch(actions.preloadSelected(pathname)),
+    getCollectionFromFirestore: () => dispatch(actions.getCollectionFromFirestore()),
   }
 }
 

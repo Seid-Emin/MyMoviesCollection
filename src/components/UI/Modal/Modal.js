@@ -16,30 +16,24 @@ import { colorThemes } from '../Styles/colorThemes';
 
 const Modal = ({
   selectedMediaData: { id, original_title, poster_path, original_name, videos, vote_average, genres, similar, release_date, overview, first_air_date, name, popularity, vote_count },
-  loading_selected, history, clicked, addMediaToFirestoreCollection, collections: { filteredCollections, collections }, updateMediaStatus, deleteMediaFromFirestore }) => {
+  loading_selected, history, clicked, addMediaToFirestoreCollection, selectedMediaType,
+  collections: { filteredCollections, collections, type, status },
+  updateMediaStatus, deleteMediaFromFirestore }) => {
 
   const hideModal = () => {
     clicked();
   }
 
-  const addMedia = (e, watchStatus, collections) => {
-    e.preventDefault();
+  const addMedia = (watchStatus) => {
 
-    const pathName = history.location.pathname;
-
-    let title = original_title;
-    let mediaType = 'movie';
-    if (pathName.includes('tv')) {
-      mediaType = 'tv'
-      title = original_name
-    }
-    addMediaToFirestoreCollection('select', mediaType, id, title, poster_path, watchStatus, collections);
+    let title = name ? name : original_name || original_title;
+    addMediaToFirestoreCollection('select', selectedMediaType, id, title, poster_path, watchStatus, collections, filteredCollections);
   }
 
-  // handleStatus
+  // Handle Status And Rating
   const handleStatusAndRating = (e) => {
     const { value, name } = e.target;
-    updateMediaStatus(id, value, name, collections);
+    updateMediaStatus(status, id, value, name, type, collections, filteredCollections);
   }
 
   //check video file existing in the response
@@ -91,7 +85,7 @@ const Modal = ({
               </div>
               {/* Actions for Collection Create/Update/Delete - start */}
               <div className='ratingAdd collectionActions'>
-                {!filteredCollections || !currentMedia[0] ? <p className='btn_addMedia' onClick={(e) => addMedia(e, 'watching', collections)}>Add to List</p>
+                {!filteredCollections || !currentMedia[0] ? <p className='btn_addMedia' onClick={() => addMedia('watching')}>Add to List</p>
                   :
                   <>
                     <select
@@ -162,6 +156,7 @@ const Modal = ({
 const mapStateToProps = state => {
   return {
     selectedMediaData: state.selectedMedia.selectedMedia,
+    selectedMediaType: state.selectedMedia.selectedMediaType,
     loading_selected: state.selectedMedia.loading,
     collections: state.collections
   }
@@ -169,8 +164,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addMediaToFirestoreCollection: (userRating, selectedMediaType, id, title, poster_path, watchStatus, collections) => dispatch(actions.addMediaToFirestoreCollection(userRating, selectedMediaType, id, title, poster_path, watchStatus, collections)),
-    updateMediaStatus: (id, watchStatus, name, collections) => dispatch(actions.updateMediaStatus(id, watchStatus, name, collections)),
+    addMediaToFirestoreCollection: (userRating, selectedMediaType, id, title, poster_path, watchStatus, collections, filteredCollections) => dispatch(actions.addMediaToFirestoreCollection(userRating, selectedMediaType, id, title, poster_path, watchStatus, collections, filteredCollections)),
+    updateMediaStatus: (status, id, watchStatus, name, type, collections, filteredCollections) => dispatch(actions.updateMediaStatus(status, id, watchStatus, name, type, collections, filteredCollections)),
     deleteMediaFromFirestore: (mediaId, collections, filteredCollections) => dispatch(actions.deleteMediaFromFirestore(mediaId, collections, filteredCollections))
   }
 }
