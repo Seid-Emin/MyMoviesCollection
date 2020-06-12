@@ -59,16 +59,16 @@ export const preloadSelected = (pathname) => {
   }
 }
 
-export const showSelected = () => {
+export const showModal = () => {
   return {
-    type: actionTypes.SHOW_SELECTED,
+    type: actionTypes.SHOW_MODAL,
     show: true
   };
 };
 
-export const hideSelected = () => {
+export const hideModal = () => {
   return {
-    type: actionTypes.HIDE_SELECTED,
+    type: actionTypes.HIDE_MODAL,
     show: false
   };
 };

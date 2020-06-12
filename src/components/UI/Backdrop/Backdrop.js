@@ -2,9 +2,9 @@ import React from 'react';
 
 import './Backdrop.css'
 
-const Backdrop = ({ show, clicked }) => {
+const Backdrop = ({ show, handleHideModal }) => {
   return (
-    show ? <div className='backdropInfo' onClick={clicked}></div> : null
+    show ? <div className='backdropInfo' onClick={handleHideModal}></div> : null
   )
 }
 

@@ -10,7 +10,7 @@ import './Card.css';
 
 const Card = (
   { result: { name, id, media_type, title, original_name, poster_path },
-    filterType, currentPage, filteredMediaType, fetchSelected, selectedMediaType, showSelected, singleMedia }) => {
+    filterType, currentPage, filteredMediaType, fetchSelected, selectedMediaType, showModal, singleMedia }) => {
 
   // Check the state - searching or fetching data
   const media = media_type ? media_type : filteredMediaType;
@@ -18,7 +18,7 @@ const Card = (
   return (
     <div className="movie-grid-item">
       <div className="item-wrapper">
-        <div className='item-image-container' onClick={() => singleMedia(media, id, fetchSelected, selectedMediaType, showSelected)}>
+        <div className='item-image-container' onClick={() => singleMedia(media, id, fetchSelected, selectedMediaType, showModal)}>
           <Link to={`/${media}/${filterType}/page=${currentPage}/id=${id}`} className='card-link'>
             <span className="card-title">{name ? name : original_name || title}</span>
             <div className='singleImg' style={{ backgroundImage: "url(" + TheMovieDB.API_Img + poster_path + ")" }} ></div>
@@ -40,7 +40,7 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchSelected: (id, mediaType) => dispatch(actions.fetchSelected(id, mediaType)),
     selectedMediaType: (type) => dispatch(actions.selectedMediaType(type)),
-    showSelected: () => dispatch(actions.showSelected())
+    showModal: () => dispatch(actions.showModal())
   }
 }
 

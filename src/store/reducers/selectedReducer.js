@@ -39,14 +39,14 @@ export const fetchFail = (state, action) => {
   };
 };
 
-export const showSelected = (state, action) => {
+export const showModal = (state, action) => {
   return {
     ...state,
     showInfo: action.show
   };
 };
 
-export const hideSelected = (state, action) => {
+export const hideModal = (state, action) => {
   return {
     ...state,
     showInfo: action.show
@@ -61,8 +61,8 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.PICK_SELECTED_MEDIA_TYPE: return selsecteMediaType(state, action);
 
-    case actionTypes.SHOW_SELECTED: return showSelected(state, action);
-    case actionTypes.HIDE_SELECTED: return hideSelected(state, action);
+    case actionTypes.SHOW_MODAL: return showModal(state, action);
+    case actionTypes.HIDE_MODAL: return hideModal(state, action);
     default: return state;
   }
 }

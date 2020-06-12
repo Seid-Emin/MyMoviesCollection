@@ -9,10 +9,10 @@ import './SimilarMovie.css';
 
 class SimilarMovie extends Component {
   getSelectedVideo = (e) => {
-    const { result, mediaType, fetchSelected, showSelected } = this.props;
+    const { result, mediaType, fetchSelected, showModal } = this.props;
     e.preventDefault();
     fetchSelected(result.id, mediaType);
-    showSelected();
+    showModal();
     console.log('i was excecuted *times');
   }
   render() {
@@ -38,7 +38,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchSelected: (id, mediaType) => dispatch(actions.fetchSelected(id, mediaType)),
-    showSelected: () => dispatch(actions.showSelected())
+    showModal: () => dispatch(actions.showModal())
   }
 }
 

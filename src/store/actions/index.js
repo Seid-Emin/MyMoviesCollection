@@ -7,8 +7,8 @@ export {
   fetchSelected,
   selectedMediaType,
   preloadSelected,
-  showSelected,
-  hideSelected
+  showModal,
+  hideModal
 } from './selectedAction';
 
 export { fetchFilteredMedia, fetchFilteredMediaSuccess, fetchFilteredMediaFail, preloadFilteredMedia } from './fetchFilteredMediaAction';

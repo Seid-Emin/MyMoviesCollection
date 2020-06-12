@@ -58,9 +58,9 @@ class Content extends Component {
     //   }
 
   }
-  hideSelectedBackdrop = () => {
-    const { mediaType, filterType, fetchFilteredMedia, preloadSelected, preloadFilteredMedia, currentPage, searchText } = this.props;
-    this.props.hideSelected();
+  handleHideModal = () => {
+    const { mediaType, filterType, fetchFilteredMedia, preloadSelected, preloadFilteredMedia, currentPage, searchText, hideModal } = this.props;
+    hideModal();
     if (searchText) {
       this.props.history.push(`/search=${searchText}`)
     } else {
@@ -75,8 +75,8 @@ class Content extends Component {
     const { showInfo, loadingSearch, mediaType, filterType } = this.props;
     const modal = showInfo ?
       <>
-        <Backdrop clicked={this.hideSelectedBackdrop} show={showInfo} />
-        <Modal clicked={this.hideSelectedBackdrop} />
+        <Backdrop handleHideModal={this.handleHideModal} show={showInfo} />
+        <Modal handleHideModal={this.handleHideModal} />
       </>
       : null;
 
@@ -116,7 +116,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    hideSelected: () => dispatch(actions.hideSelected()),
+    hideModal: () => dispatch(actions.hideModal()),
     fetchFilteredMedia: (mediaType, filterType) => dispatch(actions.fetchFilteredMedia(mediaType, filterType)),
     preloadFilteredMedia: (pathMediaType, pathFilterType, pageNum, selected, path) => dispatch(actions.preloadFilteredMedia(pathMediaType, pathFilterType, pageNum, selected, path)),
     preloadSelected: (pathname) => dispatch(actions.preloadSelected(pathname)),
