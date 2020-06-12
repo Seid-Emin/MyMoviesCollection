@@ -24,5 +24,13 @@ export const selectConfig = {
       2: '(2) Horrible',
       1: '(1) Appalling'
     }
+  },
+  mediaType: {
+    name: 'mediaType',
+    options: {
+      all: 'all',
+      movie: 'movie',
+      tv: 'tv'
+    }
   }
 }

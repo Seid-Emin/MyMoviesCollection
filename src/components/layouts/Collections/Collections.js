@@ -11,6 +11,7 @@ import { singleMedia } from '../../helpers/silgleMedia';
 
 // Components
 import CollectionItem from './CollectionItem/CollectionItem';
+import Select from '../../UI/Select/Select';
 
 
 
@@ -128,16 +129,11 @@ export class Collections extends Component {
                   <th className="header-title title">Title</th>
                   <th className="header-title score">Score</th>
                   <th className="header-title type">
-                    <select
-                      name="mediaType-filter"
-                      className='list-type-select'
-                      name="mediaType"
-                      value={type}
-                      onChange={(e) => this.filterByStatus(e, collections)}>
-                      <option value="all">All</option>
-                      <option value="movie">Movie</option>
-                      <option value="tv">Tv</option>
-                    </select>
+                    <Select
+                      selectName='mediaType'
+                      selectClass='list-type-select'
+                      payload={collections}
+                      handler={this.filterByStatus} />
                   </th>
                 </tr>
               </tbody>
