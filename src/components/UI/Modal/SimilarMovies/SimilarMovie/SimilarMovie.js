@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import './SimilarMovie.css';
+
+// Redux actions and helper methods
 import * as actions from '../../../../../store/actions/index';
+
+// Object  configs
 import TheMovieDB from '../../../../../configs/ApiMovies';
 
-import './SimilarMovie.css';
+
 
 class SimilarMovie extends Component {
   getSelectedVideo = (e) => {

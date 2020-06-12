@@ -5,7 +5,7 @@ import { withRouter } from "react-router";
 
 import './Collections.css';
 
-// Redux actions and helper combined methods
+// Redux actions and helper methods
 import * as actions from '../../../store/actions/index';
 import { singleMedia } from '../../helpers/silgleMedia';
 

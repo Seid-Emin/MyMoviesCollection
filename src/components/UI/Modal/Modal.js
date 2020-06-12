@@ -1,24 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from "react-router";
-import { firestoreConnect } from 'react-redux-firebase';
-import { compose } from 'redux';
+
+import './Modal.css';
+
+// Redux actions and helper methods
 import * as actions from '../../../store/actions/index';
 import { filterMatch } from '../../helpers/filter';
 
+// Colors object for conditional style and configs
 import MovieDB from '../../../configs/ApiMovies';
+import { colorThemes } from '../Styles/colorThemes';
+
+// Components
 import Video from './Video/Video';
 import Spinner from '../Spinner/Spinner';
 import SimilarMovies from './SimilarMovies/SimilarMovies';
 
-import './Modal.css';
-import { colorThemes } from '../Styles/colorThemes';
 
 class Modal extends Component {
   constructor(props) {
     super(props);
     this.escFunction = this.escFunction.bind(this);
     this.onBackButtonEvent = this.onBackButtonEvent.bind(this);
+  }
+
+  componentDidMount() {
+    document.addEventListener("keydown", this.escFunction, false);
+    window.addEventListener('popstate', this.onBackButtonEvent, false);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.escFunction, false);
+    window.removeEventListener('popstate', this.onBackButtonEvent, false);
   }
 
   // On EXC key pushed - close modal 
@@ -33,16 +45,7 @@ class Modal extends Component {
     e.preventDefault();
     this.props.hideModal()
   }
-
-  componentDidMount() {
-    document.addEventListener("keydown", this.escFunction, false);
-    window.addEventListener('popstate', this.onBackButtonEvent, false);
-  }
-  componentWillUnmount() {
-    document.removeEventListener("keydown", this.escFunction, false);
-    window.removeEventListener('popstate', this.onBackButtonEvent, false);
-  }
-
+  // Add selected/picked media to collections
   addMedia = (watchStatus) => {
     const {
       selectedMediaData: { id, original_title, poster_path, original_name, name },
@@ -60,17 +63,17 @@ class Modal extends Component {
       selectedMediaData: { id },
       collections: { collections, type, status },
       updateMediaStatus } = this.props;
-
     const { value, name } = e.target;
+
     updateMediaStatus(status, id, value, name, type, collections);
   }
 
   render() {
     const {
       selectedMediaData: { id, original_title, poster_path, original_name, videos, vote_average, genres, similar, release_date, overview, first_air_date, name, popularity, vote_count },
-      loading_selected, history, addMediaToFirestoreCollection, selectedMediaType,
-      collections: { filteredCollections, collections, type, status },
-      updateMediaStatus, deleteMediaFromFirestore, handleHideModal } = this.props;
+      loading_selected,
+      collections: { filteredCollections, collections },
+      deleteMediaFromFirestore, handleHideModal } = this.props;
 
 
 
@@ -102,20 +105,22 @@ class Modal extends Component {
     let similarMovies = similar && similar.total_results !== 0 ? <SimilarMovies /> : null;
 
     // Check for existing media in collection
-    let currentMedia = filterMatch(collections, 'mediaId', id);
-
+    let findInCollection = filterMatch(collections, 'mediaId', id);
+    let isMediaInCollection = findInCollection[0];
 
     return (
       <div className='modal-info'>
         {loading_selected ? <Spinner /> :
           <>
             <div className='info-wrapper'>
+              {/* card image wrapper */}
               <div className='card-image'>
                 {posterPath}
                 <div className='trailer'>
                   {video}
                 </div>
               </div>
+              {/* media info - next to image ( right ) */}
               <div className='movie-info-wrap'>
                 <div className='title'>
                   <h3 className="card-main-title">{name ? name : original_name || original_title}
@@ -124,24 +129,26 @@ class Modal extends Component {
                 </div>
                 {/* Actions for Collection Create/Update/Delete - start */}
                 <div className='ratingAdd collectionActions'>
-                  {!filteredCollections || !currentMedia[0] ? <p className='btn_addMedia' onClick={() => this.addMedia('watching')}>Add to List</p>
+                  {!filteredCollections || !isMediaInCollection ? <p className='btn_addMedia' onClick={() => this.addMedia('watching')}>Add to List</p>
                     :
                     <>
+                      {/* Status of media */}
                       <select
                         name='watchStatus'
-                        className={'select_mediaStatus ' + colorThemes.watchStatus[currentMedia[0].watchStatus]}
+                        className={'select_mediaStatus ' + colorThemes.watchStatus[isMediaInCollection.watchStatus]}
                         onChange={(e) => this.handleStatusAndRating(e)}
-                        value={currentMedia[0].watchStatus}>
+                        value={isMediaInCollection.watchStatus}>
                         <option value="watching">Watching</option>
                         <option value="completed">Completed</option>
                         <option value="on_hold">On Hold</option>
                         <option value="dropped">Dropped</option>
                         <option value="plan_to_watch">Plan To Watch</option>
                       </select>
+                      {/* User Rating given to media */}
                       <select
                         name='userRating'
-                        className={'user-score ' + colorThemes.userRating[currentMedia[0].userRating]}
-                        value={currentMedia[0].userRating}
+                        className={'user-score ' + colorThemes.userRating[isMediaInCollection.userRating]}
+                        value={isMediaInCollection.userRating}
                         onChange={(e) => this.handleStatusAndRating(e)}>
                         <option value="select">Select</option>
                         <option value="10">(10) Masterpiece</option>
@@ -155,6 +162,7 @@ class Modal extends Component {
                         <option value="2">(2) Horrible</option>
                         <option value="1">(1) Appalling</option>
                       </select>
+                      {/* delete media */}
                       <div className="delete-media">
                         <span className="material-icons" onClick={() => deleteMediaFromFirestore(id, collections, filteredCollections)}>delete</span>
                       </div>
@@ -211,4 +219,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Modal));
+export default connect(mapStateToProps, mapDispatchToProps)(Modal);

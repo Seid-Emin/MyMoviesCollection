@@ -2,16 +2,14 @@ import React, { Component } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { withRouter } from "react-router";
-import { firestoreConnect } from 'react-redux-firebase';
-import { compose } from 'redux';
-
-import * as actions from '../../../store/actions/index'
-import MovieDB from '../../../configs/ApiMovies'
 
 import './Content.css'
 
+// Redux actions
+import * as actions from '../../../store/actions/index'
+
+// Components
 import Cards from '../Cards/Cards';
-//import FilteredMedia from '../FilteredMedia/FilteredMedia'
 import Categories from '../Categories/Categories';
 import Spinner from '../../UI/Spinner/Spinner';
 import Modal from '../../UI/Modal/Modal';
@@ -19,7 +17,6 @@ import Backdrop from '../../UI/Backdrop/Backdrop';
 import SignIn from '../../auth/SignIn';
 import SignUp from '../../auth/SingUp';
 import Collections from '../../layouts/Collections/Collections';
-import { spinnerWhileLoading } from '../../helpers/spinnerWhileLoadingpropNames';
 
 class Content extends Component {
   componentDidMount() {
@@ -72,7 +69,7 @@ class Content extends Component {
     }
   }
   render() {
-    const { showInfo, loadingSearch, mediaType, filterType } = this.props;
+    const { showInfo, loadingSearch } = this.props;
     const modal = showInfo ?
       <>
         <Backdrop handleHideModal={this.handleHideModal} show={showInfo} />
@@ -101,8 +98,6 @@ class Content extends Component {
   }
 }
 
-const userId = localStorage.getItem('userId');
-
 const mapStateToProps = state => {
   return {
     showInfo: state.selectedMedia.showInfo,
@@ -124,22 +119,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  // connect((state) => ({ auth: state.firebase.auth })),
-  // // show loading spinner while auth is loading
-  // spinnerWhileLoading(['auth']),
-  // firestoreConnect([
-  //   {
-  //     collection: 'users',
-  //     doc: userId,
-  //     subcollections: [
-  //       {
-  //         collection: 'mediaCollections',
-  //         orderBy: ['createdAt', 'desc'],
-  //       }
-  //     ],
-  //     storeAs: 'mediaCollections'
-  //   },
-  // ])
-)(withRouter(Content));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Content));
