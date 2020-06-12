@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 //import { withRouter } from "react-router";
 
 import TheMovieDB from '../../../../configs/ApiMovies';
@@ -9,9 +9,7 @@ import { colorThemes } from '../../../UI/Styles/colorThemes';
 
 const CollectionItem = ({
   media: { mediaId, mediaName, mediaType, posterURL, watchStatus, userRating },
-  actions: { fetchSelected, selectedMediaType, showSelected, deleteMediaFromFirestore,
-    collections: { collections, filteredCollections, status } },
-  number, singleMedia }) => {
+  fetchSelected, selectedMediaType, showSelected, deleteMediaFromFirestore, collections, filteredCollections, status, number, singleMedia }) => {
 
   return (
     <tbody className='list-item' >
@@ -19,12 +17,12 @@ const CollectionItem = ({
         <td className={"data status " + colorThemes.statuStyle[watchStatus]}></td>
         <td className="data number">{number + 1}</td>
         <td className="data image">
-          <NavLink to={`/Collections/${status}/id=${mediaId}`} className="link sort"  >
+          <Link to={`/Collections/${status}/id=${mediaId}`} className="link sort"  >
             <img src={TheMovieDB.API_Img + posterURL} alt={mediaName + ' image'} className="hover-info image" onClick={() => singleMedia(mediaType, mediaId, fetchSelected, selectedMediaType, showSelected)} />
-          </NavLink>
+          </Link>
         </td>
         <td className="data title clearfix">
-          <NavLink to={`/Collections/${status}/id=${mediaId}`} className="link sort" onClick={() => singleMedia(mediaType, mediaId, fetchSelected, selectedMediaType, showSelected)}> {mediaName}</NavLink>
+          <Link to={`/Collections/${status}/id=${mediaId}`} className="link sort" onClick={() => singleMedia(mediaType, mediaId, fetchSelected, selectedMediaType, showSelected)}> {mediaName}</Link>
           <div className="delete-media">
             <span className="List_LightBox" onClick={() => deleteMediaFromFirestore(mediaId, collections, filteredCollections)}>delete</span>
           </div>

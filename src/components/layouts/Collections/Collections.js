@@ -64,8 +64,21 @@ export class Collections extends Component {
       return <Redirect to={'/'} />;
     }
 
-    let collection = filteredCollections.map((media, index) => {
-      return <CollectionItem key={media.mediaId} media={media} number={index} singleMedia={singleMedia} actions={this.props} />
+    // List of collection items
+    let collectionItem = filteredCollections.map((media, index) => {
+      return <CollectionItem
+        key={media.mediaId}
+        media={media}
+        number={index}
+        fetchSelected={fetchSelected}
+        selectedMediaType={selectedMediaType}
+        showSelected={showSelected}
+        deleteMediaFromFirestore={deleteMediaFromFirestore}
+        collections={collections}
+        filteredCollections={filteredCollections}
+        status={status}
+        singleMedia={singleMedia}
+      />
     })
 
     return (
@@ -134,7 +147,7 @@ export class Collections extends Component {
                   </th>
                 </tr>
               </tbody>
-              {collection}
+              {collectionItem}
             </table>
           </div>
         </div>
