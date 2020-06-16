@@ -119,7 +119,16 @@ export class Collections extends Component {
         </div>
         <div className="collection-list">
           <div className="list-unit">
-            <div className="list-status-title">{status.replace('_', ' ')}</div>
+            <div className='list-unit-bar'>
+              <div className="list-status-title">{status.replace('_', ' ')}</div>
+              <Select
+                selectName='mediaType'
+                selectClass='list-type-select'
+                payload={collections}
+                value={type}
+                handler={this.filterByStatus} />
+            </div>
+
             <table>
               <tbody>
                 <tr className="list-table-header">
@@ -129,12 +138,7 @@ export class Collections extends Component {
                   <th className="header-title title">Title</th>
                   <th className="header-title score">Score</th>
                   <th className="header-title type">
-                    <Select
-                      selectName='mediaType'
-                      selectClass='list-type-select'
-                      payload={collections}
-                      value={type}
-                      handler={this.filterByStatus} />
+                    Type
                   </th>
                 </tr>
               </tbody>

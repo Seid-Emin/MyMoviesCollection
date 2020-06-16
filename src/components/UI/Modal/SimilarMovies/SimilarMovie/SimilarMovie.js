@@ -25,7 +25,7 @@ class SimilarMovie extends Component {
     return (
       <div className="card-action" onClick={this.getSelectedVideo}>
         <Link to={`/${mediaType}/${filterType}/page=${currentPage}/id=${result.id}`}>
-          <img className='similarMovie-img' src={TheMovieDB.API_Img + result.poster_path} alt={result.original_name} />
+          <img className='similarMovie-img' src={result.poster_path ? TheMovieDB.API_Img + result.poster_path : 'https://cdn.bestmoviehd.net/share/images/no-cover.png'} alt={result.original_name} />
           <p className='similarMovie-title'>{result.title || result.name}</p>
         </Link>
       </div>

@@ -33,7 +33,6 @@ class Search extends Component {
             <div className="input-field">
               <input onKeyDown={this._handleSearch} id="search" type="search" required />
               <label className="label-icon" htmlFor="search"> <Link to={'/search=' + this.props.search} ><i className="material-icons">search</i></Link></label>
-
             </div>
           </form>
         </div>

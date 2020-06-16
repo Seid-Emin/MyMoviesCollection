@@ -17,27 +17,30 @@ import Select from '../../../UI/Select/Select';
 
 const Card = (
   { result: { name, id, media_type, title, original_name, original_title, poster_path },
-    filterType, currentPage, filteredMediaType, fetchSelected, selectedMediaType, showModal, singleMedia, updateMediaStatus,
-    collections: { collections, type, status } }) => {
+    filterType, currentPage, filteredMediaType, fetchSelected, selectedMediaType, showModal, singleMedia,
+    collections: { collections } }) => {
 
   // Check the state - searching or fetching data
   const media = media_type ? media_type : filteredMediaType;
 
   // Check for existing media in collection
   let findById = collections.filter(item => item.mediaId === id);
+  console.log(findById);
 
   // Check by mediaType too
-  let matchType = findById.mediaType == media_type ? findById : null;
-  let isMediaInCollection = matchType[0];
-  console.log(matchType);
+  let matchType = findById.mediaType == media_type || findById.mediaName == name || title || original_name || original_title ? findById : null;
+
+  let isMediaInCollection;
+  if (matchType !== null) {
+    isMediaInCollection = matchType[0];
+  }
+  console.log(isMediaInCollection);
+
+
+
 
   const loadSingleMedia = () => {
     singleMedia(media, id, fetchSelected, selectedMediaType, showModal)
-  }
-
-  const handleStatusAndRating = (e) => {
-    const { value, name } = e.target;
-    updateMediaStatus(status, id, value, name, type, collections);
   }
 
   return (
@@ -70,7 +73,6 @@ const mapDispatchToProps = dispatch => {
     fetchSelected: (id, mediaType) => dispatch(actions.fetchSelected(id, mediaType)),
     selectedMediaType: (type) => dispatch(actions.selectedMediaType(type)),
     showModal: () => dispatch(actions.showModal()),
-    updateMediaStatus: (status, id, watchStatus, name, type, collections) => dispatch(actions.updateMediaStatus(status, id, watchStatus, name, type, collections)),
   }
 }
 

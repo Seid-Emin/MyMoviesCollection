@@ -41,6 +41,25 @@ td {
   margin : 0 auto;
 }
 
+.list-unit-bar {
+  position: relative;
+}
+
+.list-unit-bar select {
+  position        : absolute;
+  top             : 0;
+  right           : 0;
+  height          : inherit;
+  background-color: transparent;
+  color           : var(--color-textTitle);
+  border          : none;
+}
+
+.list-unit-bar select option {
+  color           : var(--color-textTitle);
+  background-color: var(--color-activeLinksText);
+}
+
 .list-status-title {
   position        : relative;
   display         : table;
