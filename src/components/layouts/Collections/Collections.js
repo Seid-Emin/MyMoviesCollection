@@ -17,7 +17,7 @@ import Select from '../../UI/Select/Select';
 
 export class Collections extends Component {
 
-  componentWillMount() {
+  componentDidMount() {
     // get needed props
     const { collections: { collections, type }, filterStatusAndType } = this.props;
 
