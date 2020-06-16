@@ -43,26 +43,15 @@ const Card = (
   return (
     <div className="movie-grid-item">
       <div className="item-wrapper">
-        <div className='item-image-container'>
-          <div className="card-title">
-            <Link to={`/${media}/${filterType}/page=${currentPage}/id=${id}`} className='card-link'>
+        <Link to={`/${media}/${filterType}/page=${currentPage}/id=${id}`} className='card-link'>
+          <div className='item-image-container'>
+            <div className="card-title">
               <span className="title" onClick={() => loadSingleMedia()}>{name ? name : title || original_name || original_title}</span>
-            </Link>
-            {isMediaInCollection ?
-              <Select
-                selectName='cardStatus'
-                selectClass={`fl ${colorThemes.statuStyle[isMediaInCollection.watchStatus]}`}
-                value={isMediaInCollection.watchStatus}
-
-                handler={handleStatusAndRating}
-              /> : null}
-
-            {/* {isMediaInCollection ? <span className={`fl ${colorThemes.statuStyle[isMediaInCollection.watchStatus]}`}>{cardStatusConfig.title[isMediaInCollection.watchStatus]}</span> : null} */}
-          </div>
-          <Link to={`/${media}/${filterType}/page=${currentPage}/id=${id}`} className='card-link'>
+              {isMediaInCollection ? <span className={`fl ${colorThemes.statuStyle[isMediaInCollection.watchStatus]}`}>{cardStatusConfig.title[isMediaInCollection.watchStatus]}</span> : null}
+            </div>
             <div className='singleImg' style={{ backgroundImage: "url(" + TheMovieDB.API_Img + poster_path + ")" }} onClick={() => loadSingleMedia()}></div>
-          </Link>
-        </div>
+          </div>
+        </Link>
       </div>
     </div >
   )

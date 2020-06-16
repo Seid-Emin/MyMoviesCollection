@@ -32,14 +32,5 @@ export const selectConfig = {
       movie: 'movie',
       tv: 'tv'
     }
-  },
-  cardStatus: {
-    options: {
-      watching: 'cw',
-      completed: 'cmpl',
-      on_hold: 'hold',
-      dropped: 'drop',
-      plan_to_watch: 'ptw'
-    }
   }
 }
