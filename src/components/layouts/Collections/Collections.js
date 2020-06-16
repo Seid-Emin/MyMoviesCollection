@@ -73,7 +73,7 @@ export class Collections extends Component {
         status={status}
         singleMedia={singleMedia}
       />
-    }) : <Message message='no media' />
+    }) : null;
 
     return (
       <div className="collection-container">
@@ -133,6 +133,7 @@ export class Collections extends Component {
                       selectName='mediaType'
                       selectClass='list-type-select'
                       payload={collections}
+                      value={type}
                       handler={this.filterByStatus} />
                   </th>
                 </tr>
@@ -165,12 +166,12 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Collections));
+export default connect(mapStateToProps, mapDispatchToProps)(Collections);
 
 // message to display
 // needs to be created separately and implemented everywhere needed
-const Message = (props) => {
-  return (
-    <p>{props.message}</p>
-  )
-}
+// const Message = (props) => {
+//   return (
+//     <p>{props.message}</p>
+//   )
+// }

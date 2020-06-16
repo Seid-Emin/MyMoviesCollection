@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import SignedInLinks from './SignedInLinks';
@@ -21,13 +21,10 @@ const Navbar = (props) => {
     <React.Fragment>
       <nav className='blue darken-4 layoutMB'>
         <div className="nav-wrapper layout">
-          <NavLink to='/' className="brand-logo material-icons center MovieIcon">movie</NavLink>
+          <Link to='/' className="brand-logo material-icons center MovieIcon">movie</Link>
           <div className="nav-right-links">
             <Search />
-            <ul
-              id="nav-mobile"
-            // className="right"
-            >
+            <ul id="nav-mobile" >
               <li><NavLink to={collectionPath} activeClassName='activeNavLinks'>Collections</NavLink></li>
               {links}
             </ul>

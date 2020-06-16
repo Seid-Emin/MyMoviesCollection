@@ -45,24 +45,3 @@
 .list-table-data .data.type {
   text-transform: uppercase;
 }
-
-/* Status styles */
-.watching {
-  background-color: var(--color-statusWatching);
-}
-
-.completed {
-  background-color: var(--color-tableCompleted);
-}
-
-.onHold {
-  background-color: var(--color-tableOnHold);
-}
-
-.dropped {
-  background-color: var(--color-tableDropped);
-}
-
-.planToWatch {
-  background-color: var(--color-tablePlanToWatch);
-}

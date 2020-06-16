@@ -58,4 +58,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(withRouter(Cards));
+export default connect(mapStateToProps)(React.memo(Cards));
