@@ -11,6 +11,9 @@ const CollectionItem = ({
   media: { mediaId, mediaName, mediaType, posterURL, watchStatus, userRating },
   fetchSelected, selectedMediaType, showModal, deleteMediaFromFirestore, collections, filteredCollections, status, number, singleMedia }) => {
 
+  //check if poster_path exist in the responce
+  let posterPath = posterURL ? TheMovieDB.API_Img + posterURL : 'https://cdn.bestmoviehd.net/share/images/no-cover.png';
+
   return (
     <tbody className='list-item' >
       <tr className="list-table-data">
@@ -18,7 +21,7 @@ const CollectionItem = ({
         <td className="data number">{number + 1}</td>
         <td className="data image">
           <Link to={`/Collections/${status}/id=${mediaId}`} className="link sort"  >
-            <img src={TheMovieDB.API_Img + posterURL} alt={mediaName + ' image'} className="hover-info image" onClick={() => singleMedia(mediaType, mediaId, fetchSelected, selectedMediaType, showModal)} />
+            <img src={posterPath} alt={mediaName + ' image'} className="hover-info image" onClick={() => singleMedia(mediaType, mediaId, fetchSelected, selectedMediaType, showModal)} />
           </Link>
         </td>
         <td className="data title clearfix">

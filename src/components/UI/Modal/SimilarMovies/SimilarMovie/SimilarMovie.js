@@ -20,13 +20,19 @@ class SimilarMovie extends Component {
     showModal();
     console.log('i was excecuted *times');
   }
+
+
   render() {
-    const { result, mediaType, filterType, currentPage } = this.props;
+    const { result: { id, name, title, original_name, poster_path },
+      mediaType, filterType, currentPage } = this.props;
+
+
+    let posterPath = poster_path ? TheMovieDB.API_Img + poster_path : 'https://cdn.bestmoviehd.net/share/images/no-cover.png';
     return (
       <div className="card-action" onClick={this.getSelectedVideo}>
-        <Link to={`/${mediaType}/${filterType}/page=${currentPage}/id=${result.id}`}>
-          <img className='similarMovie-img' src={result.poster_path ? TheMovieDB.API_Img + result.poster_path : 'https://cdn.bestmoviehd.net/share/images/no-cover.png'} alt={result.original_name} />
-          <p className='similarMovie-title'>{result.title || result.name}</p>
+        <Link to={`/${mediaType}/${filterType}/page=${currentPage}/id=${id}`}>
+          <img className='similarMovie-img' src={posterPath} alt={original_name} />
+          <p className='similarMovie-title'>{title || name}</p>
         </Link>
       </div>
     )
