@@ -49,13 +49,13 @@ class Modal extends Component {
   // Add selected/picked media to collections
   addMedia = (watchStatus) => {
     const {
-      selectedMediaData: { id, original_title, poster_path, original_name, name },
+      selectedMediaData: { id, original_title, poster_path, original_name, name, title },
       addMediaToFirestoreCollection, selectedMediaType,
       collections: { filteredCollections, collections } } = this.props;
 
     // Set correct name
-    let title = name ? name : original_name || original_title;
-    addMediaToFirestoreCollection('select', selectedMediaType, id, title, poster_path, watchStatus, collections, filteredCollections);
+    let selectedtitle = name ? name : title || original_name || original_title;
+    addMediaToFirestoreCollection('select', selectedMediaType, id, selectedtitle, poster_path, watchStatus, collections, filteredCollections);
   }
 
   // Handle Status And Rating
@@ -71,7 +71,7 @@ class Modal extends Component {
 
   render() {
     const {
-      selectedMediaData: { id, original_title, poster_path, original_name, videos, vote_average, genres, similar, release_date, overview, first_air_date, name, popularity, vote_count },
+      selectedMediaData: { id, original_title, poster_path, original_name, videos, vote_average, genres, similar, release_date, overview, first_air_date, name, title, popularity, vote_count },
       loading_selected,
       collections: { filteredCollections, collections },
       deleteMediaFromFirestore, handleHideModal } = this.props;
@@ -125,7 +125,7 @@ class Modal extends Component {
               {/* media info - next to image ( right ) */}
               <div className='movie-info-wrap'>
                 <div className='title'>
-                  <h3 className="card-main-title">{name ? name : original_name || original_title}
+                  <h3 className="card-main-title">{name ? name : title || original_name || original_title}
                     <span className='releaseDate'> ({release_date ? release_date.substring(0, 4) : first_air_date.substring(0, 4)})</span>
                   </h3>
                 </div>

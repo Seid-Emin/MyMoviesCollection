@@ -21,7 +21,6 @@
   background-repeat     : no-repeat;
   background-size       : 100% 100%;
   bottom                : 0;
-  color                 : #fff;
   display               : inline-block;
   font-family           : Avenir, lucida grande, tahoma, verdana, arial, sans-serif;
   font-size             : 11px;
@@ -120,4 +119,18 @@
   float         : right;
   text-transform: uppercase;
   padding       : 0.1rem 0.3rem;
+}
+
+.card-title .title {
+  font-size     : 12px;
+  vertical-align: middle;
+}
+
+.card-title .fl {
+  font-size: 9px;
+}
+
+.card-title .title,
+.card-title .fl {
+  color: var(--color-textTitle);
 }

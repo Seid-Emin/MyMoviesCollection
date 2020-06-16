@@ -5,7 +5,7 @@ import './Select.css';
 // Selecet configs
 import { selectConfig } from './selectConfig';
 
-const Select = ({ selectName, selectClass, value, handler, payload, order = true }) => {
+const Select = ({ selectName, selectClass, value, handler, payload = null, order = true }) => {
 
   const currentOptions = selectConfig[selectName].options;
 

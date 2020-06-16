@@ -1,6 +1,6 @@
 .card-container-grid {
-  display: grid;
-  gap    : 30px;
+  display : grid;
+  grid-gap: 20px;
 }
 
 .cards-title-info-container {

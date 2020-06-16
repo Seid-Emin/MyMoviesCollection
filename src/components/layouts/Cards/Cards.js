@@ -43,7 +43,6 @@ const Cards = ({ results, searchText, totalResults, filteredMediaType, displayTi
           containerClassName='paginateBottom' />
       </div>
     </section>
-
   )
 }
 
