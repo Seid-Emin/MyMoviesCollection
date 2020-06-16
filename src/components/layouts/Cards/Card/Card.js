@@ -36,8 +36,8 @@ const Card = (
   }
   console.log(isMediaInCollection);
 
-
-
+  // Card image check
+  let currentCardImage = poster_path ? `url(${TheMovieDB.API_Img}${poster_path})` : 'url(https://cdn.bestmoviehd.net/share/images/no-cover.png)';
 
   const loadSingleMedia = () => {
     singleMedia(media, id, fetchSelected, selectedMediaType, showModal)
@@ -52,7 +52,7 @@ const Card = (
               <span className="title" onClick={() => loadSingleMedia()}>{name ? name : title || original_name || original_title}</span>
               {isMediaInCollection ? <span className={`fl ${colorThemes.statuStyle[isMediaInCollection.watchStatus]}`}>{cardStatusConfig.title[isMediaInCollection.watchStatus]}</span> : null}
             </div>
-            <div className='singleImg' style={{ backgroundImage: "url(" + TheMovieDB.API_Img + poster_path + ")" }} onClick={() => loadSingleMedia()}></div>
+            <div className='singleImg' style={{ backgroundImage: `${currentCardImage}` }} onClick={() => loadSingleMedia()}></div>
           </div>
         </Link>
       </div>
