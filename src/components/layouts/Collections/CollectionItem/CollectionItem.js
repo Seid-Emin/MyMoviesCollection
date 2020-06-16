@@ -25,10 +25,13 @@ const CollectionItem = ({
           </Link>
         </td>
         <td className="data title clearfix">
-          <Link to={`/Collections/${status}/id=${mediaId}`} className="link sort" onClick={() => singleMedia(mediaType, mediaId, fetchSelected, selectedMediaType, showModal)}>{mediaName}</Link>
-          <div className="delete-media">
-            <span className="List_LightBox" onClick={() => deleteMediaFromFirestore(mediaId, collections, filteredCollections)}>delete</span>
+          <div className='title-inner'>
+            <Link to={`/Collections/${status}/id=${mediaId}`} className="link sort" onClick={() => singleMedia(mediaType, mediaId, fetchSelected, selectedMediaType, showModal)}>{mediaName}</Link>
+            <div className="delete-media">
+              <span className="List_LightBox" onClick={() => deleteMediaFromFirestore(mediaId, collections, filteredCollections)}>delete</span>
+            </div>
           </div>
+
         </td>
         <td className="data score">
           {userRating !== 'select' && userRating ? <span className="score-label score-na">{userRating}</span> : <span className="score-label score-na">-</span>}

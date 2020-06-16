@@ -75,46 +75,28 @@ export class Collections extends Component {
       />
     }) : null;
 
+    const collectionLinks = {
+      all_media: 'all_media',
+      watching: 'watching',
+      completed: 'completed',
+      on_hold: 'on_hold',
+      dropped: 'dropped',
+      plan_to_watch: 'plan_to_watch'
+    }
+
     return (
       <div className="collection-container">
         <div className="collection-status">
           <div className='collection-nav'>
-            <NavLink
-              to='/Collections/all_media'
-              className="collection-navlink"
-              activeClassName='activeNavLinks-collection'
-              name='all_media'
-              onClick={(e) => this.filterByStatus(e, collections)}>All Media</NavLink>
-            <NavLink
-              to='/Collections/watching'
-              className="collection-navlink"
-              activeClassName='activeNavLinks-collection'
-              name='watching'
-              onClick={(e) => this.filterByStatus(e, collections)} >Watching</NavLink>
-            <NavLink
-              to='/Collections/completed'
-              className="collection-navlink"
-              activeClassName='activeNavLinks-collection'
-              name='completed'
-              onClick={(e) => this.filterByStatus(e, collections)}>Completed</NavLink>
-            <NavLink
-              to='/Collections/on_hold'
-              className="collection-navlink"
-              activeClassName='activeNavLinks-collection'
-              name='on_hold'
-              onClick={(e) => this.filterByStatus(e, collections)}>On Hold</NavLink>
-            <NavLink
-              to='/Collections/dropped'
-              className="collection-navlink"
-              activeClassName='activeNavLinks-collection'
-              name='dropped'
-              onClick={(e) => this.filterByStatus(e, collections)}>Dropped</NavLink>
-            <NavLink
-              to='/Collections/plan_to_watch'
-              className="collection-navlink"
-              activeClassName='activeNavLinks-collection'
-              name='plan_to_watch'
-              onClick={(e) => this.filterByStatus(e, collections)}>Plan to Watch</NavLink>
+            {Object.keys(collectionLinks).map(link => {
+              let currentLink = collectionLinks[link];
+              return <NavLink
+                to={`/Collections/${currentLink}`}
+                className="collection-navlink"
+                activeClassName='activeNavLinks-collection'
+                name={currentLink}
+                onClick={(e) => this.filterByStatus(e, collections)}>{currentLink.replace(/_/g, ' ')}</NavLink>
+            })}
           </div>
         </div>
         <div className="collection-list">
@@ -128,7 +110,6 @@ export class Collections extends Component {
                 value={type}
                 handler={this.filterByStatus} />
             </div>
-
             <table>
               <tbody>
                 <tr className="list-table-header">
@@ -137,9 +118,7 @@ export class Collections extends Component {
                   <th className="header-title image">Image</th>
                   <th className="header-title title">Title</th>
                   <th className="header-title score">Score</th>
-                  <th className="header-title type">
-                    Type
-                  </th>
+                  <th className="header-title type">Type</th>
                 </tr>
               </tbody>
               {collectionItem}

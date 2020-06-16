@@ -1,8 +1,7 @@
 .content-grid {
   display              : grid;
   grid-template-columns: 150px 1fr;
-  grid-column-gap      : 15px;
-  grid-row-gap         : 15px;
+  grid-gap             : 15px;
 }
 
 .content-wrap:hover {

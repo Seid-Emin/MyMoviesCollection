@@ -11,11 +11,12 @@
 .collection-nav {
   display        : flex;
   justify-content: space-around;
-  font-size      : 16px;
+  font-size      : 1.2rem;
 }
 
 .collection-nav a {
-  color: var(--color-textTitle);
+  color         : var(--color-textTitle);
+  text-transform: capitalize;
 }
 
 a.collection-navlink.activeNavLinks-collection {
@@ -32,13 +33,18 @@ th {
 }
 
 td {
-  line-height: 1.5em;
+  line-height: 1.6rem;
 }
 
 
 .list-unit {
   display: block;
   margin : 0 auto;
+}
+
+
+.list-unit table {
+  font-size: 1rem;
 }
 
 .list-unit-bar {
@@ -66,7 +72,7 @@ td {
   background-color: var(--color-textTitleBG);
   width           : 100%;
   color           : var(--color-textInner);
-  font-size       : 22px;
+  font-size       : 1.6rem;
   font-weight     : bold;
   text-align      : center;
   vertical-align  : middle;
@@ -76,7 +82,8 @@ td {
 
 
 .list-table-header {
-  color: var(--color-textTitle);
+  color : var(--color-textTitle);
+  height: 2.3rem;
 }
 
 .list-table-header .header-title {
@@ -116,6 +123,12 @@ td {
 
 .list-table-header .header-title.type {
   width: 80px;
+}
+
+.list-unit table tr .title .title-inner {
+  display        : flex;
+  align-items    : center;
+  justify-content: space-between;
 }
 
 .list-unit table tr .image,

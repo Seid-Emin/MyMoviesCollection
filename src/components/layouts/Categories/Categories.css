@@ -16,7 +16,7 @@
 .main-categirie {
   cursor        : pointer;
   text-transform: capitalize;
-  font-size     : 18px;
+  font-size     : 1.3rem;
 }
 
 .main-categirie:hover {
@@ -36,7 +36,7 @@
 
 .categories-wrap a {
   margin   : 2px 0;
-  font-size: 12px;
+  font-size: 1rem;
   color    : #e0e0e0;
 }
 

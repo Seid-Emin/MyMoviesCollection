@@ -26,7 +26,7 @@ const categoriesConfig = {
 const Categories = ({ fetchFilteredMedia }) => {
 
   return (
-    <div className='Categories-wrapper'>
+    <div className='categories-wrapper'>
       <div className="inner">
         <div className='media-side-nav'>
           {Object.keys(categoriesConfig).map(categorie => {
@@ -34,13 +34,14 @@ const Categories = ({ fetchFilteredMedia }) => {
               <ul className='categories-wrap grey-text lighten-3'>
                 {Object.keys(categoriesConfig[categorie]).map(option => {
                   let currentOption = categoriesConfig[categorie][option];
-                  return (<li>
-                    <NavLink
-                      to={`/${categorie}/${currentOption}/page=1`}
-                      activeClassName='activeNav'
-                      onClick={() => fetchFilteredMedia(categorie, currentOption)}>{currentOption}
-                    </NavLink>
-                  </li>
+                  return (
+                    <li>
+                      <NavLink
+                        to={`/${categorie}/${currentOption}/page=1`}
+                        activeClassName='activeNav'
+                        onClick={() => fetchFilteredMedia(categorie, currentOption)}>{currentOption.replace(/_/g, ' ')}
+                      </NavLink>
+                    </li>
                   )
                 })}
               </ul>
