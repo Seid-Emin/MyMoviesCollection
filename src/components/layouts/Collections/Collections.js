@@ -7,16 +7,14 @@ import './Collections.css';
 
 // Redux actions and helper methods
 import * as actions from '../../../store/actions/index';
-import { singleMedia } from '../../helpers/silgleMedia';
 
 // Components
-import CollectionItem from './CollectionItem/CollectionItem';
-import Select from '../../UI/Select/Select';
-import SelectMediaType from '../../UI/Select/SelectMediaType/SelectMediaType'
+import SelectMediaType from '../../UI/Select/SelectMediaType/SelectMediaType';
+import CollectionList from './CollectionList/CollectionList';
 
 
 
-export class Collections extends Component {
+class Collections extends Component {
 
   componentDidMount() {
     // get needed props
@@ -51,31 +49,6 @@ export class Collections extends Component {
     // Get needed props by destructuring
     const { collections: { collections, status, type, filteredCollections }, fetchSelected, selectedMediaType, showModal, deleteMediaFromFirestore } = this.props;
 
-    // Guard route
-    // If initial filteredCollections is undefined
-    // means route is pasted directly to /collection/*
-    // the load initial state/page
-    if (!filteredCollections) {
-      return <Redirect to={'/'} />;
-    }
-
-    // List of collection items
-    let collectionItem = filteredCollections[0] ? filteredCollections.map((media, index) => {
-      return <CollectionItem
-        key={media.mediaId}
-        media={media}
-        number={index}
-        fetchSelected={fetchSelected}
-        selectedMediaType={selectedMediaType}
-        showModal={showModal}
-        deleteMediaFromFirestore={deleteMediaFromFirestore}
-        collections={collections}
-        filteredCollections={filteredCollections}
-        status={status}
-        singleMedia={singleMedia}
-      />
-    }) : null;
-
     const collectionLinks = {
       all_media: 'all_media',
       watching: 'watching',
@@ -106,34 +79,21 @@ export class Collections extends Component {
             <div className='list-unit-bar'>
               <div className="list-status-title">{status.replace('_', ' ')}</div>
               <SelectMediaType handler={this.filterByStatus} />
-              {/* <Select
-                selectName='mediaType'
-                selectClass='list-type-select'
-                payload={collections}
-                value={type}
-                handler={this.filterByStatus} /> */}
             </div>
-            <table>
-              <tbody>
-                <tr className="list-table-header">
-                  <th className="header-title status"></th>
-                  <th className="header-title number">#</th>
-                  <th className="header-title image">Image</th>
-                  <th className="header-title title">Title</th>
-                  <th className="header-title score">Score</th>
-                  <th className="header-title type">Type</th>
-                </tr>
-              </tbody>
-              {collectionItem}
-            </table>
+            <CollectionList
+              collections={collections}
+              status={status}
+              filteredCollections={filteredCollections}
+              fetchSelected={fetchSelected}
+              selectedMediaType={selectedMediaType}
+              showModal={showModal}
+              deleteMediaFromFirestore={deleteMediaFromFirestore} />
           </div>
         </div>
       </div>
     )
   }
 }
-
-
 
 const mapStateToProps = state => {
   return {
