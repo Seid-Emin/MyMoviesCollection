@@ -12,6 +12,7 @@ import { singleMedia } from '../../helpers/silgleMedia';
 // Components
 import CollectionItem from './CollectionItem/CollectionItem';
 import Select from '../../UI/Select/Select';
+import SelectMediaType from '../../UI/Select/SelectMediaType/SelectMediaType'
 
 
 
@@ -104,12 +105,13 @@ export class Collections extends Component {
           <div className="list-unit">
             <div className='list-unit-bar'>
               <div className="list-status-title">{status.replace('_', ' ')}</div>
-              <Select
+              <SelectMediaType handler={this.filterByStatus} />
+              {/* <Select
                 selectName='mediaType'
                 selectClass='list-type-select'
                 payload={collections}
                 value={type}
-                handler={this.filterByStatus} />
+                handler={this.filterByStatus} /> */}
             </div>
             <table>
               <tbody>
