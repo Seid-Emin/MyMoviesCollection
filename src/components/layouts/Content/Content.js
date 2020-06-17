@@ -59,27 +59,29 @@ class Content extends Component {
 
   }
 
-  componentDidUpdate() {
-    const { getCollectionFromFirestore, collections } = this.props;
-    const authorId = localStorage.getItem('userId');
-    if (authorId && !collections[0]) {
-      getCollectionFromFirestore();
-      console.log('i was here componentDidUpdate - get');
-    }
-    console.log('i was here componentDidUpdate - did not get');
-  }
+  // componentDidUpdate(prevProps, prevState, snapshot) {
+  //   const { getCollectionFromFirestore, collections, auth } = this.props;
+  //   const authorId = localStorage.getItem('userId');
+  //   if (authorId) {
+  //     getCollectionFromFirestore();
+  //     console.log('i was here componentDidUpdate - get');
+  //   }
+  //   console.log('i was here componentDidUpdate - did not get');
+  // }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   const { collections, auth } = this.props;
+  //   if (nextProps.auth != auth
+  //     || nextProps.showInfo != this.props.showInfo
+  //   ) {
+  //     console.log('i was here shouldComponentUpdate - content true');
+  //     return true
+  //   } else {
+  //     console.log('i was here shouldComponentUpdate - content false');
+  //     return false
+  //   }
 
-    if (nextProps.auth != this.props.auth || nextProps.showInfo != this.props.showInfo) {
-      console.log('i was here shouldComponentUpdate - content true');
-      return true
-    } else {
-      console.log('i was here shouldComponentUpdate - content false');
-      return false
-    }
-
-  }
+  // }
 
   handleHideModal = () => {
     const { mediaType, filterType, fetchFilteredMedia, preloadSelected, preloadFilteredMedia, currentPage, searchText, hideModal } = this.props;
@@ -147,4 +149,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(React.memo(Content)));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Content));

@@ -16,6 +16,8 @@ const Cards = ({ results, searchText, totalResults, filteredMediaType, displayTi
 
   // Display the media type being displayed
   const filteredText = searchText === '' ? filteredMediaType === 'movie' ? <h6 className='currentyLoadedMedia uppercase'>{displayTitle + 's'}</h6> : <h6 className='currentyLoadedMedia uppercase'>{displayTitle} series</h6> : null;
+  console.log('cards');
+
 
   return (
     <section className='card-container-grid' >
@@ -28,10 +30,9 @@ const Cards = ({ results, searchText, totalResults, filteredMediaType, displayTi
             containerClassName='paginate' />
         </div>
       </div>
-      {results ? <GridCard
-        fechedResults={results}
-        collections={collections} />
-        : <h6 className='noResults'>No Results Found</h6>}
+      <GridCard
+        fechedResults={results} />
+
 
 
       <div className='row-3-paginate-last'>
@@ -55,4 +56,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(React.memo(Cards));
+export default connect(mapStateToProps)(Cards);

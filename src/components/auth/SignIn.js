@@ -18,6 +18,10 @@ class SignIn extends Component {
     this.props.signIn(this.state);
   }
 
+  componentWillUnmount() {
+    this.props.getCollectionFromFirestore();
+  }
+
   render() {
     const { authError, auth } = this.props;
     if (auth.uid) return <Redirect to='/movie/now_playing/page=1' />
@@ -56,7 +60,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    signIn: (credentials) => dispatch(actions.signIn(credentials))
+    signIn: (credentials) => dispatch(actions.signIn(credentials)),
+    getCollectionFromFirestore: () => dispatch(actions.getCollectionFromFirestore())
   }
 }
 

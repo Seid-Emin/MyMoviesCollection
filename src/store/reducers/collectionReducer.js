@@ -39,7 +39,7 @@ export const addMediaToFirestore_Fail = (state, action) => {
 };
 
 // Update After ADD firestore collection only
-export const updateCollections = (state, action) => {
+export const updateMediaStatus = (state, action) => {
   return {
     ...state,
     collections: action.collections,
@@ -134,7 +134,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.ADD_MEDIA_TO_FIRESTORE_FAIL: return addMediaToFirestore_Fail(state, action);
 
     // Update after ADD firestore collection only
-    case actionTypes.UPDATE_COLLECTION: return updateCollections(state, action);
+    case actionTypes.UPDATE_STATUS_SUCCESS: return updateMediaStatus(state, action);
 
     // Get Collection
     case actionTypes.GET_MEDIA_COLLECTIONS_START: return getCollectionFromFirestore_Start(state, action);

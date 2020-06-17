@@ -70,12 +70,22 @@ export const updateMediaStatus_Start = () => {
   };
 };
 
-export const updateMediaStatus_Success = (response) => {
+export const updateMediaStatus_Success = (collections, filteredCollections) => {
   return {
     type: actionTypes.UPDATE_STATUS_SUCCESS,
-    media: response
+    collections,
+    filteredCollections
   };
 };
+
+// update firestore collection only
+// const updateCollections = (collections, filteredCollections) => {
+//   return {
+//     type: actionTypes.UPDATE_STATUS_SUCCESS,
+//     collections,
+//     filteredCollections
+//   };
+// }
 
 export const updateMediaStatus_Fail = (error) => {
   return {
@@ -101,10 +111,8 @@ export const updateMediaStatus = (status, mediaId, watchStatus, name, type, coll
     let collectionIndex = collections.findIndex(media => media.mediaId === mediaId);
     collections[collectionIndex][name] = watchStatus;
 
-    let updatedFilteredCollections = collections;
-    if (status !== 'all_media') {
-      updatedFilteredCollections = filterSellection(collections, 'watchStatus', status, 'mediaType', type);
-    }
+    let updatedFilteredCollections = filterSellection(collections, 'watchStatus', status, 'mediaType', type);
+
 
     // Set selecte media in firestore
     firestore.collection('users').doc(authorId)
@@ -112,7 +120,7 @@ export const updateMediaStatus = (status, mediaId, watchStatus, name, type, coll
         [name]: watchStatus
       })
       .then(() => {
-        dispatch(updateCollections(collections, updatedFilteredCollections));
+        dispatch(updateMediaStatus_Success(collections, updatedFilteredCollections));
       }).catch(error => {
         dispatch(updateMediaStatus_Fail(error))
       });
@@ -254,20 +262,5 @@ export const deleteMediaFromFirestore = (mediaId, collections, filteredCollectio
   }
 }
 
-// update firestore collection only
-const updateCollections = (collections, filteredCollections) => {
-  return {
-    type: actionTypes.UPDATE_COLLECTION,
-    collections,
-    filteredCollections
-  };
-}
 
-// update filtered collection in state only
-const updateFilteredCollections = (filteredCollections) => {
-  return {
-    type: actionTypes.UPDATE_FILTERED_COLLECTION,
-    filteredCollections
-  };
-}
 

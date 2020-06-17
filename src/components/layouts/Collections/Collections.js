@@ -91,7 +91,7 @@ class Collections extends Component {
               deleteMediaFromFirestore={deleteMediaFromFirestore} /> */}
 
             <GridCard
-              collections={filteredCollections} />
+              filteredCollections={filteredCollections} />
           </div>
         </div>
       </div>

@@ -2,15 +2,15 @@ import React from 'react';
 
 import './GridCard.css';
 
-// Colors object for conditional style and configs
+// 
 import { singleMedia } from '../../../helpers/silgleMedia';
 
 import Card from '../../Cards/Card/Card';
 
 const GridCard = (
-  { fechedResults, collections }) => {
+  { fechedResults, filteredCollections }) => {
 
-  let results = fechedResults ? fechedResults : collections;
+  let results = fechedResults ? fechedResults : filteredCollections;
 
   let singleCard = results ? results.map(card => {
 
@@ -24,16 +24,16 @@ const GridCard = (
       media_type={media_type || mediaType}
       poster_path={poster_path || posterURL}
       singleMedia={singleMedia}
-      collections={collections}
+      fechedResults={fechedResults}
       collectionMedia={collectionMedia} />
   }) : <h6 className='noResults'>No Results Found</h6>
 
-  return (
+  console.log('gridCard');
 
+  return (
     <div className='row-2-cards movie-grid'>
       {singleCard}
     </div>
-
   )
 }
 
