@@ -28,7 +28,7 @@ class Search extends Component {
   render() {
     return (
       <nav className='searchField'>
-        <div className="">
+        <div className="nav-wrapper">
           <form onSubmit={this.handleSubmit}>
             <div className="input-field">
               <input onKeyDown={this._handleSearch} id="search" type="search" required />

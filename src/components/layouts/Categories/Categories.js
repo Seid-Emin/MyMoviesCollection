@@ -29,13 +29,13 @@ const Categories = ({ fetchFilteredMedia }) => {
     <div className='categories-wrapper'>
       <div className="inner">
         <div className='media-side-nav'>
-          {Object.keys(categoriesConfig).map((categorie, index) => {
-            return (<div key={index} className='white-text lighten-5 main-categirie'>{categorie}
+          {Object.keys(categoriesConfig).map(categorie => {
+            return (<div className='white-text lighten-5 main-categirie'>{categorie}
               <ul className='categories-wrap grey-text lighten-3'>
-                {Object.keys(categoriesConfig[categorie]).map((option, index) => {
+                {Object.keys(categoriesConfig[categorie]).map(option => {
                   let currentOption = categoriesConfig[categorie][option];
                   return (
-                    <li key={index}>
+                    <li>
                       <NavLink
                         to={`/${categorie}/${currentOption}/page=1`}
                         activeClassName='activeNav'

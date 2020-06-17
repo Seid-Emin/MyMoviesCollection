@@ -136,6 +136,9 @@ const reducer = (state = initialState, action) => {
     // Update after ADD firestore collection only
     case actionTypes.UPDATE_COLLECTION: return updateCollections(state, action);
 
+    // Update after ADD filtered collection in state only
+    // case actionTypes.UPDATE_FILTERED_COLLECTION: return updateCollections(state, action);
+
     // Get Collection
     case actionTypes.GET_MEDIA_COLLECTIONS_START: return getCollectionFromFirestore_Start(state, action);
     case actionTypes.GET_MEDIA_COLLECTIONS_SUCCESS: return getCollectionFromFirestore_Success(state, action);
