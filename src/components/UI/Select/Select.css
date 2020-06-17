@@ -76,6 +76,45 @@
   color : var(--color-tableDropped);
 }
 
+/* userRating in card colors */
+.card-top .rating_masterpiece,
+.card-top .rating_great,
+.card-top .rating_veryGood {
+  color: var(--color-tableCompleted);
+}
+
+.card-top .rating_good,
+.card-top .rating_fine {
+  color: var(--color-statusWatching);
+}
+
+.card-top .rating_average {
+  color: var(--color-tableOnHold);
+}
+
+.card-top .rating_bad,
+.card-top .rating_veryBad {
+  color: var(--color-userScoreBadVerybad);
+}
+
+.card-top .rating_Horrible,
+.card-top .rating_appalling {
+  color: var(--color-tableDropped);
+}
+
+.card-top .rating_masterpiece,
+.card-top .rating_great,
+.card-top .rating_veryGood,
+.card-top .rating_good,
+.card-top .rating_fine,
+.card-top .rating_average,
+.card-top .rating_bad,
+.card-top .rating_veryBad,
+.card-top .rating_Horrible,
+.card-top .rating_appalling {
+  border: none;
+}
+
 
 /* watchStatus colors */
 .status_watching {

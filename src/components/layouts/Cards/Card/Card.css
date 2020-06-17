@@ -15,22 +15,72 @@
   height  : inherit;
 }
 
-.item-image-container .card-title {
-  background-image      : url(../../../../assets/images/card/image_box_shadow_bottom.png);
-  background-position   : left bottom;
-  background-repeat     : no-repeat;
-  background-size       : 100% 100%;
-  bottom                : 0;
-  display               : inline-block;
-  font-family           : Avenir, lucida grande, tahoma, verdana, arial, sans-serif;
-  font-size             : 11px;
-  left                  : 0;
-  line-height           : 1.2em;
-  padding               : 15px 5px 5px;
-  /* width              : calc(100% - 5px - 5px); */
-  width                 : 100%;
-  position              : absolute;
-  text-shadow           : rgba(0, 0, 0, .8) 1px 1px 0
+.item-image-container .card-top,
+.item-image-container .card-bottom {
+  background-image : url(../../../../assets/images/card/image_box_shadow_bottom.png);
+  background-repeat: no-repeat;
+  background-size  : 100% 100%;
+  display          : flex;
+  align-items      : center;
+  justify-content  : space-between;
+  font-family      : Avenir, lucida grande, tahoma, verdana, arial, sans-serif;
+  font-size        : 11px;
+  left             : 0;
+  line-height      : 1.2em;
+  width            : 100%;
+  padding          : 15px 5px 5px;
+  position         : absolute;
+  text-shadow      : rgba(0, 0, 0, .8) 1px 1px 0
+}
+
+.item-image-container .card-top {
+  background-position: left top;
+  top                : 0;
+  transform          : rotate(180deg);
+}
+
+.item-image-container .card-top .card-top-rating-container {
+  transform: rotate(-180deg);
+  display  : flex;
+}
+
+.card-top-rating-container .rating-star {
+  background-image : url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAHyUExURUxpcfWmI/WmI/WmI/+yM/eqJvanI/WnI/WmJPWmJPanJfeoJfWnI/ioJfWmI/WmJPisJv//f/+wJ/////amI/+qKv+2JPWmJ/WmI/+5LvWmJfWmI/anI/WmI/WmI/WmI/WmI/WnI/+qOP/MM/amI/WnI/anI/WnI/anI/amJPamI/inJvWmI/aoJPanJPamJPemI/WmI/anJPWnJPamJPWmI/anI/WoJPWmI/aoI/WnJPanI/WmI/WmI//hBv/dBf/ZBP/oB//eBf/jBv/lB//vCf/gBf/aBP/WA//rCP/qCP/lBv/nB//kBv/bBP/cBf/gBviuHP/sCf/oCP/kB//iBv/fBf/TA//bBf/XBP/yCf/uCf/sCP/pCP7dCf/mB/q+F/i0G/iyG/apIv/UA/zKDviwG//SAvzCDvamI/2/Cv/NAf/KAvizHPeqIPzFDv3ICf3MDPiwHP/yCv/zCv/tCf/wCf/qB//tCP/nCPvJEvi3GvvIEfevHf/jB/q8E/i4Gvm3Gf3MC/m2GfewHf/XA/3JDP/VA/3SC/3NC/erIP3TDfzJDv/UAv3HCPzGDvzKD/3FC//RAv/YBP3IDPq9E/esIP3EC/y/D//RA/3FCP/eBv/SBfzBDPzHDv/TBvzDDfzAD/zFDfeuHvzEDvetHma2nyIAAAA9dFJOUwDt7P4KIXT+hYR1RINK8nAoAg0BeQwONNILUfd79evqpM4JBZiAq+iXXHNJgVt4qkjpd4Z25uVq3V5pXd4sz4NCAAAB3ElEQVQoz3XSVXPbQBQFYNmxndRhZi4z81ntimWO2WFOGk7KjEmZmfl/VnJaVZNxzsPO3vvN7MPdy3G2nACOceuk8yhwsnMdPI7fP3Ekt3Ucxo9fONSRE71YymhL8OayGicW1fQiHDU5cBNmBUHgZ7FzDVS6iz0leKiQBLmHEk+xu3K1X9bQ1NbeDCOXxbjkl8Qb5r25va2poYxDNg+GBi/1+2OMMX//lcGhN6tdA7veLXyi4Ygo9em9UR8bECNh+nXhe5eBG5D3OaVRngQDvguy3KMH4gpPtdS3PBRwps5n0gIJ9kXlM93nepmffFQz8/mmmZr/VOWJxHS5+7SsxyTCq1/+WlYfZZ/tkeWzvpgY4ccsy+pYUvQzX1Q/zyQx+cxmHFeAEZ6IUoCxiwPXFGEEB2wTqsXVkEASohQPJhQhfAe1NtyF2zQkRBRClKQQojexzYZFeK1RNcTzAh9OU+06imy4B5Mp7SVV79+idPnu6CQ227AOH95PPH41DAyvjE68eIK6/1beiJnpt+OAwwGMP5+eQWO5hW7MTRlzdlZVVFQ5jZ+YmoPbwr04BbTsrjbv1ftbYJQ7LCwFWg/W/6vqva1AqYVb93lc9q1xbd+y0SoKXWu3zVVonn8AQdF6/g+JNUwAAAAASUVORK5CYII=);
+  background-size  : 26px 24px;
+  background-repeat: no-repeat;
+  width            : 26px;
+  height           : 24px;
+  display          : flex;
+  align-items      : center;
+  justify-content  : center;
+}
+
+.item-image-container .card-bottom {
+  background-position: left bottom;
+  bottom             : 0;
+}
+
+
+
+.card-imagePoster img {
+  width: 100%;
+}
+
+.fl {
+  text-transform: uppercase;
+  padding       : 0.1rem 0.3rem;
+  font-size     : 9px;
+  align-self    : flex-end;
+}
+
+.card-bottom .title {
+  font-size     : 12px;
+  vertical-align: middle;
+}
+
+.card-bottom .title,
+.card-bottom .fl {
+  color: var(--color-textTitle);
 }
 
 .card-link {
@@ -48,7 +98,7 @@
     min-height: 30vw;
   }
 
-  .card-title {
+  .card-bottom {
     font-size: 12px;
   }
 
@@ -106,31 +156,3 @@
     max-height: 310px;
   }
 } */
-
-.card-imagePoster img {
-  width: 100%;
-}
-
-.card-title {
-  align-self: center;
-}
-
-.fl {
-  float         : right;
-  text-transform: uppercase;
-  padding       : 0.1rem 0.3rem;
-}
-
-.card-title .title {
-  font-size     : 12px;
-  vertical-align: middle;
-}
-
-.card-title .fl {
-  font-size: 9px;
-}
-
-.card-title .title,
-.card-title .fl {
-  color: var(--color-textTitle);
-}

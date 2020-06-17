@@ -48,7 +48,14 @@ const Card = (
       <div className="item-wrapper">
         <Link to={`/${media}/${filterType}/page=${currentPage}/id=${id}`} className='card-link'>
           <div className='item-image-container'>
-            <div className="card-title">
+            <div className="card-top">
+              {isMediaInCollection && isMediaInCollection.userRating != 'select' ?
+                <div className="card-top-rating-container">
+                  <div className="rating-star"><span className={`card-top-rating ${colorThemes.userRating[isMediaInCollection.userRating]}`}>{isMediaInCollection.userRating}</span></div>
+
+                </div> : null}
+            </div>
+            <div className="card-bottom">
               <span className="title" onClick={() => loadSingleMedia()}>{name ? name : title || original_name || original_title}</span>
               {isMediaInCollection ? <span className={`fl ${colorThemes.statuStyle[isMediaInCollection.watchStatus]}`}>{cardStatusConfig.title[isMediaInCollection.watchStatus]}</span> : null}
             </div>
