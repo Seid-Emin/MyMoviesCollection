@@ -88,9 +88,10 @@ export class Collections extends Component {
       <div className="collection-container">
         <div className="collection-status">
           <div className='collection-nav'>
-            {Object.keys(collectionLinks).map(link => {
+            {Object.keys(collectionLinks).map((link, index) => {
               let currentLink = collectionLinks[link];
               return <NavLink
+                key={index}
                 to={`/Collections/${currentLink}`}
                 className="collection-navlink"
                 activeClassName='activeNavLinks-collection'

@@ -23,7 +23,10 @@ class Content extends Component {
     const { mediaType, filterType, fetchFilteredMedia, preloadSelected, preloadFilteredMedia, currentPage, getCollectionFromFirestore } = this.props;
     const pathName = this.props.history.location.pathname;
 
-    getCollectionFromFirestore();
+    const authorId = localStorage.getItem('userId');
+    if (authorId) {
+      getCollectionFromFirestore();
+    }
 
     // if (pathName.includes('Collections')) {
     //   return <Redirect to={`/${mediaType}/${filterType}/page=${currentPage}`} />
@@ -55,6 +58,23 @@ class Content extends Component {
     //   }
 
   }
+
+  componentDidUpdate() {
+    const { getCollectionFromFirestore } = this.props;
+    const authorId = localStorage.getItem('userId');
+    if (authorId) {
+      getCollectionFromFirestore();
+      console.log('i was here componentDidUpdate - get');
+    }
+    console.log('i was here componentDidUpdate - did not get');
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('i was here shouldComponentUpdate - content');
+
+    return nextProps.auth != this.props.auth;
+  }
+
   handleHideModal = () => {
     const { mediaType, filterType, fetchFilteredMedia, preloadSelected, preloadFilteredMedia, currentPage, searchText, hideModal } = this.props;
     hideModal();
@@ -100,6 +120,7 @@ class Content extends Component {
 
 const mapStateToProps = state => {
   return {
+    auth: state.firebase.auth,
     showInfo: state.selectedMedia.showInfo,
     loadingSearch: state.search.loading,
     searchText: state.search.searchtext,
@@ -119,4 +140,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Content));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(React.memo(Content)));
