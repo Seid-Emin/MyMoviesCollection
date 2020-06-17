@@ -70,9 +70,15 @@ class Content extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log('i was here shouldComponentUpdate - content');
 
-    return nextProps.auth != this.props.auth;
+    if (nextProps.auth != this.props.auth) {
+      console.log('i was here shouldComponentUpdate - content true');
+      return true
+    } else {
+      console.log('i was here shouldComponentUpdate - content false');
+      return false
+    }
+
   }
 
   handleHideModal = () => {

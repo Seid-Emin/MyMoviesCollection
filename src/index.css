@@ -1,5 +1,5 @@
 :root {
-
+  --color-mainBG             : #424242;
   --color-horLine            : #575757;
   --color-activeLinksText    : #039be5;
   --color-activeLinks        : #0c4091;
@@ -74,10 +74,6 @@ code {
   margin   : 0 auto;
   padding  : 0 15px;
   max-width: 1450px;
-}
-
-.layoutMB {
-  margin-bottom: 30px;
 }
 
 /* Status styles */

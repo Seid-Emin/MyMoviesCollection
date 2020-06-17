@@ -12,14 +12,17 @@ import './Navbar.css';
 
 
 const Navbar = (props) => {
-  const { auth, profile } = props;
+  const { auth, profile, collectionStatus } = props;
 
   const links = auth.uid ? <SignedInLinks profile={profile} /> : <SignedOutLinks />
-  const collectionPath = auth.uid ? '/Collections/all_media' : '/signin'
+  const collectionPath = auth.uid ? `/Collections/${collectionStatus}` : '/signin'
+
+  console.log('Navbar updated');
+
 
   return (
     <React.Fragment>
-      <nav className='blue darken-4 layoutMB'>
+      <nav className='nav'>
         <div className="nav-wrapper layout">
           <Link to='/' className="brand-logo material-icons center MovieIcon">movie</Link>
           <div className="nav-right-links">
@@ -39,7 +42,8 @@ const mapStateToProps = (state) => {
   console.log(state);
   return {
     auth: state.firebase.auth,
-    profile: state.firebase.profile
+    profile: state.firebase.profile,
+    collectionStatus: state.collections.status
   }
 }
 
@@ -51,4 +55,4 @@ const mapStateToProps = (state) => {
 
 
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps)(React.memo(Navbar));
