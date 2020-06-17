@@ -1,16 +1,16 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-import './CollectionList.css';
+import './ListCard.css';
 
 // Redux actions and helper methods
 import { singleMedia } from '../../../helpers/silgleMedia';
 
 // Components
-import CollectionItem from '../CollectionItem/CollectionItem';
+import CollectionItem from '../../Collections/CollectionItem/CollectionItem';
 
 
-const CollectionList = ({ collections, status, filteredCollections, fetchSelected, selectedMediaType, showModal, deleteMediaFromFirestore }) => {
+const ListCard = ({ collections, status, filteredCollections, fetchSelected, selectedMediaType, showModal, deleteMediaFromFirestore }) => {
 
   // Guard route
   // If initial filteredCollections is undefined
@@ -54,4 +54,4 @@ const CollectionList = ({ collections, status, filteredCollections, fetchSelecte
   )
 }
 
-export default CollectionList;
+export default ListCard;

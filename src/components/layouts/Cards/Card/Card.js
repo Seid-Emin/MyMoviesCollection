@@ -1,40 +1,44 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom'
-import { withRouter } from "react-router";
+import { Link } from 'react-router-dom';
 
 import './Card.css';
 
 // Colors object for conditional style and configs
 import { colorThemes } from '../../../UI/Styles/colorThemes';
-import { cardStatusConfig } from '../Card/cardStatusConfig';
+import { cardStatusConfig } from './cardStatusConfig';
 import TheMovieDB from '../../../../configs/ApiMovies';
 import * as actions from '../../../../store/actions/index';
 
-import Select from '../../../UI/Select/Select';
-
-
-
 const Card = (
-  { result: { name, id, media_type, title, original_name, original_title, poster_path },
-    filterType, currentPage, filteredMediaType, fetchSelected, selectedMediaType, showModal, singleMedia,
-    collections: { collections } }) => {
+  { name, id, media_type, title, original_name, original_title, poster_path,
+    filterType, currentPage, filteredMediaType, fetchSelected, selectedMediaType, showModal, singleMedia, collections = null, collectionMedia = null, collectionStatus }) => {
 
   // Check the state - searching or fetching data
   const media = media_type ? media_type : filteredMediaType;
 
-  // Check for existing media in collection
-  let findById = collections.filter(item => item.mediaId === id);
-  console.log(findById);
-
   // Check by mediaType too
-  let matchType = findById.mediaType == media_type || findById.mediaName == name || title || original_name || original_title ? findById : null;
-
   let isMediaInCollection;
-  if (matchType !== null) {
-    isMediaInCollection = matchType[0];
+
+  // Check passed props if collection is passed find media in collection
+  // else use the passed one
+  if (collections) {
+    // Check for existing media in collection
+    let findById = collections.filter(item => item.mediaId === id);
+    console.log(findById);
+    let matchType = findById.mediaType == media_type || findById.mediaName == name || title || original_name || original_title ? findById : null;
+
+
+    if (matchType !== null) {
+      isMediaInCollection = matchType[0];
+    }
+    console.log(isMediaInCollection);
+  } else {
+    isMediaInCollection = collectionMedia;
   }
-  console.log(isMediaInCollection);
+
+  // Link path
+  let linkPath = collectionMedia ? `/collections/${collectionStatus}/${id}` : `/${media}/${filterType}/page=${currentPage}/id=${id}`;
 
   // Card image check
   let currentCardImage = poster_path ? `url(${TheMovieDB.API_Img}${poster_path})` : 'url(https://cdn.bestmoviehd.net/share/images/no-cover.png)';
@@ -46,15 +50,15 @@ const Card = (
   return (
     <div className="movie-grid-item">
       <div className="item-wrapper">
-        <Link to={`/${media}/${filterType}/page=${currentPage}/id=${id}`} className='card-link'>
+        <Link to={linkPath} className='card-link'>
           <div className='item-image-container'>
-            <div className="card-top">
-              {isMediaInCollection && isMediaInCollection.userRating != 'select' ?
+            {collectionMedia ?
+              <div className="card-top">
                 <div className="card-top-rating-container">
-                  <div className="rating-star"><span className={`card-top-rating ${colorThemes.userRating[isMediaInCollection.userRating]}`}>{isMediaInCollection.userRating}</span></div>
-
-                </div> : null}
-            </div>
+                  <div className="card-top-mediaType">{media}</div>
+                  {collectionMedia.userRating != 'select' ? <div className="rating-star"><span className={`card-top-rating ${colorThemes.userRating[collectionMedia.userRating]}`}>{collectionMedia.userRating}</span></div> : null}
+                </div>
+              </div> : null}
             <div className="card-bottom">
               <span className="title" onClick={() => loadSingleMedia()}>{name ? name : title || original_name || original_title}</span>
               {isMediaInCollection ? <span className={`fl ${colorThemes.statuStyle[isMediaInCollection.watchStatus]}`}>{cardStatusConfig.title[isMediaInCollection.watchStatus]}</span> : null}
@@ -71,7 +75,7 @@ const mapStateToProps = state => {
     filteredMediaType: state.search.mediaType,
     filterType: state.search.filterType,
     currentPage: state.search.currentPage,
-    collections: state.collections
+    collectionStatus: state.collections.status
   }
 }
 

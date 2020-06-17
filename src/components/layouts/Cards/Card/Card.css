@@ -40,8 +40,13 @@
 }
 
 .item-image-container .card-top .card-top-rating-container {
-  transform: rotate(-180deg);
-  display  : flex;
+  transform      : rotate(-180deg);
+  display        : flex;
+  justify-content: space-between;
+  text-transform : capitalize;
+  color          : var(--color-textTitle);
+  width          : 100%;
+
 }
 
 .card-top-rating-container .rating-star {
@@ -50,9 +55,14 @@
   background-repeat: no-repeat;
   width            : 26px;
   height           : 24px;
-  display          : flex;
-  align-items      : center;
-  justify-content  : center;
+  position         : relative;
+}
+
+.card-top-rating-container .rating-star .card-top-rating {
+  position : absolute;
+  top      : 50%;
+  left     : 50%;
+  transform: translate(-60%, -55%);
 }
 
 .item-image-container .card-bottom {

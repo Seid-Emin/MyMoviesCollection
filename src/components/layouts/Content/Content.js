@@ -60,9 +60,9 @@ class Content extends Component {
   }
 
   componentDidUpdate() {
-    const { getCollectionFromFirestore } = this.props;
+    const { getCollectionFromFirestore, collections } = this.props;
     const authorId = localStorage.getItem('userId');
-    if (authorId) {
+    if (authorId && !collections[0]) {
       getCollectionFromFirestore();
       console.log('i was here componentDidUpdate - get');
     }
@@ -114,7 +114,7 @@ class Content extends Component {
             <>
               <Route path='/:mediaType/:filterType/page=:number' component={Cards} />
               <Route path='/search=:query' component={Cards} />
-              <Route path='/Collections/:status' component={Collections} />
+              <Route path='/collections/:status' component={Collections} />
             </>
           }
         </Switch>
@@ -132,7 +132,8 @@ const mapStateToProps = state => {
     searchText: state.search.searchtext,
     mediaType: state.search.mediaType,
     filterType: state.search.filterType,
-    currentPage: state.search.currentPage
+    currentPage: state.search.currentPage,
+    collections: state.collections.collections
   }
 }
 

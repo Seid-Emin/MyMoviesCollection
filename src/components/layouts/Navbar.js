@@ -15,7 +15,7 @@ const Navbar = (props) => {
   const { auth, profile, collectionStatus } = props;
 
   const links = auth.uid ? <SignedInLinks profile={profile} /> : <SignedOutLinks />
-  const collectionPath = auth.uid ? `/Collections/${collectionStatus}` : '/signin'
+  const collectionPath = auth.uid ? `/collections/${collectionStatus}` : '/signin'
 
   console.log('Navbar updated');
 

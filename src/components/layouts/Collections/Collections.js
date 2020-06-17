@@ -10,7 +10,8 @@ import * as actions from '../../../store/actions/index';
 
 // Components
 import SelectMediaType from '../../UI/Select/SelectMediaType/SelectMediaType';
-import CollectionList from './CollectionList/CollectionList';
+import ListCard from '../View/ListCard/ListCard';
+import GridCard from '../View/GridCard/GridCard';
 
 
 
@@ -66,7 +67,7 @@ class Collections extends Component {
               let currentLink = collectionLinks[link];
               return <NavLink
                 key={index}
-                to={`/Collections/${currentLink}`}
+                to={`/collections/${currentLink}`}
                 className="collection-navlink"
                 activeClassName='activeNavLinks-collection'
                 name={currentLink}
@@ -80,14 +81,17 @@ class Collections extends Component {
               <div className="list-status-title">{status.replace('_', ' ')}</div>
               <SelectMediaType handler={this.filterByStatus} />
             </div>
-            <CollectionList
+            {/* <ListCard
               collections={collections}
               status={status}
               filteredCollections={filteredCollections}
               fetchSelected={fetchSelected}
               selectedMediaType={selectedMediaType}
               showModal={showModal}
-              deleteMediaFromFirestore={deleteMediaFromFirestore} />
+              deleteMediaFromFirestore={deleteMediaFromFirestore} /> */}
+
+            <GridCard
+              collections={filteredCollections} />
           </div>
         </div>
       </div>

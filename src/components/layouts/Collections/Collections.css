@@ -79,52 +79,6 @@ td {
   text-transform  : uppercase;
 }
 
-
-
-.list-table-header {
-  color : var(--color-textTitle);
-  height: 2.3rem;
-}
-
-.list-table-header .header-title {
-  background    : var(--color-tableHeaderBG) url(../../../assets/bar-table-header-dark.png) no-repeat right 7px / 1px 22px;
-  display       : table-cell;
-  border-bottom : var(--color-horLine) 1px solid;
-  text-align    : center;
-  vertical-align: middle;
-  font-weight   : normal;
-}
-
-.list-table-header .header-title:last-child {
-  background: var(--color-tableHeaderBG);
-}
-
-.list-table-header .header-title.status {
-  background-image: none;
-  width           : 4px;
-}
-
-.list-table-header .header-title.number {
-  width: 30px;
-}
-
-.list-table-header .header-title.image {
-  width: 66px;
-}
-
-.list-table-header .header-title.title {
-  padding-left: 8px;
-  text-align  : left;
-}
-
-.list-table-header .header-title.score {
-  width: 65px;
-}
-
-.list-table-header .header-title.type {
-  width: 80px;
-}
-
 .list-unit table tr .title .title-inner {
   display        : flex;
   align-items    : center;

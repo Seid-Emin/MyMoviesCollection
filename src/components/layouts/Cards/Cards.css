@@ -10,16 +10,6 @@
   justify-content: space-between;
 }
 
-.movie-grid {
-  position             : relative;
-  display              : grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows   : 15vw;
-  grid-auto-rows       : 15vw;
-  gap                  : 15px;
-  align-self           : stretch;
-}
-
 .currentyLoadedMedia {
   color : var(--color-textTitle);
   margin: 0;
