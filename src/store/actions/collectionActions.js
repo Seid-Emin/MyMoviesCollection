@@ -263,4 +263,11 @@ export const deleteMediaFromFirestore = (mediaId, collections, filteredCollectio
 }
 
 
+// Change Collection View
+export const changeCollectionView = (viewType) => {
+  return {
+    type: actionTypes.CHANGE_COLLECTION_VIEW,
+    viewType: viewType
+  };
+};
 

@@ -7,6 +7,7 @@ const initialState = {
   media: [],
   status: 'all_media',
   type: 'all',
+  viewType: 'listCard',
   loading: false,
   error: null
 }
@@ -126,6 +127,14 @@ export const deleteMediaFromFirestore_Fail = (state, action) => {
   };
 };
 
+// Change Collection View
+export const changeCollectionView = (state, action) => {
+  return {
+    ...state,
+    viewType: action.viewType
+  };
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     // Add Media Reducers
@@ -150,6 +159,9 @@ const reducer = (state = initialState, action) => {
     case actionTypes.DELETE_MEDIA_START: return deleteMediaFromFirestore_Start(state, action);
     case actionTypes.DELETE_MEDIA_SUCCESS: return deleteMediaFromFirestore_Success(state, action);
     case actionTypes.DELETE_MEDIA_FAIL: return deleteMediaFromFirestore_Fail(state, action);
+
+    // Change Collection View
+    case actionTypes.CHANGE_COLLECTION_VIEW: return changeCollectionView(state, action);
 
     default: return state;
   }

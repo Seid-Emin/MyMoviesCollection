@@ -46,9 +46,15 @@ class Collections extends Component {
     }
   }
 
+  handleViewChange = (viewType) => {
+    const { changeCollectionView } = this.props;
+
+    changeCollectionView(viewType);
+  }
+
   render() {
     // Get needed props by destructuring
-    const { collections: { collections, status, type, filteredCollections }, fetchSelected, selectedMediaType, showModal, deleteMediaFromFirestore } = this.props;
+    const { collections: { collections, filteredCollections, status, type, viewType }, fetchSelected, selectedMediaType, showModal, deleteMediaFromFirestore, changeCollectionView } = this.props;
 
     const collectionLinks = {
       all_media: 'all_media',
@@ -57,6 +63,14 @@ class Collections extends Component {
       on_hold: 'on_hold',
       dropped: 'dropped',
       plan_to_watch: 'plan_to_watch'
+    }
+
+    // Set active class to viewType according to state
+    let listActive, gridActive;
+    if (viewType == 'listCard') {
+      listActive = 'listCard-active';
+    } else {
+      gridActive = 'gridCard-active'
     }
 
     return (
@@ -79,19 +93,27 @@ class Collections extends Component {
           <div className="list-unit">
             <div className='list-unit-bar'>
               <div className="list-status-title">{status.replace('_', ' ')}</div>
-              <SelectMediaType handler={this.filterByStatus} />
+              <div className="unit-actions-container">
+                <div
+                  className={`unit-listView listCard ${listActive}`}
+                  onClick={() => this.handleViewChange('listCard')}></div>
+                <div
+                  className={`unit-listView gridCard ${gridActive}`}
+                  onClick={() => this.handleViewChange('gridCard')}></div>
+                <SelectMediaType handler={this.filterByStatus} />
+              </div>
             </div>
-            {/* <ListCard
+            {viewType == 'listCard' ? <ListCard
               collections={collections}
               status={status}
               filteredCollections={filteredCollections}
               fetchSelected={fetchSelected}
               selectedMediaType={selectedMediaType}
               showModal={showModal}
-              deleteMediaFromFirestore={deleteMediaFromFirestore} /> */}
-
-            <GridCard
-              filteredCollections={filteredCollections} />
+              deleteMediaFromFirestore={deleteMediaFromFirestore} />
+              :
+              <GridCard
+                filteredCollections={filteredCollections} />}
           </div>
         </div>
       </div>
@@ -112,7 +134,8 @@ const mapDispatchToProps = dispatch => {
     showModal: () => dispatch(actions.showModal()),
     deleteMediaFromFirestore: (mediaId, collections, filteredCollections) => dispatch(actions.deleteMediaFromFirestore(mediaId, collections, filteredCollections)),
 
-    filterStatusAndType: (status, collections, type) => dispatch(actions.filterStatusAndType(status, collections, type))
+    filterStatusAndType: (status, collections, type) => dispatch(actions.filterStatusAndType(status, collections, type)),
+    changeCollectionView: (viewType) => dispatch(actions.changeCollectionView(viewType))
   }
 }
 
