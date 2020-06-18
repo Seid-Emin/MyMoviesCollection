@@ -10,6 +10,7 @@ import * as actions from '../../../store/actions/index';
 
 // Components
 import SelectMediaType from '../../UI/Select/SelectMediaType/SelectMediaType';
+import SelectCollectionNav from '../../UI/Select/SelectCollectionNav/SelectCollectionNav';
 import ListCard from '../View/ListCard/ListCard';
 import GridCard from '../View/GridCard/GridCard';
 
@@ -32,24 +33,22 @@ class Collections extends Component {
   //   }
   // }
 
-  filterByStatus = (e, collections) => {
-    const { filterStatusAndType, collections: { status, type } } = this.props;
+  filterByStatus = (e, collections, navStatus = null) => {
+    const { history, filterStatusAndType, collections: { status, type } } = this.props;
     const { name, value } = e.target;
 
     // Check status nav clicked or option selected
-    if (value) {
+    if (navStatus) {
+      console.log('select mobile nav status');
+      filterStatusAndType(value, collections, type);
+      history.push(`/collections/${value}`);
+    } else if (value) {
       // if option selected filter by type
       filterStatusAndType(status, collections, value);
     } else {
       // if nav clicked filter by status
       filterStatusAndType(name, collections, type);
     }
-  }
-
-  handleViewChange = (viewType) => {
-    const { changeCollectionView } = this.props;
-
-    changeCollectionView(viewType);
   }
 
   render() {
@@ -87,6 +86,7 @@ class Collections extends Component {
                 name={currentLink}
                 onClick={(e) => this.filterByStatus(e, collections)}>{currentLink.replace(/_/g, ' ')}</NavLink>
             })}
+            <SelectCollectionNav handler={this.filterByStatus} navStatus='navStatus' />
           </div>
         </div>
         <div className="collection-list">
@@ -96,10 +96,10 @@ class Collections extends Component {
               <div className="unit-actions-container">
                 <div
                   className={`unit-listView listCard ${listActive}`}
-                  onClick={() => this.handleViewChange('listCard')}></div>
+                  onClick={() => changeCollectionView('listCard')}></div>
                 <div
                   className={`unit-listView gridCard ${gridActive}`}
-                  onClick={() => this.handleViewChange('gridCard')}></div>
+                  onClick={() => changeCollectionView('gridCard')}></div>
                 <SelectMediaType handler={this.filterByStatus} />
               </div>
             </div>
@@ -139,7 +139,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Collections);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Collections));
 
 // message to display
 // needs to be created separately and implemented everywhere needed

@@ -32,5 +32,16 @@ export const selectConfig = {
       movie: 'movie',
       tv: 'tv'
     }
+  },
+  navStatus: {
+    name: 'navStatus',
+    options: {
+      all_media: 'all_media',
+      watching: 'watching',
+      completed: 'completed',
+      on_hold: 'on_hold',
+      dropped: 'dropped',
+      plan_to_watch: 'plan_to_watch'
+    }
   }
 }
