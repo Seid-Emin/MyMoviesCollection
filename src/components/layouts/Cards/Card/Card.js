@@ -11,8 +11,7 @@ import { cardStatusConfig } from './cardStatusConfig';
 import TheMovieDB from '../../../../configs/ApiMovies';
 import * as actions from '../../../../store/actions/index';
 
-const Card = (
-  { name, id, media_type, poster_path, fechedResults, filterType, currentPage, filteredMediaType, fetchSelected, selectedMediaType, showModal, singleMedia, collections: { collections, status }, collectionMedia, }) => {
+const Card = ({ name, id, media_type, poster_path, fechedResults, filterType, currentPage, filteredMediaType, fetchSelected, selectedMediaType, showModal, singleMedia, collections: { collections, status }, collectionMedia, }) => {
 
   // Check the state - searching or fetching data
   const media = media_type ? media_type : filteredMediaType;

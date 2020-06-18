@@ -24,11 +24,7 @@ a.collection-navlink.activeNavLinks-collection {
   color: var(--color-activeLinksText);
 }
 
-.collection-list {
-
-  padding: 0;
-}
-
+.collection-list,
 th {
   padding: 0;
 }
@@ -36,7 +32,6 @@ th {
 td {
   line-height: 1.6rem;
 }
-
 
 .list-unit {
   display: block;
@@ -69,6 +64,7 @@ td {
   padding         : 3px 0;
   position        : relative;
   display         : table;
+  border-radius   : 5px;
   background-color: var(--color-textTitleBG);
   width           : 100%;
   color           : var(--color-textInner);
@@ -139,3 +135,29 @@ td {
 .list-unit table tr .title a:hover {
   color: var(--color-tableTextColorHover)
 }
+
+
+
+
+@media (max-width: 768px) {
+  .collection-status {
+    display: none;
+  }
+}
+
+
+@media (max-width: 425px) {
+  .list-status-title {
+    padding   : 3px 10px;
+    font-size : 1.3rem;
+    text-align: left;
+  }
+}
+
+@media (max-width: 375px) {
+  .list-unit table {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 320px) {}

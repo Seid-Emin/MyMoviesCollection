@@ -39,14 +39,14 @@ class Modal extends Component {
   // On EXC key pushed - close modal 
   escFunction(e) {
     if (e.keyCode === 27) {
-      this.props.hideModal();
+      this.props.handler();
     }
   }
 
   // On Broser back button clicked - close modal 
   onBackButtonEvent(e) {
     e.preventDefault();
-    this.props.hideModal()
+    this.props.hideModal();
   }
   // Add selected/picked media to collections
   addMedia = (watchStatus) => {

@@ -2,9 +2,11 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-const Links = ({ uid, initials, toggleSideMenu }) => {
+import * as actions from '../../../../store/actions';
 
-  return (uid ? <SignedInLinks toggleSideMenu={toggleSideMenu} initials={initials} />
+const Links = ({ uid, initials, toggleSideMenu, signOut }) => {
+
+  return (uid ? <SignedInLinks toggleSideMenu={toggleSideMenu} initials={initials} signOut={signOut} />
     : <SignedOutLinks toggleSideMenu={toggleSideMenu} />
   )
 }
@@ -35,5 +37,11 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    signOut: () => dispatch(actions.signOut())
+  }
+}
 
-export default connect(mapStateToProps)(Links);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Links);

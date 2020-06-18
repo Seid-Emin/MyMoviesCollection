@@ -8,6 +8,7 @@
   cursor         : pointer;
   display        : flex;
   justify-content: flex-end;
+  margin         : 0;
 }
 
 .paginateA {
@@ -21,4 +22,11 @@
 .paginateActiveA,
 .paginateA:hover {
   color: #039be5;
+}
+
+
+@media (max-width: 375px) {
+  .paginate {
+    align-self: flex-end;
+  }
 }

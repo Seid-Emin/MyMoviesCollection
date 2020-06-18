@@ -7,8 +7,7 @@ import { singleMedia } from '../../../helpers/silgleMedia';
 
 import Card from '../../Cards/Card/Card';
 
-const GridCard = (
-  { fechedResults, filteredCollections }) => {
+const GridCard = ({ fechedResults, filteredCollections }) => {
 
   let results = fechedResults ? fechedResults : filteredCollections;
 

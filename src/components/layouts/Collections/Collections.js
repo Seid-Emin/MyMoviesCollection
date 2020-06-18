@@ -53,7 +53,7 @@ class Collections extends Component {
 
   render() {
     // Get needed props by destructuring
-    const { collections: { collections, filteredCollections, status, type, viewType }, fetchSelected, selectedMediaType, showModal, deleteMediaFromFirestore, changeCollectionView } = this.props;
+    const { collections: { collections, filteredCollections, status, viewType }, fetchSelected, selectedMediaType, showModal, deleteMediaFromFirestore, changeCollectionView } = this.props;
 
     const collectionLinks = {
       all_media: 'all_media',
@@ -66,7 +66,7 @@ class Collections extends Component {
 
     // Set active class to viewType according to state
     let listActive, gridActive;
-    if (viewType == 'listCard') {
+    if (viewType === 'listCard') {
       listActive = 'listCard-active';
     } else {
       gridActive = 'gridCard-active'
@@ -103,7 +103,7 @@ class Collections extends Component {
               </div>
             </div>
             <SelectCollectionNav handler={this.filterByStatus} navStatus='navStatus' />
-            {viewType == 'listCard' ? <ListCard
+            {viewType === 'listCard' ? <ListCard
               collections={collections}
               status={status}
               filteredCollections={filteredCollections}

@@ -2,68 +2,67 @@
   position        : absolute;
   top             : 0;
   left            : 0;
-  width           : 30%;
+  width           : 35%;
   height          : 100%;
   background-color: var(--color-activeLinks);
-  display         : flex;
+  display         : none;
   z-index         : 6;
   flex-direction  : column;
 }
 
 .sideMenu ul#nav-mobile {
-  display                 : grid;
-  grid-template-columns   : repeat(2, 1fr);
-  /* grid-template-rows   : repeat(3, 1fr); */
-  gap                     : 10px;
+  display              : grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap                  : 10px;
 }
 
-li.collectionLink {
+.sideMenu li.collectionLink {
   grid-row   : 3/4;
   grid-column: 1/2;
-
+  padding    : 5px 0;
 }
 
-li.collectionLink a,
-li.signup a,
-li.login a,
-li.logout a {
+.sideMenu li.collectionLink a,
+.sideMenu li.signup a,
+.sideMenu li.login a,
+.sideMenu li.logout a {
   color     : var(--color-textInner);
   transition: color 200ms ease-in-out;
 }
 
-li.collectionLink a:hover,
-li.signup a:hover,
-li.login a:hover,
-li.logout a:hover,
-li.collectionLink .activeNav {
+.sideMenu li.collectionLink a:hover,
+.sideMenu li.signup a:hover,
+.sideMenu li.login a:hover,
+.sideMenu li.logout a:hover,
+.sideMenu li.collectionLink .activeNav {
   color: var(--color-activeLinksText);
 }
 
-li.signup {
+.sideMenu li.signup {
   grid-row   : 2/3;
   grid-column: 2/3;
 }
 
-li.login {
+.sideMenu li.login {
   grid-row   : 1/2;
   grid-column: 2/3;
 }
 
-li.logout {
+.sideMenu li.logout {
   grid-row   : 5/6;
   grid-column: 1/3;
 }
 
 
-li.initials {
+.sideMenu li.initials {
   grid-row   : 1/2;
   grid-column: 2/3;
 }
 
-li.signup,
-li.login,
-li.logout,
-li.initials {
+.sideMenu li.signup,
+.sideMenu li.login,
+.sideMenu li.logout,
+.sideMenu li.initials {
   justify-self: right;
 }
 
@@ -75,10 +74,46 @@ li.initials {
 
 /* categories in sideMenu */
 .sideMenu ul#nav-mobile .main-categirie,
-li.collectionLink {
+.sideMenu li.collectionLink {
   font-size: 1.2rem;
 }
 
 .sideMenu ul#nav-mobile .main-categirie li a {
   font-size: 1rem;
+}
+
+
+@media (max-width: 768px) {
+  .sideMenu {
+    display: flex;
+  }
+
+  .sideMenu ul#nav-mobile {
+    position: sticky;
+    top     : 14px;
+  }
+}
+
+@media (max-width: 481px) {
+  .sideMenu {
+    width: 50%;
+  }
+}
+
+@media (max-width: 425px) {
+  .sideMenu {
+    width: 70%;
+  }
+}
+
+@media (max-width: 375px) {
+  .sideMenu {
+    width: 85%;
+  }
+}
+
+@media (max-width: 320px) {
+  .sideMenu {
+    width: 100%;
+  }
 }

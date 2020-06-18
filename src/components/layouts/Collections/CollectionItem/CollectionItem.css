@@ -45,3 +45,5 @@
 .list-table-data .data.type {
   text-transform: uppercase;
 }
+
+@media (max-width: 375px) {}

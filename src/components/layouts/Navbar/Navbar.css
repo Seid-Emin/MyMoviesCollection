@@ -21,7 +21,7 @@ nav .nav-wrapper {
 .hamburger-container {
   position   : relative;
   cursor     : pointer;
-  display    : flex;
+  display    : none;
   align-items: center;
   height     : 100%;
 }
@@ -117,4 +117,37 @@ nav .brand-logo.center {
   /* nav .brand-logo.center {
     left: 15px;
   } */
+}
+
+@media (max-width: 768px) {
+
+  /* Hamburger menu styles */
+  .hamburger-container {
+    display: flex;
+  }
+
+  nav .brand-logo.center {
+    position : absolute;
+    left     : 50%;
+    transform: translateX(-50%);
+  }
+
+  .nav-right-links .searchField {
+    margin-right: 0;
+    width       : 65%;
+  }
+
+  .nav-right-links ul#nav-mobile {
+    display: none;
+  }
+}
+
+@media (max-width: 375px) {
+  nav .nav-wrapper .brand-logo.center.MovieIcon {
+    left: 92.5%;
+  }
+
+  .nav-right-links {
+    justify-content: unset;
+  }
 }

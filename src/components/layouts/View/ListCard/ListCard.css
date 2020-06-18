@@ -41,3 +41,10 @@
 .list-table-header .header-title.type {
   width: 80px;
 }
+
+
+@media (max-width: 375px) {
+  td {
+    line-height: 1rem;
+  }
+}

@@ -3,8 +3,9 @@
   grid-template-columns: 150px 1fr;
   grid-gap             : 15px;
   padding-top          : 20px;
+  padding-bottom       : 20px;
   width                : 100%;
-  min-height           : calc(100vh - 65px - 20px - 60px);
+  min-height           : calc(100vh - 65px - 60px);
   position             : relative;
 }
 
@@ -20,9 +21,15 @@
   color    : #ec407a;
 }
 
-@media only screen and (max-width:481px) {
+@media (max-width: 768px) {
   .content-grid {
     grid-template-columns: 1fr;
-    margin               : 0 10px 0 15px;
+  }
+}
+
+@media only screen and (max-width:481px) {
+  .content-grid {
+    grid-template-columns   : 1fr;
+    /* margin               : 0 10px 0 15px; */
   }
 }

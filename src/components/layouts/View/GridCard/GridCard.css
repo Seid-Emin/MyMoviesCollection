@@ -2,8 +2,48 @@
   position             : relative;
   display              : grid;
   grid-template-columns: repeat(6, 1fr);
-  grid-template-rows   : 15vw;
-  grid-auto-rows       : 15vw;
+  grid-template-rows   : 30vh;
+  grid-auto-rows       : 30vh;
   gap                  : 15px;
   align-self           : stretch;
+}
+
+@media (max-width:1440px) {
+  .movie-grid {
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows   : 23vw;
+    grid-auto-rows       : 23vw;
+  }
+}
+
+@media (max-width:1024px) {
+  .movie-grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows   : 27vw;
+    grid-auto-rows       : 27vw;
+  }
+}
+
+
+@media (max-width:768px) {
+  .movie-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows   : 40vw;
+    grid-auto-rows       : 40vw;
+    gap                  : 15px;
+  }
+}
+
+@media (max-width:481px) {
+  .movie-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows   : 60vw;
+    grid-auto-rows       : 60vw;
+  }
+}
+
+@media (max-width: 320px) {
+  .movie-grid {
+    gap: 5px;
+  }
 }
