@@ -3,14 +3,13 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
-const SignedInLinks = (props) => {
-  let { initials } = props.profile;
+const SignedInLinks = ({ profile: { initials }, signOut, toggleSideMenu }) => {
 
   return (
-    <>
-      <li><NavLink onClick={props.signOut} to='/movie/now_playing/page=1' >Log Out</NavLink></li>
-      <li><NavLink to='/movie/now_playing/page=1' className='btn btn-floating pink lighten-1'>{initials}</NavLink></li>
-    </>
+    <React.Fragment>
+      <li className='logout' onClick={toggleSideMenu}><NavLink onClick={signOut} to='/movie/now_playing/page=1' >Log Out</NavLink></li>
+      <li className='initials'><NavLink to='/movie/now_playing/page=1' className='btn btn-floating pink lighten-1'>{initials}</NavLink></li>
+    </React.Fragment>
   )
 }
 

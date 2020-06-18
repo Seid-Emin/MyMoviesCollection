@@ -3,10 +3,10 @@ import axios from 'axios'
 
 import MovieDB from '../../configs/ApiMovies'
 
-export const selectedMediaType = (type) => {
+export const selectedMediaType = (mediaType) => {
   return {
     type: actionTypes.PICK_SELECTED_MEDIA_TYPE,
-    selectedMediaType: type
+    selectedMediaType: mediaType
   };
 };
 

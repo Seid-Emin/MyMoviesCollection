@@ -17,6 +17,7 @@ import Backdrop from '../../UI/Backdrop/Backdrop';
 import SignIn from '../../auth/SignIn';
 import SignUp from '../../auth/SingUp';
 import Collections from '../../layouts/Collections/Collections';
+import SideMenu from '../../SideMenu/SideMenu'
 
 class Content extends Component {
   componentDidMount() {
@@ -97,30 +98,36 @@ class Content extends Component {
     }
   }
   render() {
-    const { showInfo, loadingSearch } = this.props;
+    const { showInfo, loadingSearch, showMenu, toggleSideMenu } = this.props;
     const modal = showInfo ?
       <>
-        <Backdrop handleHideModal={this.handleHideModal} show={showInfo} />
-        <Modal handleHideModal={this.handleHideModal} />
+        <Backdrop handler={this.handleHideModal} />
+        <Modal handler={this.handleHideModal} />
       </>
       : null;
 
     return (
-      <div className='content-grid layout'>
-        <Categories />
-        <Switch>
-          <Route path='/signin' component={SignIn} />
-          <Route path='/signup' component={SignUp} />
-          {loadingSearch ? <Spinner /> :
-            <>
-              <Route path='/:mediaType/:filterType/page=:number' component={Cards} />
-              <Route path='/search=:query' component={Cards} />
-              <Route path='/collections/:status' component={Collections} />
-            </>
-          }
-        </Switch>
-        {modal}
-      </div >
+      <React.Fragment>
+        {showMenu ? <>
+          <SideMenu />
+          <Backdrop handler={toggleSideMenu} />
+        </> : null}
+        <div className='content-grid layout'>
+          <Categories />
+          <Switch>
+            <Route path='/signin' component={SignIn} />
+            <Route path='/signup' component={SignUp} />
+            {loadingSearch ? <Spinner /> :
+              <>
+                <Route path='/:mediaType/:filterType/page=:number' component={Cards} />
+                <Route path='/search=:query' component={Cards} />
+                <Route path='/collections/:status' component={Collections} />
+              </>
+            }
+          </Switch>
+          {modal}
+        </div >
+      </React.Fragment>
     )
   }
 }
@@ -134,7 +141,8 @@ const mapStateToProps = state => {
     mediaType: state.search.mediaType,
     filterType: state.search.filterType,
     currentPage: state.search.currentPage,
-    collections: state.collections.collections
+    collections: state.collections.collections,
+    showMenu: state.sideMenu.showMenu
   }
 }
 
@@ -145,6 +153,7 @@ const mapDispatchToProps = dispatch => {
     preloadFilteredMedia: (pathMediaType, pathFilterType, pageNum, selected, path) => dispatch(actions.preloadFilteredMedia(pathMediaType, pathFilterType, pageNum, selected, path)),
     preloadSelected: (pathname) => dispatch(actions.preloadSelected(pathname)),
     getCollectionFromFirestore: () => dispatch(actions.getCollectionFromFirestore()),
+    toggleSideMenu: () => dispatch(actions.toggleSideMenu()),
   }
 }
 

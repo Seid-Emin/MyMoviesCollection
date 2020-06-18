@@ -76,7 +76,7 @@ class Modal extends Component {
       selectedMediaData: { id, original_title, poster_path, original_name, videos, vote_average, genres, similar, release_date, overview, first_air_date, name, title, popularity, vote_count },
       loading_selected,
       collections: { filteredCollections, collections },
-      deleteMediaFromFirestore, handleHideModal } = this.props;
+      deleteMediaFromFirestore, handler } = this.props;
 
 
 
@@ -180,7 +180,7 @@ class Modal extends Component {
             </div>
             {similarMovies}
             <div className='btn-wrapper'>
-              <button className="blue darken-4 waves-effect waves-light btn closeModal" onClick={() => handleHideModal()}>Close</button>
+              <button className="blue darken-4 waves-effect waves-light btn closeModal" onClick={() => handler()}>Close</button>
             </div>
           </>}
       </div >

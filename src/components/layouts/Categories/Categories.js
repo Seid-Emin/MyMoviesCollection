@@ -23,7 +23,7 @@ const categoriesConfig = {
   }
 }
 
-const Categories = ({ fetchFilteredMedia, clearSearchingState }) => {
+const Categories = ({ fetchFilteredMedia, clearSearchingState, toggleSideMenu }) => {
 
   const fetchCategorie = (categorie, currentOption) => {
 
@@ -45,7 +45,7 @@ const Categories = ({ fetchFilteredMedia, clearSearchingState }) => {
                 {Object.keys(categoriesConfig[categorie]).map((option, index) => {
                   let currentOption = categoriesConfig[categorie][option];
                   return (
-                    <li key={index}>
+                    <li key={index} onClick={toggleSideMenu}>
                       <NavLink
                         to={`/${categorie}/${currentOption}/page=1`}
                         activeClassName='activeNav'

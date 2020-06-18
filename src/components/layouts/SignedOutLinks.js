@@ -1,12 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const SignedOutLinks = () => {
+const SignedOutLinks = ({ toggleSideMenu }) => {
   return (
-    <>
-      <li><NavLink to='/signup'>Signup</NavLink></li>
-      <li><NavLink to='/signin'>Login</NavLink></li>
-    </>
+    <React.Fragment>
+      <li className='signup' onClick={toggleSideMenu}><NavLink to='/signup'>Signup</NavLink></li>
+      <li className='login' onClick={toggleSideMenu}><NavLink to='/signin'>Login</NavLink></li>
+    </React.Fragment>
   )
 }
 

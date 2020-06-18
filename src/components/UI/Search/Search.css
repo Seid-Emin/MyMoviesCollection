@@ -3,12 +3,13 @@ nav.searchField {
   border-radius: 5px;
   width        : -webkit-fill-available;
   margin-right : 15px;
+  height       : 32px;
 }
 
 .searchField {
-  height          : 50%;
   background-color: inherit;
   box-shadow      : none;
+
 }
 
 .searchField-inner {

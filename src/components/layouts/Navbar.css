@@ -11,17 +11,68 @@ nav {
 nav .nav-wrapper {
   display         : flex;
   justify-content : space-between;
+  align-items     : center;
   background-color: var(--color-scrollThumb);
   box-shadow      : 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
 }
 
-/* nav ul {
-  padding: 0 15px;
-} */
 
-/* nav ul li:first-child a {
-  padding: 0 15px;
-} */
+/* Hamburger menu styles */
+.hamburger-container {
+  position   : relative;
+  cursor     : pointer;
+  display    : flex;
+  align-items: center;
+  height     : 100%;
+}
+
+
+.hamburger-container:hover .hamburger,
+.hamburger-container:hover .hamburger:before,
+.hamburger-container:hover .hamburger:after {
+  background-color: var(--color-textHover);
+}
+
+.hamburger,
+.hamburger:before,
+.hamburger:after {
+  content         : '';
+  width           : 2rem;
+  height          : 2px;
+  border-radius   : 5px;
+  background-color: var(--color-textTitle);
+  transition      : all 200ms ease-in-out;
+}
+
+.hamburger:before,
+.hamburger:after {
+  position: absolute;
+}
+
+.hamburger:before {
+  transform: translateY(-7px);
+}
+
+.hamburger:after {
+  transform: translateY(7px);
+}
+
+.hamburger-active {
+  transform: rotate(-45deg);
+  z-index  : 7;
+}
+
+.hamburger-active:before {
+
+  transform: rotate(0deg);
+  opacity  : 0;
+}
+
+.hamburger-active:after {
+
+  transform: rotate(90deg);
+}
+
 
 .nav-right-links {
   display        : flex;

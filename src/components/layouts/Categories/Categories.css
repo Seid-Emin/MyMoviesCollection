@@ -14,14 +14,13 @@
 }
 
 .main-categirie {
-  cursor        : pointer;
   text-transform: capitalize;
   font-size     : 1.3rem;
 }
 
-.main-categirie:hover {
+/* .main-categirie:hover {
   color: #cfd8dc !important;
-}
+} */
 
 .main-categirie ul {
   margin-top   : 0;
@@ -35,9 +34,10 @@
 }
 
 .categories-wrap a {
-  margin   : 2px 0;
-  font-size: 1rem;
-  color    : #e0e0e0;
+  margin    : 2px 0;
+  font-size : 1rem;
+  color     : var(--color-textInner);
+  transition: color 200ms ease-in-out;
 }
 
 
