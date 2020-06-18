@@ -12,7 +12,7 @@
   --color-statusTitle        : #444444;
   --color-tableHeaderBG      : #333;
   --color-statusAll          : var(--color-statusTitle);
-  --color-statusWatching     : #2196F3;
+  --color-statusWatching     : var(--color-textTitleBG);
   --color-tableCompleted     : #2db039;
   --color-tableOnHold        : #f1c83e;
   --color-tableDropped       : #a12f31;
@@ -25,6 +25,8 @@
   --color-userScoreDefault   : #bebebe;
   --color-userScoreBadVerybad: #fcb854;
   --color-scrollThumb        : #0D47A1;
+
+  --noCoverImg: './assets/images/no-cover.png'
 }
 
 ::-webkit-scrollbar {

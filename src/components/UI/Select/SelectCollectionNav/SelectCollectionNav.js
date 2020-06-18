@@ -9,7 +9,7 @@ import Select from '../Select';
 const SelectCollectionNav = ({ collections: { collections, status }, handler, navStatus }) => {
   return <Select
     selectName='navStatus'
-    selectClass='list-type-select'
+    selectClass='collection-nav-select'
     payload={collections}
     value={status}
     navStatus={navStatus}

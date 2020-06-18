@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import Card from '../Cards/Card/Card'
 
-const FilteredMedia = ({ results, filteredMediaType, displayTitle }) => {
+const FilteredMedia = ({ results, filteredMediaType, displayTitle, searching }) => {
   let singleCard = results ? results.map(card => {
     return <Card key={card.id} result={card} mediaType={filteredMediaType} />
   }) : <h6 className='noResults'>No Results Found. Try Again Later...</h6>;
@@ -23,6 +23,7 @@ const mapStateToProps = state => {
     results: state.search.filteredMediaResults,
     filteredMediaType: state.search.mediaType,
     displayTitle: state.search.displayTitle,
+    searching: state.search.searching,
   }
 }
 

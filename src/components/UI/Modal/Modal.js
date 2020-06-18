@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import './Modal.css';
+import noCoverImg from '../../../assets/images/no-cover.png';
+
 
 // Redux actions and helper methods
 import * as actions from '../../../store/actions/index';
@@ -100,7 +102,7 @@ class Modal extends Component {
     }
 
     //check if poster_path exist in the responce
-    let posterPath = poster_path ? <img src={MovieDB.API_Img + poster_path} alt={original_name} /> : <img src='https://cdn.bestmoviehd.net/share/images/no-cover.png' alt={original_name} />;
+    let posterPath = poster_path ? <img src={MovieDB.API_Img + poster_path} alt={original_name} /> : <img src={noCoverImg} alt={original_name} />;
 
     //check is there any similar movies in the DB
     let similarMovies = similar && similar.total_results !== 0 ? <SimilarMovies /> : null;

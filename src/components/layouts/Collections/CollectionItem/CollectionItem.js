@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './CollectionItem.css';
+import noCoverImg from '../../../../assets/images/no-cover.png';
 
 // Colors object for conditional style and configs
 import { colorThemes } from '../../../UI/Styles/colorThemes';
@@ -12,7 +13,7 @@ const CollectionItem = ({
   fetchSelected, selectedMediaType, showModal, deleteMediaFromFirestore, collections, filteredCollections, status, number, singleMedia }) => {
 
   //check if poster_path exist in the responce
-  let posterPath = posterURL ? TheMovieDB.API_Img + posterURL : 'https://cdn.bestmoviehd.net/share/images/no-cover.png';
+  let posterPath = posterURL ? TheMovieDB.API_Img + posterURL : noCoverImg;
 
   return (
     <tbody className='list-item' >
@@ -20,13 +21,13 @@ const CollectionItem = ({
         <td className={"data status " + colorThemes.statuStyle[watchStatus]}></td>
         <td className="data number">{number + 1}</td>
         <td className="data image">
-          <Link to={`/Collections/${status}/id=${mediaId}`} className="link sort"  >
+          <Link to={`/collections/${status}/id=${mediaId}`} className="link sort"  >
             <img src={posterPath} alt={mediaName + ' image'} className="hover-info image" onClick={() => singleMedia(mediaType, mediaId, fetchSelected, selectedMediaType, showModal)} />
           </Link>
         </td>
         <td className="data title clearfix">
           <div className='title-inner'>
-            <Link to={`/Collections/${status}/id=${mediaId}`} className="link sort" onClick={() => singleMedia(mediaType, mediaId, fetchSelected, selectedMediaType, showModal)}>{mediaName}</Link>
+            <Link to={`/collections/${status}/id=${mediaId}`} className="link sort" onClick={() => singleMedia(mediaType, mediaId, fetchSelected, selectedMediaType, showModal)}>{mediaName}</Link>
             <div className="delete-media">
               <span className="List_LightBox" onClick={() => deleteMediaFromFirestore(mediaId, collections, filteredCollections)}>delete</span>
             </div>

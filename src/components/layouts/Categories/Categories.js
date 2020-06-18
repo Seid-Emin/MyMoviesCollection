@@ -23,7 +23,17 @@ const categoriesConfig = {
   }
 }
 
-const Categories = ({ fetchFilteredMedia }) => {
+const Categories = ({ fetchFilteredMedia, clearSearchingState }) => {
+
+  const fetchCategorie = (categorie, currentOption) => {
+
+    // Clear searching state
+    clearSearchingState();
+
+    // Get categorie
+    fetchFilteredMedia(categorie, currentOption);
+
+  }
 
   return (
     <div className='categories-wrapper'>
@@ -39,7 +49,7 @@ const Categories = ({ fetchFilteredMedia }) => {
                       <NavLink
                         to={`/${categorie}/${currentOption}/page=1`}
                         activeClassName='activeNav'
-                        onClick={() => fetchFilteredMedia(categorie, currentOption)}>{currentOption.replace(/_/g, ' ')}
+                        onClick={() => fetchCategorie(categorie, currentOption)}>{currentOption.replace(/_/g, ' ')}
                       </NavLink>
                     </li>
                   )
@@ -56,7 +66,8 @@ const Categories = ({ fetchFilteredMedia }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchFilteredMedia: (mediaType, filterType) => dispatch(actions.fetchFilteredMedia(mediaType, filterType))
+    fetchFilteredMedia: (mediaType, filterType) => dispatch(actions.fetchFilteredMedia(mediaType, filterType)),
+    clearSearchingState: () => dispatch(actions.clearSearchingState())
   }
 }
 

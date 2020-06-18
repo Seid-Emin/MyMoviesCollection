@@ -11,6 +11,10 @@ nav.searchField {
   box-shadow      : none;
 }
 
+.searchField-inner {
+  height: 100%;
+}
+
 nav .label-icon {
   height     : 40px;
   line-height: 40px;
@@ -22,10 +26,10 @@ div .searchField i {
   transform  : translateY(11%);
 }
 
-nav .input-field label i {
+nav .input-field label i,
+nav .input-field label.active i {
   color: var(--color-horLine);
 }
-
 
 .nav-wrapper form {
   display: flex;

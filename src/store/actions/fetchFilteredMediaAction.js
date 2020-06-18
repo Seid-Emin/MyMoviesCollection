@@ -15,7 +15,6 @@ export const fetchFilteredMediaSuccess = (searchResult, mediaType, filterType, p
     searchFilteredResult: searchResult,
     mediaType,
     filterType,
-    clearSearch: '',
     page,
     selected
   };

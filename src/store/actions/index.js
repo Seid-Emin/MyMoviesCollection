@@ -1,6 +1,7 @@
 export {
   search,
   fetchMultiSearch,
+  clearSearchingState
 } from './searchAction';
 
 export {

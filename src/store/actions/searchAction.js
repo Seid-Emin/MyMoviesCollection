@@ -45,3 +45,9 @@ export const fetchMultiSearch = (query) => {
       });
   }
 }
+
+export const clearSearchingState = () => {
+  return {
+    type: actionTypes.CLEAR_SEARCH_STATE,
+  }
+}

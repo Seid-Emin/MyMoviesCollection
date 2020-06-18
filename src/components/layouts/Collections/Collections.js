@@ -86,13 +86,12 @@ class Collections extends Component {
                 name={currentLink}
                 onClick={(e) => this.filterByStatus(e, collections)}>{currentLink.replace(/_/g, ' ')}</NavLink>
             })}
-            <SelectCollectionNav handler={this.filterByStatus} navStatus='navStatus' />
           </div>
         </div>
         <div className="collection-list">
           <div className="list-unit">
             <div className='list-unit-bar'>
-              <div className="list-status-title">{status.replace('_', ' ')}</div>
+              <div className="list-status-title">{status.replace(/_/g, ' ')}</div>
               <div className="unit-actions-container">
                 <div
                   className={`unit-listView listCard ${listActive}`}
@@ -103,6 +102,7 @@ class Collections extends Component {
                 <SelectMediaType handler={this.filterByStatus} />
               </div>
             </div>
+            <SelectCollectionNav handler={this.filterByStatus} navStatus='navStatus' />
             {viewType == 'listCard' ? <ListCard
               collections={collections}
               status={status}

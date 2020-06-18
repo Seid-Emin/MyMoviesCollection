@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import './SimilarMovie.css';
+import noCoverImg from '../../../../../assets/images/no-cover.png';
 
 // Redux actions and helper methods
 import * as actions from '../../../../../store/actions/index';
@@ -27,7 +28,7 @@ class SimilarMovie extends Component {
       mediaType, filterType, currentPage } = this.props;
 
 
-    let posterPath = poster_path ? TheMovieDB.API_Img + poster_path : 'https://cdn.bestmoviehd.net/share/images/no-cover.png';
+    let posterPath = poster_path ? TheMovieDB.API_Img + poster_path : noCoverImg;
     return (
       <div className="card-action" onClick={this.getSelectedVideo}>
         <Link to={`/${mediaType}/${filterType}/page=${currentPage}/id=${id}`}>

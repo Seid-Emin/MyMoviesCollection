@@ -108,7 +108,6 @@ class Content extends Component {
     return (
       <div className='content-grid layout'>
         <Categories />
-
         <Switch>
           <Route path='/signin' component={SignIn} />
           <Route path='/signup' component={SignUp} />

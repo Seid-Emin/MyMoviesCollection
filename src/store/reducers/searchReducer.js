@@ -4,6 +4,7 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
   searchText: '',
   searchResult: [],
+  searching: false,
   loading: false,
   showModal: false,
   pagesTotal: '0',
@@ -35,6 +36,7 @@ export const fetchSearchSuccess = (state, action) => {
   return {
     ...state,
     searchResult: action.searchResult,
+    searching: true,
     pagesTotal: action.pagesTotal,
     totalResults: action.totalResults,
     loading: false,
@@ -49,6 +51,13 @@ export const fetchFail = (state, action) => {
     error: action.error
   };
 };
+
+export const clearSearchingState = (state, action) => {
+  return {
+    ...state,
+    searching: false
+  }
+}
 
 export const fetchFilteredMediaStart = (state, action) => {
   return {
@@ -65,7 +74,7 @@ export const fetchFilteredMediaSuccess = (state, action) => {
     currentPage: action.page,
     selected: action.selected,
     loading: false,
-    searchText: action.clearSearch,
+    searching: false,
     mediaType: action.mediaType,
     filterType: action.filterType,
     pagesTotal: action.searchFilteredResult.total_pages,
@@ -87,12 +96,15 @@ const reducer = (state = initialState, action) => {
     case actionTypes.SEARCH: return searchParam(state, action);
     case actionTypes.FETCH_SEARCH_START: return fetchStart(state, action);
     case actionTypes.FETCH_SEARCH_SUCCESS: return fetchSearchSuccess(state, action);
+    case actionTypes.FETCH_SEARCH_FAIL: return fetchFail(state, action);
+
+    case actionTypes.CLEAR_SEARCH_STATE: return clearSearchingState(state, action);
 
     case actionTypes.FETCH_FILTERED_RESULTS_START: return fetchFilteredMediaStart(state, action);
     case actionTypes.FETCH_FILTERED_RESULTS_SUCCESS: return fetchFilteredMediaSuccess(state, action);
     case actionTypes.FETCH_FILTERED_RESULTS_FAIL: return fetchFilteredMediaFail(state, action);
 
-    case actionTypes.FETCH_SEARCH_FAIL: return fetchFail(state, action);
+
 
     default: return state;
   }

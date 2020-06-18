@@ -8,49 +8,53 @@ import * as actions from '../../../store/actions/index';
 import './Search.css';
 
 
-class Search extends Component {
-  _handleSearch = (e) => {
+const Search = ({ search: { searchText, searching }, searchQuery, fetchMultiSearch, clearSearchingState, history }) => {
+  const _handleSearch = (e) => {
+    const { value } = e.target;
+
+    // Clear searching state if user is typing new search params
+    if (searching) {
+      clearSearchingState();
+    }
+
+    searchQuery(value);
     if (e.key === 'Enter') {
-      let search = this.props.search
-      this.props.searchText(e.target.value);
-      this.props.fetchMultiSearch(search);
-      this.props.history.push(`/search=${search}`)
+      fetchMultiSearch(searchText);
+      history.push(`/search=${searchText}`)
     }
   }
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    let search = this.props.search
-    this.props.fetchMultiSearch(search);
-    this.props.history.push(`/search=${search}`)
+    fetchMultiSearch(searchText);
+    history.push(`/search=${searchText}`)
   }
 
-  render() {
-    return (
-      <nav className='searchField'>
-        <div className="">
-          <form onSubmit={this.handleSubmit}>
-            <div className="input-field">
-              <input onKeyDown={this._handleSearch} id="search" type="search" required />
-              <label className="label-icon" htmlFor="search"> <Link to={'/search=' + this.props.search} ><i className="material-icons">search</i></Link></label>
-            </div>
-          </form>
-        </div>
-      </nav >
-    )
-  }
+  return (
+    <nav className='searchField'>
+      <div className="searchField-inner">
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <div className="input-field">
+            <input onChange={(e) => _handleSearch(e)} id="search" type="search" required autoComplete='on' />
+            <label className="label-icon" htmlFor="search"> <Link to={'/search=' + searchText} ><i className="material-icons" onClick={(e) => handleSubmit(e)}>search</i></Link></label>
+          </div>
+        </form>
+      </div>
+    </nav >
+  )
 }
 
 const mapStateToProps = state => {
   return {
-    search: state.search.searchText
+    search: state.search
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    searchText: (search) => dispatch(actions.search(search)),
-    fetchMultiSearch: (query) => dispatch(actions.fetchMultiSearch(query))
+    searchQuery: (search) => dispatch(actions.search(search)),
+    fetchMultiSearch: (query) => dispatch(actions.fetchMultiSearch(query)),
+    clearSearchingState: () => dispatch(actions.clearSearchingState()),
   }
 }
 

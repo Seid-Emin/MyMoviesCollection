@@ -9,13 +9,13 @@ import { singleMedia } from '../../helpers/silgleMedia';
 
 import './Cards.css'
 
-const Cards = ({ results, searchText, totalResults, filteredMediaType, displayTitle, pagesCount = 0, collections }) => {
+const Cards = ({ results, searchText, searching, totalResults, filteredMediaType, displayTitle, pagesCount = 0, collections }) => {
 
   // Display the Info for what is being search and if any result found
-  const mediainfoTitle = searchText !== '' ? <h6 className='currentyLoadedMedia'>Searched for '{searchText}' - {totalResults} results found</h6> : null;
+  const mediainfoTitle = searching ? <h6 className='currentyLoadedMedia'>Searched for '{searchText}' - {totalResults} results found</h6> : null;
 
   // Display the media type being displayed
-  const filteredText = searchText === '' ? filteredMediaType === 'movie' ? <h6 className='currentyLoadedMedia uppercase'>{displayTitle + 's'}</h6> : <h6 className='currentyLoadedMedia uppercase'>{displayTitle} series</h6> : null;
+  const filteredText = !searching ? filteredMediaType === 'movie' ? <h6 className='currentyLoadedMedia uppercase'>{displayTitle + 's'}</h6> : <h6 className='currentyLoadedMedia uppercase'>{displayTitle} series</h6> : null;
   console.log('cards');
 
 
@@ -32,9 +32,6 @@ const Cards = ({ results, searchText, totalResults, filteredMediaType, displayTi
       </div>
       <GridCard
         fechedResults={results} />
-
-
-
       <div className='row-3-paginate-last'>
         <Paginate
           pagesCount={pagesCount}
@@ -48,6 +45,7 @@ const mapStateToProps = state => {
   return {
     results: state.search.searchResult,
     searchText: state.search.searchText,
+    searching: state.search.searching,
     totalResults: state.search.totalResults,
     filteredMediaType: state.search.mediaType,
     displayTitle: state.search.displayTitle,
