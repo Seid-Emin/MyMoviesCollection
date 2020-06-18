@@ -2,18 +2,16 @@ import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import SignedInLinks from './SignedInLinks';
-import SignedOutLinks from './SignedOutLinks';
-import Search from '../UI/Search/Search';
-
-import * as actions from '../../store/actions/index';
-
 import './Navbar.css';
 
+import * as actions from '../../../store/actions';
 
-const Navbar = ({ uid, profile, collectionStatus, showMenu, toggleSideMenu }) => {
+import Search from '../../UI/Search/Search';
+import Links from './Links/Links'
 
-  const links = uid ? <SignedInLinks profile={profile} /> : <SignedOutLinks />
+
+const Navbar = ({ uid, collectionStatus, showMenu, toggleSideMenu }) => {
+
   const collectionPath = uid ? `/collections/${collectionStatus}` : '/signin';
 
   console.log('Navbar updated');
@@ -31,7 +29,7 @@ const Navbar = ({ uid, profile, collectionStatus, showMenu, toggleSideMenu }) =>
             <Search />
             <ul id="nav-mobile" >
               <li><NavLink to={collectionPath} activeClassName='activeNavLinks'>Collections</NavLink></li>
-              {links}
+              <Links />
             </ul>
           </div>
         </div>
@@ -44,7 +42,6 @@ const mapStateToProps = (state) => {
   console.log(state);
   return {
     uid: state.firebase.auth.uid,
-    profile: state.firebase.profile,
     collectionStatus: state.collections.status,
     showMenu: state.sideMenu.showMenu
   }

@@ -22,9 +22,7 @@ import Categories from '../layouts/Categories/Categories'
 // import Select from '../Select/Select';
 
 
-import SignedInLinks from '../layouts/SignedInLinks';
-import SignedOutLinks from '../layouts/SignedOutLinks';
-
+import Links from '../layouts/Navbar/Links/Links'
 
 class SideMenu extends Component {
   constructor(props) {
@@ -45,33 +43,29 @@ class SideMenu extends Component {
   // On EXC key pushed - close modal 
   escFunction(e) {
     if (e.keyCode === 27) {
-      this.props.hideModal();
+      this.props.toggleSideMenu();
     }
   }
 
   // On Broser back button clicked - close modal 
   onBackButtonEvent(e) {
     e.preventDefault();
-    this.props.hideModal()
+    this.props.toggleSideMenu()
   }
 
 
 
   render() {
-    const { uid, showMenu, toggleSideMenu, hideModal, profile, collectionStatus } = this.props;
-
-    const links = uid ? <SignedInLinks profile={profile} toggleSideMenu={toggleSideMenu} />
-      : <SignedOutLinks toggleSideMenu={toggleSideMenu} />
+    const { uid, toggleSideMenu, collectionStatus } = this.props;
 
     const collectionPath = uid ? `/collections/${collectionStatus}` : '/signin';
 
-
-
     return (
       <aside className="sideMenu layout">
+
         <ul id="nav-mobile" >
-          <li className='collectionLink'><NavLink to={collectionPath} activeClassName='activeNav'>Collections</NavLink></li>
-          {links}
+          <Links toggleSideMenu={toggleSideMenu} />
+          <li className='collectionLink' onClick={toggleSideMenu}><NavLink to={collectionPath} activeClassName='activeNav'>Collections</NavLink></li>
           <Categories toggleSideMenu={toggleSideMenu} />
         </ul>
 
@@ -83,17 +77,14 @@ class SideMenu extends Component {
 
 const mapStateToProps = state => {
   return {
-    profile: state.firebase.profile,
     uid: state.firebase.auth.uid,
-    collectionStatus: state.collections.status,
-    showMenu: state.sideMenu.showMenu
+    collectionStatus: state.collections.status
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    toggleSideMenu: () => dispatch(actions.toggleSideMenu()),
-    hideModal: () => dispatch(actions.hideModal())
+    toggleSideMenu: () => dispatch(actions.toggleSideMenu())
   }
 }
 

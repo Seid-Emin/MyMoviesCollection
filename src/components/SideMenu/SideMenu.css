@@ -74,7 +74,8 @@ li.initials {
 }
 
 /* categories in sideMenu */
-.sideMenu ul#nav-mobile .main-categirie {
+.sideMenu ul#nav-mobile .main-categirie,
+li.collectionLink {
   font-size: 1.2rem;
 }
 
