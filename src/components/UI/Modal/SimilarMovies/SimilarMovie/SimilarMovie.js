@@ -6,10 +6,11 @@ import './SimilarMovie.css';
 import noCoverImg from '../../../../../assets/images/no-cover.png';
 
 // Redux actions and helper methods
-import * as actions from '../../../../../store/actions/index';
-
 // Object  configs
+import * as actions from '../../../../../store/actions';
 import TheMovieDB from '../../../../../configs/ApiMovies';
+
+
 
 
 

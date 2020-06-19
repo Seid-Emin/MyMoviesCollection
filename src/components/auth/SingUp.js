@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import { Redirect } from 'react-router-dom';
 
+
 class SingUp extends Component {
   state = {
     email: '',
@@ -50,7 +51,6 @@ class SingUp extends Component {
             </div>
           </div>
         </form>
-
       </div>
     )
   }

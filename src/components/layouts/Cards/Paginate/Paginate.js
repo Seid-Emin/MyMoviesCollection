@@ -1,10 +1,12 @@
-import React from 'react'
+import React from 'react';
 import ReactPaginate from 'react-paginate';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router";
 
+import './Paginate.css';
+
 import * as actions from '../../../../store/actions';
-import './Paginate.css'
+
 
 const Paginate = ({ history, pagesCount, containerClassName, fetchFilteredMedia, filterType, mediaType, selected }) => {
 

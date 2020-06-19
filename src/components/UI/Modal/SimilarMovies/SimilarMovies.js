@@ -1,13 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { withRouter } from "react-router";
+import Carousel from '@brainhubeu/react-carousel';
+
+import './SimilarMovies.css'
+import '@brainhubeu/react-carousel/lib/style.css';
 
 import SimilarMovie from './SimilarMovie/SimilarMovie';
 
-import './SimilarMovies.css'
-
-import Carousel from '@brainhubeu/react-carousel';
-import '@brainhubeu/react-carousel/lib/style.css';
 
 const SimilarMovies = ({ selectedMediaData, selectedMediaType, history }) => {
 
@@ -47,15 +47,11 @@ const SimilarMovies = ({ selectedMediaData, selectedMediaType, history }) => {
           left
           infinite
           slides={similarMovie} />
-        {/* <div className='similarMedia-content'>
-          <div className='inner-wrapper'>
-            {similarMovie}
-          </div>
-        </div> */}
       </div>
     </div>
   )
 }
+
 const mapStateToProps = state => {
   return {
     selectedMediaData: state.selectedMedia.selectedMedia,

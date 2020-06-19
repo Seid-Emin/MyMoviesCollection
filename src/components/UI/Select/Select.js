@@ -5,6 +5,7 @@ import './Select.css';
 // Selecet configs
 import { selectConfig } from './selectConfig';
 
+
 const Select = ({ selectName, selectClass, value, handler, navStatus = null, payload = null, order = true }) => {
 
   const currentOptions = selectConfig[selectName].options;

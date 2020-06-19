@@ -6,6 +6,7 @@ import './SelectMediaType.css';
 // Components
 import Select from '../Select';
 
+
 const SelectMediaType = ({ collections: { collections, type }, handler }) => {
   return <Select
     selectName='mediaType'

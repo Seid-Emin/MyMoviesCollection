@@ -9,7 +9,8 @@ import noCoverImg from '../../../../assets/images/no-cover.png';
 import { colorThemes } from '../../../UI/Styles/colorThemes';
 import { cardStatusConfig } from './cardStatusConfig';
 import TheMovieDB from '../../../../configs/ApiMovies';
-import * as actions from '../../../../store/actions/index';
+import * as actions from '../../../../store/actions';
+
 
 const Card = ({ name, id, media_type, poster_path, fechedResults, filterType, currentPage, filteredMediaType, fetchSelected, selectedMediaType, showModal, singleMedia, collections: { collections, status }, collectionMedia, }) => {
 

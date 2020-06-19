@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import './Modal.css';
 import noCoverImg from '../../../assets/images/no-cover.png';
 
-
 // Redux actions and helper methods
 import * as actions from '../../../store/actions/index';
 import { filterMatch } from '../../helpers/filter';

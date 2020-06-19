@@ -4,12 +4,14 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../../../store/actions';
 
+
 const Links = ({ uid, initials, toggleSideMenu, signOut }) => {
 
   return (uid ? <SignedInLinks toggleSideMenu={toggleSideMenu} initials={initials} signOut={signOut} />
     : <SignedOutLinks toggleSideMenu={toggleSideMenu} />
   )
 }
+
 
 const SignedOutLinks = ({ toggleSideMenu }) => {
   return (
@@ -19,6 +21,7 @@ const SignedOutLinks = ({ toggleSideMenu }) => {
     </React.Fragment>
   )
 }
+
 
 const SignedInLinks = ({ initials, signOut, toggleSideMenu }) => {
 
@@ -42,6 +45,5 @@ const mapDispatchToProps = dispatch => {
     signOut: () => dispatch(actions.signOut())
   }
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Links);

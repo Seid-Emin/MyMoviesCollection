@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router";
 
-import * as actions from '../../../store/actions/index';
-
 import './Search.css';
+
+import * as actions from '../../../store/actions/index';
 
 
 const Search = ({ search: { searchText, searching }, searchQuery, fetchMultiSearch, clearSearchingState, history }) => {

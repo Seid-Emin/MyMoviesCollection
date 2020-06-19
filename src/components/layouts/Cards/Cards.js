@@ -1,13 +1,14 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router";
 
+import './Cards.css';
+
+// Components
 import GridCard from '../View/GridCard/GridCard';
 import Paginate from './Paginate/Paginate';
-import { singleMedia } from '../../helpers/silgleMedia';
 
-import './Cards.css'
 
 const Cards = ({ results, searchText, searching, totalResults, filteredMediaType, displayTitle, pagesCount = 0, collections }) => {
 

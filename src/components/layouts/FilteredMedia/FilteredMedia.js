@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom'
 
-import Card from '../Cards/Card/Card'
+import Card from '../Cards/Card/Card';
+
 
 const FilteredMedia = ({ results, filteredMediaType, displayTitle, searching }) => {
   let singleCard = results ? results.map(card => {

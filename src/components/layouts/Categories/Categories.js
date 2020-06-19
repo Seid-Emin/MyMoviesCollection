@@ -2,9 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import './Categories.css'
+import './Categories.css';
 
-import * as actions from '../../../store/actions/index';
+// Redux actions
+import * as actions from '../../../store/actions';
 
 const categoriesConfig = {
   movie: {

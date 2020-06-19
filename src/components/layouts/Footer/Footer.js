@@ -1,7 +1,9 @@
 import React from 'react';
 
 import './Footer.css';
+
 import TMDB_Logo from '../../../assets/brand_theMovie/TMDB_Logo_gree.png';
+
 
 const Footer = () => {
   return (

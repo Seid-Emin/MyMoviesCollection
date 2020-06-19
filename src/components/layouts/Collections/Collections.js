@@ -6,7 +6,7 @@ import { withRouter } from "react-router";
 import './Collections.css';
 
 // Redux actions and helper methods
-import * as actions from '../../../store/actions/index';
+import * as actions from '../../../store/actions';
 
 // Components
 import SelectMediaType from '../../UI/Select/SelectMediaType/SelectMediaType';
@@ -76,16 +76,22 @@ class Collections extends Component {
       <div className="collection-container">
         <div className="collection-status">
           <div className='collection-nav'>
-            {Object.keys(collectionLinks).map((link, index) => {
-              let currentLink = collectionLinks[link];
-              return <NavLink
-                key={index}
-                to={`/collections/${currentLink}`}
-                className="collection-navlink"
-                activeClassName='activeNavLinks-collection'
-                name={currentLink}
-                onClick={(e) => this.filterByStatus(e, collections)}>{currentLink.replace(/_/g, ' ')}</NavLink>
-            })}
+            <ul>
+              {Object.keys(collectionLinks).map((link, index) => {
+                let currentLink = collectionLinks[link];
+                return (
+                  <li>
+                    <NavLink
+                      key={index}
+                      to={`/collections/${currentLink}`}
+                      className="collection-navlink"
+                      activeClassName='activeNavLinks-collection'
+                      name={currentLink}
+                      onClick={(e) => this.filterByStatus(e, collections)}>{currentLink.replace(/_/g, ' ')}</NavLink>
+                  </li>
+                )
+              })}
+            </ul>
           </div>
         </div>
         <div className="collection-list">
@@ -140,11 +146,3 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Collections));
-
-// message to display
-// needs to be created separately and implemented everywhere needed
-// const Message = (props) => {
-//   return (
-//     <p>{props.message}</p>
-//   )
-// }

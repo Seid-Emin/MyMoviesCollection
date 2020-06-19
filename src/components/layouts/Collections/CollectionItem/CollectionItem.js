@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './CollectionItem.css';
+
 import noCoverImg from '../../../../assets/images/no-cover.png';
 
 // Colors object for conditional style and configs

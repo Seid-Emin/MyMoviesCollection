@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 
 import './Navbar.css';
 
+// Redux actions
 import * as actions from '../../../store/actions';
 
+// Components
 import Search from '../../UI/Search/Search';
 import Links from './Links/Links'
 

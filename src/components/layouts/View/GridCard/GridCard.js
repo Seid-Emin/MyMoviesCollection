@@ -2,10 +2,11 @@ import React from 'react';
 
 import './GridCard.css';
 
-// 
 import { singleMedia } from '../../../helpers/silgleMedia';
 
+// Components
 import Card from '../../Cards/Card/Card';
+
 
 const GridCard = ({ fechedResults, filteredCollections }) => {
 

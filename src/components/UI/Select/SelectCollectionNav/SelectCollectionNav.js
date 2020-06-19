@@ -6,6 +6,7 @@ import './SelectCollectionNav.css';
 // Components
 import Select from '../Select';
 
+
 const SelectCollectionNav = ({ collections: { collections, status }, handler, navStatus }) => {
   return <Select
     selectName='navStatus'

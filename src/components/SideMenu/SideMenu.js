@@ -3,26 +3,14 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './SideMenu.css';
-// import noCoverImg from '../../../assets/images/no-cover.png';
-
 
 // Redux actions and helper methods
 import * as actions from '../../store/actions';
 
-// Colors object for conditional style and configs
-// import MovieDB from '../../../configs/ApiMovies';
-// import { colorThemes } from '../Styles/colorThemes';
-
 // Components
 import Categories from '../layouts/Categories/Categories'
-
-// import Video from './Video/Video';
-// import Spinner from '../Spinner/Spinner';
-// import SimilarMovies from './SimilarMovies/SimilarMovies';
-// import Select from '../Select/Select';
-
-
 import Links from '../layouts/Navbar/Links/Links'
+
 
 class SideMenu extends Component {
   constructor(props) {
@@ -53,8 +41,6 @@ class SideMenu extends Component {
     this.props.toggleSideMenu()
   }
 
-
-
   render() {
     const { uid, toggleSideMenu, collectionStatus } = this.props;
 
@@ -62,15 +48,12 @@ class SideMenu extends Component {
 
     return (
       <aside className="sideMenu layout">
-
         <ul id="nav-mobile" >
           <Links toggleSideMenu={toggleSideMenu} />
           <li className='collectionLink' onClick={toggleSideMenu}><NavLink to={collectionPath} activeClassName='activeNav'>Collections</NavLink></li>
           <Categories toggleSideMenu={toggleSideMenu} />
         </ul>
-
       </aside>
-
     )
   }
 }

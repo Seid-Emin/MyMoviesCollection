@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom'
+import React, { Component } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router";
 
-import './Content.css'
+import './Content.css';
 
 // Redux actions
-import * as actions from '../../../store/actions/index'
+import * as actions from '../../../store/actions';
 
 // Components
 import Cards from '../Cards/Cards';
@@ -17,7 +17,7 @@ import Backdrop from '../../UI/Backdrop/Backdrop';
 import SignIn from '../../auth/SignIn';
 import SignUp from '../../auth/SingUp';
 import Collections from '../../layouts/Collections/Collections';
-import SideMenu from '../../SideMenu/SideMenu'
+import SideMenu from '../../SideMenu/SideMenu';
 
 class Content extends Component {
   componentDidMount() {
