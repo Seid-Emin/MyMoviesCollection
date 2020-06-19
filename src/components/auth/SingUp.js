@@ -125,6 +125,7 @@ class SingUp extends Component {
     let invalidMessage = !errorSubmit ? null : <p className='Invalid'>Please fill all the required fields with
     valid information</p>
 
+
     return (
       <div className='container'>
         <form className='width' onSubmit={this.handleSubmit}>
