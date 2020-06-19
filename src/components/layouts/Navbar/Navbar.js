@@ -13,14 +13,11 @@ import Links from './Links/Links';
 
 
 class Navbar extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    prevScrollpos: window.pageYOffset,
+    visible: true
+  };
 
-    this.state = {
-      prevScrollpos: window.pageYOffset,
-      visible: true
-    };
-  }
 
   // Adds an event listener when the component is mount.
   componentDidMount() {
@@ -48,7 +45,7 @@ class Navbar extends Component {
   render() {
     const { uid, collectionStatus, showMenu, toggleSideMenu } = this.props;
 
-    const collectionPath = uid ? `/collections/${collectionStatus}` : '/signin';
+    // const collectionPath = uid ? `/collections/${collectionStatus}` : '/signin';
 
     console.log('Navbar updated');
 
@@ -67,7 +64,7 @@ class Navbar extends Component {
             <div className="nav-right-links">
               <Search />
               <ul id="nav-mobile" >
-                <li><NavLink to={collectionPath} activeClassName='activeNavLinks'>Collections</NavLink></li>
+                <li><NavLink to={`/collections/${collectionStatus}`} activeClassName='activeNavLinks'>Collections</NavLink></li>
                 <Links />
               </ul>
             </div>

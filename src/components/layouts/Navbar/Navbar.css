@@ -107,7 +107,7 @@ ul#nav-mobile {
 }
 
 .activeNavLinks {
-  background-color: #0c4091;
+  background-color: var(--color-activeLinks);
 }
 
 nav .brand-logo {

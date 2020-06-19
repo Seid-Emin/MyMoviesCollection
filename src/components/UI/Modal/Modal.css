@@ -110,6 +110,12 @@
   vertical-align                    : middle;
 }
 
+.modal-error-message {
+  margin-left: 10px;
+  color      : var(--color-tableDropped);
+  font-weight: 700;
+}
+
 .modal .modal-content {
   padding-bottom: 0;
 }

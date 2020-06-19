@@ -9,6 +9,16 @@
   align-items   : center;
 }
 
+.input-field {
+  margin-top   : 0.6rem;
+  margin-bottom: 0.6rem;
+  width        : 80%;
+}
+
+.input-field label.active {
+  margin-bottom: 0.6rem;
+}
+
 input[type=text]:not(.browser-default),
 input[type=email]:not(.browser-default),
 input[type=password]:not(.browser-default) {
@@ -29,11 +39,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) {
   box-shadow   : 0 1px 0 0 var(--color-activeLinksText);
 }
 
-.input-field {
-  margin-top   : 0.6rem;
-  margin-bottom: 0.6rem;
-  width        : 80%;
-}
+
 
 input[type=text]:not(.browser-default),
 input[type=email]:not(.browser-default),
@@ -51,12 +57,14 @@ form div.input-field input.Invalid {
 
 }
 
-.btn.blue.darken-4 {
-  border-radius: 5px;
+.input-field button.btn.sign {
+  border-radius   : 5px;
+  background-color: var(--color-scrollThumb);
+  transition      : background-color 300ms ease-in-out;
 }
 
-.input-field .btn.blue.darken-4:hover {
-  background-color: var(--color-activeLinksText);
+.input-field button.btn.sign:hover {
+  background-color: var(--color-activeLinks);
 }
 
 .Required {

@@ -19,7 +19,12 @@ class Collections extends Component {
 
   componentDidMount() {
     // get needed props
-    const { collections: { collections, type }, filterStatusAndType } = this.props;
+    const { collections: { collections, type }, filterStatusAndType, uid, history } = this.props;
+
+    // Check if the user is logged
+    if (!uid) {
+      history.push(`/signin`);
+    }
 
     // display previous user filtered collection type only
     filterStatusAndType('all_media', collections, type);
@@ -128,7 +133,8 @@ class Collections extends Component {
 
 const mapStateToProps = state => {
   return {
-    collections: state.collections
+    collections: state.collections,
+    uid: state.firebase.auth.uid,
   }
 }
 

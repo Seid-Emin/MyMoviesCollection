@@ -22,7 +22,7 @@ export const addMediaToFirestor_Fail = (error) => {
   };
 };
 
-export const addMediaToFirestoreCollection = (userRating, mediaType, mediaId, mediaName, posterURL, watchStatus, collections, filteredCollections) => {
+export const addMediaToFirestoreCollection = (userRating, mediaType, mediaId, mediaName, posterURL, watchStatus, collections, status, type) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     dispatch(addMediaToFirestore_Start());
 
@@ -47,13 +47,9 @@ export const addMediaToFirestoreCollection = (userRating, mediaType, mediaId, me
       createdAt: Date.now()
     }
 
-
-
     // Update/Add to collection
     collections.push(newMedia);
-    if (filteredCollections[0].watchStatus == 'watching') {
-      filteredCollections.push(newMedia);
-    }
+    let filteredCollections = filterSellection(collections, 'watchStatus', status, 'mediaType', type);
 
     // Set selecte media in firestore
     firestore.collection('users').doc(authorId)

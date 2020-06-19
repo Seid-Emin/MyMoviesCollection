@@ -165,7 +165,7 @@ class SingUp extends Component {
               onChange={this.handleChange} />
           </div>
           <div className='input-field'>
-            <button className='btn blue darken-4 z-depth-0'>Sign up</button>
+            <button className='btn sign z-depth-0'>Sign up</button>
             <div className='red-text center'>
               {invalidMessage}
               {authError ? <p>{authError.message}</p> : null}

@@ -22,6 +22,9 @@ import Select from '../Select/Select';
 class Modal extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      errorMessage: false
+    }
     this.escFunction = this.escFunction.bind(this);
     this.onBackButtonEvent = this.onBackButtonEvent.bind(this);
   }
@@ -33,6 +36,7 @@ class Modal extends Component {
   componentWillUnmount() {
     document.removeEventListener("keydown", this.escFunction, false);
     window.removeEventListener('popstate', this.onBackButtonEvent, false);
+    this.setState({ errorMessage: false });
   }
 
   // On EXC key pushed - close modal 
@@ -52,11 +56,16 @@ class Modal extends Component {
     const {
       selectedMediaData: { id, original_title, poster_path, original_name, name, title },
       addMediaToFirestoreCollection, selectedMediaType,
-      collections: { filteredCollections, collections } } = this.props;
+      collections: { collections, status, type }, uid } = this.props;
 
-    // Set correct name
-    let selectedtitle = name ? name : title || original_name || original_title;
-    addMediaToFirestoreCollection('select', selectedMediaType, id, selectedtitle, poster_path, watchStatus, collections, filteredCollections);
+    // Check is the user logged
+    if (uid) {
+      // Set correct name
+      let selectedtitle = name ? name : title || original_name || original_title;
+      addMediaToFirestoreCollection('select', selectedMediaType, id, selectedtitle, poster_path, watchStatus, collections, status, type);
+    } else {
+      this.setState({ errorMessage: true });
+    }
   }
 
   // Handle Status And Rating
@@ -77,6 +86,7 @@ class Modal extends Component {
       loading_selected,
       collections: { filteredCollections, collections, deleteMediaId },
       deleteMediaFromFirestore, handler } = this.props;
+    const { errorMessage } = this.state;
 
 
 
@@ -134,7 +144,11 @@ class Modal extends Component {
                 </div>
                 {/* Actions for Collection Create/Update/Delete - start */}
                 <div className='ratingAdd collectionActions'>
-                  {!filteredCollections || !isMediaInCollection ? <p className='btn_addMedia' onClick={() => this.addMedia('watching')}>Add to List</p>
+                  {!filteredCollections || !isMediaInCollection ?
+                    <>
+                      <p className='btn_addMedia' onClick={() => this.addMedia('watching')}>Add to List</p>
+                      {errorMessage ? <p className='modal-error-message'>Please login first</p> : null}
+                    </>
                     :
                     <>
                       {/* Status of media */}
@@ -194,13 +208,14 @@ const mapStateToProps = state => {
     selectedMediaData: state.selectedMedia.selectedMedia,
     selectedMediaType: state.selectedMedia.selectedMediaType,
     loading_selected: state.selectedMedia.loading,
-    collections: state.collections
+    collections: state.collections,
+    uid: state.firebase.auth.uid,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    addMediaToFirestoreCollection: (userRating, selectedMediaType, id, title, poster_path, watchStatus, collections, filteredCollections) => dispatch(actions.addMediaToFirestoreCollection(userRating, selectedMediaType, id, title, poster_path, watchStatus, collections, filteredCollections)),
+    addMediaToFirestoreCollection: (userRating, selectedMediaType, id, title, poster_path, watchStatus, collections, status, type) => dispatch(actions.addMediaToFirestoreCollection(userRating, selectedMediaType, id, title, poster_path, watchStatus, collections, status, type)),
     updateMediaStatus: (status, id, value, name, type, collections, filteredCollections, selectedMediaType) => dispatch(actions.updateMediaStatus(status, id, value, name, type, collections, filteredCollections, selectedMediaType)),
     deleteMediaFromFirestore: (customID, collections, filteredCollections) => dispatch(actions.deleteMediaFromFirestore(customID, collections, filteredCollections)),
     hideModal: () => dispatch(actions.hideModal())
