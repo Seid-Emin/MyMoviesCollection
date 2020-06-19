@@ -1,4 +1,8 @@
 /* CollectionItem */
+.list-table-data:hover {
+  background-color: var(--color-horLine);
+}
+
 .list-table-data .data {
   display       : table-cell;
   padding       : 5px 0 0 0;

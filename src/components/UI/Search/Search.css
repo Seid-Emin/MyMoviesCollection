@@ -9,7 +9,10 @@ nav.searchField {
 .searchField {
   background-color: inherit;
   box-shadow      : none;
-
+  position        : absolute;
+  top             : 50%;
+  right           : 100%;
+  transform       : translateY(-50%)
 }
 
 .searchField-inner {

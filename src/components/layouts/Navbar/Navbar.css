@@ -6,6 +6,15 @@
 nav {
   background-color: var(--color-mainBG);
   box-shadow      : none;
+  width           : 100%;
+  position        : fixed;
+  top             : 0;
+  z-index         : 1;
+  transition      : top 400ms ease-in-out;
+}
+
+.nav--hidden {
+  top: -64px;
 }
 
 nav .nav-wrapper {
@@ -75,9 +84,11 @@ nav .nav-wrapper {
 
 
 .nav-right-links {
+  position       : relative;
   display        : flex;
   justify-content: flex-end;
   align-items    : center;
+
 }
 
 ul#nav-mobile {

@@ -37,7 +37,7 @@ const Categories = ({ fetchFilteredMedia, clearSearchingState, toggleSideMenu })
   }
 
   return (
-    <div className='categories-wrapper'>
+    <aside className='categories-wrapper'>
       <div className="inner">
         <div className='media-side-nav'>
           {Object.keys(categoriesConfig).map((categorie, index) => {
@@ -61,7 +61,7 @@ const Categories = ({ fetchFilteredMedia, clearSearchingState, toggleSideMenu })
           })}
         </div>
       </div>
-    </div>
+    </aside>
   )
 }
 

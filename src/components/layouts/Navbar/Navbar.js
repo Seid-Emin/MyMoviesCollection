@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -9,35 +9,73 @@ import * as actions from '../../../store/actions';
 
 // Components
 import Search from '../../UI/Search/Search';
-import Links from './Links/Links'
+import Links from './Links/Links';
 
 
-const Navbar = ({ uid, collectionStatus, showMenu, toggleSideMenu }) => {
+class Navbar extends Component {
+  constructor(props) {
+    super(props);
 
-  const collectionPath = uid ? `/collections/${collectionStatus}` : '/signin';
+    this.state = {
+      prevScrollpos: window.pageYOffset,
+      visible: true
+    };
+  }
 
-  console.log('Navbar updated');
+  // Adds an event listener when the component is mount.
+  componentDidMount() {
+    window.addEventListener("scroll", this.handleScroll);
+  }
 
-  let hamburgerAnimateClass = showMenu ? 'hamburger-active' : '';
-  return (
-    <React.Fragment>
-      <nav className='nav'>
-        <div className="nav-wrapper layout">
-          <div className="hamburger-container" onClick={() => toggleSideMenu()}>
-            <p className={`hamburger ${hamburgerAnimateClass}`}></p>
+  // Remove the event listener when the component is unmount.
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
+  }
+
+  // Hide or show the menu.
+  handleScroll = () => {
+    const { prevScrollpos } = this.state;
+
+    const currentScrollPos = window.pageYOffset;
+    const visible = prevScrollpos > currentScrollPos;
+
+    this.setState({
+      prevScrollpos: currentScrollPos,
+      visible
+    });
+  };
+
+  render() {
+    const { uid, collectionStatus, showMenu, toggleSideMenu } = this.props;
+
+    const collectionPath = uid ? `/collections/${collectionStatus}` : '/signin';
+
+    console.log('Navbar updated');
+
+    let hamburgerAnimateClass = showMenu ? 'hamburger-active' : '';
+
+    let navHidded = !this.state.visible ? 'nav--hidden' : '';
+
+    return (
+      <React.Fragment>
+        <nav className={`nav ${navHidded}`}>
+          <div className="nav-wrapper layout">
+            <div className="hamburger-container" onClick={() => toggleSideMenu()}>
+              <p className={`hamburger ${hamburgerAnimateClass}`}></p>
+            </div>
+            <Link to='/' className="brand-logo material-icons center MovieIcon">movie</Link>
+            <div className="nav-right-links">
+              <Search />
+              <ul id="nav-mobile" >
+                <li><NavLink to={collectionPath} activeClassName='activeNavLinks'>Collections</NavLink></li>
+                <Links />
+              </ul>
+            </div>
           </div>
-          <Link to='/' className="brand-logo material-icons center MovieIcon">movie</Link>
-          <div className="nav-right-links">
-            <Search />
-            <ul id="nav-mobile" >
-              <li><NavLink to={collectionPath} activeClassName='activeNavLinks'>Collections</NavLink></li>
-              <Links />
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </React.Fragment>
-  )
+        </nav>
+      </React.Fragment>
+    )
+  }
 }
 
 const mapStateToProps = (state) => {

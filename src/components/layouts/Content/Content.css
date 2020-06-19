@@ -1,8 +1,7 @@
 .content-grid {
   display              : grid;
-  grid-template-columns: 150px 1fr;
-  grid-gap             : 15px;
-  padding-top          : 20px;
+  grid-template-columns: 120px 1fr;
+  padding-top          : 84px;
   padding-bottom       : 20px;
   width                : 100%;
   min-height           : calc(100vh - 65px - 60px);

@@ -1,6 +1,8 @@
 .card-container-grid {
   display : grid;
   grid-gap: 15px;
+  border  : 1px solid var(--color-horLine);
+  padding : 10px;
 }
 
 .cards-title-info-container {

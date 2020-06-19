@@ -73,14 +73,14 @@ class Collections extends Component {
     }
 
     return (
-      <div className="collection-container">
-        <div className="collection-status">
+      <section className="collection-container">
+        <nav className="collection-status">
           <div className='collection-nav'>
             <ul>
               {Object.keys(collectionLinks).map((link, index) => {
                 let currentLink = collectionLinks[link];
                 return (
-                  <li>
+                  <li key={index}>
                     <NavLink
                       key={index}
                       to={`/collections/${currentLink}`}
@@ -93,7 +93,7 @@ class Collections extends Component {
               })}
             </ul>
           </div>
-        </div>
+        </nav>
         <div className="collection-list">
           <div className="list-unit">
             <div className='list-unit-bar'>
@@ -122,7 +122,7 @@ class Collections extends Component {
                 filteredCollections={filteredCollections} />}
           </div>
         </div>
-      </div>
+      </section>
     )
   }
 }

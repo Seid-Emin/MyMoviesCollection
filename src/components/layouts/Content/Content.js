@@ -112,7 +112,7 @@ class Content extends Component {
           <SideMenu />
           <Backdrop handler={toggleSideMenu} />
         </> : null}
-        <div className='content-grid layout'>
+        <main className='content-grid layout'>
           <Categories />
           <Switch>
             <Route path='/signin' component={SignIn} />
@@ -126,7 +126,7 @@ class Content extends Component {
             }
           </Switch>
           {modal}
-        </div >
+        </main >
       </React.Fragment>
     )
   }
