@@ -3,7 +3,7 @@
   /* margin     : 0 15px; */
 }
 
-nav {
+nav.nav {
   background-color: var(--color-mainBG);
   box-shadow      : none;
   width           : 100%;

@@ -62,19 +62,20 @@ class Modal extends Component {
   // Handle Status And Rating
   handleStatusAndRating = (e) => {
     const {
+      selectedMediaType,
       selectedMediaData: { id },
-      collections: { collections, type, status },
+      collections: { collections, type, status, filteredCollections },
       updateMediaStatus } = this.props;
     const { value, name } = e.target;
 
-    updateMediaStatus(status, id, value, name, type, collections);
+    updateMediaStatus(status, id, value, name, type, collections, filteredCollections, selectedMediaType);
   }
 
   render() {
     const {
       selectedMediaData: { id, original_title, poster_path, original_name, videos, vote_average, genres, similar, release_date, overview, first_air_date, name, title, popularity, vote_count },
       loading_selected,
-      collections: { filteredCollections, collections },
+      collections: { filteredCollections, collections, deleteMediaId },
       deleteMediaFromFirestore, handler } = this.props;
 
 
@@ -109,6 +110,7 @@ class Modal extends Component {
     // Check for existing media in collection
     let findInCollection = filterMatch(collections, 'mediaId', id);
     let isMediaInCollection = findInCollection[0];
+
 
     // const {watchStatus, userRating} = isMediaInCollection
     return (
@@ -152,7 +154,7 @@ class Modal extends Component {
                       />
                       {/* delete media */}
                       <div className="delete-media">
-                        <span className="material-icons" onClick={() => deleteMediaFromFirestore(id, collections, filteredCollections)}>delete</span>
+                        <span className="material-icons" onClick={() => deleteMediaFromFirestore(isMediaInCollection.customID, collections, filteredCollections)}>delete</span>
                       </div>
                     </>}
                 </div>
@@ -199,8 +201,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     addMediaToFirestoreCollection: (userRating, selectedMediaType, id, title, poster_path, watchStatus, collections, filteredCollections) => dispatch(actions.addMediaToFirestoreCollection(userRating, selectedMediaType, id, title, poster_path, watchStatus, collections, filteredCollections)),
-    updateMediaStatus: (status, id, watchStatus, name, type, collections) => dispatch(actions.updateMediaStatus(status, id, watchStatus, name, type, collections)),
-    deleteMediaFromFirestore: (mediaId, collections, filteredCollections) => dispatch(actions.deleteMediaFromFirestore(mediaId, collections, filteredCollections)),
+    updateMediaStatus: (status, id, value, name, type, collections, filteredCollections, selectedMediaType) => dispatch(actions.updateMediaStatus(status, id, value, name, type, collections, filteredCollections, selectedMediaType)),
+    deleteMediaFromFirestore: (customID, collections, filteredCollections) => dispatch(actions.deleteMediaFromFirestore(customID, collections, filteredCollections)),
     hideModal: () => dispatch(actions.hideModal())
   }
 }

@@ -10,7 +10,7 @@ import { colorThemes } from '../../../UI/Styles/colorThemes';
 import TheMovieDB from '../../../../configs/ApiMovies';
 
 const CollectionItem = ({
-  media: { mediaId, mediaName, mediaType, posterURL, watchStatus, userRating },
+  media: { mediaId, customID, mediaName, mediaType, posterURL, watchStatus, userRating },
   fetchSelected, selectedMediaType, showModal, deleteMediaFromFirestore, collections, filteredCollections, status, number, singleMedia }) => {
 
   //check if poster_path exist in the responce
@@ -30,7 +30,7 @@ const CollectionItem = ({
           <div className='title-inner'>
             <Link to={`/collections/${status}/id=${mediaId}`} className="link sort" onClick={() => singleMedia(mediaType, mediaId, fetchSelected, selectedMediaType, showModal)}>{mediaName}</Link>
             <div className="delete-media">
-              <span className="List_LightBox" onClick={() => deleteMediaFromFirestore(mediaId, collections, filteredCollections)}>delete</span>
+              <span className="List_LightBox" onClick={() => deleteMediaFromFirestore(customID, collections, filteredCollections)}>delete</span>
             </div>
           </div>
 

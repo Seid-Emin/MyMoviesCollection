@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../store/actions/index';
-import { Redirect } from 'react-router-dom';
+import { withRouter } from "react-router";
+
+import './authStyles.css';
+import * as actions from '../../store/actions';
 
 
 class SingUp extends Component {
@@ -20,9 +22,26 @@ class SingUp extends Component {
     this.props.signUp(this.state)
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { uid, history,
+      search: { currentPage, mediaType, filterType } } = this.props;
+
+    if (prevProps.uid != uid) {
+      // Redirect to Main Content
+      history.push(`/${mediaType}/${filterType}/page=${currentPage}`);
+
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const { uid } = this.props;
+    console.log(nextProps.uid);
+
+    return nextProps.uid != uid
+  }
+
   render() {
-    const { auth, authError } = this.props;
-    if (auth.uid) return <Redirect to='/movie/now_playing/page=1' />
+    const { authError } = this.props;
 
     return (
       <div className='container'>
@@ -58,8 +77,9 @@ class SingUp extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.firebase.auth,
-    authError: state.auth.authError
+    uid: state.firebase.auth.uid,
+    authError: state.auth.authError,
+    search: state.search,
   }
 }
 
@@ -69,4 +89,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SingUp);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SingUp));

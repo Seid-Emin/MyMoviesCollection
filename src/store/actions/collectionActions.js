@@ -32,19 +32,22 @@ export const addMediaToFirestoreCollection = (userRating, mediaType, mediaId, me
     // Get iud to be passed for doc creation
     const authorId = getState().firebase.auth.uid;
 
+    // Set customID for future doc manipulations and set it to firestore
+    let customID = `${mediaType}${mediaId}`;
+
     // Create media info obj, for simple Collections display
     let newMedia = {
       userRating,
       watchStatus,
       mediaType,
       mediaId,
+      customID,
       mediaName,
       posterURL,
       createdAt: Date.now()
     }
 
-    // Set customID for future doc manipulations and set it to firestore
-    let customID = mediaId.toString();
+
 
     // Update/Add to collection
     collections.push(newMedia);
@@ -94,7 +97,7 @@ export const updateMediaStatus_Fail = (error) => {
   };
 };
 
-export const updateMediaStatus = (status, mediaId, watchStatus, name, type, collections) => {
+export const updateMediaStatus = (status, mediaId, watchStatus, name, type, collections, filteredCollections, selectedMediaType) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     dispatch(updateMediaStatus_Start());
 
@@ -105,14 +108,15 @@ export const updateMediaStatus = (status, mediaId, watchStatus, name, type, coll
     const authorId = getState().firebase.auth.uid;
 
     // Set customID for future doc manipulations and set it to firestore
-    let customID = mediaId.toString();
+    let customID = `${selectedMediaType}${mediaId}`;
+    console.log();
 
     // Update/Add to collection
-    let collectionIndex = collections.findIndex(media => media.mediaId === mediaId);
+    let collectionIndex = collections.findIndex(media => media.customID == customID);
     collections[collectionIndex][name] = watchStatus;
 
-    let updatedFilteredCollections = filterSellection(collections, 'watchStatus', status, 'mediaType', type);
-
+    let filteredCollectionsIndex = filteredCollections.findIndex(media => media.customID === customID);
+    filteredCollections[filteredCollectionsIndex][name] = watchStatus;
 
     // Set selecte media in firestore
     firestore.collection('users').doc(authorId)
@@ -120,7 +124,7 @@ export const updateMediaStatus = (status, mediaId, watchStatus, name, type, coll
         [name]: watchStatus
       })
       .then(() => {
-        dispatch(updateMediaStatus_Success(collections, updatedFilteredCollections));
+        dispatch(updateMediaStatus_Success(collections, filteredCollections));
       }).catch(error => {
         dispatch(updateMediaStatus_Fail(error))
       });
@@ -230,7 +234,7 @@ export const deleteMediaFromFirestore_Fail = (error) => {
   };
 };
 
-export const deleteMediaFromFirestore = (mediaId, collections, filteredCollections) => {
+export const deleteMediaFromFirestore = (customID, collections, filteredCollections) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     dispatch(deleteMediaFromFirestore_Start());
 
@@ -240,18 +244,15 @@ export const deleteMediaFromFirestore = (mediaId, collections, filteredCollectio
     // Get iud to be passed for doc creation
     const authorId = getState().firebase.auth.uid;
 
-    // To String for firebase 
-    const deleteMediaId = mediaId.toString();
-
     // Remove from stored collections
-    let updateCollections = filterExclude(collections, 'mediaId', mediaId);
+    let updateCollections = filterExclude(collections, 'customID', customID);
 
     // Remove from filtered to prevent further issues
-    let updateFilteredCollections = filterExclude(filteredCollections, 'mediaId', mediaId);;
+    let updateFilteredCollections = filterExclude(filteredCollections, 'customID', customID);;
 
     // Set selecte media in firestore
     firestore.collection('users').doc(authorId)
-      .collection('mediaCollections').doc(deleteMediaId)
+      .collection('mediaCollections').doc(customID)
       .delete()
       .then(() => {
         dispatch(deleteMediaFromFirestore_Success(updateCollections, updateFilteredCollections));

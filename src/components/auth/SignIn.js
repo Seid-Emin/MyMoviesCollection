@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router";
 
+import './authStyles.css';
 import * as actions from '../../store/actions';
 
 
@@ -45,7 +46,7 @@ class SignIn extends Component {
 
     return (
       <div className='container'>
-        <form className='white width' onSubmit={this.handleSubmit} >
+        <form className='grey width' onSubmit={this.handleSubmit} >
           <h5 className='grey-text text-darken-3'>Login</h5>
           <div className='input-field'>
             <label className='active' htmlFor='email'>Email</label>
