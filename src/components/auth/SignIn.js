@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../store/actions/index';
-import { Redirect } from 'react-router-dom';
+import { withRouter } from "react-router";
+
+import * as actions from '../../store/actions';
 
 
 class SignIn extends Component {
@@ -18,17 +19,33 @@ class SignIn extends Component {
     this.props.signIn(this.state);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { uid, history } = this.props;
+
+    if (prevProps.uid != uid) {
+      // Redirect to Collections
+      history.push(`/collections/all_media`);
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const { uid } = this.props;
+    return nextProps.uid != uid
+  }
+
   componentWillUnmount() {
-    this.props.getCollectionFromFirestore();
+    const { uid, getCollectionFromFirestore } = this.props;
+    if (uid) {
+      getCollectionFromFirestore();
+    }
   }
 
   render() {
-    const { authError, auth } = this.props;
-    if (auth.uid) return <Redirect to='/movie/now_playing/page=1' />
+    const { authError } = this.props;
 
     return (
       <div className='container'>
-        <form className='white width' onSubmit={this.handleSubmit}>
+        <form className='white width' onSubmit={this.handleSubmit} >
           <h5 className='grey-text text-darken-3'>Login</h5>
           <div className='input-field'>
             <label className='active' htmlFor='email'>Email</label>
@@ -53,7 +70,7 @@ class SignIn extends Component {
 const mapStateToProps = (state) => {
   return {
     authError: state.auth.authError,
-    auth: state.firebase.auth
+    uid: state.firebase.auth.uid
   }
 }
 
@@ -64,4 +81,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SignIn));
