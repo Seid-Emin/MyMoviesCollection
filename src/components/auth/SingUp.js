@@ -89,7 +89,10 @@ class SingUp extends Component {
         password: user.password.value,
       }
       signUp(newUser);
+    } else {
+      this.setState({ errorSubmit: true });
     }
+
 
   }
 
@@ -124,7 +127,6 @@ class SingUp extends Component {
 
     let invalidMessage = !errorSubmit ? null : <p className='Invalid'>Please fill all the required fields with
     valid information</p>
-
 
     return (
       <div className='container'>
