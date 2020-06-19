@@ -10,6 +10,7 @@ import { colorThemes } from '../../../UI/Styles/colorThemes';
 import { cardStatusConfig } from './cardStatusConfig';
 import TheMovieDB from '../../../../configs/ApiMovies';
 import * as actions from '../../../../store/actions';
+import { filterByType } from '../../../helpers/filter';
 
 
 const Card = ({ name, id, media_type, poster_path, fechedResults, filterType, currentPage, filteredMediaType, fetchSelected, selectedMediaType, showModal, singleMedia, collections: { collections, status }, collectionMedia, }) => {
@@ -24,8 +25,7 @@ const Card = ({ name, id, media_type, poster_path, fechedResults, filterType, cu
   // else use the passed one
   if (fechedResults) {
     // Check for existing media in collection
-    let findById = collections.filter(item => item.mediaId === id);
-    console.log(findById);
+    let findById = filterByType('match', collections, 'mediaId', id);
     let matchType = findById.mediaType == media_type || findById.mediaName == name ? findById : null;
 
 

@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import { filterSellection, filterMatch, filterExclude } from '../../components/helpers/filter';
+import { filterSellection, filterByType } from '../../components/helpers/filter';
 
 export const addMediaToFirestore_Start = () => {
   return {
@@ -245,10 +245,10 @@ export const deleteMediaFromFirestore = (customID, collections, filteredCollecti
     const authorId = getState().firebase.auth.uid;
 
     // Remove from stored collections
-    let updateCollections = filterExclude(collections, 'customID', customID);
+    let updateCollections = filterByType('exclude', collections, 'customID', customID);
 
     // Remove from filtered to prevent further issues
-    let updateFilteredCollections = filterExclude(filteredCollections, 'customID', customID);;
+    let updateFilteredCollections = filterByType('exclude', filteredCollections, 'customID', customID);;
 
     // Set selecte media in firestore
     firestore.collection('users').doc(authorId)

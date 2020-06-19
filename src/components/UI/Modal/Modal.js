@@ -6,7 +6,7 @@ import noCoverImg from '../../../assets/images/no-cover.png';
 
 // Redux actions and helper methods
 import * as actions from '../../../store/actions/index';
-import { filterMatch } from '../../helpers/filter';
+import { filterByType } from '../../helpers/filter';
 
 // Colors object for conditional style and configs
 import MovieDB from '../../../configs/ApiMovies';
@@ -108,7 +108,7 @@ class Modal extends Component {
     let similarMovies = similar && similar.total_results !== 0 ? <SimilarMovies /> : null;
 
     // Check for existing media in collection
-    let findInCollection = filterMatch(collections, 'mediaId', id);
+    let findInCollection = filterByType('match', collections, 'mediaId', id);
     let isMediaInCollection = findInCollection[0];
 
 

@@ -8,23 +8,25 @@ export const filterSellection = (container, statusKey, statusValue, mediaKey, me
   // Check for the clicked status and perform filter
   // to update the collection
   if (statusValue !== 'all_media') {
-    updatedContainer = filterMatch(updatedContainer, statusKey, statusValue);
+    updatedContainer = filterByType('match', updatedContainer, statusKey, statusValue);
   }
 
   // If mediaType changed
   // Check for the changed value and perform filter
   // to update the collection
   if (mediaType !== 'all') {
-    updatedContainer = filterMatch(updatedContainer, mediaKey, mediaType);
+    updatedContainer = filterByType('match', updatedContainer, mediaKey, mediaType);
   }
 
   return updatedContainer
 }
 
-export const filterMatch = (container, key, value) => {
-  return updatedContainer = container.filter(item => item[key] == value)
-}
+// Conditional filter
+export const filterByType = (type = 'exclude', container, key, value) => {
+  if (type === 'match') {
+    return updatedContainer = container.filter(item => item[key] == value);
+  } else {
+    return updatedContainer = container.filter(item => item[key] !== value);
+  }
 
-export const filterExclude = (container, key, value) => {
-  return updatedContainer = container.filter(item => item[key] !== value)
 }
