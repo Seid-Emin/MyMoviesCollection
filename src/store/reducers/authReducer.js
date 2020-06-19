@@ -28,10 +28,18 @@ const singupSuccess = (state, action) => {
     authError: null
   }
 }
+
 const singupFail = (state, action) => {
   return {
     ...state,
     authError: action.error
+  }
+}
+
+const clearError = (state, action) => {
+  return {
+    ...state,
+    authError: null
   }
 }
 
@@ -40,8 +48,11 @@ const reducer = (state = initialState, action) => {
     case actionTypes.LOGIN_FAIL: return authError(state, action);
     case actionTypes.LOGIN_SUCCESS: return authSuccess(state, action);
     case actionTypes.LOGOUT_SUCCESS: return signOut(state, action);
+
     case actionTypes.REGISTER_FAIL: return singupFail(state, action);
     case actionTypes.REGISTER_SUCCESS: return singupSuccess(state, action);
+
+    case actionTypes.CLEAR_AUTH_ERROR: return clearError(state, action);
 
     default: return state;
   }

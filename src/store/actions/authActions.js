@@ -70,3 +70,11 @@ export const signUp = ({ email, password, firstName, lastName }) => {
       });
   }
 }
+
+export const clearError = () => {
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.CLEAR_AUTH_ERROR
+    })
+  };
+}

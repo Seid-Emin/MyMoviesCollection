@@ -14,7 +14,7 @@ export {
 
 export { fetchFilteredMedia, fetchFilteredMediaSuccess, fetchFilteredMediaFail, preloadFilteredMedia } from './fetchFilteredMediaAction';
 
-export { signIn, signOut, signUp } from './authActions';
+export { signIn, signOut, signUp, clearError } from './authActions';
 
 export { addMediaToFirestoreCollection, getCollectionFromFirestore, deleteMediaFromFirestore, filterStatusAndType, updateMediaStatus, changeCollectionView } from './collectionActions';
 

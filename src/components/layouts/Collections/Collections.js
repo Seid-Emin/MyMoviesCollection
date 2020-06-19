@@ -15,7 +15,6 @@ import ListCard from '../View/ListCard/ListCard';
 import GridCard from '../View/GridCard/GridCard';
 
 
-
 class Collections extends Component {
 
   componentDidMount() {
