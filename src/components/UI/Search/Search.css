@@ -74,3 +74,19 @@ label.label-icon {
 nav a {
   color: #fff;
 }
+
+@media (max-width: 768px) {
+  .nav-right-links .searchField {
+    margin-right: 0;
+    width       : 30%;
+    right       : 0;
+  }
+}
+
+@media (max-width: 375px) {
+  .nav-right-links .searchField {
+    right    : 50%;
+    width    : 50%;
+    transform: translate(50%, -50%);
+  }
+}

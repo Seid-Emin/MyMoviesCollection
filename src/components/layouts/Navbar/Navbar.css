@@ -143,9 +143,8 @@ nav .brand-logo.center {
     transform: translateX(-50%);
   }
 
-  .nav-right-links .searchField {
-    margin-right: 0;
-    width       : 65%;
+  .nav-right-links {
+    width: 100%;
   }
 
   .nav-right-links ul#nav-mobile {
