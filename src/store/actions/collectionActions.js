@@ -159,15 +159,11 @@ export const getCollectionFromFirestore = () => {
 
         // if i want to use firestore deff created uid
         // will do but have to rework current logic
-        // const newIds = response.docs.map(doc => {
+        // const storedData = response.docs.map(doc => {
         //   let firestoreData = doc.data();
-        //   let firestoreId = doc.id
-        //   let storedMedia = {
-        //     [firestoreId]: {
-        //       firestoreData
-        //     }
-        //   }
-        //   return storedMedia
+        //   let firestoreId = doc.id;
+        //   firestoreData['customID'] = firestoreId
+        //   return storedData
         // });
 
         dispatch(getCollectionFromFirestore_Success(data))
