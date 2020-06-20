@@ -69,15 +69,11 @@ class Modal extends Component {
   }
 
   // Handle Status And Rating
-  handleStatusAndRating = (e) => {
-    const {
-      selectedMediaType,
-      selectedMediaData: { id },
-      collections: { collections, type, status, filteredCollections },
-      updateMediaStatus } = this.props;
+  handleStatusAndRating = (e, customID) => {
+    const { collections: { collections, type, status }, updateMediaStatus } = this.props;
     const { value, name } = e.target;
 
-    updateMediaStatus(status, id, value, name, type, collections, filteredCollections, selectedMediaType);
+    updateMediaStatus(status, value, name, type, collections, customID);
   }
 
   render() {
@@ -121,8 +117,6 @@ class Modal extends Component {
     let findInCollection = filterByType('match', collections, 'mediaId', id);
     let isMediaInCollection = findInCollection[0];
 
-
-    // const {watchStatus, userRating} = isMediaInCollection
     return (
       <div className='modal-info'>
         {loading_selected ? <Spinner /> :
@@ -156,7 +150,8 @@ class Modal extends Component {
                         selectName='watchStatus'
                         selectClass={`select_mediaStatus ${colorThemes.watchStatus[isMediaInCollection.watchStatus]}`}
                         value={isMediaInCollection.watchStatus}
-                        handler={this.handleStatusAndRating}
+                        customID={isMediaInCollection.customID}
+                        handler={(e) => this.handleStatusAndRating(e, isMediaInCollection.customID)}
                       />
                       {/* User Rating given to media */}
                       <Select
@@ -164,7 +159,8 @@ class Modal extends Component {
                         selectClass={`user-score ${colorThemes.userRating[isMediaInCollection.userRating]}`}
                         value={isMediaInCollection.userRating}
                         order={false}
-                        handler={this.handleStatusAndRating}
+                        customID={isMediaInCollection.customID}
+                        handler={(e) => this.handleStatusAndRating(e, isMediaInCollection.customID)}
                       />
                       {/* delete media */}
                       <div className="delete-media">
@@ -216,7 +212,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     addMediaToFirestoreCollection: (userRating, selectedMediaType, id, title, poster_path, watchStatus, collections, status, type) => dispatch(actions.addMediaToFirestoreCollection(userRating, selectedMediaType, id, title, poster_path, watchStatus, collections, status, type)),
-    updateMediaStatus: (status, id, value, name, type, collections, filteredCollections, selectedMediaType) => dispatch(actions.updateMediaStatus(status, id, value, name, type, collections, filteredCollections, selectedMediaType)),
+    updateMediaStatus: (status, value, name, type, collections, customID) => dispatch(actions.updateMediaStatus(status, value, name, type, collections, customID)),
     deleteMediaFromFirestore: (customID, collections, filteredCollections) => dispatch(actions.deleteMediaFromFirestore(customID, collections, filteredCollections)),
     hideModal: () => dispatch(actions.hideModal())
   }

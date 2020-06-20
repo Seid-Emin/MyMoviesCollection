@@ -6,7 +6,7 @@ import './Select.css';
 import { selectConfig } from './selectConfig';
 
 
-const Select = ({ selectName, selectClass, value, handler, navStatus = null, payload = null, order = true }) => {
+const Select = ({ selectName, selectClass, value, customID, handler, navStatus = null, payload = null, order = true }) => {
 
   const currentOptions = selectConfig[selectName].options;
 
@@ -18,7 +18,7 @@ const Select = ({ selectName, selectClass, value, handler, navStatus = null, pay
   return (<select
     name={selectName}
     className={selectClass}
-    onChange={(e) => handler(e, payload, navStatus)}
+    onChange={(e) => handler(e, payload, navStatus, customID)}
     value={value}>
     {options}
   </select>)

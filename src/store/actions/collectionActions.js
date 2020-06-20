@@ -84,7 +84,7 @@ export const updateMediaStatus_Fail = (error) => {
   };
 };
 
-export const updateMediaStatus = (status, mediaId, watchStatus, name, type, collections, filteredCollections, selectedMediaType) => {
+export const updateMediaStatus = (status, watchStatus, name, type, collections, customID) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     dispatch(updateMediaStatus_Start());
 
@@ -94,16 +94,11 @@ export const updateMediaStatus = (status, mediaId, watchStatus, name, type, coll
     // Get iud to be passed for doc creation
     const authorId = getState().firebase.auth.uid;
 
-    // Set customID for future doc manipulations and set it to firestore
-    let customID = `${selectedMediaType}${mediaId}`;
-    console.log();
-
     // Update/Add to collection
     let collectionIndex = collections.findIndex(media => media.customID == customID);
     collections[collectionIndex][name] = watchStatus;
 
-    let filteredCollectionsIndex = filteredCollections.findIndex(media => media.customID === customID);
-    filteredCollections[filteredCollectionsIndex][name] = watchStatus;
+    let updateCollections = filterSellection(collections, 'watchStatus', status, 'mediaType', type);
 
     // Set selecte media in firestore
     firestore.collection('users').doc(authorId)
@@ -111,7 +106,7 @@ export const updateMediaStatus = (status, mediaId, watchStatus, name, type, coll
         [name]: watchStatus
       })
       .then(() => {
-        dispatch(updateMediaStatus_Success(collections, filteredCollections));
+        dispatch(updateMediaStatus_Success(collections, updateCollections));
       }).catch(error => {
         dispatch(updateMediaStatus_Fail(error))
       });
