@@ -48,7 +48,7 @@ export const addMediaToFirestoreCollection = (userRating, mediaType, mediaId, me
     }
 
     // Update/Add to collection
-    collections.push(newMedia);
+    collections.unshift(newMedia);
     let filteredCollections = filterSellection(collections, 'watchStatus', status, 'mediaType', type);
 
     // Set selecte media in firestore
@@ -76,15 +76,6 @@ export const updateMediaStatus_Success = (collections, filteredCollections) => {
     filteredCollections
   };
 };
-
-// update firestore collection only
-// const updateCollections = (collections, filteredCollections) => {
-//   return {
-//     type: actionTypes.UPDATE_STATUS_SUCCESS,
-//     collections,
-//     filteredCollections
-//   };
-// }
 
 export const updateMediaStatus_Fail = (error) => {
   return {
@@ -161,9 +152,24 @@ export const getCollectionFromFirestore = () => {
     // Set selecte media in firestore
     firestore.collection('users').doc(authorId)
       .collection('mediaCollections')
+      .orderBy('createdAt', 'desc')
       .get()
       .then((response) => {
         const data = response.docs.map(doc => doc.data());
+
+        // if i want to use firestore deff created uid
+        // will do but have to rework current logic
+        // const newIds = response.docs.map(doc => {
+        //   let firestoreData = doc.data();
+        //   let firestoreId = doc.id
+        //   let storedMedia = {
+        //     [firestoreId]: {
+        //       firestoreData
+        //     }
+        //   }
+        //   return storedMedia
+        // });
+
         dispatch(getCollectionFromFirestore_Success(data))
       }).catch(error => {
         dispatch(getCollectionFromFirestore_Fail(error))
