@@ -8,17 +8,23 @@ import './Paginate.css';
 import * as actions from '../../../../store/actions';
 
 
-const Paginate = ({ history, pagesCount, containerClassName, fetchFilteredMedia,
-  search: { mediaType, filterType, selected } }) => {
+const Paginate = ({ history, pagesCount, containerClassName, fetchFilteredMedia, fetchMultiSearch,
+  search: { searchText, searching, mediaType, filterType, selected } }) => {
 
   // Handle Page Change
   const handlePageChange = data => {
     const selectedPage = data.selected;
     const paginatePage = selectedPage + 1;
-    fetchFilteredMedia(mediaType, filterType, paginatePage, selectedPage);
 
-    // Update the url according the page
-    history.push(`/${mediaType}/${filterType}/page=${paginatePage}`);
+    if (!searching) {
+      fetchFilteredMedia(mediaType, filterType, paginatePage, selectedPage);
+
+      // Update the url according the page
+      history.push(`/${mediaType}/${filterType}/page=${paginatePage}`);
+    } else {
+      fetchMultiSearch(searchText, paginatePage, selectedPage)
+    }
+
 
     //Set hash for preloading from url
     history.location.hash = paginatePage;
@@ -50,7 +56,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     // fetchFilteredMediaAction
-    fetchFilteredMedia: (mediaType, filterType, paginatePage, selectedPage) => dispatch(actions.fetchFilteredMedia(mediaType, filterType, paginatePage, selectedPage))
+    fetchFilteredMedia: (mediaType, filterType, paginatePage, selectedPage) => dispatch(actions.fetchFilteredMedia(mediaType, filterType, paginatePage, selectedPage)),
+    fetchMultiSearch: (query, page, selectedPage) => dispatch(actions.fetchMultiSearch(query, page, selectedPage))
   }
 }
 

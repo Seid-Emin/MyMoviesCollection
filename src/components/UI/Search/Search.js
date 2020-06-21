@@ -18,7 +18,7 @@ const Search = ({ search: { searchText, searching }, searchQuery, fetchMultiSear
     }
 
     searchQuery(value);
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && searchText) {
       fetchMultiSearch(searchText);
       history.push(`/search=${searchText}`)
     }
@@ -26,8 +26,10 @@ const Search = ({ search: { searchText, searching }, searchQuery, fetchMultiSear
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetchMultiSearch(searchText);
-    history.push(`/search=${searchText}`)
+    if (searchText) {
+      fetchMultiSearch(searchText);
+      history.push(`/search=${searchText}`)
+    }
   }
 
   return (

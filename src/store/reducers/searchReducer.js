@@ -38,6 +38,8 @@ export const fetchSearchSuccess = (state, action) => {
     searchResult: action.searchResult,
     searching: true,
     pagesTotal: action.pagesTotal,
+    currentPage: action.page,
+    selected: action.selected,
     totalResults: action.totalResults,
     loading: false,
     error: ''
