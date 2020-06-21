@@ -8,6 +8,41 @@
   align-self           : stretch;
 }
 
+.gridAnimate-enter {
+  transform: scale(0, 0);
+  opacity  : 0.01;
+}
+
+.gridAnimate-enter-active {
+  opacity   : 1;
+  transform : scale(1, 1);
+  transition: all 300ms ease-in;
+}
+
+.gridAnimate-appear-done {
+  transform: scale(0, 0);
+  opacity  : 0.01;
+}
+
+.gridAnimate-enter-done {
+  opacity   : 1;
+  transform : scale(1, 1);
+  transition: all 300ms ease-in;
+}
+
+
+
+.gridAnimate-exit {
+  opacity  : 1;
+  transform: scale(1, 1);
+}
+
+.gridAnimate-exit-active {
+  opacity   : 0.01;
+  transform : scale(0, 0);
+  transition: all 300ms ease-in;
+}
+
 @media (max-width:1440px) {
   .movie-grid {
     grid-template-columns: repeat(5, 1fr);

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { CSSTransition, TransitionGroup, Transition } from 'react-transition-group';
 
 import './SideMenu.css';
 
@@ -8,8 +9,9 @@ import './SideMenu.css';
 import * as actions from '../../store/actions';
 
 // Components
-import Categories from '../layouts/Categories/Categories'
-import Links from '../layouts/Navbar/Links/Links'
+import Backdrop from '../UI/Backdrop/Backdrop';
+import Categories from '../layouts/Categories/Categories';
+import Links from '../layouts/Navbar/Links/Links';
 
 
 class SideMenu extends Component {
@@ -42,18 +44,29 @@ class SideMenu extends Component {
   }
 
   render() {
-    const { uid, toggleSideMenu, collectionStatus } = this.props;
+    const { uid, toggleSideMenu, collectionStatus, showMenu } = this.props;
 
     const collectionPath = uid ? `/collections/${collectionStatus}` : '/signin';
 
+    let hamburgerAnimateClass = showMenu ? 'hamburger-active' : '';
+
     return (
-      <aside className="sideMenu layout">
-        <ul id="nav-mobile" >
-          <Links toggleSideMenu={toggleSideMenu} />
-          <li className='collectionLink' onClick={toggleSideMenu}><NavLink to={collectionPath} activeClassName='activeNav'>Collections</NavLink></li>
-          <Categories toggleSideMenu={toggleSideMenu} />
-        </ul>
-      </aside>
+      <React.Fragment>
+        <aside className="sideMenu layout">
+
+          <ul id="nav-mobile" >
+            <div className="hamburger-container" onClick={() => toggleSideMenu()}>
+              <p className={`hamburger ${hamburgerAnimateClass}`}></p>
+            </div>
+            <Links toggleSideMenu={toggleSideMenu} />
+            <li className='collectionLink' onClick={toggleSideMenu}><NavLink to={collectionPath} activeClassName='activeNav'>Collections</NavLink></li>
+            <Categories toggleSideMenu={toggleSideMenu} />
+          </ul>
+
+        </aside >
+        <Backdrop handler={toggleSideMenu} />
+      </React.Fragment>
+
     )
   }
 }
@@ -61,7 +74,8 @@ class SideMenu extends Component {
 const mapStateToProps = state => {
   return {
     uid: state.firebase.auth.uid,
-    collectionStatus: state.collections.status
+    collectionStatus: state.collections.status,
+    showMenu: state.sideMenu.showMenu
   }
 }
 

@@ -23,7 +23,7 @@ const ListCard = ({ collections, status, filteredCollections, fetchSelected, sel
   // List of collection items
   let collectionItem = filteredCollections[0] ? filteredCollections.map((media, index) => {
     return <CollectionItem
-      key={media.mediaId}
+      key={media.customID}
       media={media}
       number={index}
       fetchSelected={fetchSelected}

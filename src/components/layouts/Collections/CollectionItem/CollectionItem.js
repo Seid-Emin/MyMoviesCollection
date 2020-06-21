@@ -40,7 +40,7 @@ const CollectionItem = ({
         </td>
         <td className="data type">{mediaType}</td>
       </tr>
-    </tbody>
+    </tbody >
   )
 }
 

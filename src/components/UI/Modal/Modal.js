@@ -13,6 +13,7 @@ import MovieDB from '../../../configs/ApiMovies';
 import { colorThemes } from '../Styles/colorThemes';
 
 // Components
+import Backdrop from '../../UI/Backdrop/Backdrop';
 import Video from './Video/Video';
 import Spinner from '../Spinner/Spinner';
 import SimilarMovies from './SimilarMovies/SimilarMovies';
@@ -81,7 +82,7 @@ class Modal extends Component {
       selectedMediaData: { id, original_title, poster_path, original_name, videos, vote_average, genres, similar, release_date, overview, first_air_date, name, title, popularity, vote_count },
       loading_selected,
       collections: { filteredCollections, collections, deleteMediaId },
-      deleteMediaFromFirestore, handler } = this.props;
+      deleteMediaFromFirestore, handler, showInfo } = this.props;
     const { errorMessage } = this.state;
 
 
@@ -118,83 +119,88 @@ class Modal extends Component {
     let isMediaInCollection = findInCollection[0];
 
     return (
-      <div className='modal-info'>
-        {loading_selected ? <Spinner /> :
-          <>
-            <div className='info-wrapper'>
-              {/* card image wrapper */}
-              <div className='card-image'>
-                {posterPath}
-                <div className='trailer'>
-                  {video}
+      <React.Fragment>
+
+        <div className='modal-info'>
+
+          {loading_selected ? <Spinner /> :
+            <>
+              <div className='info-wrapper'>
+                {/* card image wrapper */}
+                <div className='card-image'>
+                  {posterPath}
+                  <div className='trailer'>
+                    {video}
+                  </div>
                 </div>
-              </div>
-              {/* media info - next to image ( right ) */}
-              <div className='movie-info-wrap'>
-                <div className='title'>
-                  <h3 className="card-main-title">{name ? name : title || original_name || original_title}
-                    <span className='releaseDate'> ({release_date ? release_date.substring(0, 4) : first_air_date.substring(0, 4)})</span>
-                  </h3>
-                </div>
-                {/* Actions for Collection Create/Update/Delete - start */}
-                <div className='ratingAdd collectionActions'>
-                  {!filteredCollections || !isMediaInCollection ?
-                    <>
-                      <p className='btn_addMedia' onClick={() => this.addMedia('watching')}>Add to List</p>
-                      {errorMessage ? <p className='modal-error-message'>Please login first</p> : null}
-                    </>
-                    :
-                    <>
-                      {/* Status of media */}
-                      <Select
-                        selectName='watchStatus'
-                        selectClass={`select_mediaStatus ${colorThemes.watchStatus[isMediaInCollection.watchStatus]}`}
-                        value={isMediaInCollection.watchStatus}
-                        customID={isMediaInCollection.customID}
-                        handler={(e) => this.handleStatusAndRating(e, isMediaInCollection.customID)}
-                      />
-                      {/* User Rating given to media */}
-                      <Select
-                        selectName='userRating'
-                        selectClass={`user-score ${colorThemes.userRating[isMediaInCollection.userRating]}`}
-                        value={isMediaInCollection.userRating}
-                        order={false}
-                        customID={isMediaInCollection.customID}
-                        handler={(e) => this.handleStatusAndRating(e, isMediaInCollection.customID)}
-                      />
-                      {/* delete media */}
-                      <div className="delete-media">
-                        <span className="material-icons" onClick={() => deleteMediaFromFirestore(isMediaInCollection.customID, collections, filteredCollections)}>delete</span>
-                      </div>
-                    </>}
-                </div>
-                {/* Actions for Collection Create/Update/Delete - end */}
-                <div className='ratingAdd'>
-                  <p className='card-inner-title rating'>Rating:
+                {/* media info - next to image ( right ) */}
+                <div className='movie-info-wrap'>
+                  <div className='title'>
+                    <h3 className="card-main-title">{name ? name : title || original_name || original_title}
+                      <span className='releaseDate'> ({release_date ? release_date.substring(0, 4) : first_air_date.substring(0, 4)})</span>
+                    </h3>
+                  </div>
+                  {/* Actions for Collection Create/Update/Delete - start */}
+                  <div className='ratingAdd collectionActions'>
+                    {!filteredCollections || !isMediaInCollection ?
+                      <>
+                        <p className='btn_addMedia' onClick={() => this.addMedia('watching')}>Add to List</p>
+                        {errorMessage ? <p className='modal-error-message'>Please login first</p> : null}
+                      </>
+                      :
+                      <>
+                        {/* Status of media */}
+                        <Select
+                          selectName='watchStatus'
+                          selectClass={`select_mediaStatus ${colorThemes.watchStatus[isMediaInCollection.watchStatus]}`}
+                          value={isMediaInCollection.watchStatus}
+                          customID={isMediaInCollection.customID}
+                          handler={(e) => this.handleStatusAndRating(e, isMediaInCollection.customID)}
+                        />
+                        {/* User Rating given to media */}
+                        <Select
+                          selectName='userRating'
+                          selectClass={`user-score ${colorThemes.userRating[isMediaInCollection.userRating]}`}
+                          value={isMediaInCollection.userRating}
+                          order={false}
+                          customID={isMediaInCollection.customID}
+                          handler={(e) => this.handleStatusAndRating(e, isMediaInCollection.customID)}
+                        />
+                        {/* delete media */}
+                        <div className="delete-media">
+                          <span className="material-icons" onClick={() => deleteMediaFromFirestore(isMediaInCollection.customID, collections, filteredCollections)}>delete</span>
+                        </div>
+                      </>}
+                  </div>
+                  {/* Actions for Collection Create/Update/Delete - end */}
+                  <div className='ratingAdd'>
+                    <p className='card-inner-title rating'>Rating:
                   <span className={ratingClasses.join(' ')}>{vote_average}</span>
-                  </p>
-                  <p className='card-inner-title popularity'>Popularity:
+                    </p>
+                    <p className='card-inner-title popularity'>Popularity:
                   <span>{Math.round(popularity)}</span>
-                  </p>
-                  <p className='card-inner-title votes'>Votes:
+                    </p>
+                    <p className='card-inner-title votes'>Votes:
                   <span>{vote_count}</span>
-                  </p>
-                </div>
-                <div className='genre'>
-                  <p className='card-inner-title'>Genre: <span className="card-info">{modalGenres.join(', ')}</span></p>
-                </div>
-                <div className='overwiev'>
-                  <p className='card-inner-title'>Overview: </p>
-                  <p className="card-info">{overview}</p>
+                    </p>
+                  </div>
+                  <div className='genre'>
+                    <p className='card-inner-title'>Genre: <span className="card-info">{modalGenres.join(', ')}</span></p>
+                  </div>
+                  <div className='overwiev'>
+                    <p className='card-inner-title'>Overview: </p>
+                    <p className="card-info">{overview}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-            {similarMovies}
-            <div className='btn-wrapper'>
-              <button className="blue darken-4 waves-effect waves-light btn closeModal" onClick={() => handler()}>Close</button>
-            </div>
-          </>}
-      </div >
+              {similarMovies}
+              <div className='btn-wrapper'>
+                <button className="btn closeModal z-depth-0" onClick={() => handler()}>Close</button>
+              </div>
+            </>}
+        </div >
+        <Backdrop handler={handler} showInfo={showInfo} />
+      </React.Fragment>
     )
   }
 }

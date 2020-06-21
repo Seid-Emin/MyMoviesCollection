@@ -50,7 +50,7 @@ nav .nav-wrapper {
   height          : 2px;
   border-radius   : 5px;
   background-color: var(--color-textTitle);
-  transition      : all 200ms ease-in-out;
+  transition      : all 500ms ease-in-out;
 }
 
 .hamburger:before,
@@ -67,8 +67,9 @@ nav .nav-wrapper {
 }
 
 .hamburger-active {
-  transform: rotate(-45deg);
-  z-index  : 7;
+  transform : rotate(-45deg);
+  z-index   : 7;
+  transition: all 500ms ease-in-out;
 }
 
 .hamburger-active:before {
@@ -80,6 +81,10 @@ nav .nav-wrapper {
 .hamburger-active:after {
 
   transform: rotate(90deg);
+}
+
+nav .hamburger-active {
+  display: none;
 }
 
 

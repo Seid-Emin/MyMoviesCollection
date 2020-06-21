@@ -141,11 +141,3 @@
   border: 1px solid var(--color-tablePlanToWatch);
   color : var(--color-tablePlanToWatch);
 }
-
-span.material-icons {
-  display: flex;
-}
-
-.delete-media {
-  margin-left: 20px;
-}

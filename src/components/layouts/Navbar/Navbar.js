@@ -43,11 +43,7 @@ class Navbar extends Component {
   };
 
   render() {
-    const { uid, collectionStatus, showMenu, toggleSideMenu } = this.props;
-
-    // const collectionPath = uid ? `/collections/${collectionStatus}` : '/signin';
-
-    console.log('Navbar updated');
+    const { collectionStatus, showMenu, toggleSideMenu } = this.props;
 
     let hamburgerAnimateClass = showMenu ? 'hamburger-active' : '';
 

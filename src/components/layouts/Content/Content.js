@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router";
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import './Content.css';
 
@@ -100,18 +101,33 @@ class Content extends Component {
   render() {
     const { showInfo, loadingSearch, showMenu, toggleSideMenu } = this.props;
     const modal = showInfo ?
-      <>
-        <Backdrop handler={this.handleHideModal} />
-        <Modal handler={this.handleHideModal} />
-      </>
+      <CSSTransition
+        in={showInfo}
+        appear={showInfo}
+        key='modal'
+        timeout={300}
+        classNames="modalAnimate"
+        mountOnEnter
+        unmountOnExit >
+        <Modal handler={this.handleHideModal} showInfo={showInfo} />
+      </CSSTransition>
       : null;
 
     return (
       <React.Fragment>
-        {showMenu ? <>
-          <SideMenu />
-          <Backdrop handler={toggleSideMenu} />
-        </> : null}
+        <TransitionGroup className='transitionSideMenu'>
+          {showMenu ?
+            <CSSTransition
+              in={showMenu}
+              appear={true}
+              key='sideMenu'
+              timeout={300}
+              classNames="sideMenuAnimate"
+              mountOnEnter
+              unmountOnExit >
+              <SideMenu />
+            </CSSTransition> : null}
+        </TransitionGroup>
         <main className='content-grid layout'>
           <Categories />
           <Switch>
@@ -125,9 +141,11 @@ class Content extends Component {
               </>
             }
           </Switch>
-          {modal}
+          <TransitionGroup >
+            {modal}
+          </TransitionGroup>
         </main >
-      </React.Fragment>
+      </React.Fragment >
     )
   }
 }

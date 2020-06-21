@@ -26,6 +26,7 @@ const GridCard = ({ fechedResults, filteredCollections }) => {
       singleMedia={singleMedia}
       fechedResults={fechedResults}
       collectionMedia={collectionMedia} />
+
   }) : <h6 className='noResults'>No Results Found</h6>
 
   console.log('gridCard');
@@ -34,6 +35,7 @@ const GridCard = ({ fechedResults, filteredCollections }) => {
     <div className='row-2-cards movie-grid'>
       {singleCard}
     </div>
+
   )
 }
 
