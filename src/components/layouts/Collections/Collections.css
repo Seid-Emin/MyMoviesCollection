@@ -194,6 +194,10 @@ td {
   .collection-status {
     display: none;
   }
+
+  .collection-list {
+    padding-top: 15px
+  }
 }
 
 
