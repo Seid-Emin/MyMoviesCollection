@@ -6,10 +6,11 @@ import Carousel from '@brainhubeu/react-carousel';
 import './SimilarMovies.css'
 import '@brainhubeu/react-carousel/lib/style.css';
 
+// Components
 import SimilarMovie from './SimilarMovie/SimilarMovie';
 
 
-const SimilarMovies = ({ selectedMediaData, selectedMediaType, history }) => {
+const SimilarMovies = ({ selectedMedia: { selectedMedia, selectedMediaType }, history }) => {
 
   // Need in case URL is pasted
   const pathName = history.location.pathname;
@@ -21,8 +22,7 @@ const SimilarMovies = ({ selectedMediaData, selectedMediaType, history }) => {
   let mediaToPass = selectedMediaType === '' ? mediaType : selectedMediaType
 
   //display similar movies
-  // let fewSimilarMovies = selectedMediaData.similar ? selectedMediaData.similar.results.splice(0, 10) : null;
-  let similarMovie = selectedMediaData.similar ? selectedMediaData.similar.results.map(result => {
+  let similarMovie = selectedMedia.similar ? selectedMedia.similar.results.map(result => {
     return <SimilarMovie key={result.id} result={result} mediaType={mediaToPass} />
   }) : null
 
@@ -54,8 +54,8 @@ const SimilarMovies = ({ selectedMediaData, selectedMediaType, history }) => {
 
 const mapStateToProps = state => {
   return {
-    selectedMediaData: state.selectedMedia.selectedMedia,
-    selectedMediaType: state.selectedMedia.selectedMediaType,
+    // selectedMedia state
+    selectedMedia: state.selectedMedia,
   }
 }
 

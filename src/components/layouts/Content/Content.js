@@ -21,9 +21,7 @@ import SideMenu from '../../SideMenu/SideMenu';
 
 class Content extends Component {
   componentDidMount() {
-    const { preloadSelected, preloadFilteredMedia, getCollectionFromFirestore, fetchMultiSearch,
-      collections: { collections },
-      history } = this.props;
+    const { preloadSelected, preloadFilteredMedia, getCollectionFromFirestore, fetchMultiSearch, fetchFilteredMedia, history } = this.props;
     let pathName = history.location.pathname;
 
     const authorId = localStorage.getItem('userId');
@@ -71,14 +69,16 @@ class Content extends Component {
     } else if (pathName.includes('/search')) {
       let query = pathName.replace('/search=', '');
       fetchMultiSearch(query);
+    } else if (pathName.includes('/collections') || pathName.includes('/Collections')) {
+      history.push('/collections/all_media');
     } else {
-      history.push('collections/all_media');
+      history.push('/movie/now_playing/page=1');
+      fetchFilteredMedia('movie', 'now_playing')
     }
   }
 
   handleHideModal = () => {
-    const { mediaType, filterType, currentPage, searchText, hideModal,
-      collections: { status } } = this.props;
+    const { search: { mediaType, filterType, currentPage, searchText }, hideModal, status } = this.props;
 
     // route to last path according to state
     const pathName = this.props.history.location.pathname;
@@ -152,13 +152,10 @@ const mapStateToProps = state => {
 
     // Search / Fetch state
     loadingSearch: state.search.loading,
-    searchText: state.search.searchtext,
-    mediaType: state.search.mediaType,
-    filterType: state.search.filterType,
-    currentPage: state.search.currentPage,
+    search: state.search,
 
     // Collections state
-    collections: state.collections,
+    status: state.collections.status,
 
     // SideMenu state
     showMenu: state.sideMenu.showMenu

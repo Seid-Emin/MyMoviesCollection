@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import './Video.css'
+import './Video.css';
 
 
 const Video = ({ video }) => {
@@ -9,4 +9,4 @@ const Video = ({ video }) => {
   )
 }
 
-export default Video
+export default Video;

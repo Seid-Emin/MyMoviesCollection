@@ -4,15 +4,15 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../../../store/actions';
 
-
+// Combined links
 const Links = ({ uid, initials, toggleSideMenu, signOut, clearCollections, search }) => {
-
   return (uid ? <SignedInLinks toggleSideMenu={toggleSideMenu} initials={initials} signOut={signOut} search={search} clearCollections={clearCollections} />
     : <SignedOutLinks toggleSideMenu={toggleSideMenu} />
   )
 }
 
 
+// Inner Component SignOutLinks
 const SignedOutLinks = ({ toggleSideMenu }) => {
   return (
     <React.Fragment>
@@ -23,6 +23,7 @@ const SignedOutLinks = ({ toggleSideMenu }) => {
 }
 
 
+// Inner Component SignedInLinks
 const SignedInLinks = ({ initials, signOut, clearCollections, toggleSideMenu,
   search: { mediaType, filterType, currentPage } }) => {
 
@@ -41,8 +42,13 @@ const SignedInLinks = ({ initials, signOut, clearCollections, toggleSideMenu,
 
 const mapStateToProps = (state) => {
   return {
+    // auth state
     uid: state.firebase.auth.uid,
+
+    // firebase state
     initials: state.firebase.profile.initials,
+
+    // search state
     search: state.search,
   }
 }

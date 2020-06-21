@@ -8,7 +8,8 @@ import './Paginate.css';
 import * as actions from '../../../../store/actions';
 
 
-const Paginate = ({ history, pagesCount, containerClassName, fetchFilteredMedia, filterType, mediaType, selected }) => {
+const Paginate = ({ history, pagesCount, containerClassName, fetchFilteredMedia,
+  search: { mediaType, filterType, selected } }) => {
 
   // Handle Page Change
   const handlePageChange = data => {
@@ -41,14 +42,14 @@ const Paginate = ({ history, pagesCount, containerClassName, fetchFilteredMedia,
 
 const mapStateToProps = state => {
   return {
-    mediaType: state.search.mediaType,
-    filterType: state.search.filterType,
-    selected: state.search.selected,
+    // search state
+    search: state.search
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    // fetchFilteredMediaAction
     fetchFilteredMedia: (mediaType, filterType, paginatePage, selectedPage) => dispatch(actions.fetchFilteredMedia(mediaType, filterType, paginatePage, selectedPage))
   }
 }

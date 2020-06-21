@@ -73,18 +73,27 @@ class Navbar extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
+    // auth state
     uid: state.firebase.auth.uid,
+
+    // search state
     search: state.search,
+
+    // collections state
     collectionStatus: state.collections.status,
+
+    // side menu state
     showMenu: state.sideMenu.showMenu
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    // collectionActions
     getCollectionFromFirestore: () => dispatch(actions.getCollectionFromFirestore()),
+
+    //sideMenuActions
     toggleSideMenu: () => dispatch(actions.toggleSideMenu())
   }
 }

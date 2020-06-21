@@ -121,24 +121,28 @@ class SingUp extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const { uid } = this.props;
+    const { uid, authError } = this.props;
     const { user, errorSubmit } = this.state;
 
     return nextProps.uid != uid || nextState.user != user || nextState.errorSubmit != errorSubmit
+      || nextProps.authError != authError
   }
 
   componentWillUnmount() {
-    const { clearError } = this.props;
-
-    clearError();
+    const { clearError, authError } = this.props;
+    // if there was an arror, cleared it from state on unmount
+    if (authError) {
+      clearError();
+    }
   }
 
   render() {
     const { authError } = this.props;
     const { user, errorSubmit } = this.state;
 
-    let invalidMessage = !errorSubmit ? null : <p className='Invalid'>Please fill all the required fields with
+    let invalidMessage = errorSubmit ? <p className='Invalid'>Please fill all the required fields with
     valid information</p>
+      : authError ? <p>{authError.message}</p> : null
 
     let inputs = Object.keys(user).map((field, index) => {
       return <Input key={index} name={field} field={user[field]} handleChange={this.handleChange} />
@@ -153,12 +157,9 @@ class SingUp extends Component {
             <button className='btn sign z-depth-0'>Sign up</button>
             <div className='red-text center'>
               {invalidMessage}
-              {authError ? <p>{authError.message}</p> : null}
             </div>
           </div>
-
         </form>
-
       </div>
     )
   }
@@ -166,14 +167,20 @@ class SingUp extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    uid: state.firebase.auth.uid,
+    // auth state
     authError: state.auth.authError,
+
+    // firebase state
+    uid: state.firebase.auth.uid,
+
+    // search state
     search: state.search,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    // authActions
     signUp: (newUser) => dispatch(actions.signUp(newUser)),
     clearError: () => dispatch(actions.clearError())
   }

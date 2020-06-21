@@ -23,13 +23,14 @@ class SimilarMovie extends Component {
 
 
   render() {
-    const { result: { id, name, title, original_name, poster_path },
-      mediaType, filterType, currentPage, history, collections: { status } } = this.props;
-
+    const {
+      result: { id, name, title, original_name, poster_path },
+      collections: { status },
+      mediaType, filterType, history } = this.props;
 
     let posterPath = poster_path ? TheMovieDB.API_Img + poster_path : noCoverImg;
 
-    let linkPath = history.location.pathname.includes('collections') ? `/collections/${status}/id=${id}` : `/${mediaType}/${filterType}/page=${currentPage}/id=${id}`
+    let linkPath = history.location.pathname.includes('collections') ? `/collections/${status}/id=${id}` : `/${mediaType}/${filterType}/id=${id}`
     return (
       <div className="card-action" onClick={this.getSelectedVideo}>
         <Link to={linkPath}>
@@ -43,14 +44,17 @@ class SimilarMovie extends Component {
 
 const mapStateToProps = state => {
   return {
+    // search state
     filterType: state.search.filterType,
-    currentPage: state.search.currentPage,
+
+    //collections state
     collections: state.collections
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    // selectedAction
     fetchSelected: (id, mediaType) => dispatch(actions.fetchSelected(id, mediaType)),
     showModal: () => dispatch(actions.showModal())
   }

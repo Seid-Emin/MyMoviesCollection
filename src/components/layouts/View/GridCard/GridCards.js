@@ -9,12 +9,11 @@ import GridItem from './GridItem/GridItem';
 
 
 const GridCards = ({ fechedResults, filteredCollections }) => {
-
   let results = fechedResults ? fechedResults : filteredCollections;
 
   let singleCard = results ? results.map(card => {
-
     const { name, id, media_type, title, original_name, original_title, poster_path, mediaId, mediaName, mediaType, posterURL } = card;
+
     let collectionMedia = !fechedResults ? card : null;
 
     return <GridItem
@@ -26,16 +25,12 @@ const GridCards = ({ fechedResults, filteredCollections }) => {
       singleMedia={singleMedia}
       fechedResults={fechedResults}
       collectionMedia={collectionMedia} />
-
   }) : <h6 className='noResults'>No Results Found</h6>
-
-  console.log('gridCard');
 
   return (
     <div className='row-2-cards movie-grid'>
       {singleCard}
     </div>
-
   )
 }
 

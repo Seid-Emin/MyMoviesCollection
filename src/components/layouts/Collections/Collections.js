@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavLink, Redirect } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { withRouter } from "react-router";
 
 import './Collections.css';
@@ -19,29 +19,10 @@ class Collections extends Component {
 
   componentDidMount() {
     // get needed props
-    const { collections: { status, collections, type }, filterStatusAndType, uid, history } = this.props;
+    const { collections: { status, collections, type }, filterStatusAndType } = this.props;
 
     filterStatusAndType(status, collections, type);
-
-
   }
-
-  // componentDidUpdate(prevProps) {
-  //   const { collections: { status, collections, type, filteredCollections }, filterStatusAndType, history } = this.props;
-  //   if (prevProps.filteredCollections != filteredCollections) {
-  //     console.log(history);
-
-  //     filterStatusAndType(status, collections, type);
-  //   }
-
-  // }
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   const { collections: { collections, type, filteredCollections }, filterStatusAndType } = this.props;
-  //   if ((nextProps.filteredCollections !== filteredCollections)) {
-  //     return true
-  //   }
-  // }
 
   filterByStatus = (e, collections, navStatus = null) => {
     const { history, filterStatusAndType, collections: { status, type } } = this.props;
@@ -169,4 +150,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Collections));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(React.memo(Collections)));

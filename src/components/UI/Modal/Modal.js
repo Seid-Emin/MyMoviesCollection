@@ -62,10 +62,11 @@ class Modal extends Component {
   }
   // Add selected/picked media to collections
   addMedia = (watchStatus) => {
-    const {
-      selectedMediaData: { id, original_title, poster_path, original_name, name, title },
+    const { selectedMedia: {
+      selectedMedia: { id, original_title, poster_path, original_name, name, title },
+      selectedMediaType },
       collections: { collections, status, type },
-      addMediaToFirestoreCollection, selectedMediaType, uid } = this.props;
+      addMediaToFirestoreCollection, uid } = this.props;
 
     // Check is the user logged
     if (uid) {
@@ -86,13 +87,13 @@ class Modal extends Component {
   }
 
   render() {
-    const {
-      selectedMediaData: { id, original_title, poster_path, original_name, videos, vote_average, genres, similar, release_date, overview, first_air_date, name, title, popularity, vote_count },
-      collections: { filteredCollections, collections },
-      loading_selected, deleteMediaFromFirestore, handler, showInfo } = this.props;
+    const { selectedMedia: {
+      selectedMedia: {
+        id, original_title, poster_path, original_name, videos, vote_average, genres, similar, release_date, overview, first_air_date, name, title, popularity, vote_count
+      }, loading },
+      collections: { filteredCollections, collections }, deleteMediaFromFirestore, handler, showInfo } = this.props;
+
     const { errorMessage } = this.state;
-
-
 
     //check video file existing in the response
     const video = videos ? videos.results.slice(0, 3).map(video => {
@@ -130,7 +131,7 @@ class Modal extends Component {
 
         <div className='modal-info'>
 
-          {loading_selected ? <Spinner /> :
+          {loading ? <Spinner /> :
             <>
               <div className='info-wrapper'>
                 {/* card image wrapper */}
@@ -180,6 +181,7 @@ class Modal extends Component {
                       </>}
                   </div>
                   {/* Actions for Collection Create/Update/Delete - end */}
+                  {/* Media info sections */}
                   <div className='ratingAdd'>
                     <p className='card-inner-title rating'>Rating:
                   <span className={ratingClasses.join(' ')}>{vote_average}</span>
@@ -221,9 +223,7 @@ const mapStateToProps = state => {
     search: state.search,
 
     // SingleMedia state
-    selectedMediaData: state.selectedMedia.selectedMedia,
-    selectedMediaType: state.selectedMedia.selectedMediaType,
-    loading_selected: state.selectedMedia.loading,
+    selectedMedia: state.selectedMedia,
 
     // Collections state
     collections: state.collections

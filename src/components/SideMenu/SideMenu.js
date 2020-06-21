@@ -73,14 +73,20 @@ class SideMenu extends Component {
 
 const mapStateToProps = state => {
   return {
+    // auth state
     uid: state.firebase.auth.uid,
+
+    // collections state
     collectionStatus: state.collections.status,
+
+    // sideMenu state
     showMenu: state.sideMenu.showMenu
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    // sideMenuActions
     toggleSideMenu: () => dispatch(actions.toggleSideMenu())
   }
 }

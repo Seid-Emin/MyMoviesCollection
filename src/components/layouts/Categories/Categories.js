@@ -67,9 +67,12 @@ const Categories = ({ fetchFilteredMedia, clearSearchingState, toggleSideMenu })
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchFilteredMedia: (mediaType, filterType) => dispatch(actions.fetchFilteredMedia(mediaType, filterType)),
-    clearSearchingState: () => dispatch(actions.clearSearchingState())
+    //searchAction
+    clearSearchingState: () => dispatch(actions.clearSearchingState()),
+
+    // fetchFilteredMediaAction
+    fetchFilteredMedia: (mediaType, filterType) => dispatch(actions.fetchFilteredMedia(mediaType, filterType))
   }
 }
 
-export default connect(null, mapDispatchToProps)(Categories);
+export default connect(null, mapDispatchToProps)(React.memo(Categories));

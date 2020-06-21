@@ -13,10 +13,12 @@ import * as actions from '../../../../../store/actions';
 import { filterByType } from '../../../../helpers/filter';
 
 
-const GridItem = ({ name, id, media_type, poster_path, fechedResults, filterType, currentPage, filteredMediaType, fetchSelected, selectedMediaType, showModal, singleMedia, collections: { collections, status }, collectionMedia, }) => {
+const GridItem = ({ name, id, media_type, poster_path, fechedResults, fetchSelected, selectedMediaType, showModal, singleMedia, collectionMedia,
+  search: { mediaType, filterType },
+  collections: { collections, status } }) => {
 
   // Check the state - searching or fetching data
-  const media = media_type ? media_type : filteredMediaType;
+  const media = media_type ? media_type : mediaType;
 
   // Check by mediaType too
   let isMediaInCollection;
@@ -27,7 +29,6 @@ const GridItem = ({ name, id, media_type, poster_path, fechedResults, filterType
     // Check for existing media in collection
     let findById = filterByType('match', collections, 'mediaId', id);
     let matchType = findById.mediaType == media_type || findById.mediaName == name ? findById : null;
-
 
     if (matchType !== null) {
       isMediaInCollection = matchType[0];
@@ -54,6 +55,7 @@ const GridItem = ({ name, id, media_type, poster_path, fechedResults, filterType
         <Link to={linkPath} className='card-link'>
           <div className='item-image-container'>
             {collectionMedia ?
+              // Top info of card
               <div className="card-top">
                 <div className="card-top-rating-container">
                   <div className="card-top-mediaType">{media}</div>
@@ -63,10 +65,12 @@ const GridItem = ({ name, id, media_type, poster_path, fechedResults, filterType
                     </div> : null}
                 </div>
               </div> : null}
+            {/* Bottom info of card */}
             <div className="card-bottom">
               <span className="title" onClick={() => loadSingleMedia()}>{name}</span>
               {isMediaInCollection ? <span className={`fl ${colorThemes.statuStyle[isMediaInCollection.watchStatus]}`}>{cardStatusConfig.title[isMediaInCollection.watchStatus]}</span> : null}
             </div>
+            {/*  Card image */}
             <div className='singleImg' style={{ backgroundImage: `${currentCardImage}` }} onClick={() => loadSingleMedia()}></div>
           </div>
         </Link>
@@ -76,15 +80,17 @@ const GridItem = ({ name, id, media_type, poster_path, fechedResults, filterType
 }
 const mapStateToProps = state => {
   return {
-    filteredMediaType: state.search.mediaType,
-    filterType: state.search.filterType,
-    currentPage: state.search.currentPage,
+    // search state
+    search: state.search,
+
+    // collections state
     collections: state.collections
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    // selectedAction
     fetchSelected: (id, mediaType) => dispatch(actions.fetchSelected(id, mediaType)),
     selectedMediaType: (type) => dispatch(actions.selectedMediaType(type)),
     showModal: () => dispatch(actions.showModal()),

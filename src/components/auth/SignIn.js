@@ -35,11 +35,17 @@ class SignIn extends Component {
   }
 
   componentWillUnmount() {
-    const { uid, getCollectionFromFirestore, clearError } = this.props;
+    const { uid, getCollectionFromFirestore, clearError, authError } = this.props;
+
+    // if login success - get collections ( if any)
     if (uid) {
       getCollectionFromFirestore();
     }
-    clearError();
+
+    // if there was an arror, cleared it from state on unmount
+    if (authError) {
+      clearError();
+    }
   }
 
   render() {
@@ -49,7 +55,6 @@ class SignIn extends Component {
       <div className='container'>
         <form className='width' onSubmit={this.handleSubmit} >
           <h5 className='text-darken-3'>Login</h5>
-
           <div className='input-field'>
             <label className='active' htmlFor='email'>Email</label>
             <input type='email' name='email' onChange={this.handleChange} />
@@ -72,16 +77,22 @@ class SignIn extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    // auth state
     authError: state.auth.authError,
+
+    // firebase state
     uid: state.firebase.auth.uid
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    // authActions
     signIn: (credentials) => dispatch(actions.signIn(credentials)),
-    getCollectionFromFirestore: () => dispatch(actions.getCollectionFromFirestore()),
-    clearError: () => dispatch(actions.clearError())
+    clearError: () => dispatch(actions.clearError()),
+
+    // collectionActions
+    getCollectionFromFirestore: () => dispatch(actions.getCollectionFromFirestore())
   }
 }
 
