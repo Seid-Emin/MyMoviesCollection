@@ -54,4 +54,4 @@ const ListCards = ({ collections, status, filteredCollections, fetchSelected, se
   )
 }
 
-export default React.memo(ListCards);
+export default ListCards;

@@ -150,4 +150,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(React.memo(Collections)));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Collections));

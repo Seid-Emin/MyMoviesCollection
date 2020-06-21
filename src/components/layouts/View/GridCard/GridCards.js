@@ -34,4 +34,4 @@ const GridCards = ({ fechedResults, filteredCollections }) => {
   )
 }
 
-export default React.memo(GridCards);
+export default GridCards;

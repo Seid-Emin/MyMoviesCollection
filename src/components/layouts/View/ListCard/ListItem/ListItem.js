@@ -50,4 +50,4 @@ const ListItem = ({
   )
 }
 
-export default React.memo(ListItem);
+export default ListItem;

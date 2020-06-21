@@ -97,4 +97,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(GridItem));
+export default connect(mapStateToProps, mapDispatchToProps)(GridItem);
