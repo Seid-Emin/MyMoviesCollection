@@ -6,11 +6,16 @@ import './authStyles.css';
 import * as actions from '../../store/actions';
 import { checkValidity, updateObject } from '../helpers/utils';
 
+import Input from '../UI/Input/Input'
+
 
 class SingUp extends Component {
   state = {
     user: {
       firstName: {
+        label: 'First Name',
+        title: 'Latin Letters only',
+        type: 'text',
         value: '',
         validation: {
           required: true,
@@ -20,7 +25,10 @@ class SingUp extends Component {
         touched: false,
       },
       lastName: {
+        label: 'Last Name',
+        title: 'Latin Letters only',
         value: '',
+        type: 'text',
         validation: {
           required: true,
           isName: true
@@ -29,7 +37,9 @@ class SingUp extends Component {
         touched: false,
       },
       email: {
+        label: 'Email',
         value: '',
+        type: 'email',
         validation: {
           required: true,
           isEmail: true
@@ -38,7 +48,10 @@ class SingUp extends Component {
         touched: false,
       },
       password: {
+        label: 'Password',
+        title: '[a-Z],mininum 9 symbols + special characters',
         value: '',
+        type: 'password',
         validation: {
           required: true,
           isPassword: true
@@ -110,7 +123,6 @@ class SingUp extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     const { uid } = this.props;
     const { user, errorSubmit } = this.state;
-    console.log(nextProps.uid);
 
     return nextProps.uid != uid || nextState.user != user || nextState.errorSubmit != errorSubmit
   }
@@ -123,47 +135,20 @@ class SingUp extends Component {
 
   render() {
     const { authError } = this.props;
-    const { user: { firstName, lastName, email, password }, errorSubmit } = this.state;
+    const { user, errorSubmit } = this.state;
 
     let invalidMessage = !errorSubmit ? null : <p className='Invalid'>Please fill all the required fields with
     valid information</p>
+
+    let inputs = Object.keys(user).map((field, index) => {
+      return <Input key={index} name={field} field={user[field]} handleChange={this.handleChange} />
+    })
 
     return (
       <div className='container'>
         <form className='width' onSubmit={this.handleSubmit}>
           <h5 className='text-darken-3'>Sign up</h5>
-          <div className='input-field'>
-            <label className='active' htmlFor='fName' title='Only Latin Letters'>First Name *</label>
-            <input
-              className={(!firstName.valid && !firstName.touched) || firstName.valid ? 'Valid' : 'Invalid'}
-              type='text'
-              name='firstName'
-              onChange={this.handleChange} />
-          </div>
-          <div className='input-field'>
-            <label className='active' htmlFor='lastName' title='Only Latin Letters'>Last Name *</label>
-            <input
-              className={(!lastName.valid && !lastName.touched) || lastName.valid ? 'Valid' : 'Invalid'}
-              type='text'
-              name='lastName'
-              onChange={this.handleChange} />
-          </div>
-          <div className='input-field'>
-            <label className='active' htmlFor='email'>Email *</label>
-            <input
-              className={(!email.valid && !email.touched) || email.valid ? 'Valid' : 'Invalid'}
-              type='email'
-              name='email'
-              onChange={this.handleChange} />
-          </div>
-          <div className='input-field'>
-            <label className='active' htmlFor='password' title='[a-Z],mininum 9 symbols + special characters'>Password *</label>
-            <input
-              className={(!password.valid && !password.touched) || password.valid ? 'Valid' : 'Invalid'}
-              type='password'
-              name='password'
-              onChange={this.handleChange} />
-          </div>
+          {inputs}
           <div className='input-field'>
             <button className='btn sign z-depth-0'>Sign up</button>
             <div className='red-text center'>

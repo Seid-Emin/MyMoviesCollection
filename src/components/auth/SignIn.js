@@ -49,6 +49,7 @@ class SignIn extends Component {
       <div className='container'>
         <form className='width' onSubmit={this.handleSubmit} >
           <h5 className='text-darken-3'>Login</h5>
+
           <div className='input-field'>
             <label className='active' htmlFor='email'>Email</label>
             <input type='email' name='email' onChange={this.handleChange} />
