@@ -265,3 +265,10 @@ export const changeCollectionView = (viewType) => {
   };
 };
 
+// Clear Collections
+export const clearCollections = () => {
+  return {
+    type: actionTypes.CLEAR_COLLECTIONS
+  };
+};
+

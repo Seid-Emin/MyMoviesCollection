@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from "react-router";
 
 import './Modal.css';
 import noCoverImg from '../../../assets/images/no-cover.png';
@@ -37,7 +38,14 @@ class Modal extends Component {
   componentWillUnmount() {
     document.removeEventListener("keydown", this.escFunction, false);
     window.removeEventListener('popstate', this.onBackButtonEvent, false);
-    this.setState({ errorMessage: false });
+
+    const { search: { searchResult, mediaType, filterType },
+      history: { location: { pathname } }, fetchFilteredMedia } = this.props;
+
+    // If URL is pasted check the URL and perform fetch from TheMovieDB if needed
+    if (!searchResult[0] && !pathname.includes('collections')) {
+      fetchFilteredMedia(mediaType, filterType)
+    }
   }
 
   // On EXC key pushed - close modal 
@@ -56,8 +64,8 @@ class Modal extends Component {
   addMedia = (watchStatus) => {
     const {
       selectedMediaData: { id, original_title, poster_path, original_name, name, title },
-      addMediaToFirestoreCollection, selectedMediaType,
-      collections: { collections, status, type }, uid } = this.props;
+      collections: { collections, status, type },
+      addMediaToFirestoreCollection, selectedMediaType, uid } = this.props;
 
     // Check is the user logged
     if (uid) {
@@ -80,9 +88,8 @@ class Modal extends Component {
   render() {
     const {
       selectedMediaData: { id, original_title, poster_path, original_name, videos, vote_average, genres, similar, release_date, overview, first_air_date, name, title, popularity, vote_count },
-      loading_selected,
-      collections: { filteredCollections, collections, deleteMediaId },
-      deleteMediaFromFirestore, handler, showInfo } = this.props;
+      collections: { filteredCollections, collections },
+      loading_selected, deleteMediaFromFirestore, handler, showInfo } = this.props;
     const { errorMessage } = this.state;
 
 
@@ -207,21 +214,35 @@ class Modal extends Component {
 
 const mapStateToProps = state => {
   return {
+    // Firebase state
+    uid: state.firebase.auth.uid,
+
+    // Search / Fetch state
+    search: state.search,
+
+    // SingleMedia state
     selectedMediaData: state.selectedMedia.selectedMedia,
     selectedMediaType: state.selectedMedia.selectedMediaType,
     loading_selected: state.selectedMedia.loading,
-    collections: state.collections,
-    uid: state.firebase.auth.uid,
+
+    // Collections state
+    collections: state.collections
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    // selectActions
+    hideModal: () => dispatch(actions.hideModal()),
+
+    // fetchFilteredMediaAction
+    fetchFilteredMedia: (mediaType, filterType) => dispatch(actions.fetchFilteredMedia(mediaType, filterType)),
+
+    // collectionActions
     addMediaToFirestoreCollection: (userRating, selectedMediaType, id, title, poster_path, watchStatus, collections, status, type) => dispatch(actions.addMediaToFirestoreCollection(userRating, selectedMediaType, id, title, poster_path, watchStatus, collections, status, type)),
     updateMediaStatus: (status, value, name, type, collections, customID) => dispatch(actions.updateMediaStatus(status, value, name, type, collections, customID)),
-    deleteMediaFromFirestore: (customID, collections, filteredCollections) => dispatch(actions.deleteMediaFromFirestore(customID, collections, filteredCollections)),
-    hideModal: () => dispatch(actions.hideModal())
+    deleteMediaFromFirestore: (customID, collections, filteredCollections) => dispatch(actions.deleteMediaFromFirestore(customID, collections, filteredCollections))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Modal);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Modal));

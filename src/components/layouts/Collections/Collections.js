@@ -11,24 +11,30 @@ import * as actions from '../../../store/actions';
 // Components
 import SelectMediaType from '../../UI/Select/SelectMediaType/SelectMediaType';
 import SelectCollectionNav from '../../UI/Select/SelectCollectionNav/SelectCollectionNav';
-import ListCard from '../View/ListCard/ListCard';
-import GridCard from '../View/GridCard/GridCard';
+import ListCards from '../View/ListCard/ListCards';
+import GridCards from '../View/GridCard/GridCards';
 
 
 class Collections extends Component {
 
   componentDidMount() {
     // get needed props
-    const { collections: { collections, type }, filterStatusAndType, uid, history } = this.props;
+    const { collections: { status, collections, type }, filterStatusAndType, uid, history } = this.props;
 
-    // Check if the user is logged
-    if (!uid) {
-      history.push(`/signin`);
-    }
+    filterStatusAndType(status, collections, type);
 
-    // display previous user filtered collection type only
-    filterStatusAndType('all_media', collections, type);
+
   }
+
+  // componentDidUpdate(prevProps) {
+  //   const { collections: { status, collections, type, filteredCollections }, filterStatusAndType, history } = this.props;
+  //   if (prevProps.filteredCollections != filteredCollections) {
+  //     console.log(history);
+
+  //     filterStatusAndType(status, collections, type);
+  //   }
+
+  // }
 
   // shouldComponentUpdate(nextProps, nextState) {
   //   const { collections: { collections, type, filteredCollections }, filterStatusAndType } = this.props;
@@ -57,7 +63,7 @@ class Collections extends Component {
 
   render() {
     // Get needed props by destructuring
-    const { collections: { collections, filteredCollections, status, viewType }, fetchSelected, selectedMediaType, showModal, deleteMediaFromFirestore, changeCollectionView } = this.props;
+    const { collections: { collections, filteredCollections, status, viewType }, fetchSelected, selectedMediaType, showModal, deleteMediaFromFirestore, changeCollectionView, uid } = this.props;
 
     const collectionLinks = {
       all_media: 'all_media',
@@ -75,6 +81,12 @@ class Collections extends Component {
     } else {
       gridActive = 'gridCard-active'
     }
+
+    let invalidMessage = !uid ? <p className='invalid-collection'>Please
+    <a href="/signin"> Login
+      </a> to access your collections</p> : null;
+
+    let emptyCollection = uid && !filteredCollections[0] ? <p className='invalid-collection'>No items in this collection</p> : null
 
     return (
       <section className="collection-container">
@@ -113,7 +125,7 @@ class Collections extends Component {
               </div>
             </div>
             <SelectCollectionNav handler={this.filterByStatus} navStatus='navStatus' />
-            {viewType === 'listCard' ? <ListCard
+            {filteredCollections[0] ? viewType === 'listCard' ? <ListCards
               collections={collections}
               status={status}
               filteredCollections={filteredCollections}
@@ -121,11 +133,13 @@ class Collections extends Component {
               selectedMediaType={selectedMediaType}
               showModal={showModal}
               deleteMediaFromFirestore={deleteMediaFromFirestore} />
-              :
-              <GridCard
-                filteredCollections={filteredCollections} />}
+              : <GridCards
+                filteredCollections={filteredCollections} />
+              : null}
           </div>
         </div>
+        {invalidMessage}
+        {emptyCollection}
       </section>
     )
   }
@@ -133,18 +147,23 @@ class Collections extends Component {
 
 const mapStateToProps = state => {
   return {
-    collections: state.collections,
+    // Firebase state
     uid: state.firebase.auth.uid,
+
+    // collections state
+    collections: state.collections,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    // selectedAction
     fetchSelected: (id, mediaType) => dispatch(actions.fetchSelected(id, mediaType)),
     selectedMediaType: (type) => dispatch(actions.selectedMediaType(type)),
     showModal: () => dispatch(actions.showModal()),
-    deleteMediaFromFirestore: (mediaId, collections, filteredCollections) => dispatch(actions.deleteMediaFromFirestore(mediaId, collections, filteredCollections)),
 
+    // collectionActions
+    deleteMediaFromFirestore: (mediaId, collections, filteredCollections) => dispatch(actions.deleteMediaFromFirestore(mediaId, collections, filteredCollections)),
     filterStatusAndType: (status, collections, type) => dispatch(actions.filterStatusAndType(status, collections, type)),
     changeCollectionView: (viewType) => dispatch(actions.changeCollectionView(viewType))
   }

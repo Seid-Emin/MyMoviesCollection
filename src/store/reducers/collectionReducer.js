@@ -135,6 +135,17 @@ export const changeCollectionView = (state, action) => {
   };
 };
 
+
+// Clear Collections
+export const clearCollections = (state, action) => {
+  return {
+    type: actionTypes.CLEAR_COLLECTIONS,
+    ...state,
+    collections: [],
+    filteredCollections: []
+  };
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     // Add Media Reducers
@@ -162,6 +173,9 @@ const reducer = (state = initialState, action) => {
 
     // Change Collection View
     case actionTypes.CHANGE_COLLECTION_VIEW: return changeCollectionView(state, action);
+
+    // Clear Collections
+    case actionTypes.CLEAR_COLLECTIONS: return clearCollections(state, action);
 
     default: return state;
   }

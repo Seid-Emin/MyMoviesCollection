@@ -17,6 +17,7 @@
   --color-tableCompleted     : #2db039;
   --color-tableOnHold        : #f1c83e;
   --color-tableDropped       : #a12f31;
+  --color-tableDropped       : #a12f31;
   --color-tablePlanToWatch   : #8f8f8f;
   --color-tableItemBorder    : #444;
   --color-tableTextColor     : var(--color-activeLinksText);

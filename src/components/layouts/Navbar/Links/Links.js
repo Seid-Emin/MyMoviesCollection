@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import * as actions from '../../../../store/actions';
 
 
-const Links = ({ uid, initials, toggleSideMenu, signOut, search }) => {
+const Links = ({ uid, initials, toggleSideMenu, signOut, clearCollections, search }) => {
 
-  return (uid ? <SignedInLinks toggleSideMenu={toggleSideMenu} initials={initials} signOut={signOut} search={search} />
+  return (uid ? <SignedInLinks toggleSideMenu={toggleSideMenu} initials={initials} signOut={signOut} search={search} clearCollections={clearCollections} />
     : <SignedOutLinks toggleSideMenu={toggleSideMenu} />
   )
 }
@@ -23,12 +23,17 @@ const SignedOutLinks = ({ toggleSideMenu }) => {
 }
 
 
-const SignedInLinks = ({ initials, signOut, toggleSideMenu,
+const SignedInLinks = ({ initials, signOut, clearCollections, toggleSideMenu,
   search: { mediaType, filterType, currentPage } }) => {
+
+  const signOutCleanState = () => {
+    signOut();
+    clearCollections();
+  }
 
   return (
     <React.Fragment>
-      <li className='logout' onClick={toggleSideMenu}><NavLink onClick={signOut} to='/movie/now_playing/page=1' >Log Out</NavLink></li>
+      <li className='logout' onClick={toggleSideMenu}><NavLink onClick={() => signOutCleanState()} to='/movie/now_playing/page=1' >Log Out</NavLink></li>
       <li className='initials'><NavLink to={`/${mediaType}/${filterType}/page=${currentPage}`} className='btn btn-floating pink lighten-1'>{initials}</NavLink></li>
     </React.Fragment>
   )
@@ -44,7 +49,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    signOut: () => dispatch(actions.signOut())
+    signOut: () => dispatch(actions.signOut()),
+    clearCollections: () => dispatch(actions.clearCollections())
   }
 }
 

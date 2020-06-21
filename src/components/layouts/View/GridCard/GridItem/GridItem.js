@@ -2,18 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import './Card.css';
-import noCoverImg from '../../../../assets/images/no-cover.png';
+import './GridItem.css';
+import noCoverImg from '../../../../../assets/images/no-cover.png';
 
 // Colors object for conditional style and configs
-import { colorThemes } from '../../../UI/Styles/colorThemes';
+import { colorThemes } from '../../../../UI/Styles/colorThemes';
 import { cardStatusConfig } from './cardStatusConfig';
-import TheMovieDB from '../../../../configs/ApiMovies';
-import * as actions from '../../../../store/actions';
-import { filterByType } from '../../../helpers/filter';
+import TheMovieDB from '../../../../../configs/ApiMovies';
+import * as actions from '../../../../../store/actions';
+import { filterByType } from '../../../../helpers/filter';
 
 
-const Card = ({ name, id, media_type, poster_path, fechedResults, filterType, currentPage, filteredMediaType, fetchSelected, selectedMediaType, showModal, singleMedia, collections: { collections, status }, collectionMedia, }) => {
+const GridItem = ({ name, id, media_type, poster_path, fechedResults, filterType, currentPage, filteredMediaType, fetchSelected, selectedMediaType, showModal, singleMedia, collections: { collections, status }, collectionMedia, }) => {
 
   // Check the state - searching or fetching data
   const media = media_type ? media_type : filteredMediaType;
@@ -37,7 +37,7 @@ const Card = ({ name, id, media_type, poster_path, fechedResults, filterType, cu
   }
 
   // Link path
-  let linkPath = collectionMedia ? `/collections/${status}/id=${id}` : `/${media}/${filterType}/page=${currentPage}/id=${id}`;
+  let linkPath = collectionMedia ? `/collections/${status}/id=${id}` : `/${media}/${filterType}/id=${id}`;
 
   // Card image check
   let currentCardImage = poster_path ? `url(${TheMovieDB.API_Img}${poster_path})` : `url(${noCoverImg})`;
@@ -91,4 +91,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Card));
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(GridItem));

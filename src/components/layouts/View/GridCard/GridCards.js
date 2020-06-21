@@ -1,14 +1,14 @@
 import React from 'react';
 
-import './GridCard.css';
+import './GridCards.css';
 
 import { singleMedia } from '../../../helpers/silgleMedia';
 
 // Components
-import Card from '../../Cards/Card/Card';
+import GridItem from './GridItem/GridItem';
 
 
-const GridCard = ({ fechedResults, filteredCollections }) => {
+const GridCards = ({ fechedResults, filteredCollections }) => {
 
   let results = fechedResults ? fechedResults : filteredCollections;
 
@@ -17,7 +17,7 @@ const GridCard = ({ fechedResults, filteredCollections }) => {
     const { name, id, media_type, title, original_name, original_title, poster_path, mediaId, mediaName, mediaType, posterURL } = card;
     let collectionMedia = !fechedResults ? card : null;
 
-    return <Card
+    return <GridItem
       key={id || mediaId}
       name={name || mediaName || title || original_name || original_title}
       id={id || mediaId}
@@ -39,4 +39,4 @@ const GridCard = ({ fechedResults, filteredCollections }) => {
   )
 }
 
-export default React.memo(GridCard);
+export default React.memo(GridCards);

@@ -176,6 +176,17 @@ td {
   color: var(--color-tableTextColorHover)
 }
 
+.invalid-collection {
+  text-align: center;
+  font-size : 16px;
+  margin-top: 15px;
+  color     : var(--color-textTitle);
+}
+
+.invalid-collection a:hover {
+  color: var(--color-tableTextColorHover);
+}
+
 
 
 

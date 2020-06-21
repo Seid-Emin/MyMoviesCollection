@@ -66,5 +66,8 @@ export const DELETE_MEDIA_FAIL = 'DELETE_MEDIA_FAIL';
 // Collection View actionTypes
 export const CHANGE_COLLECTION_VIEW = 'CHANGE_COLLECTION_VIEW';
 
+// Clear Collections actionTypes
+export const CLEAR_COLLECTIONS = 'CLEAR_COLLECTIONS';
+
 // Side Menu actionTypes
 export const TOGGLE_SIDE_MENU = 'TOGGLE_SIDE_MENU';

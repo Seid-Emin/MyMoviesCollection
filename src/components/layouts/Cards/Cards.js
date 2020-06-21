@@ -1,12 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { withRouter } from "react-router";
 
 import './Cards.css';
 
 // Components
-import GridCard from '../View/GridCard/GridCard';
+import GridCards from '../View/GridCard/GridCards';
 import Paginate from './Paginate/Paginate';
 
 
@@ -31,7 +29,7 @@ const Cards = ({ results, searchText, searching, totalResults, filteredMediaType
             containerClassName='paginate' />
         </div>
       </div>
-      <GridCard
+      <GridCards
         fechedResults={results} />
       <div className='row-3-paginate-last'>
         <Paginate
