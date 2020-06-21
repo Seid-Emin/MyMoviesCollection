@@ -46,9 +46,14 @@
   color: #039be5;
 }
 
-@media (max-height: 450px) and (min-width : 768px) and (max-width : 1024px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2) {
+@media (max-height: 450px) and (min-width : 768px) and (max-width : 1024px) and (orientation : landscape) {
   .content-grid .categories-wrapper {
     display: none;
+  }
+
+  .media-side-nav {
+    flex-direction : row;
+    justify-content: space-between;
   }
 }
 

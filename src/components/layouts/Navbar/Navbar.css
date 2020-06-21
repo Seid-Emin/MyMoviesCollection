@@ -136,7 +136,7 @@ nav .brand-logo.center {
   } */
 }
 
-@media (max-height: 450px) and (min-width : 768px) and (max-width : 1024px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2) {
+@media (max-height: 450px) and (min-width : 768px) and (max-width : 1024px) and (orientation : landscape) {
 
   /* Hamburger menu styles */
   .hamburger-container {

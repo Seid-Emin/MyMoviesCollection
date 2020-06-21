@@ -75,7 +75,7 @@ nav a {
   color: #fff;
 }
 
-@media (max-height: 450px) and (min-width : 768px) and (max-width : 1024px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2) {
+@media (max-height: 450px) and (min-width : 768px) and (max-width : 1024px) and (orientation : landscape) {
   .nav-right-links .searchField {
     margin-right: 0;
     width       : 30%;
