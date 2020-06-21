@@ -43,7 +43,8 @@ class Navbar extends Component {
   };
 
   render() {
-    const { collectionStatus, showMenu, toggleSideMenu } = this.props;
+    const { collectionStatus, showMenu, toggleSideMenu,
+      search: { mediaType, filterType, currentPage } } = this.props;
 
     let hamburgerAnimateClass = showMenu ? 'hamburger-active' : '';
 
@@ -56,7 +57,7 @@ class Navbar extends Component {
             <div className="hamburger-container" onClick={() => toggleSideMenu()}>
               <p className={`hamburger ${hamburgerAnimateClass}`}></p>
             </div>
-            <Link to='/' className="brand-logo material-icons center MovieIcon">movie</Link>
+            <Link to={`/${mediaType}/${filterType}/page=${currentPage}`} className="brand-logo material-icons center MovieIcon">movie</Link>
             <div className="nav-right-links">
               <Search />
               <ul id="nav-mobile" >
@@ -75,6 +76,7 @@ const mapStateToProps = (state) => {
   console.log(state);
   return {
     uid: state.firebase.auth.uid,
+    search: state.search,
     collectionStatus: state.collections.status,
     showMenu: state.sideMenu.showMenu
   }

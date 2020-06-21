@@ -8,10 +8,6 @@
   position             : relative;
 }
 
-.content-wrap:hover {
-  background-color: var(--color-textHover);
-}
-
 .noResults {
   position : absolute;
   top      : 0;
@@ -28,7 +24,6 @@
 
 @media only screen and (max-width:481px) {
   .content-grid {
-    grid-template-columns   : 1fr;
-    /* margin               : 0 10px 0 15px; */
+    grid-template-columns: 1fr;
   }
 }

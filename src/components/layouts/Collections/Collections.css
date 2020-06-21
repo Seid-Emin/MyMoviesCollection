@@ -24,10 +24,12 @@ nav.collection-status {
   font-size      : 1.2rem;
 }
 
+section nav .collection-nav ul a {
+  background-color: transparent;
+}
+
 .collection-nav ul .collection-navlink {
-  color         : var(--color-textTitle);
   text-transform: capitalize;
-  transition    : color 200ms ease-in-out;
   position      : relative;
 }
 
