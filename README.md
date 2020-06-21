@@ -1,6 +1,36 @@
 Check out the Final Product @ https://mymoviescollection-55974.web.app
 
+Original site for Movie and TV series fans.
 
+Using the The Movie Database (TMDb) API - is a community built movie and TV database dating back to 2008.
+
+User login managed through firebase.
+User collection / data storing to firestore.
+
+
+  THE TECH BEHIND :
+
+    React.js
+    React / Redux ( state management)
+    CSS
+    TransitionGroup / CSSTransition
+    Reack Paginage
+    React Slick
+    materialize-css
+
+
+	Functional specification
+
+      1. Every user can navigate to any page.
+        Walkthrough different movie and tv types.
+      
+      2. Collections to a not logged in user will be empty.
+
+      3. Only logged in user can add, update and remove items ( movie or tv) from his/her collection.
+      4. Only logged in user will have access to classify media by type and rate it.
+      5. Only logged in user will see any preview for a media already in collection, on top searched modia
+
+Every user hava e unique collection made by him / herself. 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
