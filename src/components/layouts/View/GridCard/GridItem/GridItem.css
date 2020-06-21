@@ -120,10 +120,6 @@
   }
 }
 
-@media (max-width: 481px) {}
-
-@media (max-width: 425px) {}
-
 @media (max-width:300px) {
   .item-image {
     min-height: 30vw;

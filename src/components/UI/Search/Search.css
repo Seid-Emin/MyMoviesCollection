@@ -91,7 +91,7 @@ nav a {
   }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 600px) {
   .nav-right-links .searchField {
     right    : 50%;
     width    : 50%;

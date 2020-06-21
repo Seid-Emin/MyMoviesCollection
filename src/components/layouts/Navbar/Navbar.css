@@ -182,7 +182,8 @@ nav .brand-logo.center {
   }
 }
 
-@media (max-width: 375px) {
+
+@media (max-width: 600px) {
   nav .nav-wrapper .brand-logo.center.MovieIcon {
     left: 92.5%;
   }
@@ -191,3 +192,14 @@ nav .brand-logo.center {
     justify-content: unset;
   }
 }
+
+
+/* @media (max-width: 375px) {
+  nav .nav-wrapper .brand-logo.center.MovieIcon {
+    left: 92.5%;
+  }
+
+  .nav-right-links {
+    justify-content: unset;
+  }
+} */
