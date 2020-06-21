@@ -18,6 +18,7 @@ const SelectMediaType = ({ collections: { collections, type }, handler }) => {
 
 const mapStateToProps = state => {
   return {
+    // collectons state
     collections: state.collections
   }
 }

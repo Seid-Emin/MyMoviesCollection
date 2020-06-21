@@ -19,6 +19,7 @@ const SelectCollectionNav = ({ collections: { collections, status }, handler, na
 
 const mapStateToProps = state => {
   return {
+    // collections state
     collections: state.collections
   }
 }

@@ -46,12 +46,14 @@ const Search = ({ search: { searchText, searching }, searchQuery, fetchMultiSear
 
 const mapStateToProps = state => {
   return {
+    // search state
     search: state.search
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    // searchAction
     searchQuery: (search) => dispatch(actions.search(search)),
     fetchMultiSearch: (query) => dispatch(actions.fetchMultiSearch(query)),
     clearSearchingState: () => dispatch(actions.clearSearchingState()),
