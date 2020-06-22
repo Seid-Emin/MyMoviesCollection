@@ -44,11 +44,13 @@ class Navbar extends Component {
 
   render() {
     const { collectionStatus, showMenu, toggleSideMenu,
-      search: { mediaType, filterType, currentPage } } = this.props;
+      search: { mediaType, filterType, currentPage, searching, searchText } } = this.props;
 
     let hamburgerAnimateClass = showMenu ? 'hamburger-active' : '';
 
     let navHidded = !this.state.visible ? 'nav--hidden' : '';
+
+    let pathToDisplay = searching ? `/search=${searchText}` : `/${mediaType}/${filterType}/page=${currentPage}`;
 
     return (
       <React.Fragment>
@@ -57,7 +59,7 @@ class Navbar extends Component {
             <div className="hamburger-container" onClick={() => toggleSideMenu()}>
               <p className={`hamburger ${hamburgerAnimateClass}`}></p>
             </div>
-            <Link to={`/${mediaType}/${filterType}/page=${currentPage}`} className="brand-logo material-icons center MovieIcon">movie</Link>
+            <Link to={pathToDisplay} className="brand-logo material-icons center MovieIcon">movie</Link>
             <div className="nav-right-links">
               <Search />
               <ul id="nav-mobile" >

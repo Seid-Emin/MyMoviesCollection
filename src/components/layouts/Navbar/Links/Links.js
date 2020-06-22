@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import * as actions from '../../../../store/actions';
 
 // Combined links
-const Links = ({ uid, initials, toggleSideMenu, signOut, clearCollections, search }) => {
-  return (uid ? <SignedInLinks toggleSideMenu={toggleSideMenu} initials={initials} signOut={signOut} search={search} clearCollections={clearCollections} />
+const Links = ({ uid, initials, toggleSideMenu, signOut, clearCollections, search, sideMenu }) => {
+  return (uid ? <SignedInLinks toggleSideMenu={toggleSideMenu} initials={initials} signOut={signOut} search={search} clearCollections={clearCollections} sideMenu={sideMenu} />
     : <SignedOutLinks toggleSideMenu={toggleSideMenu} />
   )
 }
@@ -24,18 +24,20 @@ const SignedOutLinks = ({ toggleSideMenu }) => {
 
 
 // Inner Component SignedInLinks
-const SignedInLinks = ({ initials, signOut, clearCollections, toggleSideMenu,
-  search: { mediaType, filterType, currentPage } }) => {
+const SignedInLinks = ({ initials, signOut, clearCollections, toggleSideMenu, sideMenu,
+  search: { mediaType, filterType, currentPage, searching, searchText } }) => {
 
   const signOutCleanState = () => {
     signOut();
     clearCollections();
   }
 
+  let pathToDisplay = searching ? `/search=${searchText}` : `/${mediaType}/${filterType}/page=${currentPage}`;
+
   return (
     <React.Fragment>
       <li className='logout' onClick={toggleSideMenu}><NavLink onClick={() => signOutCleanState()} to='/movie/now_playing/page=1' >Log Out</NavLink></li>
-      <li className='initials'><NavLink to={`/${mediaType}/${filterType}/page=${currentPage}`} className='btn btn-floating pink lighten-1'>{initials}</NavLink></li>
+      <li className='initials' onClick={toggleSideMenu}><NavLink to={pathToDisplay} className='btn btn-floating pink lighten-1'>{initials}</NavLink></li>
     </React.Fragment>
   )
 }
@@ -50,13 +52,16 @@ const mapStateToProps = (state) => {
 
     // search state
     search: state.search,
+
+    // sideMenu
+    sideMenu: state.sideMenu.showMenu
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     signOut: () => dispatch(actions.signOut()),
-    clearCollections: () => dispatch(actions.clearCollections())
+    clearCollections: () => dispatch(actions.clearCollections()),
   }
 }
 

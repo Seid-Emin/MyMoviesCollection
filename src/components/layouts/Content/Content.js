@@ -77,15 +77,17 @@ class Content extends Component {
     }
   }
 
-  handleHideModal = () => {
+  handleHideModal = (pathname) => {
     const { search: { mediaType, filterType, currentPage, searchText }, hideModal, status } = this.props;
 
     // route to last path according to state
     const pathName = this.props.history.location.pathname;
-    if (searchText) {
-      this.props.history.push(`/search=${searchText}`)
-    } else if (pathName.includes('collections')) {
+    if (pathName.includes('/collections')) {
+      console.log(pathName);
       this.props.history.push(`/collections/${status}`)
+    } else if (searchText) {
+
+      this.props.history.push(`/search=${searchText}`)
     } else {
       this.props.history.push(`/${mediaType}/${filterType}/page=${currentPage}`)
     }
