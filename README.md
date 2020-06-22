@@ -1,6 +1,6 @@
 Check out the Final Product @ https://mymoviescollection-55974.web.app
 
-(https://github.com/Seid-Emin/MyMoviesCollection/tree/master/src/assets/images/img_after_deploy/am_i_resposive.png)
+![image](https://github.com/Seid-Emin/MyMoviesCollection/tree/master/src/assets/images/img_after_deploy/am_i_resposive.png)
 
 Original site for Movie and TV series fans.
 
