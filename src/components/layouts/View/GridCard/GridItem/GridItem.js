@@ -28,7 +28,7 @@ const GridItem = ({ name, id, media_type, poster_path, fechedResults, fetchSelec
   if (fechedResults) {
     // Check for existing media in collection
     let findById = filterByType('match', collections, 'mediaId', id);
-    let matchType = findById.mediaType == media_type || findById.mediaName == name ? findById : null;
+    let matchType = findById.mediaType === media_type || findById.mediaName === name ? findById : null;
 
     if (matchType !== null) {
       isMediaInCollection = matchType[0];
@@ -59,7 +59,7 @@ const GridItem = ({ name, id, media_type, poster_path, fechedResults, fetchSelec
               <div className="card-top">
                 <div className="card-top-rating-container">
                   <div className="card-top-mediaType">{media}</div>
-                  {collectionMedia.userRating != 'select' ?
+                  {collectionMedia.userRating !== 'select' ?
                     <div className="rating-star">
                       <span className={`card-top-rating ${colorThemes.userRating[collectionMedia.userRating]}`}>{collectionMedia.userRating}</span>
                     </div> : null}

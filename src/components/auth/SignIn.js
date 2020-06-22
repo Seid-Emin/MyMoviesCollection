@@ -23,7 +23,7 @@ class SignIn extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { uid, history } = this.props;
 
-    if (prevProps.uid != uid) {
+    if (prevProps.uid !== uid) {
       // Redirect to Collections
       history.push(`/collections/all_media`);
     }
@@ -31,7 +31,7 @@ class SignIn extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     const { uid, authError } = this.props;
-    return nextProps.uid != uid || nextProps.authError != authError
+    return nextProps.uid !== uid || nextProps.authError !== authError
   }
 
   componentWillUnmount() {

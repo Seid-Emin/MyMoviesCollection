@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-container layout">
-        <img className='footer-logo valign-wrapper' src={TMDB_Logo}></img>
+        <img className='footer-logo valign-wrapper' src={TMDB_Logo} alt='TMDB_Logo'></img>
       </div>
     </footer>
   )

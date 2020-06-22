@@ -24,7 +24,7 @@ export const filterSellection = (container, statusKey, statusValue, mediaKey, me
 // Conditional filter
 export const filterByType = (type = 'exclude', container, key, value) => {
   if (type === 'match') {
-    return updatedContainer = container.filter(item => item[key] == value);
+    return updatedContainer = container.filter(item => item[key] === value);
   } else {
     return updatedContainer = container.filter(item => item[key] !== value);
   }

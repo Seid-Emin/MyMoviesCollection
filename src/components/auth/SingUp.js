@@ -113,7 +113,7 @@ class SingUp extends Component {
     const { uid, history,
       search: { currentPage, mediaType, filterType } } = this.props;
 
-    if (prevProps.uid != uid) {
+    if (prevProps.uid !== uid) {
       // Redirect to Main Content
       history.push(`/${mediaType}/${filterType}/page=${currentPage}`);
 
@@ -124,8 +124,8 @@ class SingUp extends Component {
     const { uid, authError } = this.props;
     const { user, errorSubmit } = this.state;
 
-    return nextProps.uid != uid || nextState.user != user || nextState.errorSubmit != errorSubmit
-      || nextProps.authError != authError
+    return nextProps.uid !== uid || nextState.user !== user || nextState.errorSubmit !== errorSubmit
+      || nextProps.authError !== authError
   }
 
   componentWillUnmount() {

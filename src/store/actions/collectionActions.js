@@ -95,7 +95,7 @@ export const updateMediaStatus = (status, watchStatus, name, type, collections, 
     const authorId = getState().firebase.auth.uid;
 
     // Update/Add to collection
-    let collectionIndex = collections.findIndex(media => media.customID == customID);
+    let collectionIndex = collections.findIndex(media => media.customID === customID);
     collections[collectionIndex][name] = watchStatus;
 
     let updateCollections = filterSellection(collections, 'watchStatus', status, 'mediaType', type);
