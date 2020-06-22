@@ -55,6 +55,11 @@
     flex-direction : row;
     justify-content: space-between;
   }
+
+
+  .main-categirie ul {
+    margin-bottom: 10px;
+  }
 }
 
 @media (max-width: 768px) {

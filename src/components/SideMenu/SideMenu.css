@@ -108,6 +108,7 @@
   .sideMenu {
     display: flex;
     width  : 45%;
+    height : 100vh;
   }
 
   .sideMenu ul#nav-mobile {

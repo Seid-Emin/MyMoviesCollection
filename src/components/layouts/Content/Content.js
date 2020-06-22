@@ -138,7 +138,7 @@ class Content extends Component {
               </>
             }
           </Switch>
-          <TransitionGroup >
+          <TransitionGroup className='transitionModal'>
             {modal}
           </TransitionGroup>
         </main >

@@ -16,6 +16,10 @@
   color    : #ec407a;
 }
 
+.transitionModal {
+  position: relative;
+}
+
 @media (max-height: 450px) and (min-width : 768px) and (max-width : 1024px) and (orientation : landscape) {
   .content-grid {
     grid-template-columns: 1fr;
