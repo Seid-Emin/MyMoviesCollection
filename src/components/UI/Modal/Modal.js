@@ -34,10 +34,16 @@ class Modal extends Component {
   componentDidMount() {
     document.addEventListener("keydown", this.escFunction, false);
     window.addEventListener('popstate', this.onBackButtonEvent, false);
+
+    // Prevent background from scrolling when modal is open
+    document.body.style.overflow = 'hidden';
   }
   componentWillUnmount() {
     document.removeEventListener("keydown", this.escFunction, false);
     window.removeEventListener('popstate', this.onBackButtonEvent, false);
+
+    //
+    document.body.style.overflow = 'unset';
 
     const { search: { searchResult, mediaType, filterType },
       history: { location: { pathname } }, fetchFilteredMedia } = this.props;

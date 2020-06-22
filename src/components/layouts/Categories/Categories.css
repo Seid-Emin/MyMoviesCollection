@@ -46,7 +46,7 @@
   color: #039be5;
 }
 
-@media (max-height: 450px) and (min-width : 768px) and (max-width : 1024px) and (orientation : landscape) {
+@media (max-height: 450px) and (max-width : 1024px) and (orientation : landscape) {
   .content-grid .categories-wrapper {
     display: none;
   }
