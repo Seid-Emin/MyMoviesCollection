@@ -8,7 +8,7 @@ import GridCards from '../View/GridCard/GridCards';
 import Paginate from './Paginate/Paginate';
 
 
-const Cards = ({ search: { searchResult, searchText, searching, totalResults, mediaType, displayTitle, pagesTotal = 0 }, collections }) => {
+const Cards = ({ search: { searchResult, searchText, searching, totalResults, mediaType, displayTitle, pagesTotal = 0 } }) => {
 
   // Display the Info for what is being search and if any result found
   const mediainfoTitle = searching ? <h6 className='currentyLoadedMedia'>Searched for '{searchText}' - {totalResults} results found</h6> : null;
@@ -43,10 +43,7 @@ const Cards = ({ search: { searchResult, searchText, searching, totalResults, me
 const mapStateToProps = state => {
   return {
     // search state
-    search: state.search,
-
-    // collections state
-    collections: state.collections.collections
+    search: state.search
   }
 }
 

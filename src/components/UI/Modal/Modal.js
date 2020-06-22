@@ -14,7 +14,6 @@ import MovieDB from '../../../configs/ApiMovies';
 import { colorThemes } from '../Styles/colorThemes';
 
 // Components
-import Backdrop from '../../UI/Backdrop/Backdrop';
 import Video from './Video/Video';
 import Spinner from '../Spinner/Spinner';
 import SimilarMovies from './SimilarMovies/SimilarMovies';
@@ -91,7 +90,7 @@ class Modal extends Component {
       selectedMedia: {
         id, original_title, poster_path, original_name, videos, vote_average, genres, similar, release_date, overview, first_air_date, name, title, popularity, vote_count
       }, loading },
-      collections: { filteredCollections, collections }, deleteMediaFromFirestore, handler, showInfo } = this.props;
+      collections: { filteredCollections, collections }, deleteMediaFromFirestore, handler } = this.props;
 
     const { errorMessage } = this.state;
 
@@ -208,7 +207,6 @@ class Modal extends Component {
               </div>
             </>}
         </div >
-        <Backdrop handler={handler} showInfo={showInfo} />
       </React.Fragment>
     )
   }

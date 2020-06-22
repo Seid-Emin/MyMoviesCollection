@@ -1,12 +1,12 @@
 .modal-info {
-  position        : fixed;
+
   justify-content : space-between;
   background-color: var(--color-BG);
-  width           : 90%;
-  height          : 95%;
-  top             : 2.5%;
-  left            : 5%;
-  z-index         : 501;
+  min-width       : 60vw;
+  max-width       : 90vw;
+  min-height      : 60vh;
+  max-height      : 95vh;
+  z-index         : 5;
   padding         : 10px;
   display         : flex;
   flex-direction  : column;

@@ -17,7 +17,16 @@
 }
 
 .transitionModal {
-  position: relative;
+  display        : flex;
+  justify-content: center;
+  align-items    : center;
+  position       : fixed;
+  top            : 50%;
+  z-index        : 5;
+  left           : 50%;
+  transform      : translate(-50%, -50%);
+  width          : fit-content;
+  height         : fit-content;
 }
 
 @media (max-height: 450px) and (min-width : 768px) and (max-width : 1024px) and (orientation : landscape) {

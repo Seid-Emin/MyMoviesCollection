@@ -12,6 +12,7 @@ import * as actions from '../../../store/actions';
 // Components
 import Cards from '../Cards/Cards';
 import Categories from '../Categories/Categories';
+import Backdrop from '../../UI/Backdrop/Backdrop';
 import Spinner from '../../UI/Spinner/Spinner';
 import Modal from '../../UI/Modal/Modal';
 import SignIn from '../../auth/SignIn';
@@ -126,15 +127,16 @@ class Content extends Component {
             </CSSTransition> : null}
         </TransitionGroup>
         <main className='content-grid layout'>
+          {showInfo ? <Backdrop handler={this.handleHideModal} showInfo={showInfo} /> : null}
           <Categories />
           <Switch>
             <Route path='/signin' component={SignIn} />
             <Route path='/signup' component={SignUp} />
             {loadingSearch ? <Spinner /> :
               <>
-                <Route path='/:mediaType/:filterType/page=:number' component={Cards} />
-                <Route path='/search=:query' component={Cards} />
-                <Route path='/collections/:status' component={Collections} />
+                <Route path='/:mediaType/:filterType/page=:number' component={() => <Cards backdropHandler={this.handleHideModal} />} />
+                <Route path='/search=:query' component={() => <Cards backdropHandler={this.handleHideModal} />} />
+                <Route path='/collections/:status' component={() => <Collections backdropHandler={this.handleHideModal} />} />
               </>
             }
           </Switch>
