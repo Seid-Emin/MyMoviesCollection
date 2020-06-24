@@ -21,8 +21,12 @@ import Collections from '../../layouts/Collections/Collections';
 import SideMenu from '../SideMenu/SideMenu';
 
 class Content extends Component {
+  state = {
+    prevScrollpos: window.pageYOffset
+  };
 
   componentDidMount() {
+
     const { search: { mediaType, filterType, currentPage }, preloadSelected, preloadFilteredMedia, getCollectionFromFirestore, fetchMultiSearch, fetchFilteredMedia, history, currentlyViewing } = this.props;
     let pathName = history.location.pathname;
 
@@ -36,6 +40,9 @@ class Content extends Component {
       getCollectionFromFirestore();
     }
 
+    let pathMediaType = null;
+    let pathPageNum = null;
+    let pageNum = null;
     // Check initial URL. If inluced id, load that media
     if (pathName.includes('/id=')) {
       // let path = pathName.replace('/id=', '');
@@ -43,10 +50,14 @@ class Content extends Component {
       pathName = pathName.replace(`/${pathID}`, '');
 
       // Check initial path and set pathMediaType
-      let pathMediaType = null;
+
       if (pathName.includes('collections')) {
         pathMediaType = pathName.slice(pathName.lastIndexOf('/'), pathName.length).replace('/', '');
       } else {
+        pathPageNum = pathName.slice(pathName.lastIndexOf('/'), pathName.length);
+        pageNum = pathPageNum.replace('/page=', '');
+        pathName = pathName.replace(pathPageNum, '');
+
         let pathFilterType = pathName.slice(pathName.lastIndexOf('/'), pathName.length).replace('/', '');
         pathMediaType = pathName.replace(`/${pathFilterType}`, '');
       }
@@ -56,10 +67,10 @@ class Content extends Component {
 
       let initialMediaPath = `/${pathMediaType}/${pathID}`;
       preloadSelected(initialMediaPath);
-    } else if (pathName.includes('/page=')) {
+    } else if (pathName.includes('/page=') && !pathName.includes('/id=')) {
 
       // Get the page number, MediaType and FilterType needed for initial fetch
-      let pageNum = pathName.slice(pathName.lastIndexOf('/'), pathName.length);
+      pageNum = pathName.slice(pathName.lastIndexOf('/'), pathName.length);
       let path = pathName.replace(pageNum, '');// remove pageNum from path
 
       let pathFilterType = path.slice(path.lastIndexOf('/'), path.length).replace('/', '');
@@ -87,7 +98,7 @@ class Content extends Component {
     }
   }
 
-  handleHideModal = (pathname) => {
+  handleHideModal = () => {
     const { search: { mediaType, filterType, currentPage, searchText }, hideModal, status } = this.props;
 
     // route to last path according to state
@@ -117,7 +128,7 @@ class Content extends Component {
         classNames="modalAnimate"
         mountOnEnter
         unmountOnExit >
-        <Modal handler={this.handleHideModal} showInfo={showInfo} />
+        <Modal handler={this.handleHideModal} showInfo={showInfo} prevScrollpos={this.state.prevScrollpos} />
       </CSSTransition>
       : null;
 

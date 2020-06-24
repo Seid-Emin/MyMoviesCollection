@@ -78,6 +78,8 @@ export const fetchFilteredMedia = (mediaType, filterType, page = 1, selected = 0
     dispatch(fetchFilteredMediaStart());
     axios.get(`${MovieDB.API_V3}/${mediaType}/${filterType}?api_key=${MovieDB.API_KEY}&language=en-US&page=${page}`)
       .then(res => {
+        console.log(res.data);
+
         dispatch(fetchFilteredMediaSuccess(res.data, mediaType, filterType, page, selected));
       })
       .catch(error => {

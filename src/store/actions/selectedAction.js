@@ -35,6 +35,8 @@ export const fetchSelected = (id, mediaType) => {
     dispatch(fetchStart());
     axios.get(`${MovieDB.API_V3}/${mediaType}/${id}?api_key=${MovieDB.API_KEY}&append_to_response=videos,credits,images,similar`)
       .then(res => {
+        console.log(res.data);
+
         dispatch(fetchSelectedSuccess(res.data));
       })
       .catch(err => {

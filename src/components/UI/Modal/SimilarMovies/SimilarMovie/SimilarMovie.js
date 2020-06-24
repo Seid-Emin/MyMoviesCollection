@@ -30,7 +30,7 @@ class SimilarMovie extends Component {
 
     let posterPath = poster_path ? TheMovieDB.API_Img + poster_path : noCoverImg;
 
-    let linkPath = history.location.pathname.includes('collections') ? `/collections/${status}/id=${id}` : `/${mediaType}/${filterType}/id=${id}`
+    let linkPath = history.location.pathname.includes('collections') ? `/collections/${status}/${mediaType}/id=${id}` : `/${mediaType}/${filterType}/id=${id}`
     return (
       <div className="card-action" onClick={this.getSelectedVideo}>
         <Link to={linkPath}>
