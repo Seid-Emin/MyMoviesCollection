@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { withRouter } from "react-router";
 
 import './Collections.css';
@@ -64,8 +64,8 @@ class Collections extends Component {
     }
 
     let invalidMessage = !uid ? <p className='invalid-collection'>Please
-    <a href="/signin"> Login
-      </a> to access your collections</p> : null;
+    <Link to='/signin'> Signin
+      </Link> to access your collections</p> : null;
 
     let emptyCollection = uid && !filteredCollections[0] ? <p className='invalid-collection'>No items in this collection</p> : null
 

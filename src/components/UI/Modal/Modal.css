@@ -124,6 +124,14 @@ span.material-icons {
   font-weight: 700;
 }
 
+.modal-error-message a {
+  color: var(--color-activeLinksText);
+}
+
+.modal-error-message a:hover {
+  color: var(--color-scrollThumb);
+}
+
 .modal .modal-content {
   padding-bottom: 0;
 }

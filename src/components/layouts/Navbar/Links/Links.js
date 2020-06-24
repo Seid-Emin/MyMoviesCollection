@@ -17,7 +17,7 @@ const SignedOutLinks = ({ toggleSideMenu }) => {
   return (
     <React.Fragment>
       <li className='signup' onClick={toggleSideMenu}><NavLink to='/signup' activeClassName='activeNavLinks'>Signup</NavLink></li>
-      <li className='login' onClick={toggleSideMenu}><NavLink to='/signin' activeClassName='activeNavLinks'>Login</NavLink></li>
+      <li className='signin' onClick={toggleSideMenu}><NavLink to='/signin' activeClassName='activeNavLinks'>Signin</NavLink></li>
     </React.Fragment>
   )
 }
