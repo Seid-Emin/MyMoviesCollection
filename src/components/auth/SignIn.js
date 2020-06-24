@@ -38,28 +38,29 @@ class SignIn extends Component {
   componentWillUnmount() {
     const { uid, getCollectionFromFirestore, clearError, authError, fetchSelected, selectedMediaType, showModal, history,
       selectedMedia: { selected, selectedId },
-      search: { mediaType, filterType, currentPage, viewing } } = this.props;
+      search: { mediaType, filterType, currentPage, viewing },
+      collections: { status } } = this.props;
 
     // if login success - get collections ( if any)
     if (uid) {
       getCollectionFromFirestore();
-    }
+      if (selected) {
 
-    if (selected) {
+        singleMedia(mediaType, selectedId, fetchSelected, selectedMediaType, showModal);
+        if (viewing) {
+          history.push(`/${mediaType}/${filterType}/page=${currentPage}/id=${selectedId}`);
+        } else {
+          history.push(`/collections/${status}/${mediaType}/id=${selectedId}`);
+        }
+      } else if (!viewing) {
+        history.push(`/collections/${status}`);
 
-      singleMedia(mediaType, selectedId, fetchSelected, selectedMediaType, showModal);
-      history.push(`/${mediaType}/${filterType}/page=${currentPage}/id=${selectedId}`);
-    }
-
-    if (!viewing) {
-      if (selectedId) {
-        history.push(`/collections/${mediaType}/id=${selectedId}`);
       } else {
-        history.push(`/collections/${mediaType}`);
+        history.push(`/${mediaType}/${filterType}/page=${currentPage}`);
       }
-    } else {
-      history.push(`/${mediaType}/${filterType}/page=${currentPage}`);
     }
+
+
 
     // if there was an arror, cleared it from state on unmount
     if (authError) {

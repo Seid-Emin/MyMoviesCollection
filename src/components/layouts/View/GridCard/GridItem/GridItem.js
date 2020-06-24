@@ -38,7 +38,7 @@ const GridItem = ({ name, id, media_type, poster_path, fechedResults, fetchSelec
   }
 
   // Link path
-  let linkPath = collectionMedia ? `/collections/${status}/id=${id}` : `/${media}/${filterType}/page=${currentPage}/id=${id}`;
+  let linkPath = collectionMedia ? `/collections/${status}/id=${id}` : `/${mediaType}/${filterType}/page=${currentPage}/id=${id}`;
 
   // Card image check
   let currentCardImage = poster_path ? `url(${TheMovieDB.API_Img}${poster_path})` : `url(${noCoverImg})`;

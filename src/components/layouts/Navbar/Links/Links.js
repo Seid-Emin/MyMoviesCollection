@@ -48,10 +48,10 @@ const SignedInLinks = ({ initials, signOut, clearCollections, toggleSideMenu, fe
     if (selectedId) {
       removeSelectedId();
     }
-    window.location.reload();
     signOut();
     clearCollections();
     clearSelectedMedia();
+    window.location.reload();
   }
 
   let pathToDisplay = searching ? `/search=${searchText}` : `/${mediaType}/${filterType}/page=${currentPage}`;

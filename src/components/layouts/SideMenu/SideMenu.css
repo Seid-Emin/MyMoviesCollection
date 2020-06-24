@@ -24,7 +24,7 @@
 
 .sideMenu li.collectionLink a,
 .sideMenu li.signup a,
-.sideMenu li.login a,
+.sideMenu li.signin a,
 .sideMenu li.logout a {
   color     : var(--color-textInner);
   transition: color 200ms ease-in-out;
@@ -32,7 +32,7 @@
 
 .sideMenu li.collectionLink a:hover,
 .sideMenu li.signup a:hover,
-.sideMenu li.login a:hover,
+.sideMenu li.signin a:hover,
 .sideMenu li.logout a:hover,
 .sideMenu li.collectionLink .activeNav {
   color: var(--color-activeLinksText);
@@ -43,7 +43,7 @@
   grid-column: 2/3;
 }
 
-.sideMenu li.login {
+.sideMenu li.signin {
   grid-row   : 1/2;
   grid-column: 2/3;
 }
@@ -60,7 +60,7 @@
 }
 
 .sideMenu li.signup,
-.sideMenu li.login,
+.sideMenu li.signin,
 .sideMenu li.logout,
 .sideMenu li.initials {
   justify-self: right;

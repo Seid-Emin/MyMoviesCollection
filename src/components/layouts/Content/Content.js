@@ -29,6 +29,7 @@ class Content extends Component {
     // if url with opened sideMenu is entered - remove it
     if (pathName.includes('/sideMenu=1')) {
       history.push('/movie/now_playing/page=1');
+      pathName = pathName.replace('/sideMenu=1', '');
     }
 
     const authorId = localStorage.getItem('userId');
