@@ -6,6 +6,7 @@ const initialState = {
   searchResult: [],
   searching: false,
   loading: false,
+  viewing: false,
   showModal: false,
   pagesTotal: '0',
   currentPage: 1,
@@ -93,6 +94,14 @@ export const fetchFilteredMediaFail = (state, action) => {
   };
 };
 
+
+export const currentlyViewing = (state, action) => {
+  return {
+    ...state,
+    viewing: !state.viewing
+  };
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SEARCH: return searchParam(state, action);
@@ -105,6 +114,8 @@ const reducer = (state = initialState, action) => {
     case actionTypes.FETCH_FILTERED_RESULTS_START: return fetchFilteredMediaStart(state, action);
     case actionTypes.FETCH_FILTERED_RESULTS_SUCCESS: return fetchFilteredMediaSuccess(state, action);
     case actionTypes.FETCH_FILTERED_RESULTS_FAIL: return fetchFilteredMediaFail(state, action);
+
+    case actionTypes.CURRENTLY_VIEWING: return currentlyViewing(state, action);
 
 
 

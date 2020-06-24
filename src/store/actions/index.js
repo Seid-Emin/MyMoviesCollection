@@ -23,12 +23,14 @@ export {
   fetchFilteredMedia,
   fetchFilteredMediaSuccess,
   fetchFilteredMediaFail,
+  currentlyViewing,
   preloadFilteredMedia
 } from './searchAction';
 
 export {
   fetchSelected,
   selectedMediaType,
+  setSelected,
   preloadSelected,
   showModal,
   hideModal

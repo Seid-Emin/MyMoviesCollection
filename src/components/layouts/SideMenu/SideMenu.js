@@ -53,6 +53,13 @@ class SideMenu extends Component {
     history.push(pathName);
   }
 
+  handleViewing = () => {
+    const { search: { viewing }, currentlyViewing } = this.props;
+    if (viewing) {
+      currentlyViewing();
+    }
+  }
+
   render() {
     const { collections: { status }, uid, showMenu, toggleSideMenu } = this.props;
 
@@ -69,7 +76,7 @@ class SideMenu extends Component {
               <p className={`hamburger ${hamburgerAnimateClass}`}></p>
             </div>
             <Links toggleSideMenu={this.sideMenuBackHandler} />
-            <li className='collectionLink' onClick={toggleSideMenu}><NavLink to={collectionPath} activeClassName='activeNav'>Collections</NavLink></li>
+            <li className='collectionLink' onClick={toggleSideMenu}><NavLink to={collectionPath} activeClassName='activeNav' onClick={() => this.handleViewing()}>Collections</NavLink></li>
             <Categories toggleSideMenu={this.sideMenuBackHandler} />
           </ul>
 
@@ -99,6 +106,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    // fetchFilteredMediaAction
+    currentlyViewing: () => dispatch(actions.currentlyViewing()),
+
     // sideMenuActions
     toggleSideMenu: () => dispatch(actions.toggleSideMenu())
   }

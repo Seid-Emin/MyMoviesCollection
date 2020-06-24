@@ -4,6 +4,7 @@ import { withRouter } from "react-router";
 
 import './authStyles.css';
 import * as actions from '../../store/actions';
+import { singleMedia } from '../helpers/silgleMedia';
 
 
 class SignIn extends Component {
@@ -35,11 +36,19 @@ class SignIn extends Component {
   }
 
   componentWillUnmount() {
-    const { uid, getCollectionFromFirestore, clearError, authError } = this.props;
+    const { uid, getCollectionFromFirestore, clearError, authError, setSelected, fetchSelected, selectedMediaType, showModal, history,
+      selectedMedia: { selected, selectedId },
+      search: { mediaType, filterType, currentPage, viewing },
+      collections: { status } } = this.props;
 
     // if login success - get collections ( if any)
     if (uid) {
       getCollectionFromFirestore();
+    }
+
+    if (selected) {
+      singleMedia(mediaType, selectedId, fetchSelected, selectedMediaType, showModal);
+      history.push(`/${mediaType}/${filterType}/page=${currentPage}/id=${selectedId}`);
     }
 
     // if there was an arror, cleared it from state on unmount
@@ -81,7 +90,16 @@ const mapStateToProps = (state) => {
     authError: state.auth.authError,
 
     // firebase state
-    uid: state.firebase.auth.uid
+    uid: state.firebase.auth.uid,
+
+    // Search / Fetch state
+    search: state.search,
+
+    // SingleMedia state
+    selectedMedia: state.selectedMedia,
+
+    // Collections state
+    collections: state.collections
   }
 }
 
@@ -91,8 +109,17 @@ const mapDispatchToProps = dispatch => {
     signIn: (credentials) => dispatch(actions.signIn(credentials)),
     clearError: () => dispatch(actions.clearError()),
 
+    // fetchFilteredMediaAction
+    currentlyViewing: () => dispatch(actions.currentlyViewing()),
+
     // collectionActions
-    getCollectionFromFirestore: () => dispatch(actions.getCollectionFromFirestore())
+    getCollectionFromFirestore: () => dispatch(actions.getCollectionFromFirestore()),
+
+    // selectedAction
+    fetchSelected: (id, mediaType) => dispatch(actions.fetchSelected(id, mediaType)),
+    selectedMediaType: (type) => dispatch(actions.selectedMediaType(type)),
+    showModal: () => dispatch(actions.showModal()),
+    setSelected: () => dispatch(actions.setSelected()),
   }
 }
 

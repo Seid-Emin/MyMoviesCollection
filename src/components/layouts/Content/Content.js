@@ -23,7 +23,7 @@ import SideMenu from '../SideMenu/SideMenu';
 class Content extends Component {
 
   componentDidMount() {
-    const { preloadSelected, preloadFilteredMedia, getCollectionFromFirestore, fetchMultiSearch, fetchFilteredMedia, history } = this.props;
+    const { preloadSelected, preloadFilteredMedia, getCollectionFromFirestore, fetchMultiSearch, fetchFilteredMedia, history, currentlyViewing } = this.props;
     let pathName = history.location.pathname;
 
     // if url with opened sideMenu is entered - remove it
@@ -69,14 +69,17 @@ class Content extends Component {
       let selected = pageNum.replace('/page=', '') - 1; // Get correct numbering for state
       pageNum = pageNum.replace('/', '');
       preloadFilteredMedia(pathMediaType, pathFilterType, pageNum, selected, path);
+      currentlyViewing();
     } else if (pathName.includes('/search')) {
       let query = pathName.replace('/search=', '');
       fetchMultiSearch(query);
+      currentlyViewing();
     } else if (pathName.includes('/collections') || pathName.includes('/Collections')) {
       history.push('/collections/all_media');
     } else {
       history.push('/movie/now_playing/page=1');
-      fetchFilteredMedia('movie', 'now_playing')
+      fetchFilteredMedia('movie', 'now_playing');
+      currentlyViewing();
     }
   }
 
@@ -174,13 +177,14 @@ const mapDispatchToProps = dispatch => {
     // searchActions
     fetchMultiSearch: (query) => dispatch(actions.fetchMultiSearch(query)),
 
-    // selectActions
+    // selectedActions
     hideModal: () => dispatch(actions.hideModal()),
     preloadSelected: (pathname) => dispatch(actions.preloadSelected(pathname)),
 
     // fetchFilteredMediaAction
     fetchFilteredMedia: (mediaType, filterType) => dispatch(actions.fetchFilteredMedia(mediaType, filterType)),
     preloadFilteredMedia: (pathMediaType, pathFilterType, pageNum, selected, path) => dispatch(actions.preloadFilteredMedia(pathMediaType, pathFilterType, pageNum, selected, path)),
+    currentlyViewing: () => dispatch(actions.currentlyViewing()),
 
     // collectionActions
     getCollectionFromFirestore: () => dispatch(actions.getCollectionFromFirestore()),

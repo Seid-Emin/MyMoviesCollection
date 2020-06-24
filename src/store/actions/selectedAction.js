@@ -43,6 +43,12 @@ export const fetchSelected = (id, mediaType) => {
   }
 }
 
+export const setSelected = () => {
+  return {
+    type: actionTypes.SET_SELECTED_FOT_SIGNIN,
+  };
+};
+
 export const preloadSelected = (pathname) => {
   return dispatch => {
     dispatch(fetchStart());

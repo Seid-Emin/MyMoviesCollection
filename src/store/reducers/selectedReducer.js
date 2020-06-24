@@ -4,6 +4,8 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
   loading: false,
   selectedMedia: {},
+  selectedId: null,
+  selected: false,
   selectedMediaType: '',
   showInfo: false
 }
@@ -26,6 +28,7 @@ export const fetchSelectedSuccess = (state, action) => {
   return {
     ...state,
     selectedMedia: action.selectedMedia,
+    selectedId: action.selectedMedia.id,
     loading: false,
     showInfo: true
   };
@@ -36,6 +39,13 @@ export const fetchFail = (state, action) => {
     ...state,
     loading: false,
     showInfo: false
+  };
+};
+
+export const setSelected = (state, action) => {
+  return {
+    ...state,
+    selected: !state.selected
   };
 };
 
@@ -58,6 +68,8 @@ const reducer = (state = initialState, action) => {
     case actionTypes.FETCH_SELECTED_START: return fetchStart(state, action);
     case actionTypes.FETCH_SELECTED_SUCCESS: return fetchSelectedSuccess(state, action);
     case actionTypes.FETCH_SELECTED_FAIL: return fetchFail(state, action);
+
+    case actionTypes.SET_SELECTED_FOT_SIGNIN: return setSelected(state, action);
 
     case actionTypes.PICK_SELECTED_MEDIA_TYPE: return selsecteMediaType(state, action);
 

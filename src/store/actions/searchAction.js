@@ -86,6 +86,13 @@ export const fetchFilteredMedia = (mediaType, filterType, page = 1, selected = 0
   }
 }
 
+// check current user state
+export const currentlyViewing = () => {
+  return {
+    type: actionTypes.CURRENTLY_VIEWING,
+  };
+};
+
 export const preloadFilteredMedia = (pathMediaType, pathFilterType, pageNum, selected = 0, path) => {
   return dispatch => {
     dispatch(fetchFilteredMediaStart());

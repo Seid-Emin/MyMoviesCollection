@@ -54,8 +54,14 @@ class Navbar extends Component {
     } else {
       history.push(`/collections/${status}/sideMenu=1`)
     }
-
     toggleSideMenu();
+  }
+
+  handleViewing = () => {
+    const { search: { viewing }, currentlyViewing } = this.props;
+    if (viewing) {
+      currentlyViewing();
+    }
   }
 
   render() {
@@ -79,7 +85,7 @@ class Navbar extends Component {
             <div className="nav-right-links">
               <Search />
               <ul id="nav-mobile" >
-                <li><NavLink to={`/collections/${status}`} activeClassName='activeNavLinks'>Collections</NavLink></li>
+                <li><NavLink to={`/collections/${status}`} activeClassName='activeNavLinks' onClick={() => this.handleViewing()}>Collections</NavLink></li>
                 <Links />
               </ul>
             </div>
@@ -112,7 +118,10 @@ const mapDispatchToProps = dispatch => {
     getCollectionFromFirestore: () => dispatch(actions.getCollectionFromFirestore()),
 
     //sideMenuActions
-    toggleSideMenu: () => dispatch(actions.toggleSideMenu())
+    toggleSideMenu: () => dispatch(actions.toggleSideMenu()),
+
+    // fetchFilteredMediaAction
+    currentlyViewing: () => dispatch(actions.currentlyViewing())
   }
 }
 

@@ -24,15 +24,17 @@ const categoriesConfig = {
   }
 }
 
-const Categories = ({ fetchFilteredMedia, clearSearchingState, toggleSideMenu }) => {
+const Categories = ({ fetchFilteredMedia, clearSearchingState, toggleSideMenu, currentlyViewing, search: { viewing } }) => {
 
   const fetchCategorie = (categorie, currentOption) => {
-
     // Clear searching state
     clearSearchingState();
-
     // Get categorie
     fetchFilteredMedia(categorie, currentOption);
+
+    if (!viewing) {
+      currentlyViewing();
+    }
 
   }
 
@@ -64,6 +66,12 @@ const Categories = ({ fetchFilteredMedia, clearSearchingState, toggleSideMenu })
     </aside>
   )
 }
+const mapStateToProps = state => {
+  return {
+    // Search / Fetch state
+    search: state.search,
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -71,8 +79,9 @@ const mapDispatchToProps = dispatch => {
     clearSearchingState: () => dispatch(actions.clearSearchingState()),
 
     // fetchFilteredMediaAction
-    fetchFilteredMedia: (mediaType, filterType) => dispatch(actions.fetchFilteredMedia(mediaType, filterType))
+    fetchFilteredMedia: (mediaType, filterType) => dispatch(actions.fetchFilteredMedia(mediaType, filterType)),
+    currentlyViewing: () => dispatch(actions.currentlyViewing())
   }
 }
 
-export default connect(null, mapDispatchToProps)(React.memo(Categories));
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Categories));

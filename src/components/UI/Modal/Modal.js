@@ -85,7 +85,8 @@ class Modal extends Component {
   }
 
   hideModalAndRedirectSignin = () => {
-    const { hideModal, history } = this.props;
+    const { hideModal, history, setSelected } = this.props;
+    setSelected();
     hideModal();
     history.push('/signin');
   }
@@ -236,8 +237,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    // selectActions
+    // selectedActions
     hideModal: () => dispatch(actions.hideModal()),
+    setSelected: () => dispatch(actions.setSelected()),
 
     // fetchFilteredMediaAction
     fetchFilteredMedia: (mediaType, filterType) => dispatch(actions.fetchFilteredMedia(mediaType, filterType)),
