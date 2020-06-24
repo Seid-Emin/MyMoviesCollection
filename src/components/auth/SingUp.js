@@ -99,8 +99,12 @@ class SingUp extends Component {
         firstName: user.firstName.value,
         lastName: user.lastName.value,
         email: user.email.value,
-        password: user.password.value,
+        password: user.password.value
       }
+      console.log(formIsValid);
+      console.log(newUser);
+
+
       signUp(newUser);
     } else {
       this.setState({ errorSubmit: true });

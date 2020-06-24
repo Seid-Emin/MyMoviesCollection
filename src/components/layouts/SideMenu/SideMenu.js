@@ -55,7 +55,7 @@ class SideMenu extends Component {
   // handle menu closing action and correct the path
   backActionHandler = (history) => {
     let pathName = history.location.pathname.replace('/sideMenu=1', '');
-    history.push(pathName);
+    this.props.history.push(pathName);
   }
 
   handleViewing = () => {

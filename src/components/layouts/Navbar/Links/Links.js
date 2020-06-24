@@ -48,7 +48,7 @@ const SignedInLinks = ({ initials, signOut, clearCollections, toggleSideMenu, fe
     if (selectedId) {
       removeSelectedId();
     }
-
+    window.location.reload();
     signOut();
     clearCollections();
     clearSelectedMedia();

@@ -56,13 +56,15 @@ export const signUp = ({ email, password, firstName, lastName }) => {
     )
       .then((response) => {
         localStorage.setItem('userId', response.user.uid);
-        return firestore.collection('users').doc(response.user.uid).set({
+        firestore.collection('users').doc(response.user.uid).set({
           firstName,
           lastName,
           email,
           initials: firstName[0] + lastName[0],
           createdAt: Date.now()
-        })
+        });
+        console.log(firestore);
+
       })
       .then(() => {
         dispatch({
