@@ -26,8 +26,6 @@ class Modal extends Component {
     this.state = {
       errorMessage: false
     }
-    // this.escFunction = this.escFunction.bind(this);
-    // this.onBackButtonEvent = this.onBackButtonEvent.bind(this);
   }
 
   componentDidMount() {
