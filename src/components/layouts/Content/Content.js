@@ -124,7 +124,7 @@ class Content extends Component {
         classNames="modalAnimate"
         mountOnEnter
         unmountOnExit >
-        <Modal handler={this.handleHideModal} showInfo={showInfo} prevScrollpos={this.state.prevScrollpos} />
+        <Modal handler={this.handleHideModal} showInfo={showInfo} />
       </CSSTransition>
       : null;
 
