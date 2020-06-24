@@ -1,7 +1,29 @@
 export {
+  signIn,
+  signOut,
+  signUp,
+  clearError
+} from './authActions';
+
+
+export {
+  addMediaToFirestoreCollection,
+  getCollectionFromFirestore,
+  deleteMediaFromFirestore,
+  filterStatusAndType,
+  updateMediaStatus,
+  changeCollectionView,
+  clearCollections
+} from './collectionActions';
+
+export {
   search,
   fetchMultiSearch,
-  clearSearchingState
+  clearSearchingState,
+  fetchFilteredMedia,
+  fetchFilteredMediaSuccess,
+  fetchFilteredMediaFail,
+  preloadFilteredMedia
 } from './searchAction';
 
 export {
@@ -12,10 +34,5 @@ export {
   hideModal
 } from './selectedAction';
 
-export { fetchFilteredMedia, fetchFilteredMediaSuccess, fetchFilteredMediaFail, preloadFilteredMedia } from './fetchFilteredMediaAction';
-
-export { signIn, signOut, signUp, clearError } from './authActions';
-
-export { addMediaToFirestoreCollection, getCollectionFromFirestore, deleteMediaFromFirestore, filterStatusAndType, updateMediaStatus, changeCollectionView, clearCollections } from './collectionActions';
 
 export { toggleSideMenu } from './sideMenuActions';
