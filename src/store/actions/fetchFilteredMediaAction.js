@@ -32,7 +32,6 @@ export const fetchFilteredMedia = (mediaType, filterType, page = 1, selected = 0
     dispatch(fetchFilteredMediaStart());
     axios.get(`${MovieDB.API_V3}/${mediaType}/${filterType}?api_key=${MovieDB.API_KEY}&language=en-US&page=${page}`)
       .then(res => {
-        console.log(res);
         dispatch(fetchFilteredMediaSuccess(res.data, mediaType, filterType, page, selected));
       })
       .catch(error => {
@@ -46,7 +45,6 @@ export const preloadFilteredMedia = (pathMediaType, pathFilterType, pageNum, sel
     dispatch(fetchFilteredMediaStart());
     axios.get(`${MovieDB.API_V3}${path}?api_key=${MovieDB.API_KEY}&language=en-US&${pageNum}`)
       .then(res => {
-        console.log(res);
         dispatch(fetchFilteredMediaSuccess(res.data, pathMediaType, pathFilterType, pageNum, selected));
       })
       .catch(error => {

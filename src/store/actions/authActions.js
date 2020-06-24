@@ -3,6 +3,9 @@ import * as actionTypes from './actionTypes';
 export const signIn = ({ email, password }) => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
+    dispatch({
+      type: actionTypes.LOGIN_START
+    });
 
     firebase.auth().signInWithEmailAndPassword(
       email,
@@ -40,6 +43,10 @@ export const signOut = () => {
 
 export const signUp = ({ email, password, firstName, lastName }) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
+    dispatch({
+      type: actionTypes.REGISTER_START
+    });
+
     const firebase = getFirebase();
     const firestore = getFirestore();
 

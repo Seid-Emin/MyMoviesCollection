@@ -39,7 +39,6 @@ export const fetchMultiSearch = (query, pageNumber = 1, selectedPage = 0) => {
     dispatch(fetchStart());
     axios.get(`${MovieDB.API_MultiSearch}/multi?api_key=${MovieDB.API_KEY}&language=en-US&query=${query}&page=${pageNumber}&include_adult=true`)
       .then(res => {
-        console.log(res.data);
         dispatch(fetchSearchSuccess(res.data, selectedPage));
       })
       .catch(error => {

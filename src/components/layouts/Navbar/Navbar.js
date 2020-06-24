@@ -44,7 +44,7 @@ class Navbar extends Component {
   };
 
   toggleMenu = () => {
-    const { search: { displaying, mediaType, filterType, currentPage },
+    const { search: { mediaType, filterType, currentPage },
       collections: { status }, toggleSideMenu, history } = this.props;
 
     // get pathName and change url state to prevent BackButton action
@@ -59,7 +59,7 @@ class Navbar extends Component {
   }
 
   render() {
-    const { collections: { status }, showMenu, toggleSideMenu,
+    const { collections: { status }, showMenu,
       search: { mediaType, filterType, currentPage, searching, searchText } } = this.props;
 
     let hamburgerAnimateClass = showMenu ? 'hamburger-active' : '';
