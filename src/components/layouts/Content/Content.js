@@ -51,7 +51,6 @@ class Content extends Component {
         pathMediaType = pathName.slice(pathName.lastIndexOf('/'), pathName.length).replace('/', '');
       } else {
         pathPageNum = pathName.slice(pathName.lastIndexOf('/'), pathName.length);
-        pageNum = pathPageNum.replace('/page=', '');
         pathName = pathName.replace(pathPageNum, '');
 
         let pathFilterType = pathName.slice(pathName.lastIndexOf('/'), pathName.length).replace('/', '');
