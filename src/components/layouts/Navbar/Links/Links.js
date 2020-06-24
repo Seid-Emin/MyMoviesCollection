@@ -58,7 +58,7 @@ const SignedInLinks = ({ initials, signOut, clearCollections, toggleSideMenu, fe
 
   return (
     <React.Fragment>
-      <li className='logout' onClick={toggleSideMenu}><NavLink onClick={() => signOutCleanState()} to='/movie/now_playing/page=1' >Log Out</NavLink></li>
+      <li className='logout' onClick={toggleSideMenu}><NavLink onClick={() => signOutCleanState()} to={pathToDisplay} >Log Out</NavLink></li>
       <li className='initials' onClick={toggleSideMenu}><NavLink to={pathToDisplay} className='btn btn-floating pink lighten-1'>{initials}</NavLink></li>
     </React.Fragment>
   )

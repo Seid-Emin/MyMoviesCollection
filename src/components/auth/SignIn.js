@@ -57,6 +57,8 @@ class SignIn extends Component {
       } else {
         history.push(`/collections/${mediaType}`);
       }
+    } else {
+      history.push(`/${mediaType}/${filterType}/page=${currentPage}`);
     }
 
     // if there was an arror, cleared it from state on unmount
