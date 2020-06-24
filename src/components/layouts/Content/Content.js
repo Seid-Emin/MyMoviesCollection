@@ -18,20 +18,23 @@ import Modal from '../../UI/Modal/Modal';
 import SignIn from '../../auth/SignIn';
 import SignUp from '../../auth/SingUp';
 import Collections from '../../layouts/Collections/Collections';
-import SideMenu from '../../SideMenu/SideMenu';
+import SideMenu from '../SideMenu/SideMenu';
 
 class Content extends Component {
+
   componentDidMount() {
     const { preloadSelected, preloadFilteredMedia, getCollectionFromFirestore, fetchMultiSearch, fetchFilteredMedia, history } = this.props;
     let pathName = history.location.pathname;
+
+    // if url with opened sideMenu is entered - remove it
+    if (pathName.includes('/sideMenu=1')) {
+      history.push('/movie/now_playing/page=1');
+    }
 
     const authorId = localStorage.getItem('userId');
     if (authorId) {
       getCollectionFromFirestore();
     }
-    // else if (pathName.includes('collections')) {
-    //   this.props.history.push('/signin')
-    // }
 
     // Check initial URL. If inluced id, load that media
     if (pathName.includes('/id=')) {
@@ -65,7 +68,6 @@ class Content extends Component {
 
       let selected = pageNum.replace('/page=', '') - 1; // Get correct numbering for state
       pageNum = pageNum.replace('/', '');
-      console.log(pageNum);
       preloadFilteredMedia(pathMediaType, pathFilterType, pageNum, selected, path);
     } else if (pathName.includes('/search')) {
       let query = pathName.replace('/search=', '');
@@ -83,6 +85,7 @@ class Content extends Component {
 
     // route to last path according to state
     const pathName = this.props.history.location.pathname;
+
     if (pathName.includes('/collections')) {
       console.log(pathName);
       this.props.history.push(`/collections/${status}`)

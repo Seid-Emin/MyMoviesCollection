@@ -15,8 +15,6 @@ const Cards = ({ search: { searchResult, searchText, searching, totalResults, me
 
   // Display the media type being displayed
   const filteredText = !searching ? mediaType === 'movie' ? <h6 className='currentyLoadedMedia uppercase'>{displayTitle + 's'}</h6> : <h6 className='currentyLoadedMedia uppercase'>{displayTitle} series</h6> : null;
-  console.log('cards');
-
 
   return (
     <section className='card-container-grid' >

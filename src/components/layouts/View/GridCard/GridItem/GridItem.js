@@ -47,8 +47,6 @@ const GridItem = ({ name, id, media_type, poster_path, fechedResults, fetchSelec
     singleMedia(media, id, fetchSelected, selectedMediaType, showModal)
   }
 
-  console.log('çard');
-
   return (
     <div className="movie-grid-item">
       <div className="item-wrapper">
