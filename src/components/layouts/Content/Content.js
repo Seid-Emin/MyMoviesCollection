@@ -23,7 +23,7 @@ import SideMenu from '../SideMenu/SideMenu';
 class Content extends Component {
 
   componentDidMount() {
-    const { preloadSelected, preloadFilteredMedia, getCollectionFromFirestore, fetchMultiSearch, fetchFilteredMedia, history, currentlyViewing } = this.props;
+    const { search: { mediaType, filterType, currentPage }, preloadSelected, preloadFilteredMedia, getCollectionFromFirestore, fetchMultiSearch, fetchFilteredMedia, history, currentlyViewing } = this.props;
     let pathName = history.location.pathname;
 
     // if url with opened sideMenu is entered - remove it
@@ -69,16 +69,20 @@ class Content extends Component {
       let selected = pageNum.replace('/page=', '') - 1; // Get correct numbering for state
       pageNum = pageNum.replace('/', '');
       preloadFilteredMedia(pathMediaType, pathFilterType, pageNum, selected, path);
-      currentlyViewing();
+
     } else if (pathName.includes('/search')) {
       let query = pathName.replace('/search=', '');
       fetchMultiSearch(query);
-      currentlyViewing();
+
     } else if (pathName.includes('/collections') || pathName.includes('/Collections')) {
       history.push('/collections/all_media');
     } else {
-      history.push('/movie/now_playing/page=1');
-      fetchFilteredMedia('movie', 'now_playing');
+      history.push(`/${mediaType}/${filterType}/page=${currentPage}`);
+      fetchFilteredMedia(mediaType, filterType);
+
+    }
+
+    if (!pathName.includes('/collections')) {
       currentlyViewing();
     }
   }

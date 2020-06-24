@@ -36,10 +36,9 @@ class SignIn extends Component {
   }
 
   componentWillUnmount() {
-    const { uid, getCollectionFromFirestore, clearError, authError, setSelected, fetchSelected, selectedMediaType, showModal, history,
+    const { uid, getCollectionFromFirestore, clearError, authError, fetchSelected, selectedMediaType, showModal, history,
       selectedMedia: { selected, selectedId },
-      search: { mediaType, filterType, currentPage, viewing },
-      collections: { status } } = this.props;
+      search: { mediaType, filterType, currentPage, viewing } } = this.props;
 
     // if login success - get collections ( if any)
     if (uid) {
@@ -47,8 +46,13 @@ class SignIn extends Component {
     }
 
     if (selected) {
+
       singleMedia(mediaType, selectedId, fetchSelected, selectedMediaType, showModal);
       history.push(`/${mediaType}/${filterType}/page=${currentPage}/id=${selectedId}`);
+    }
+
+    if (!viewing) {
+      history.push(`/collections/${mediaType}/id=${selectedId}`);
     }
 
     // if there was an arror, cleared it from state on unmount

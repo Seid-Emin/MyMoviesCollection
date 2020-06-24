@@ -41,10 +41,15 @@ class SideMenu extends Component {
   }
 
   sideMenuBackHandler = () => {
-    const { toggleSideMenu, history } = this.props;
+    const { toggleSideMenu, history, removeSelectedId, selectedMedia: { selectedId } } = this.props;
     toggleSideMenu();
 
     this.backActionHandler(history);
+
+    // remove selected id for correct routing if user logouts from this state of the app
+    if (selectedId) {
+      removeSelectedId();
+    }
   }
 
   // handle menu closing action and correct the path
@@ -96,6 +101,9 @@ const mapStateToProps = state => {
     // Search / Fetch state
     search: state.search,
 
+    // selectedMedia state
+    selectedMedia: state.selectedMedia,
+
     // collections state
     collections: state.collections,
 
@@ -108,6 +116,7 @@ const mapDispatchToProps = dispatch => {
   return {
     // fetchFilteredMediaAction
     currentlyViewing: () => dispatch(actions.currentlyViewing()),
+    removeSelectedId: () => dispatch(actions.removeSelectedId()),
 
     // sideMenuActions
     toggleSideMenu: () => dispatch(actions.toggleSideMenu())

@@ -31,6 +31,7 @@ export {
   fetchSelected,
   selectedMediaType,
   setSelected,
+  removeSelectedId,
   preloadSelected,
   showModal,
   hideModal

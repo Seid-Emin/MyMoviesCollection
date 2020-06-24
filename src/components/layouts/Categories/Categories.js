@@ -24,7 +24,7 @@ const categoriesConfig = {
   }
 }
 
-const Categories = ({ fetchFilteredMedia, clearSearchingState, toggleSideMenu, currentlyViewing, search: { viewing } }) => {
+const Categories = ({ fetchFilteredMedia, clearSearchingState, toggleSideMenu, currentlyViewing, removeSelectedId, search: { viewing }, selectedMedia: { selectedId } }) => {
 
   const fetchCategorie = (categorie, currentOption) => {
     // Clear searching state
@@ -34,6 +34,10 @@ const Categories = ({ fetchFilteredMedia, clearSearchingState, toggleSideMenu, c
 
     if (!viewing) {
       currentlyViewing();
+    }
+
+    if (selectedId) {
+      removeSelectedId();
     }
 
   }
@@ -70,6 +74,9 @@ const mapStateToProps = state => {
   return {
     // Search / Fetch state
     search: state.search,
+
+    // selectedMedia state
+    selectedMedia: state.selectedMedia
   }
 }
 
@@ -80,7 +87,8 @@ const mapDispatchToProps = dispatch => {
 
     // fetchFilteredMediaAction
     fetchFilteredMedia: (mediaType, filterType) => dispatch(actions.fetchFilteredMedia(mediaType, filterType)),
-    currentlyViewing: () => dispatch(actions.currentlyViewing())
+    currentlyViewing: () => dispatch(actions.currentlyViewing()),
+    removeSelectedId: () => dispatch(actions.removeSelectedId())
   }
 }
 

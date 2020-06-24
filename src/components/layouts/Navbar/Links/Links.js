@@ -5,8 +5,18 @@ import { connect } from 'react-redux';
 import * as actions from '../../../../store/actions';
 
 // Combined links
-const Links = ({ uid, initials, toggleSideMenu, signOut, clearCollections, search, sideMenu }) => {
-  return (uid ? <SignedInLinks toggleSideMenu={toggleSideMenu} initials={initials} signOut={signOut} search={search} clearCollections={clearCollections} sideMenu={sideMenu} />
+const Links = ({ uid, initials, toggleSideMenu, signOut, clearCollections, search, sideMenu, fetchFilteredMedia, removeSelectedId, selectedMedia: { selectedId } }) => {
+  return (uid ?
+    <SignedInLinks
+      toggleSideMenu={toggleSideMenu}
+      initials={initials}
+      signOut={signOut}
+      search={search}
+      clearCollections={clearCollections}
+      sideMenu={sideMenu}
+      fetchFilteredMedia={fetchFilteredMedia}
+      removeSelectedId={removeSelectedId}
+      selectedId={selectedId} />
     : <SignedOutLinks toggleSideMenu={toggleSideMenu} />
   )
 }
@@ -24,10 +34,20 @@ const SignedOutLinks = ({ toggleSideMenu }) => {
 
 
 // Inner Component SignedInLinks
-const SignedInLinks = ({ initials, signOut, clearCollections, toggleSideMenu, sideMenu,
-  search: { mediaType, filterType, currentPage, searching, searchText } }) => {
+const SignedInLinks = ({ initials, signOut, clearCollections, toggleSideMenu, fetchFilteredMedia, removeSelectedId, selectedId,
+  search: { searchText, searchResult, mediaType, filterType, currentPage, searching } }) => {
 
   const signOutCleanState = () => {
+    // check is there any result, if not get them
+    if (!searchResult[0]) {
+      fetchFilteredMedia(mediaType, filterType)
+    }
+
+    // remove selected id after logout for correct routing
+    if (selectedId) {
+      removeSelectedId();
+    }
+
     signOut();
     clearCollections();
   }
@@ -53,6 +73,9 @@ const mapStateToProps = (state) => {
     // search state
     search: state.search,
 
+    // selectedMedia state
+    selectedMedia: state.selectedMedia,
+
     // sideMenu
     sideMenu: state.sideMenu.showMenu
   }
@@ -62,6 +85,10 @@ const mapDispatchToProps = dispatch => {
   return {
     signOut: () => dispatch(actions.signOut()),
     clearCollections: () => dispatch(actions.clearCollections()),
+
+    // fetchFilteredMediaAction
+    fetchFilteredMedia: (mediaType, filterType) => dispatch(actions.fetchFilteredMedia(mediaType, filterType)),
+    removeSelectedId: () => dispatch(actions.removeSelectedId()),
   }
 }
 

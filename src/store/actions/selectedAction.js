@@ -49,6 +49,12 @@ export const setSelected = () => {
   };
 };
 
+export const removeSelectedId = () => {
+  return {
+    type: actionTypes.REMOVE_SELECTED_ID,
+  };
+};
+
 export const preloadSelected = (pathname) => {
   return dispatch => {
     dispatch(fetchStart());
