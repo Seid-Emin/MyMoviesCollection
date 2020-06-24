@@ -18,7 +18,6 @@ class SimilarMovie extends Component {
     e.preventDefault();
     fetchSelected(result.id, mediaType);
     showModal();
-    console.log('i was excecuted *times');
   }
 
 
@@ -26,11 +25,12 @@ class SimilarMovie extends Component {
     const {
       result: { id, name, title, original_name, poster_path },
       collections: { status },
-      mediaType, filterType, history } = this.props;
+      search: { currentPage, filterType },
+      mediaType, history } = this.props;
 
     let posterPath = poster_path ? TheMovieDB.API_Img + poster_path : noCoverImg;
 
-    let linkPath = history.location.pathname.includes('collections') ? `/collections/${status}/${mediaType}/id=${id}` : `/${mediaType}/${filterType}/id=${id}`
+    let linkPath = history.location.pathname.includes('collections') ? `/collections/${status}/${mediaType}/id=${id}` : `/${mediaType}/${filterType}/page=${currentPage}/id=${id}`
     return (
       <div className="card-action" onClick={this.getSelectedVideo}>
         <Link to={linkPath}>
@@ -45,7 +45,7 @@ class SimilarMovie extends Component {
 const mapStateToProps = state => {
   return {
     // search state
-    filterType: state.search.filterType,
+    search: state.search,
 
     //collections state
     collections: state.collections

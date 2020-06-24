@@ -21,10 +21,6 @@ import Collections from '../../layouts/Collections/Collections';
 import SideMenu from '../SideMenu/SideMenu';
 
 class Content extends Component {
-  state = {
-    prevScrollpos: window.pageYOffset
-  };
-
   componentDidMount() {
 
     const { search: { mediaType, filterType, currentPage }, preloadSelected, preloadFilteredMedia, getCollectionFromFirestore, fetchMultiSearch, fetchFilteredMedia, history, currentlyViewing } = this.props;
