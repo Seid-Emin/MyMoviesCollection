@@ -5,19 +5,13 @@ import { connect } from 'react-redux';
 import * as actions from '../../../../store/actions';
 
 // Combined links
-const Links = ({ uid, initials, toggleSideMenu, signOut, clearCollections, search, sideMenu, fetchFilteredMedia, removeSelectedId, clearSelectedMedia, selectedMedia: { selectedId } }) => {
+const Links = ({ uid, initials, toggleSideMenu, signOut, search }) => {
   return (uid ?
     <SignedInLinks
       toggleSideMenu={toggleSideMenu}
       initials={initials}
       signOut={signOut}
-      search={search}
-      clearCollections={clearCollections}
-      sideMenu={sideMenu}
-      fetchFilteredMedia={fetchFilteredMedia}
-      removeSelectedId={removeSelectedId}
-      clearSelectedMedia={clearSelectedMedia}
-      selectedId={selectedId} />
+      search={search} />
     : <SignedOutLinks toggleSideMenu={toggleSideMenu} />
   )
 }
@@ -35,22 +29,11 @@ const SignedOutLinks = ({ toggleSideMenu }) => {
 
 
 // Inner Component SignedInLinks
-const SignedInLinks = ({ initials, signOut, clearCollections, toggleSideMenu, fetchFilteredMedia, removeSelectedId, clearSelectedMedia, selectedId,
-  search: { searchText, searchResult, mediaType, filterType, currentPage, searching } }) => {
+const SignedInLinks = ({ initials, signOut, toggleSideMenu,
+  search: { searchText, mediaType, filterType, currentPage, searching } }) => {
 
   const signOutCleanState = () => {
-    // check is there any result, if not get them
-    if (!searchResult[0]) {
-      fetchFilteredMedia(mediaType, filterType)
-    }
-
-    // remove selected id after logout for correct routing
-    if (selectedId) {
-      removeSelectedId();
-    }
     signOut();
-    clearCollections();
-    clearSelectedMedia();
     window.location.reload();
   }
 
@@ -74,24 +57,12 @@ const mapStateToProps = (state) => {
 
     // search state
     search: state.search,
-
-    // selectedMedia state
-    selectedMedia: state.selectedMedia,
-
-    // sideMenu
-    sideMenu: state.sideMenu.showMenu
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    signOut: () => dispatch(actions.signOut()),
-    clearCollections: () => dispatch(actions.clearCollections()),
-
-    // fetchFilteredMediaAction
-    fetchFilteredMedia: (mediaType, filterType) => dispatch(actions.fetchFilteredMedia(mediaType, filterType)),
-    removeSelectedId: () => dispatch(actions.removeSelectedId()),
-    clearSelectedMedia: () => dispatch(actions.clearSelectedMedia()),
+    signOut: () => dispatch(actions.signOut())
   }
 }
 

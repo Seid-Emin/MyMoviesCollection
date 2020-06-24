@@ -42,7 +42,6 @@ class SideMenu extends Component {
 
   sideMenuBackHandler = () => {
     const { toggleSideMenu, history, removeSelectedId, selectedMedia: { selectedId } } = this.props;
-    toggleSideMenu();
 
     this.backActionHandler(history);
 
@@ -50,6 +49,8 @@ class SideMenu extends Component {
     if (selectedId) {
       removeSelectedId();
     }
+
+    toggleSideMenu();
   }
 
   // handle menu closing action and correct the path
@@ -66,9 +67,7 @@ class SideMenu extends Component {
   }
 
   render() {
-    const { collections: { status }, uid, showMenu, toggleSideMenu } = this.props;
-
-    const collectionPath = uid ? `/collections/${status}` : '/signin';
+    const { collections: { status }, showMenu, toggleSideMenu } = this.props;
 
     let hamburgerAnimateClass = showMenu ? 'hamburger-active' : '';
 
@@ -81,7 +80,7 @@ class SideMenu extends Component {
               <p className={`hamburger ${hamburgerAnimateClass}`}></p>
             </div>
             <Links toggleSideMenu={this.sideMenuBackHandler} />
-            <li className='collectionLink' onClick={toggleSideMenu}><NavLink to={collectionPath} activeClassName='activeNav' onClick={() => this.handleViewing()}>Collections</NavLink></li>
+            <li className='collectionLink' onClick={toggleSideMenu}><NavLink to={`/collections/${status}`} activeClassName='activeNav' onClick={() => this.handleViewing()}>Collections</NavLink></li>
             <Categories toggleSideMenu={this.sideMenuBackHandler} />
           </ul>
 
@@ -95,9 +94,6 @@ class SideMenu extends Component {
 
 const mapStateToProps = state => {
   return {
-    // auth state
-    uid: state.firebase.auth.uid,
-
     // Search / Fetch state
     search: state.search,
 

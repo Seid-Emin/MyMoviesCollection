@@ -12,8 +12,7 @@ export {
   deleteMediaFromFirestore,
   filterStatusAndType,
   updateMediaStatus,
-  changeCollectionView,
-  clearCollections
+  changeCollectionView
 } from './collectionActions';
 
 export {
@@ -32,7 +31,6 @@ export {
   selectedMediaType,
   setSelected,
   removeSelectedId,
-  clearSelectedMedia,
   preloadSelected,
   showModal,
   hideModal

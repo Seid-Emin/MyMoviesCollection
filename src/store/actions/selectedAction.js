@@ -55,12 +55,6 @@ export const removeSelectedId = () => {
   };
 };
 
-export const clearSelectedMedia = () => {
-  return {
-    type: actionTypes.CLEAR_SELECTED_MEDIA,
-  };
-};
-
 export const preloadSelected = (pathname) => {
   return dispatch => {
     dispatch(fetchStart());
