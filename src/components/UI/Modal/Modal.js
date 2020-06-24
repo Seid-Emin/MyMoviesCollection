@@ -26,8 +26,8 @@ class Modal extends Component {
     this.state = {
       errorMessage: false
     }
-    this.escFunction = this.escFunction.bind(this);
-    this.onBackButtonEvent = this.onBackButtonEvent.bind(this);
+    // this.escFunction = this.escFunction.bind(this);
+    // this.onBackButtonEvent = this.onBackButtonEvent.bind(this);
   }
 
   componentDidMount() {
@@ -48,14 +48,14 @@ class Modal extends Component {
   }
 
   // On EXC key pushed - close modal 
-  escFunction(e) {
+  escFunction = (e) => {
     if (e.keyCode === 27) {
       this.props.handler();
     }
   }
 
   // On Broser back button clicked - close modal 
-  onBackButtonEvent(e) {
+  onBackButtonEvent = (e) => {
     e.preventDefault();
     this.props.hideModal();
   }

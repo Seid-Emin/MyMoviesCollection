@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { withRouter } from "react-router";
 
 import './Navbar.css';
 
@@ -42,8 +43,23 @@ class Navbar extends Component {
     });
   };
 
+  toggleMenu = () => {
+    const { search: { displaying, mediaType, filterType, currentPage },
+      collections: { status }, toggleSideMenu, history } = this.props;
+
+    // get pathName and change url state to prevent BackButton action
+    let pathName = history.location.pathname;
+    if (pathName.includes('/page=')) {
+      history.push(`/${mediaType}/${filterType}/page=${currentPage}/sideMenu=1`)
+    } else {
+      history.push(`/collections/${status}/sideMenu=1`)
+    }
+
+    toggleSideMenu();
+  }
+
   render() {
-    const { collectionStatus, showMenu, toggleSideMenu,
+    const { collections: { status }, showMenu, toggleSideMenu,
       search: { mediaType, filterType, currentPage, searching, searchText } } = this.props;
 
     let hamburgerAnimateClass = showMenu ? 'hamburger-active' : '';
@@ -56,14 +72,14 @@ class Navbar extends Component {
       <React.Fragment>
         <nav className={`nav ${navHidded}`}>
           <div className="nav-wrapper layout">
-            <div className="hamburger-container" onClick={() => toggleSideMenu()}>
+            <div className="hamburger-container" onClick={() => this.toggleMenu()}>
               <p className={`hamburger ${hamburgerAnimateClass}`}></p>
             </div>
             <Link to={pathToDisplay} className="brand-logo material-icons center MovieIcon">movie</Link>
             <div className="nav-right-links">
               <Search />
               <ul id="nav-mobile" >
-                <li><NavLink to={`/collections/${collectionStatus}`} activeClassName='activeNavLinks'>Collections</NavLink></li>
+                <li><NavLink to={`/collections/${status}`} activeClassName='activeNavLinks'>Collections</NavLink></li>
                 <Links />
               </ul>
             </div>
@@ -83,7 +99,7 @@ const mapStateToProps = (state) => {
     search: state.search,
 
     // collections state
-    collectionStatus: state.collections.status,
+    collections: state.collections,
 
     // side menu state
     showMenu: state.sideMenu.showMenu
@@ -102,4 +118,4 @@ const mapDispatchToProps = dispatch => {
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Navbar));
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(withRouter(Navbar)));

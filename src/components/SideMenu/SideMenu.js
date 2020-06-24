@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { withRouter } from "react-router";
 
 import './SideMenu.css';
 
@@ -14,11 +15,6 @@ import Links from '../layouts/Navbar/Links/Links';
 
 
 class SideMenu extends Component {
-  constructor(props) {
-    super(props);
-    this.escFunction = this.escFunction.bind(this);
-    this.onBackButtonEvent = this.onBackButtonEvent.bind(this);
-  }
 
   componentDidMount() {
     document.addEventListener("keydown", this.escFunction, false);
@@ -30,22 +26,37 @@ class SideMenu extends Component {
   }
 
   // On EXC key pushed - close modal 
-  escFunction(e) {
+  escFunction = (e) => {
     if (e.keyCode === 27) {
-      this.props.toggleSideMenu();
+      const { toggleSideMenu, history } = this.props;
+      toggleSideMenu();
+      this.backActionHandler(history);
     }
   }
 
   // On Broser back button clicked - close modal 
-  onBackButtonEvent(e) {
+  onBackButtonEvent = (e) => {
     e.preventDefault();
-    this.props.toggleSideMenu()
+    this.props.toggleSideMenu();
+  }
+
+  sideMenuBackHandler = () => {
+    const { toggleSideMenu, history } = this.props;
+    toggleSideMenu();
+
+    this.backActionHandler(history);
+  }
+
+  // handle menu closing action and correct the path
+  backActionHandler = (history) => {
+    let pathName = history.location.pathname.replace('/sideMenu=1', '');
+    history.push(pathName);
   }
 
   render() {
-    const { uid, toggleSideMenu, collectionStatus, showMenu } = this.props;
+    const { collections: { status }, uid, showMenu, toggleSideMenu } = this.props;
 
-    const collectionPath = uid ? `/collections/${collectionStatus}` : '/signin';
+    const collectionPath = uid ? `/collections/${status}` : '/signin';
 
     let hamburgerAnimateClass = showMenu ? 'hamburger-active' : '';
 
@@ -54,16 +65,16 @@ class SideMenu extends Component {
         <aside className="sideMenu layout">
 
           <ul id="nav-mobile" >
-            <div className="hamburger-container" onClick={() => toggleSideMenu()}>
+            <div className="hamburger-container" onClick={() => this.sideMenuBackHandler()}>
               <p className={`hamburger ${hamburgerAnimateClass}`}></p>
             </div>
-            <Links toggleSideMenu={toggleSideMenu} />
+            <Links toggleSideMenu={this.sideMenuBackHandler} />
             <li className='collectionLink' onClick={toggleSideMenu}><NavLink to={collectionPath} activeClassName='activeNav'>Collections</NavLink></li>
-            <Categories toggleSideMenu={toggleSideMenu} />
+            <Categories toggleSideMenu={this.sideMenuBackHandler} />
           </ul>
 
         </aside >
-        <Backdrop handler={toggleSideMenu} />
+        <Backdrop handler={this.sideMenuBackHandler} />
       </React.Fragment>
 
     )
@@ -75,8 +86,11 @@ const mapStateToProps = state => {
     // auth state
     uid: state.firebase.auth.uid,
 
+    // Search / Fetch state
+    search: state.search,
+
     // collections state
-    collectionStatus: state.collections.status,
+    collections: state.collections,
 
     // sideMenu state
     showMenu: state.sideMenu.showMenu
@@ -90,4 +104,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SideMenu);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SideMenu));
