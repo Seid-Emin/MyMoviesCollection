@@ -32,6 +32,7 @@ export {
   selectedMediaType,
   setSelected,
   removeSelectedId,
+  clearSelectedMedia,
   preloadSelected,
   showModal,
   hideModal

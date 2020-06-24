@@ -52,7 +52,11 @@ class SignIn extends Component {
     }
 
     if (!viewing) {
-      history.push(`/collections/${mediaType}/id=${selectedId}`);
+      if (selectedId) {
+        history.push(`/collections/${mediaType}/id=${selectedId}`);
+      } else {
+        history.push(`/collections/${mediaType}`);
+      }
     }
 
     // if there was an arror, cleared it from state on unmount

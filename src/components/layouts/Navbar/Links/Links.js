@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../../../store/actions';
 
 // Combined links
-const Links = ({ uid, initials, toggleSideMenu, signOut, clearCollections, search, sideMenu, fetchFilteredMedia, removeSelectedId, selectedMedia: { selectedId } }) => {
+const Links = ({ uid, initials, toggleSideMenu, signOut, clearCollections, search, sideMenu, fetchFilteredMedia, removeSelectedId, clearSelectedMedia, selectedMedia: { selectedId } }) => {
   return (uid ?
     <SignedInLinks
       toggleSideMenu={toggleSideMenu}
@@ -16,6 +16,7 @@ const Links = ({ uid, initials, toggleSideMenu, signOut, clearCollections, searc
       sideMenu={sideMenu}
       fetchFilteredMedia={fetchFilteredMedia}
       removeSelectedId={removeSelectedId}
+      clearSelectedMedia={clearSelectedMedia}
       selectedId={selectedId} />
     : <SignedOutLinks toggleSideMenu={toggleSideMenu} />
   )
@@ -34,7 +35,7 @@ const SignedOutLinks = ({ toggleSideMenu }) => {
 
 
 // Inner Component SignedInLinks
-const SignedInLinks = ({ initials, signOut, clearCollections, toggleSideMenu, fetchFilteredMedia, removeSelectedId, selectedId,
+const SignedInLinks = ({ initials, signOut, clearCollections, toggleSideMenu, fetchFilteredMedia, removeSelectedId, clearSelectedMedia, selectedId,
   search: { searchText, searchResult, mediaType, filterType, currentPage, searching } }) => {
 
   const signOutCleanState = () => {
@@ -50,6 +51,7 @@ const SignedInLinks = ({ initials, signOut, clearCollections, toggleSideMenu, fe
 
     signOut();
     clearCollections();
+    clearSelectedMedia();
   }
 
   let pathToDisplay = searching ? `/search=${searchText}` : `/${mediaType}/${filterType}/page=${currentPage}`;
@@ -89,6 +91,7 @@ const mapDispatchToProps = dispatch => {
     // fetchFilteredMediaAction
     fetchFilteredMedia: (mediaType, filterType) => dispatch(actions.fetchFilteredMedia(mediaType, filterType)),
     removeSelectedId: () => dispatch(actions.removeSelectedId()),
+    clearSelectedMedia: () => dispatch(actions.clearSelectedMedia()),
   }
 }
 

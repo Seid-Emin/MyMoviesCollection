@@ -56,6 +56,13 @@ export const removeSelectedId = (state, action) => {
   };
 };
 
+export const clearSelectedMedia = (state, action) => {
+  return {
+    ...state,
+    selectedMedia: {}
+  };
+};
+
 export const showModal = (state, action) => {
   return {
     ...state,
@@ -78,6 +85,7 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.SET_SELECTED_FOT_SIGNIN: return setSelected(state, action);
     case actionTypes.REMOVE_SELECTED_ID: return removeSelectedId(state, action);
+    case actionTypes.CLEAR_SELECTED_MEDIA: return clearSelectedMedia(state, action);
 
     case actionTypes.PICK_SELECTED_MEDIA_TYPE: return selsecteMediaType(state, action);
 
