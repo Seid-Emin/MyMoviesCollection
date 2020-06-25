@@ -101,10 +101,8 @@ class Content extends Component {
     const pathName = this.props.history.location.pathname;
 
     if (pathName.includes('/collections')) {
-      console.log(pathName);
       this.props.history.push(`/collections/${status}`)
     } else if (searchText) {
-
       this.props.history.push(`/search=${searchText}`)
     } else {
       this.props.history.push(`/${mediaType}/${filterType}/page=${currentPage}`)
