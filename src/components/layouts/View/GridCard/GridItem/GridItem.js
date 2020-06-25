@@ -14,7 +14,7 @@ import { filterByType } from '../../../../helpers/filter';
 
 
 const GridItem = ({ name, id, media_type, poster_path, fechedResults, fetchSelected, selectedMediaType, showModal, singleMedia, collectionMedia,
-  search: { mediaType, filterType, currentPage },
+  search: { searching, mediaType, filterType, currentPage },
   collections: { collections, status } }) => {
 
   // Check the state - searching or fetching data
@@ -27,12 +27,9 @@ const GridItem = ({ name, id, media_type, poster_path, fechedResults, fetchSelec
   // else use the passed one
   if (fechedResults) {
     // Check for existing media in collection
-    let findById = filterByType('match', collections, 'mediaId', id);
-    let matchType = findById.mediaType === media_type || findById.mediaName === name ? findById : null;
+    let findById = filterByType('match', collections, 'customID', `${media}${id}`);
+    isMediaInCollection = findById[0];
 
-    if (matchType !== null) {
-      isMediaInCollection = matchType[0];
-    }
   } else {
     isMediaInCollection = collectionMedia;
   }
@@ -47,17 +44,20 @@ const GridItem = ({ name, id, media_type, poster_path, fechedResults, fetchSelec
     singleMedia(media, id, fetchSelected, selectedMediaType, showModal)
   }
 
+  // console.log(fechedResults);
+
+
   return (
     <div className="movie-grid-item">
       <div className="item-wrapper">
         <Link to={linkPath} className='card-link'>
           <div className='item-image-container'>
-            {collectionMedia ?
+            {collectionMedia || searching ?
               // Top info of card
               <div className="card-top">
                 <div className="card-top-rating-container">
                   <div className="card-top-mediaType">{media}</div>
-                  {collectionMedia.userRating !== 'select' ?
+                  {collectionMedia && collectionMedia.userRating !== 'select' ?
                     <div className="rating-star">
                       <span className={`card-top-rating ${colorThemes.userRating[collectionMedia.userRating]}`}>{collectionMedia.userRating}</span>
                     </div> : null}

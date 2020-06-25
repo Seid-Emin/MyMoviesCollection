@@ -23,7 +23,7 @@ const GridCards = ({ fechedResults, filteredCollections }) => {
       media_type={media_type || mediaType}
       poster_path={poster_path || posterURL}
       singleMedia={singleMedia}
-      fechedResults={fechedResults}
+      fechedResults={results}
       collectionMedia={collectionMedia} />
   }) : <h6 className='noResults'>No Results Found</h6>
 
