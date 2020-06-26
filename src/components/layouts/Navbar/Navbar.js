@@ -68,8 +68,6 @@ class Navbar extends Component {
     const { collections: { status }, showMenu,
       search: { mediaType, filterType, currentPage, searching, searchText } } = this.props;
 
-    let hamburgerAnimateClass = showMenu ? 'hamburger-active' : '';
-
     let navHidded = !this.state.visible ? 'nav--hidden' : '';
 
     let pathToDisplay = searching ? `/search=${searchText}` : `/${mediaType}/${filterType}/page=${currentPage}`;
@@ -79,7 +77,7 @@ class Navbar extends Component {
         <nav className={`nav ${navHidded}`}>
           <div className="nav-wrapper layout">
             <div className="hamburger-container" onClick={() => this.toggleMenu()}>
-              <p className={`hamburger ${hamburgerAnimateClass}`}></p>
+              <p className='hamburger'></p>
             </div>
             <Link to={pathToDisplay} className="brand-logo material-icons center MovieIcon">movie</Link>
             <div className="nav-right-links">

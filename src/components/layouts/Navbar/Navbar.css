@@ -87,11 +87,6 @@ nav .nav-wrapper {
   transform: rotate(90deg);
 }
 
-nav .hamburger-active {
-  display: none;
-}
-
-
 .nav-right-links {
   position       : relative;
   display        : flex;
