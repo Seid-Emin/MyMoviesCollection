@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router";
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import './Navbar.css';
 
@@ -11,6 +12,7 @@ import * as actions from '../../../store/actions';
 // Components
 import Search from '../../UI/Search/Search';
 import Links from './Links/Links';
+import SideMenu from './SideMenu/SideMenu';
 
 
 class Navbar extends Component {
@@ -89,6 +91,19 @@ class Navbar extends Component {
             </div>
           </div>
         </nav>
+        <TransitionGroup className='transitionSideMenu'>
+          {showMenu ?
+            <CSSTransition
+              in={showMenu}
+              appear={true}
+              key='sideMenu'
+              timeout={300}
+              classNames="sideMenuAnimate"
+              mountOnEnter
+              unmountOnExit >
+              <SideMenu />
+            </CSSTransition> : null}
+        </TransitionGroup>
       </React.Fragment>
     )
   }
@@ -115,11 +130,11 @@ const mapDispatchToProps = dispatch => {
     // collectionActions
     getCollectionFromFirestore: () => dispatch(actions.getCollectionFromFirestore()),
 
+    // fetchFilteredMediaAction
+    currentlyViewing: () => dispatch(actions.currentlyViewing()),
+
     //sideMenuActions
     toggleSideMenu: () => dispatch(actions.toggleSideMenu()),
-
-    // fetchFilteredMediaAction
-    currentlyViewing: () => dispatch(actions.currentlyViewing())
   }
 }
 

@@ -6,12 +6,12 @@ import { withRouter } from "react-router";
 import './SideMenu.css';
 
 // Redux actions and helper methods
-import * as actions from '../../../store/actions';
+import * as actions from '../../../../store/actions';
 
 // Components
-import Backdrop from '../../UI/Backdrop/Backdrop';
-import Categories from '../Categories/Categories';
-import Links from '../Navbar/Links/Links';
+import Backdrop from '../../../UI/Backdrop/Backdrop';
+import Categories from '../../Categories/Categories';
+import Links from '../../Navbar/Links/Links';
 
 
 class SideMenu extends Component {

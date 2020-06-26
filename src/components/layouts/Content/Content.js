@@ -18,7 +18,7 @@ import Modal from '../../UI/Modal/Modal';
 import SignIn from '../../auth/SignIn';
 import SignUp from '../../auth/SingUp';
 import Collections from '../../layouts/Collections/Collections';
-import SideMenu from '../SideMenu/SideMenu';
+
 
 class Content extends Component {
   componentDidMount() {
@@ -112,7 +112,7 @@ class Content extends Component {
   }
 
   render() {
-    const { showInfo, loadingSearch, showMenu } = this.props;
+    const { showInfo, loadingSearch } = this.props;
     const modal = showInfo ?
       <CSSTransition
         in={showInfo}
@@ -127,39 +127,24 @@ class Content extends Component {
       : null;
 
     return (
-      <React.Fragment>
-        <TransitionGroup className='transitionSideMenu'>
-          {showMenu ?
-            <CSSTransition
-              in={showMenu}
-              appear={true}
-              key='sideMenu'
-              timeout={300}
-              classNames="sideMenuAnimate"
-              mountOnEnter
-              unmountOnExit >
-              <SideMenu />
-            </CSSTransition> : null}
+      <main className='content-grid layout'>
+        {showInfo ? <Backdrop handler={this.handleHideModal} showInfo={showInfo} /> : null}
+        <Categories />
+        <Switch>
+          <Route path='/signin' component={SignIn} />
+          <Route path='/signup' component={SignUp} />
+          {loadingSearch ? <Spinner /> :
+            <>
+              <Route path='/:mediaType/:filterType/page=:number' component={() => <Cards backdropHandler={this.handleHideModal} />} />
+              <Route path='/search=:query' component={() => <Cards backdropHandler={this.handleHideModal} />} />
+              <Route path='/collections/:status' component={() => <Collections backdropHandler={this.handleHideModal} />} />
+            </>
+          }
+        </Switch>
+        <TransitionGroup className='transitionModal'>
+          {modal}
         </TransitionGroup>
-        <main className='content-grid layout'>
-          {showInfo ? <Backdrop handler={this.handleHideModal} showInfo={showInfo} /> : null}
-          <Categories />
-          <Switch>
-            <Route path='/signin' component={SignIn} />
-            <Route path='/signup' component={SignUp} />
-            {loadingSearch ? <Spinner /> :
-              <>
-                <Route path='/:mediaType/:filterType/page=:number' component={() => <Cards backdropHandler={this.handleHideModal} />} />
-                <Route path='/search=:query' component={() => <Cards backdropHandler={this.handleHideModal} />} />
-                <Route path='/collections/:status' component={() => <Collections backdropHandler={this.handleHideModal} />} />
-              </>
-            }
-          </Switch>
-          <TransitionGroup className='transitionModal'>
-            {modal}
-          </TransitionGroup>
-        </main >
-      </React.Fragment >
+      </main >
     )
   }
 }
@@ -175,9 +160,6 @@ const mapStateToProps = state => {
 
     // Collections state
     status: state.collections.status,
-
-    // SideMenu state
-    showMenu: state.sideMenu.showMenu
   }
 }
 
@@ -196,10 +178,7 @@ const mapDispatchToProps = dispatch => {
     currentlyViewing: () => dispatch(actions.currentlyViewing()),
 
     // collectionActions
-    getCollectionFromFirestore: () => dispatch(actions.getCollectionFromFirestore()),
-
-    // sideMenuActions
-    toggleSideMenu: () => dispatch(actions.toggleSideMenu()),
+    getCollectionFromFirestore: () => dispatch(actions.getCollectionFromFirestore())
   }
 }
 
