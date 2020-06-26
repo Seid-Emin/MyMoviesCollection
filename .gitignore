@@ -13,6 +13,7 @@
 
 # misc
 /.firebase
+.firebase
 .DS_Store
 .env
 .env.local
