@@ -133,9 +133,7 @@ class Modal extends Component {
 
     return (
       <React.Fragment>
-
         <div className='modal-info'>
-
           {loading ? <Spinner /> :
             <>
               <div className='info-wrapper'>
@@ -158,10 +156,8 @@ class Modal extends Component {
                     {!filteredCollections || !isMediaInCollection ?
                       <>
                         <p className='btn_addMedia' onClick={() => this.addMedia('watching')}>Add to List</p>
-                        {errorMessage ? <p className='modal-error-message'>Please <Link to='/signin' onClick={() => this.hideModalAndRedirectSignin()}>Signin
-      </Link> first</p> : null}
-                      </>
-                      :
+                        {errorMessage ? <p className='modal-error-message'>Please <Link to='/signin' onClick={() => this.hideModalAndRedirectSignin()}>Signin</Link> first</p> : null}
+                      </> :
                       <>
                         {/* Status of media */}
                         <Select

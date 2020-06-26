@@ -74,7 +74,6 @@ class SideMenu extends Component {
     return (
       <React.Fragment>
         <aside className="sideMenu layout">
-
           <ul id="nav-mobile" >
             <div className="hamburger-container" onClick={() => this.sideMenuBackHandler()}>
               <p className={`hamburger ${hamburgerAnimateClass}`}></p>
@@ -83,11 +82,9 @@ class SideMenu extends Component {
             <li className='collectionLink' onClick={toggleSideMenu}><NavLink to={`/collections/${status}`} activeClassName='activeNav' onClick={() => this.handleViewing()}>Collections</NavLink></li>
             <Categories toggleSideMenu={this.sideMenuBackHandler} />
           </ul>
-
         </aside >
         <Backdrop handler={this.sideMenuBackHandler} />
       </React.Fragment>
-
     )
   }
 }
