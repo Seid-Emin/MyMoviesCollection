@@ -142,10 +142,13 @@ class SingUp extends Component {
 
   render() {
     const { authError } = this.props;
-    const { user, errorSubmit } = this.state;
+    const { user, user: { password }, errorSubmit } = this.state;
 
     let invalidMessage = errorSubmit ? <p className='Invalid'>Please fill all the required fields with
     valid information</p>
+      : authError ? <p>{authError.message}</p> : null
+
+    let passInvalid = !password.valid && password.touched ? <p className='Invalid'>Password length should be at least 9 characters and contain at least one small, one big and speacial character</p>
       : authError ? <p>{authError.message}</p> : null
 
     let inputs = Object.keys(user).map((field, index) => {
@@ -161,6 +164,7 @@ class SingUp extends Component {
             <button className='btn sign z-depth-0'>Sign up</button>
             <div className='red-text center'>
               {invalidMessage}
+              {passInvalid}
             </div>
           </div>
         </form>
