@@ -14,6 +14,7 @@
 
 .select_mediaStatus {
   margin-left: 0;
+  cursor: pointer;
 }
 
 .user-score {
