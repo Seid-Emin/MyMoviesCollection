@@ -237,7 +237,7 @@ const mapDispatchToProps = dispatch => {
     hideModal: () => dispatch(actions.hideModal()),
     setSelected: () => dispatch(actions.setSelected()),
 
-    // fetchFilteredMediaAction
+    // searchAction
     fetchFilteredMedia: (mediaType, filterType) => dispatch(actions.fetchFilteredMedia(mediaType, filterType)),
 
     // collectionActions

@@ -55,7 +55,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    // fetchFilteredMediaAction
+    // searchAction
     fetchFilteredMedia: (mediaType, filterType, paginatePage, selectedPage) => dispatch(actions.fetchFilteredMedia(mediaType, filterType, paginatePage, selectedPage)),
     fetchMultiSearch: (query, page, selectedPage) => dispatch(actions.fetchMultiSearch(query, page, selectedPage))
   }

@@ -130,7 +130,7 @@ const mapDispatchToProps = dispatch => {
     // collectionActions
     getCollectionFromFirestore: () => dispatch(actions.getCollectionFromFirestore()),
 
-    // fetchFilteredMediaAction
+    // searchAction
     currentlyViewing: () => dispatch(actions.currentlyViewing()),
 
     //sideMenuActions

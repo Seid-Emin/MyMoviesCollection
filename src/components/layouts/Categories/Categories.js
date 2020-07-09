@@ -84,8 +84,6 @@ const mapDispatchToProps = dispatch => {
   return {
     //searchAction
     clearSearchingState: () => dispatch(actions.clearSearchingState()),
-
-    // fetchFilteredMediaAction
     fetchFilteredMedia: (mediaType, filterType) => dispatch(actions.fetchFilteredMedia(mediaType, filterType)),
     currentlyViewing: () => dispatch(actions.currentlyViewing()),
     removeSelectedId: () => dispatch(actions.removeSelectedId())

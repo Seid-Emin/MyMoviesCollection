@@ -167,15 +167,13 @@ const mapDispatchToProps = dispatch => {
   return {
     // searchActions
     fetchMultiSearch: (query) => dispatch(actions.fetchMultiSearch(query)),
+    fetchFilteredMedia: (mediaType, filterType) => dispatch(actions.fetchFilteredMedia(mediaType, filterType)),
+    preloadFilteredMedia: (pathMediaType, pathFilterType, pageNum, selected, path) => dispatch(actions.preloadFilteredMedia(pathMediaType, pathFilterType, pageNum, selected, path)),
+    currentlyViewing: () => dispatch(actions.currentlyViewing()),
 
     // selectedActions
     hideModal: () => dispatch(actions.hideModal()),
     preloadSelected: (pathname) => dispatch(actions.preloadSelected(pathname)),
-
-    // fetchFilteredMediaAction
-    fetchFilteredMedia: (mediaType, filterType) => dispatch(actions.fetchFilteredMedia(mediaType, filterType)),
-    preloadFilteredMedia: (pathMediaType, pathFilterType, pageNum, selected, path) => dispatch(actions.preloadFilteredMedia(pathMediaType, pathFilterType, pageNum, selected, path)),
-    currentlyViewing: () => dispatch(actions.currentlyViewing()),
 
     // collectionActions
     getCollectionFromFirestore: () => dispatch(actions.getCollectionFromFirestore())
