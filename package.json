@@ -10,7 +10,7 @@
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "firebase": "^7.15.3",
-    "firebase-tools": "^7.14.0",
+    "firebase-tools": "^11.30.0",
     "materialize-css": "^1.0.0-rc.2",
     "node-sass": "^7.0.0",
     "react": "^16.13.0",
