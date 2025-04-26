@@ -1,15 +1,19 @@
 .modal-info {
   justify-content : space-between;
   background-color: var(--color-BG);
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
   min-width       : 60vw;
   max-width       : 90vw;
   min-height      : 60vh;
   max-height      : 95vh;
+  height: 100vh;
   z-index         : 5;
   padding         : 10px;
   display         : flex;
   flex-direction  : column;
   overflow-y      : auto;
+  /*box-sizing: border-box;*/
 }
 
 .info-wrapper {

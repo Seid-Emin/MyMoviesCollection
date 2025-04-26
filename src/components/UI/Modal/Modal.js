@@ -131,84 +131,113 @@ class Modal extends Component {
     let findInCollection = filterByType('match', collections, 'mediaId', id);
     let isMediaInCollection = findInCollection[0];
 
+//     // Set the custom property for the viewport height
+//     const setViewportHeight = () => {
+//       const vh = window.innerHeight * 0.01;
+//       document.documentElement.style.setProperty('--vh', `${vh}px`);
+//     };
+//
+// // Initial calculation
+//     setViewportHeight();
+//
+// // Recalculate on resize
+//     window.addEventListener('resize', setViewportHeight);
+
     return (
       <React.Fragment>
         <div className='modal-info'>
-          {loading ? <Spinner /> :
-            <>
-              <div className='info-wrapper'>
-                {/* card image wrapper */}
-                <div className='card-image'>
-                  {posterPath}
-                  <div className='trailer'>
-                    {video}
-                  </div>
-                </div>
-                {/* media info - next to image ( right ) */}
-                <div className='movie-info-wrap'>
-                  <div className='title'>
-                    <h3 className="card-main-title">{name ? name : title || original_name || original_title}
-                      <span className='releaseDate'> ({release_date ? release_date.substring(0, 4) : first_air_date.substring(0, 4)})</span>
-                    </h3>
-                  </div>
-                  {/* Actions for Collection Create/Update/Delete - start */}
-                  <div className='ratingAdd collectionActions'>
-                    {!filteredCollections || !isMediaInCollection ?
-                      <>
-                        <p className='btn_addMedia' onClick={() => this.addMedia('watching')}>Add to List</p>
-                        {errorMessage ? <p className='modal-error-message'>Please <NavLink to='/signin' onClick={() => this.hideModalAndRedirectSignin()}>Signin</NavLink> first</p> : null}
-                      </> :
-                      <>
-                        {/* Status of media */}
-                        <Select
-                          selectName='watchStatus'
-                          selectClass={`select_mediaStatus ${colorThemes.watchStatus[isMediaInCollection.watchStatus]}`}
-                          value={isMediaInCollection.watchStatus}
-                          customID={isMediaInCollection.customID}
-                          handler={(e) => this.handleStatusAndRating(e, isMediaInCollection.customID)}
-                        />
-                        {/* User Rating given to media */}
-                        <Select
-                          selectName='userRating'
-                          selectClass={`user-score ${colorThemes.userRating[isMediaInCollection.userRating]}`}
-                          value={isMediaInCollection.userRating}
-                          order={false}
-                          customID={isMediaInCollection.customID}
-                          handler={(e) => this.handleStatusAndRating(e, isMediaInCollection.customID)}
-                        />
-                        {/* delete media */}
-                        <div className="delete-media">
-                          <span className="material-icons" onClick={() => deleteMediaFromFirestore(isMediaInCollection.customID, collections, filteredCollections)}>delete</span>
+          {
+            loading
+                ? <Spinner/>
+                : (
+                    <>
+                      <div className='info-wrapper'>
+                        {/* card image wrapper */}
+                        <div className='card-image'>
+                          {posterPath}
+                          <div className='trailer'>
+                            {video}
+                          </div>
                         </div>
-                      </>}
-                  </div>
-                  {/* Actions for Collection Create/Update/Delete - end */}
-                  {/* Media info sections */}
-                  <div className='ratingAdd'>
-                    <p className='card-inner-title rating'>Rating:
-                  <span className={ratingClasses.join(' ')}>{vote_average}</span>
-                    </p>
-                    <p className='card-inner-title popularity'>Popularity:
-                  <span>{Math.round(popularity)}</span>
-                    </p>
-                    <p className='card-inner-title votes'>Votes:
-                  <span>{vote_count}</span>
-                    </p>
-                  </div>
-                  <div className='genre'>
-                    <p className='card-inner-title'>Genre: <span className="card-info">{modalGenres.join(', ')}</span></p>
-                  </div>
-                  <div className='overwiev'>
-                    <p className='card-inner-title'>Overview: </p>
-                    <p className="card-info">{overview}</p>
-                  </div>
-                </div>
-              </div>
-              {similarMovies}
-              <div className='btn-wrapper'>
-                <button className="btn closeModal z-depth-0" onClick={() => handler()}>Close</button>
-              </div>
-            </>}
+                        {/* media info - next to image ( right ) */}
+                        <div className='movie-info-wrap'>
+                          <div className='title'>
+                            <h3 className="card-main-title">{name ? name : title || original_name || original_title}
+                              <span
+                                  className='releaseDate'> ({release_date ? release_date.substring(0, 4) : first_air_date.substring(0, 4)})</span>
+                            </h3>
+                          </div>
+                          {/* Actions for Collection Create/Update/Delete - start */}
+                          <div className='ratingAdd collectionActions'>
+                            {
+                              !filteredCollections || !isMediaInCollection
+                                  ? (
+                                      <>
+                                        <p className='btn_addMedia' onClick={() => this.addMedia('watching')}>Add to
+                                          List</p>
+                                        {errorMessage ? <p className='modal-error-message'>Please <NavLink to='/signin'
+                                                                                                           onClick={() => this.hideModalAndRedirectSignin()}>Signin</NavLink> first
+                                        </p> : null}
+                                      </>
+                                  )
+                                  : (
+                                      <>
+                                        {/* Status of media */}
+                                        <Select
+                                            selectName='watchStatus'
+                                            selectClass={`select_mediaStatus ${colorThemes.watchStatus[isMediaInCollection.watchStatus]}`}
+                                            value={isMediaInCollection.watchStatus}
+                                            customID={isMediaInCollection.customID}
+                                            handler={(e) => this.handleStatusAndRating(e, isMediaInCollection.customID)}
+                                        />
+                                        {/* User Rating given to media */}
+                                        <Select
+                                            selectName='userRating'
+                                            selectClass={`user-score ${colorThemes.userRating[isMediaInCollection.userRating]}`}
+                                            value={isMediaInCollection.userRating}
+                                            order={false}
+                                            customID={isMediaInCollection.customID}
+                                            handler={(e) => this.handleStatusAndRating(e, isMediaInCollection.customID)}
+                                        />
+                                        {/* delete media */}
+                                        <div className="delete-media">
+                                          <span className="material-icons"
+                                                onClick={() => deleteMediaFromFirestore(isMediaInCollection.customID, collections, filteredCollections)}>delete</span>
+                                        </div>
+                                      </>
+                                  )
+                            }
+                          </div>
+                          {/* Actions for Collection Create/Update/Delete - end */}
+                          {/* Media info sections */}
+                          <div className='ratingAdd'>
+                            <p className='card-inner-title rating'>Rating:
+                              <span className={ratingClasses.join(' ')}>{vote_average}</span>
+                            </p>
+                            <p className='card-inner-title popularity'>Popularity:
+                              <span>{Math.round(popularity)}</span>
+                            </p>
+                            <p className='card-inner-title votes'>Votes:
+                              <span>{vote_count}</span>
+                            </p>
+                          </div>
+                          <div className='genre'>
+                            <p className='card-inner-title'>Genre: <span
+                                className="card-info">{modalGenres.join(', ')}</span></p>
+                          </div>
+                          <div className='overwiev'>
+                            <p className='card-inner-title'>Overview: </p>
+                            <p className="card-info">{overview}</p>
+                          </div>
+                        </div>
+                      </div>
+                  {similarMovies}
+                      <div className='btn-wrapper'>
+                        <button className="btn closeModal z-depth-0" onClick={() => handler()}>Close</button>
+                      </div>
+                    </>
+                )
+          }
         </div >
       </React.Fragment>
     )
