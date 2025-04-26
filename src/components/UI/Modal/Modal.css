@@ -1,15 +1,13 @@
 .modal-info {
   justify-content : space-between;
   background-color: var(--color-BG);
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
+  padding: env(safe-area-inset-top) 10px env(safe-area-inset-bottom) 10px;
   min-width       : 60vw;
   max-width       : 90vw;
   min-height      : 60vh;
   max-height      : 95vh;
   height: 100vh;
   z-index         : 5;
-  padding         : 10px;
   display         : flex;
   flex-direction  : column;
   overflow-y      : auto;

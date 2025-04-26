@@ -30,11 +30,11 @@ class Modal extends Component {
   }
 
   componentDidMount() {
-    document.addEventListener("keydown", this.escFunction, false);
+    document.addEventListener("keydown", this.closeModalOnExcapePressed, false);
     window.addEventListener('popstate', this.onBackButtonEvent, false);
   }
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.escFunction, false);
+    document.removeEventListener("keydown", this.closeModalOnExcapePressed, false);
     window.removeEventListener('popstate', this.onBackButtonEvent, false);
 
     const { search: { searchResult, mediaType, filterType },
@@ -47,8 +47,8 @@ class Modal extends Component {
   }
 
   // On EXC key pushed - close modal 
-  escFunction = (e) => {
-    if (e.keyCode === 27) {
+  closeModalOnExcapePressed = (e) => {
+    if (e.keyCode === 27 || e.key === "Escape") {
       this.props.handler();
     }
   }
