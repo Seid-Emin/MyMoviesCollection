@@ -30,13 +30,15 @@ class Modal extends Component {
   }
 
   componentDidMount() {
-    document.addEventListener("keydown", this.closeModalOnExcapePressed, false);
+    this.setViewportHeight();
+    document.addEventListener("keydown", this.closeModalOnEscapePressed, false);
     window.addEventListener('popstate', this.onBackButtonEvent, false);
+    window.addEventListener('resize', this.setViewportHeight, false)
   }
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.closeModalOnExcapePressed, false);
+    document.removeEventListener("keydown", this.closeModalOnEscapePressed, false);
     window.removeEventListener('popstate', this.onBackButtonEvent, false);
-
+    window.addEventListener('resize', this.setViewportHeight, false)
     const { search: { searchResult, mediaType, filterType },
       history: { location: { pathname } }, fetchFilteredMedia } = this.props;
 
@@ -47,11 +49,16 @@ class Modal extends Component {
   }
 
   // On EXC key pushed - close modal 
-  closeModalOnExcapePressed = (e) => {
+  closeModalOnEscapePressed = (e) => {
     if (e.keyCode === 27 || e.key === "Escape") {
       this.props.handler();
     }
   }
+
+  setViewportHeight = () => {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  };
 
   // On Broser back button clicked - close modal 
   onBackButtonEvent = (e) => {
