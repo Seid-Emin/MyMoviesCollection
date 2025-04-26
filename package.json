@@ -9,7 +9,7 @@
     "@brainhubeu/react-carousel": "^1.18.5",
     "axios": "^0.21.1",
     "firebase": "^7.15.3",
-    "firebase-tools": "^7.14.0",
+    "firebase-tools": "^14.2.1",
     "materialize-css": "^1.0.0-rc.2",
     "node-sass": "^7.0.0",
     "react": "^16.13.0",
