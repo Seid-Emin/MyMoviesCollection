@@ -28,6 +28,8 @@ jobs:
     # Step 4: Inject .env variables
     - name: Create .env file
       run: |
+        echo "SASS_PATH=${{ secrets.SASS_PATH }}" >> .env
+        
         echo "REACT_APP_THE_MOVIE_DB_API_KEY=${{ secrets.REACT_APP_THE_MOVIE_DB_API_KEY }}" >> .env
         echo "REACT_APP_THE_MOVIE_DB_API_VERSION=${{ secrets.REACT_APP_THE_MOVIE_DB_API_VERSION }}" >> .env
         echo "REACT_APP_THE_MOVIE_DB_API_SEARCH=${{ secrets.REACT_APP_THE_MOVIE_DB_API_SEARCH }}" >> .env
