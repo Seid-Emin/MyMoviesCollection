@@ -51,9 +51,9 @@ jobs:
     # Step 6: Deploy to Firebase
     - name: Deploy to Firebase
 #     for older node 10
-      run: npx firebase-tools@9.23.0 deploy --only hosting
+      run: npx firebase-tools@9.16.0 deploy --only hosting
       env:
-        FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_AUTH_TOKEN }}
 #      for node 20
 #      uses: FirebaseExtended/action-hosting-deploy@v0
 #      with:
