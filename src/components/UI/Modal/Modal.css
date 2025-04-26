@@ -1,54 +1,54 @@
 .modal-info {
-  position: relative;
-  justify-content : space-between;
-  background-color: var(--color-BG);
-  padding: 10px;
-  min-width       : 60vw;
-  width: 90vw;
-  min-height      : 60vh;
-  max-height      : 95vh;
-  height: calc(var(--vh, 1vh) * 95);
-  z-index         : 5;
-  display         : flex;
-  flex-direction  : column;
-  overflow-y      : auto;
-  box-sizing: border-box;
+    position: relative;
+    justify-content: space-between;
+    background-color: var(--color-BG);
+    padding: 10px;
+    min-width: 60vw;
+    width: 90vw;
+    min-height: 60vh;
+    max-height: 95vh;
+    height: calc(var(--vh, 1vh) * 95);
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    box-sizing: border-box;
 }
 
 .info-wrapper {
-  display      : flex;
-  margin-bottom: 1rem;
+    display: flex;
+    margin-bottom: 1rem;
 }
 
 .card-image {
-  margin   : 5px;
-  width    : 100%;
-  max-width: 300px;
-  min-width: 250px;
+    margin: 5px;
+    width: 100%;
+    max-width: 300px;
+    min-width: 250px;
 }
 
 .card-image img {
-  width: 100%;
+    width: 100%;
 }
 
 .movie-info-wrap {
-  margin-left: 20px;
+    margin-left: 20px;
 }
 
 .releaseDate {
-  font-size: 16px;
+    font-size: 16px;
 }
 
 .card-main-title {
-  text-align : center;
-  font-size  : 30px;
-  font-weight: 600;
-  margin-top : 0;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 0;
 }
 
 .ratingAdd {
-  display    : flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 /* .ratingAdd p {
@@ -56,223 +56,223 @@
 } */
 
 span.material-icons {
-  display: flex;
+    display: flex;
 }
 
 .delete-media {
-  margin-left: 5px;
+    margin-left: 5px;
 }
 
 .material-icons:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .genre {
-  align-items: center;
+    align-items: center;
 }
 
 .ratingAdd,
 .genre,
 .overwiev {
-  border-top: 1px solid var(--color-horLine);
+    border-top: 1px solid var(--color-horLine);
 }
 
 .ratingAdd .popularity,
 .ratingAdd .votes {
-  margin-left: 20px;
+    margin-left: 20px;
 }
 
 .collectionActions {
-  justify-content: left;
-  height         : 3em;
+    justify-content: left;
+    height: 3em;
 }
 
 .card-inner-title {
-  font-size: 16px;
+    font-size: 16px;
 }
 
 .card-inner-title span {
-  margin-left: 10px;
-  font-size  : 14px;
+    margin-left: 10px;
+    font-size: 14px;
 }
 
 .btn_addMedia {
-  background-color                  : var(--color-btnAddMedia);
-  border                            : var(--color-btnAddMedia) 1px solid;
-  border-radius                     : 4px;
-  color                             : #fff !important;
-  cursor                            : pointer;
-  display                           : inline-block;
-  font-family                       : Avenir, lucida grande, tahoma, verdana, arial, sans-serif;
-  font-size                         : 11px;
-  line-height                       : 1em;
-  opacity                           : 1;
-  padding                           : 6px 12px 6px 12px;
-  position                          : relative;
-  text-align                        : left;
-  text-decoration                   : none !important;
-  -webkit-transition-duration       : .3s;
-  transition-duration               : .3s;
-  transition-property               : all;
-  -webkit-transition-property       : all;
-  -webkit-transition-timing-function: ease-in-out;
-  transition-timing-function        : ease-in-out;
-  vertical-align                    : middle;
+    background-color: var(--color-btnAddMedia);
+    border: var(--color-btnAddMedia) 1px solid;
+    border-radius: var(--border-radius-5);
+    color: #fff !important;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Avenir, lucida grande, tahoma, verdana, arial, sans-serif;
+    font-size: 11px;
+    line-height: 1em;
+    opacity: 1;
+    padding: 6px 12px 6px 12px;
+    position: relative;
+    text-align: left;
+    text-decoration: none !important;
+    -webkit-transition-duration: .3s;
+    transition-duration: .3s;
+    transition-property: all;
+    -webkit-transition-property: all;
+    -webkit-transition-timing-function: ease-in-out;
+    transition-timing-function: ease-in-out;
+    vertical-align: middle;
 }
 
 .modal-error-message {
-  margin-left: 10px;
-  color      : var(--color-tableDropped);
-  font-weight: 700;
+    margin-left: 10px;
+    color: var(--color-tableDropped);
+    font-weight: 700;
 }
 
 .modal-error-message a {
-  color: var(--color-activeLinksText);
+    color: var(--color-activeLinksText);
 }
 
 .modal-error-message a:hover {
-  color: var(--color-scrollThumb);
+    color: var(--color-scrollThumb);
 }
 
 .modal .modal-content {
-  padding-bottom: 0;
+    padding-bottom: 0;
 }
 
 .modal-wrapper {
-  position        : absolute;
-  top             : 50%;
-  left            : 50%;
-  transform       : translateX(50%);
-  transform       : translateY(50%);
-  z-index         : 110;
-  background-color: var(--color-BG);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(50%);
+    transform: translateY(50%);
+    z-index: 110;
+    background-color: var(--color-BG);
 }
 
 .card-info {
-  font-size: 14.5px;
+    font-size: 14.5px;
 }
 
 .similarMedia-title .card-info {
-  margin: 10px 0;
+    margin: 10px 0;
 }
 
 .rating {
-  font-size: 18px;
+    font-size: 18px;
 }
 
 .trailer {
-  display        : flex;
-  justify-content: space-evenly;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .similar-movies-wrapper {
-  width         : 100%;
-  height        : fit-content;
-  display       : flex;
-  flex-direction: column;
-  overflow-y    : hidden;
-  padding-bottom: 60px;
-  margin-top    : 15px;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+    padding-bottom: 60px;
+    margin-top: 15px;
 }
 
 .inner-wrapper {
-  display       : flex;
-  flex-direction: row;
-  height        : 200px;
+    display: flex;
+    flex-direction: row;
+    height: 200px;
 }
 
 .similarMovies {
-  height  : 100%;
-  width   : 30vw;
-  position: relative;
-  margin  : 5px;
+    height: 100%;
+    width: 30vw;
+    position: relative;
+    margin: 5px;
 }
 
 .similarMedia-content {
-  overflow-x    : scroll;
-  height        : 280px;
-  display       : flex;
-  flex-direction: column;
+    overflow-x: scroll;
+    height: 280px;
+    display: flex;
+    flex-direction: column;
 }
 
 
 .btn-wrapper {
-  padding   : 10px 0 0 0;
-  align-self: flex-end;
+    padding: 10px 0 0 0;
+    align-self: flex-end;
 }
 
 button.btn.closeModal {
-  border-radius   : 5px;
-  background-color: var(--color-scrollThumb);
-  transition      : background-color 300ms ease-in-out;
+    border-radius: var(--border-radius-5);
+    background-color: var(--color-scrollThumb);
+    transition: background-color 300ms ease-in-out;
 }
 
 button.btn.closeModal:hover {
-  background-color: var(--color-activeLinks);
+    background-color: var(--color-activeLinks);
 }
 
 
 .closeModal {
-  line-height: 0;
+    line-height: 0;
 }
 
 .modalAnimate-enter {
-  transform: scale(0, 0);
-  opacity  : 0.01;
+    transform: scale(0, 0);
+    opacity: 0.01;
 }
 
 .modalAnimate-enter-active {
-  opacity   : 1;
-  transform : scale(1, 1);
-  transition: all 300ms ease-in;
+    opacity: 1;
+    transform: scale(1, 1);
+    transition: all 300ms ease-in;
 }
 
 .modalAnimate-exit {
-  opacity  : 1;
-  transform: scale(1, 1);
+    opacity: 1;
+    transform: scale(1, 1);
 }
 
 .modalAnimate-exit-active {
-  opacity   : 0.01;
-  transform : scale(0, 0);
-  transition: all 300ms ease-in;
+    opacity: 0.01;
+    transform: scale(0, 0);
+    transition: all 300ms ease-in;
 }
 
-@media only screen and (max-width:670px) {
-  .info-wrapper {
-    flex-direction: column;
-    height        : auto;
-  }
+@media only screen and (max-width: 670px) {
+    .info-wrapper {
+        flex-direction: column;
+        height: auto;
+    }
 
-  .card-image {
-    align-self: center;
-  }
+    .card-image {
+        align-self: center;
+    }
 
-  .similarMedia {
-    justify-content: flex-end;
-  }
+    .similarMedia {
+        justify-content: flex-end;
+    }
 }
 
-@media (max-width:481px) {
-  .collectionActions {
-    height : max-content;
-    padding: 5px 0;
-  }
+@media (max-width: 481px) {
+    .collectionActions {
+        height: max-content;
+        padding: 5px 0;
+    }
 
-  .ratingAdd {
-    flex-direction: column;
-    align-items   : end;
-  }
+    .ratingAdd {
+        flex-direction: column;
+        align-items: end;
+    }
 
-  .ratingAdd .user-score {
-    margin-top   : 5px;
-    margin-bottom: 5px;
-  }
+    .ratingAdd .user-score {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
 
-  .ratingAdd .user-score,
-  .ratingAdd .popularity,
-  .ratingAdd .votes {
-    margin-left: 0;
-  }
+    .ratingAdd .user-score,
+    .ratingAdd .popularity,
+    .ratingAdd .votes {
+        margin-left: 0;
+    }
 
 }

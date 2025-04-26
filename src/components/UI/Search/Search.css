@@ -1,99 +1,99 @@
 nav.searchField {
-  background   : var(--color-textInner);
-  border-radius: 5px;
-  margin-right : 15px;
-  height       : 32px;
+    background: var(--color-textInner);
+    border-radius: var(--border-radius-5);
+    margin-right: 15px;
+    height: 32px;
 }
 
 .searchField {
-  background-color: inherit;
-  box-shadow      : none;
-  position        : absolute;
-  top             : 50%;
-  right           : 100%;
-  transform       : translateY(-50%)
+    background-color: inherit;
+    box-shadow: none;
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    transform: translateY(-50%)
 }
 
 .searchField-inner {
-  height: 100%;
+    height: 100%;
 }
 
 nav .label-icon {
-  height     : 40px;
-  line-height: 40px;
+    height: 40px;
+    line-height: 40px;
 }
 
 div .searchField i {
-  height     : 100%;
-  line-height: initial;
-  transform  : translateY(11%);
+    height: 100%;
+    line-height: initial;
+    transform: translateY(11%);
 }
 
 nav .input-field label i,
 nav .input-field label.active i {
-  color: var(--color-horLine);
+    color: var(--color-horLine);
 }
 
 .nav-wrapper form {
-  display: flex;
-  width  : 100%;
+    display: flex;
+    width: 100%;
 }
 
 .nav-wrapper form .input-field {
-  display: flex;
-  width  : 100%;
+    display: flex;
+    width: 100%;
 }
 
 .nav-wrapper .input-field input[type=search] {
-  height       : inherit;
-  padding-left : 10px;
-  border-radius: 5px;
-  border       : 0;
-  margin       : 0;
-  width        : 100%;
+    height: inherit;
+    padding-left: 10px;
+    border-radius: var(--border-radius-5);
+    border: 0;
+    margin: 0;
+    width: 100%;
 }
 
-.input-field input[type=search]+.label-icon {
-  -webkit-transform: none;
-  transform        : none;
-  right            : 0;
-  left             : 0;
-  margin           : 0 10px;
+.input-field input[type=search] + .label-icon {
+    -webkit-transform: none;
+    transform: none;
+    right: 0;
+    left: 0;
+    margin: 0 10px;
 }
 
 label.label-icon {
-  height: 100%;
+    height: 100%;
 }
 
-.input-field>label {
-  position: relative;
+.input-field > label {
+    position: relative;
 }
 
 
 nav a {
-  color: #fff;
+    color: #fff;
 }
 
-@media (max-height: 450px) and (min-width : 768px) and (max-width : 1024px) and (orientation : landscape) {
-  .nav-right-links .searchField {
-    margin-right: 0;
-    width       : 30%;
-    right       : 0;
-  }
+@media (max-height: 450px) and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    .nav-right-links .searchField {
+        margin-right: 0;
+        width: 30%;
+        right: 0;
+    }
 }
 
 @media (max-width: 768px) {
-  .nav-right-links .searchField {
-    margin-right: 0;
-    width       : 30%;
-    right       : 0;
-  }
+    .nav-right-links .searchField {
+        margin-right: 0;
+        width: 30%;
+        right: 0;
+    }
 }
 
 @media (max-width: 600px) {
-  .nav-right-links .searchField {
-    right    : 50%;
-    width    : 50%;
-    transform: translate(50%, -50%);
-  }
+    .nav-right-links .searchField {
+        right: 50%;
+        width: 50%;
+        transform: translate(50%, -50%);
+    }
 }

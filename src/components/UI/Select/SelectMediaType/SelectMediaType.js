@@ -8,19 +8,21 @@ import Select from '../Select';
 
 
 const SelectMediaType = ({ collections: { collections, type }, handler }) => {
-  return <Select
-    selectName='mediaType'
-    selectClass='list-type-select'
-    payload={collections}
-    value={type}
-    handler={handler} />
-}
+    return (
+        <Select
+            selectName="mediaType"
+            selectClass="list-type-select"
+            payload={collections}
+            value={type}
+            handler={handler}/>
+    );
+};
 
 const mapStateToProps = state => {
-  return {
-    // collectons state
-    collections: state.collections
-  }
-}
+    return {
+        // collectons state
+        collections: state.collections,
+    };
+};
 
 export default connect(mapStateToProps)(SelectMediaType);

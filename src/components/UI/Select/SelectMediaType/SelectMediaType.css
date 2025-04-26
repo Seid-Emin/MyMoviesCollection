@@ -1,18 +1,18 @@
 /* collection type */
 .list-type-select {
-  display         : inline-block;
-  background-color: var(--color-BG-select);
-  width           : auto;
-  margin          : 3px 0;
-  padding         : 5px;
-  border          : 1px solid var(--color-activeLinks);
-  border-radius   : 5px;
-  height          : 60%;
-  color           : var(--color-activeLinks);
-  font-size       : 12px;
-  text-transform  : capitalize;
+    display: inline-block;
+    background-color: var(--color-BG-select);
+    width: auto;
+    /*margin          : 3px 0;*/
+    padding: 5px;
+    border: 1px solid var(--color-activeLinks);
+    border-radius: var(--border-radius-5);
+    height: 60%;
+    color: var(--color-activeLinks);
+    font-size: 12px;
+    text-transform: capitalize;
 }
 
 .list-type-select:focus {
-  outline-style: none;
+    outline-style: none;
 }

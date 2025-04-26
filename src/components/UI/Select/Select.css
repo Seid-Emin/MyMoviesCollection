@@ -1,48 +1,48 @@
 .select_mediaStatus,
 .user-score {
-  display         : inline-block;
-  background-color: var(--color-BG-select);
-  width           : auto;
-  padding         : 1px;
-  border          : 1px solid var(--color-activeLinks);
-  border-radius   : 5px;
-  height          : 60%;
-  color           : var(--color-activeLinks);
-  font-size       : 12px;
-  text-transform  : capitalize;
+    display: inline-block;
+    background-color: var(--color-BG-select);
+    width: auto;
+    padding: 1px;
+    border: 1px solid var(--color-activeLinks);
+    border-radius: var(--border-radius-5);
+    height: 60%;
+    color: var(--color-activeLinks);
+    font-size: 12px;
+    text-transform: capitalize;
 }
 
 .select_mediaStatus {
-  margin-left: 0;
-  cursor: pointer;
+    margin-left: 0;
+    cursor: pointer;
 }
 
 .user-score {
-  background-color                  : var(--color-BG-select);
-  background-image                  : url(../../../assets/icon-star-score.png);
-  background-position               : 6px 4px, 118px 8px;
-  background-repeat                 : no-repeat, no-repeat;
-  background-size                   : 14px 13px, 10px auto;
-  border                            : 1px solid var(--color-userScoreDefault);
-  border-radius                     : 4px;
-  color                             : var(--color-userScoreEmpty);
-  cursor                            : pointer;
-  display                           : inline-block;
-  font-family                       : Avenir, lucida grande, tahoma, verdana, arial, sans-serif;
-  font-size                         : 11px;
-  opacity                           : 1;
-  padding                           : 3px 6px 3px 20px;
-  margin-left                       : 10px;
-  text-align                        : left;
-  text-decoration                   : none;
-  -webkit-transition-duration       : .3s;
-  transition-duration               : .3s;
-  -webkit-transition-property       : all;
-  transition-property               : all;
-  -webkit-transition-timing-function: ease-in-out;
-  transition-timing-function        : ease-in-out;
-  vertical-align                    : middle;
-  width                             : 138px;
+    background-color: var(--color-BG-select);
+    background-image: url(../../../assets/icon-star-score.png);
+    background-position: 6px 4px, 118px 8px;
+    background-repeat: no-repeat, no-repeat;
+    background-size: 14px 13px, 10px auto;
+    border: 1px solid var(--color-userScoreDefault);
+    border-radius: var(--border-radius-5);
+    color: var(--color-userScoreEmpty);
+    cursor: pointer;
+    display: inline-block;
+    font-family: Avenir, lucida grande, tahoma, verdana, arial, sans-serif;
+    font-size: 11px;
+    opacity: 1;
+    padding: 3px 6px 3px 20px;
+    margin-left: 10px;
+    text-align: left;
+    text-decoration: none;
+    -webkit-transition-duration: .3s;
+    transition-duration: .3s;
+    -webkit-transition-property: all;
+    transition-property: all;
+    -webkit-transition-timing-function: ease-in-out;
+    transition-timing-function: ease-in-out;
+    vertical-align: middle;
+    width: 138px;
 }
 
 
@@ -50,57 +50,57 @@
 .rating_masterpiece,
 .rating_great,
 .rating_veryGood {
-  border: 1px solid var(--color-tableCompleted);
-  color : var(--color-tableCompleted);
+    border: 1px solid var(--color-tableCompleted);
+    color: var(--color-tableCompleted);
 }
 
 .rating_good,
 .rating_fine {
-  border: 1px solid var(--color-statusWatching);
-  color : var(--color-statusWatching);
+    border: 1px solid var(--color-statusWatching);
+    color: var(--color-statusWatching);
 }
 
 .rating_average {
-  border: 1px solid var(--color-tableOnHold);
-  color : var(--color-tableOnHold);
+    border: 1px solid var(--color-tableOnHold);
+    color: var(--color-tableOnHold);
 }
 
 .rating_bad,
 .rating_veryBad {
-  border: 1px solid var(--color-userScoreBadVerybad);
-  color : var(--color-userScoreBadVerybad);
+    border: 1px solid var(--color-userScoreBadVerybad);
+    color: var(--color-userScoreBadVerybad);
 }
 
 .rating_Horrible,
 .rating_appalling {
-  border: 1px solid var(--color-tableDropped);
-  color : var(--color-tableDropped);
+    border: 1px solid var(--color-tableDropped);
+    color: var(--color-tableDropped);
 }
 
 /* userRating in card colors */
 .card-top .rating_masterpiece,
 .card-top .rating_great,
 .card-top .rating_veryGood {
-  color: var(--color-tableCompleted);
+    color: var(--color-tableCompleted);
 }
 
 .card-top .rating_good,
 .card-top .rating_fine {
-  color: var(--color-statusWatching);
+    color: var(--color-statusWatching);
 }
 
 .card-top .rating_average {
-  color: var(--color-tableOnHold);
+    color: var(--color-tableOnHold);
 }
 
 .card-top .rating_bad,
 .card-top .rating_veryBad {
-  color: var(--color-userScoreBadVerybad);
+    color: var(--color-userScoreBadVerybad);
 }
 
 .card-top .rating_Horrible,
 .card-top .rating_appalling {
-  color: var(--color-tableDropped);
+    color: var(--color-tableDropped);
 }
 
 .card-top .rating_masterpiece,
@@ -113,32 +113,32 @@
 .card-top .rating_veryBad,
 .card-top .rating_Horrible,
 .card-top .rating_appalling {
-  border: none;
+    border: none;
 }
 
 
 /* watchStatus colors */
 .status_watching {
-  border: 1px solid var(--color-statusWatching);
-  color : var(--color-statusWatching);
+    border: 1px solid var(--color-statusWatching);
+    color: var(--color-statusWatching);
 }
 
 .status_completed {
-  border: 1px solid var(--color-tableCompleted);
-  color : var(--color-tableCompleted);
+    border: 1px solid var(--color-tableCompleted);
+    color: var(--color-tableCompleted);
 }
 
 .status_onHold {
-  border: 1px solid var(--color-tableOnHold);
-  color : var(--color-tableOnHold);
+    border: 1px solid var(--color-tableOnHold);
+    color: var(--color-tableOnHold);
 }
 
 .status_dropped {
-  border: 1px solid var(--color-tableDropped);
-  color : var(--color-tableDropped);
+    border: 1px solid var(--color-tableDropped);
+    color: var(--color-tableDropped);
 }
 
 .status_planToWatch {
-  border: 1px solid var(--color-tablePlanToWatch);
-  color : var(--color-tablePlanToWatch);
+    border: 1px solid var(--color-tablePlanToWatch);
+    color: var(--color-tablePlanToWatch);
 }
