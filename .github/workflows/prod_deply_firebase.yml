@@ -50,8 +50,13 @@ jobs:
 
     # Step 6: Deploy to Firebase
     - name: Deploy to Firebase
-      uses: FirebaseExtended/action-hosting-deploy@v0
-      with:
-        repoToken: ${{ secrets.GITHUB_TOKEN }}
-        firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-        channelId: live
+#     for older node 10
+      run: npx firebase-tools@9.23.0 deploy --only hosting
+      env:
+        FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+#      for node 20
+#      uses: FirebaseExtended/action-hosting-deploy@v0
+#      with:
+#        repoToken: ${{ secrets.GITHUB_TOKEN }}
+#        firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+#        channelId: live
