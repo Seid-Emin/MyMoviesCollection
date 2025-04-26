@@ -53,7 +53,7 @@ jobs:
 #     for older node 10
       run: npx firebase-tools@9.16.0 deploy --only hosting
       env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_AUTH_TOKEN }}
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 #      for node 20
 #      uses: FirebaseExtended/action-hosting-deploy@v0
 #      with:
