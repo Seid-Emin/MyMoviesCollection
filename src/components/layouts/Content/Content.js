@@ -149,15 +149,7 @@ class Content extends Component {
         {showInfo ? <Backdrop handler={this.handleHideModal} showInfo={showInfo} /> : null}
         <Categories />
         <div className='content-wrapper'>
-          {
-            loadingSearch
-                ? (
-                    <div className='loading'>
-                      <Spinner/>
-                    </div>
-                )
-                : null
-          }
+          {loadingSearch ? <Spinner/> : null}
           <Switch location={location}>
             <Route path={'/signin'} component={SignIn}/>
             <Route path={'/signup'} component={SignUp}/>

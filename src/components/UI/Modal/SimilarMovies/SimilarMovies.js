@@ -19,15 +19,15 @@ const SimilarMovies = ({ selectedMedia: { selectedMedia, selectedMediaType }, hi
     mediaType = 'tv'
   }
   // Check is there any mediaType selected or URL is pasted
-  let mediaToPass = selectedMediaType === '' ? mediaType : selectedMediaType
+  const mediaToPass = !selectedMediaType ? mediaType : selectedMediaType;
 
   //display similar movies
-  let similarMovie = selectedMedia.similar ? selectedMedia.similar.results.map(result => {
+  const similarMovie = selectedMedia.similar ? selectedMedia.similar.results.map(result => {
     return <SimilarMovie key={result.id} result={result} mediaType={mediaToPass} />
   }) : null
 
   //display similar media type
-  let type = selectedMediaType === 'movie' ? 'movies' : 'tv series';
+  const type = mediaToPass === 'movie' ? 'movies' : 'tv series';
 
   return (
     <div className='similarMedia'>
