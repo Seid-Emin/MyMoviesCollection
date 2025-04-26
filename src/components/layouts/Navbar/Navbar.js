@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
@@ -70,18 +70,18 @@ class Navbar extends Component {
     const { collections: { status }, showMenu,
       search: { mediaType, filterType, currentPage, searching, searchText } } = this.props;
 
-    let navHidded = !this.state.visible ? 'nav--hidden' : '';
+    const navHidden = !this.state.visible ? 'nav--hidden' : '';
 
-    let pathToDisplay = searching ? `/search=${searchText}` : `/${mediaType}/${filterType}/page=${currentPage}`;
+    const pathToDisplay = searching ? `/search=${searchText}` : `/${mediaType}/${filterType}/page=${currentPage}`;
 
     return (
       <React.Fragment>
-        <nav className={`nav ${navHidded}`}>
+        <nav className={`nav ${navHidden}`}>
           <div className="nav-wrapper layout">
             <div className="hamburger-container" onClick={() => this.toggleMenu()}>
               <p className='hamburger'></p>
             </div>
-            <Link to={pathToDisplay} className="brand-logo material-icons center MovieIcon">movie</Link>
+            <NavLink to={pathToDisplay} className="brand-logo material-icons center MovieIcon">movie</NavLink>
             <div className="nav-right-links">
               <Search />
               <ul id="nav-mobile" >

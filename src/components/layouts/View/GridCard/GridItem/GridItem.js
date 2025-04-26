@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import './GridItem.css';
 import noCoverImg from '../../../../../assets/images/no-cover.png';
@@ -50,7 +50,7 @@ const GridItem = ({ name, id, media_type, poster_path, fechedResults, fetchSelec
   return (
     <div className="movie-grid-item">
       <div className="item-wrapper">
-        <Link to={linkPath} className='card-link'>
+        <NavLink to={linkPath} className='card-link'>
           <div className='item-image-container'>
             {collectionMedia || searching ?
               // Top info of card
@@ -71,7 +71,7 @@ const GridItem = ({ name, id, media_type, poster_path, fechedResults, fetchSelec
             {/*  Card image */}
             <div className='singleImg' style={{ backgroundImage: `${currentCardImage}` }} onClick={() => loadSingleMedia()}></div>
           </div>
-        </Link>
+        </NavLink>
       </div>
     </div >
   )

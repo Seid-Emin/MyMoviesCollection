@@ -22,9 +22,18 @@ import Collections from '../../layouts/Collections/Collections';
 
 class Content extends Component {
   componentDidMount() {
-
-    const { search: { mediaType, filterType, currentPage }, preloadSelected, preloadFilteredMedia, getCollectionFromFirestore, fetchMultiSearch, fetchFilteredMedia, history, currentlyViewing } = this.props;
-    let pathName = history.location.pathname;
+    const {
+      search: { mediaType, filterType, currentPage },
+      preloadSelected,
+      preloadFilteredMedia,
+      getCollectionFromFirestore,
+      fetchMultiSearch,
+      fetchFilteredMedia,
+      history,
+      currentlyViewing,
+      location,
+    } = this.props;
+    let pathName = location.pathname;
 
     // if url with opened sideMenu is entered - remove it
     if (pathName.includes('/sideMenu=1')) {
@@ -72,7 +81,6 @@ class Content extends Component {
       let pathFilterType = path.slice(path.lastIndexOf('/'), path.length).replace('/', '');
       let pathMediaType = path.replace(`/${pathFilterType}`, '').replace('/', '');
 
-
       let selected = pageNum.replace('/page=', '') - 1; // Get correct numbering for state
       pageNum = pageNum.replace('/', '');
       preloadFilteredMedia(pathMediaType, pathFilterType, pageNum, selected, path);
@@ -80,39 +88,49 @@ class Content extends Component {
     } else if (pathName.includes('/search')) {
       let query = pathName.replace('/search=', '');
       fetchMultiSearch(query);
-
     } else if (pathName.includes('/collections') || pathName.includes('/Collections')) {
       history.push('/collections/all_media');
+    } else if (pathName.includes('/singin') || pathName.includes('/signup')) {
+      // console.log('Sign in or Sign up');
+      // history.push(pathName);
+    } else if (pathName === '/') {
+      history.push(`/${mediaType}/${filterType}/page=${currentPage}`);
+      fetchFilteredMedia(mediaType, filterType);
+      currentlyViewing();
+    }else if (!pathName.includes('/collections')) {
+      currentlyViewing();
     } else {
       history.push(`/${mediaType}/${filterType}/page=${currentPage}`);
       fetchFilteredMedia(mediaType, filterType);
-
-    }
-
-    if (!pathName.includes('/collections')) {
-      currentlyViewing();
     }
   }
 
   handleHideModal = () => {
-    const { search: { mediaType, filterType, currentPage, searchText }, hideModal, status } = this.props;
+    const {
+      search: { mediaType, filterType, currentPage, searchText },
+      hideModal,
+      history,
+      status,
+      location,
+    } = this.props;
 
     // route to last path according to state
-    const pathName = this.props.history.location.pathname;
+    const pathName = location.pathname;
 
     if (pathName.includes('/collections')) {
-      this.props.history.push(`/collections/${status}`)
+      history.push(`/collections/${status}`)
     } else if (searchText) {
-      this.props.history.push(`/search=${searchText}`)
+      history.push(`/search=${searchText}`)
     } else {
-      this.props.history.push(`/${mediaType}/${filterType}/page=${currentPage}`)
+      history.push(`/${mediaType}/${filterType}/page=${currentPage}`)
     }
 
     hideModal();
   }
 
   render() {
-    const { showInfo, loadingSearch } = this.props;
+    const { showInfo, loadingSearch, location } = this.props;
+
     const modal = showInfo ?
       <CSSTransition
         in={showInfo}
@@ -130,17 +148,26 @@ class Content extends Component {
       <main className='content-grid layout'>
         {showInfo ? <Backdrop handler={this.handleHideModal} showInfo={showInfo} /> : null}
         <Categories />
-        <Switch>
-          <Route path='/signin' component={SignIn} />
-          <Route path='/signup' component={SignUp} />
-          {loadingSearch ? <Spinner /> :
-            <>
-              <Route path='/:mediaType/:filterType/page=:number' component={() => <Cards backdropHandler={this.handleHideModal} />} />
-              <Route path='/search=:query' component={() => <Cards backdropHandler={this.handleHideModal} />} />
-              <Route path='/collections/:status' component={() => <Collections backdropHandler={this.handleHideModal} />} />
-            </>
+        <div className='content-wrapper'>
+          {
+            loadingSearch
+                ? (
+                    <div className='loading'>
+                      <Spinner/>
+                    </div>
+                )
+                : null
           }
-        </Switch>
+          <Switch location={location}>
+            <Route path={'/signin'} component={SignIn}/>
+            <Route path={'/signup'} component={SignUp}/>
+            <Route path={'/:mediaType/:filterType/page=:number'}
+                   component={() => <Cards backdropHandler={this.handleHideModal}/>}/>
+            <Route path={'/search=:query'} component={() => <Cards backdropHandler={this.handleHideModal}/>}/>
+            <Route path={'/collections/:status'}
+                   component={() => <Collections backdropHandler={this.handleHideModal}/>}/>
+          </Switch>
+        </div>
         <TransitionGroup className='transitionModal'>
           {modal}
         </TransitionGroup>

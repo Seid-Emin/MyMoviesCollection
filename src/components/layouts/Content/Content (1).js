@@ -112,7 +112,7 @@ class Content extends Component {
   }
 
   render() {
-    const { showInfo, loadingSearch } = this.props;
+    const { showInfo, loadingSearch, location } = this.props;
     const modal = showInfo ?
       <CSSTransition
         in={showInfo}
@@ -130,7 +130,7 @@ class Content extends Component {
       <main className='content-grid layout'>
         {showInfo ? <Backdrop handler={this.handleHideModal} showInfo={showInfo} /> : null}
         <Categories />
-        <Switch>
+        <Switch location={location}>
           <Route path='/signin' component={SignIn} />
           <Route path='/signup' component={SignUp} />
           {loadingSearch ? <Spinner /> :

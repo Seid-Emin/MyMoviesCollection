@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router";
 
@@ -38,7 +38,7 @@ const Search = ({ search: { searchText, searching }, searchQuery, fetchMultiSear
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="input-field">
             <input onChange={(e) => _handleSearch(e)} id="search" type="search" required autoComplete='on' />
-            <label className="label-icon" htmlFor="search"> <Link to={'/search=' + searchText} ><i className="material-icons" onClick={(e) => handleSubmit(e)}>search</i></Link></label>
+            <label className="label-icon" htmlFor="search"> <NavLink to={'/search=' + searchText} ><i className="material-icons" onClick={(e) => handleSubmit(e)}>search</i></NavLink></label>
           </div>
         </form>
       </div>

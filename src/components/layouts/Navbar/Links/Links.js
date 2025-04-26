@@ -6,12 +6,15 @@ import * as actions from '../../../../store/actions';
 
 // Combined links
 const Links = ({ uid, initials, toggleSideMenu, signOut, search }) => {
-  return (uid ?
-    <SignedInLinks
-      toggleSideMenu={toggleSideMenu}
-      initials={initials}
-      signOut={signOut}
-      search={search} />
+  return (
+      uid
+          ? (
+              <SignedInLinks
+                  toggleSideMenu={toggleSideMenu}
+                  initials={initials}
+                  signOut={signOut}
+                  search={search}/>
+          )
     : <SignedOutLinks toggleSideMenu={toggleSideMenu} />
   )
 }

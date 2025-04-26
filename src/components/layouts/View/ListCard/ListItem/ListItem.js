@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import './ListItem.css';
 
@@ -25,14 +25,14 @@ const ListItem = ({
         <td className="data number">{number + 1}</td>
         {/* Card Image*/}
         <td className="data image">
-          <Link to={`/collections/${status}/${mediaType}/id=${mediaId}`} className="link sort"  >
+          <NavLink to={`/collections/${status}/${mediaType}/id=${mediaId}`} className="link sort"  >
             <img src={posterPath} alt={mediaName + ' image'} className="hover-info image" onClick={() => singleMedia(mediaType, mediaId, fetchSelected, selectedMediaType, showModal)} />
-          </Link>
+          </NavLink>
         </td>
         {/* Card Title*/}
         <td className="data title clearfix">
           <div className='title-inner'>
-            <Link to={`/collections/${status}/${mediaType}/id=${mediaId}`} className="link sort" onClick={() => singleMedia(mediaType, mediaId, fetchSelected, selectedMediaType, showModal)}>{mediaName}</Link>
+            <NavLink to={`/collections/${status}/${mediaType}/id=${mediaId}`} className="link sort" onClick={() => singleMedia(mediaType, mediaId, fetchSelected, selectedMediaType, showModal)}>{mediaName}</NavLink>
             {/* Card Delete*/}
             <div className="delete-media">
               <span className="List_LightBox" onClick={() => deleteMediaFromFirestore(customID, collections, filteredCollections)}>delete</span>

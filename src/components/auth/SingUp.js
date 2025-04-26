@@ -101,16 +101,11 @@ class SingUp extends Component {
         email: user.email.value,
         password: user.password.value
       }
-      console.log(formIsValid);
-      console.log(newUser);
-
 
       signUp(newUser);
     } else {
       this.setState({ errorSubmit: true });
     }
-
-
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -120,7 +115,6 @@ class SingUp extends Component {
     if (prevProps.uid !== uid) {
       // Redirect to Main Content
       history.push(`/${mediaType}/${filterType}/page=${currentPage}`);
-
     }
   }
 
@@ -144,16 +138,23 @@ class SingUp extends Component {
     const { authError } = this.props;
     const { user, user: { password }, errorSubmit } = this.state;
 
-    let invalidMessage = errorSubmit ? <p className='Invalid'>Please fill all the required fields with
-    valid information</p>
-      : authError ? <p>{authError.message}</p> : null
+    let invalidMessage = errorSubmit
+        ? <p className='Invalid'>Please fill all the required fields with valid information</p>
+        : authError
+            ? <p>{authError.message}</p>
+            : null
 
-    let passInvalid = !password.valid && password.touched ? <p className='Invalid'>Password length should be at least 9 characters and contain at least one small, one big and speacial character</p>
-      : authError ? <p>{authError.message}</p> : null
+    let passInvalid =
+        !password.valid && password.touched
+            ? <p className='Invalid'>Password length should be at least 9 characters and contain at least one small, one
+              big and special character</p>
+            : null
 
     let inputs = Object.keys(user).map((field, index) => {
       return <Input key={index} name={field} field={user[field]} handleChange={this.handleChange} />
     })
+
+    console.log({ invalidMessage, passInvalid })
 
     return (
       <div className='container'>

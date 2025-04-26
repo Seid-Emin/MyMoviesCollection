@@ -83,6 +83,7 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.SHOW_MODAL: return showModal(state, action);
     case actionTypes.HIDE_MODAL: return hideModal(state, action);
+
     default: return state;
   }
 }

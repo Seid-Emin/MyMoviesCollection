@@ -1,7 +1,6 @@
 nav.searchField {
   background   : var(--color-textInner);
   border-radius: 5px;
-  width        : -webkit-fill-available;
   margin-right : 15px;
   height       : 32px;
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { withRouter } from "react-router";
 
 import './SimilarMovie.css';
@@ -33,10 +33,10 @@ class SimilarMovie extends Component {
     let linkPath = history.location.pathname.includes('collections') ? `/collections/${status}/${mediaType}/id=${id}` : `/${mediaType}/${filterType}/page=${currentPage}/id=${id}`
     return (
       <div className="card-action" onClick={this.getSelectedVideo}>
-        <Link to={linkPath}>
+        <NavLink to={linkPath}>
           <img className='similarMovie-img' src={posterPath} alt={original_name} />
           <p className='similarMovie-title'>{title || name}</p>
-        </Link>
+        </NavLink>
       </div>
     )
   }

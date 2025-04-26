@@ -1,5 +1,4 @@
 .modal-info {
-
   justify-content : space-between;
   background-color: var(--color-BG);
   min-width       : 60vw;
@@ -10,7 +9,7 @@
   padding         : 10px;
   display         : flex;
   flex-direction  : column;
-  overflow-y      : scroll;
+  /*overflow-y      : scroll;*/
 }
 
 .info-wrapper {

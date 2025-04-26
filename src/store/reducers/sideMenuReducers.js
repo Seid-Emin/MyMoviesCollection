@@ -17,6 +17,7 @@ export const toggleSideMenu = (state, action) => {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.TOGGLE_SIDE_MENU: return toggleSideMenu(state, action);
+
     default: return state;
   }
 }

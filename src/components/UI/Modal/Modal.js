@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router";
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import './Modal.css';
 import noCoverImg from '../../../assets/images/no-cover.png';
@@ -156,7 +156,7 @@ class Modal extends Component {
                     {!filteredCollections || !isMediaInCollection ?
                       <>
                         <p className='btn_addMedia' onClick={() => this.addMedia('watching')}>Add to List</p>
-                        {errorMessage ? <p className='modal-error-message'>Please <Link to='/signin' onClick={() => this.hideModalAndRedirectSignin()}>Signin</Link> first</p> : null}
+                        {errorMessage ? <p className='modal-error-message'>Please <NavLink to='/signin' onClick={() => this.hideModalAndRedirectSignin()}>Signin</NavLink> first</p> : null}
                       </> :
                       <>
                         {/* Status of media */}

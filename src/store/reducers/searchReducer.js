@@ -117,8 +117,6 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.CURRENTLY_VIEWING: return currentlyViewing(state, action);
 
-
-
     default: return state;
   }
 }
