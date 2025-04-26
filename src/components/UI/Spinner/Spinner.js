@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
-import './Spinner.css'
+import './Spinner.css';
 
-const Spinner = ({}) => {
+const Spinner = () => {
     return (
         <div className={'loader-wrapper'}>
             <div className={'loader-spinner-wrapper'}>
@@ -10,6 +10,6 @@ const Spinner = ({}) => {
             </div>
         </div>
     );
-}
+};
 
-export default Spinner
+export default Spinner;
