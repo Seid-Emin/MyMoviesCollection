@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { withRouter } from "react-router";
+import { withRouter } from 'react-router';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import './Navbar.css';
@@ -16,129 +16,133 @@ import SideMenu from './SideMenu/SideMenu';
 
 
 class Navbar extends Component {
-  state = {
-    prevScrollpos: window.pageYOffset,
-    visible: true
-  };
+    state = {
+        prevScrollpos: window.pageYOffset,
+        visible: true,
+    };
 
 
-  // Adds an event listener when the component is mount.
-  componentDidMount() {
-    window.addEventListener("scroll", this.handleScroll);
-  }
-
-  // Remove the event listener when the component is unmount.
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScroll);
-  }
-
-  // Hide or show the menu.
-  handleScroll = () => {
-    const { prevScrollpos } = this.state;
-
-    const currentScrollPos = window.pageYOffset;
-    const visible = prevScrollpos > currentScrollPos;
-
-    this.setState({
-      prevScrollpos: currentScrollPos,
-      visible
-    });
-  };
-
-  toggleMenu = () => {
-    const { search: { mediaType, filterType, currentPage },
-      collections: { status }, toggleSideMenu, history } = this.props;
-
-    // get pathName and change url state to prevent BackButton action
-    let pathName = history.location.pathname;
-    if (pathName.includes('/page=')) {
-      history.push(`/${mediaType}/${filterType}/page=${currentPage}/sideMenu=1`)
-    } else {
-      history.push(`/collections/${status}/sideMenu=1`)
+    // Adds an event listener when the component is mount.
+    componentDidMount() {
+        window.addEventListener('scroll', this.handleScroll);
     }
-    toggleSideMenu();
-  }
 
-  handleViewing = () => {
-    const { search: { viewing }, currentlyViewing } = this.props;
-    if (viewing) {
-      currentlyViewing();
+    // Remove the event listener when the component is unmount.
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll);
     }
-  }
 
-  render() {
-    const { collections: { status }, showMenu,
-      search: { mediaType, filterType, currentPage, searching, searchText } } = this.props;
+    // Hide or show the menu.
+    handleScroll = () => {
+        const { prevScrollpos } = this.state;
 
-    const navHidden = !this.state.visible ? 'nav--hidden' : '';
+        const currentScrollPos = window.pageYOffset;
+        const visible = prevScrollpos > currentScrollPos;
 
-    // const pathToDisplay = searching ? `/search=${searchText}` : `/${mediaType}/${filterType}/page=${currentPage}`;
-    const pathToDisplay = '/movie/now_playing/page=1';
+        this.setState({
+            prevScrollpos: currentScrollPos,
+            visible,
+        });
+    };
 
-    return (
-      <React.Fragment>
-        <nav className={`nav ${navHidden}`}>
-          <div className="nav-wrapper layout">
-            <div className="hamburger-container" onClick={() => this.toggleMenu()}>
-              <p className='hamburger'></p>
-            </div>
-            <NavLink to={pathToDisplay} className="brand-logo material-icons center MovieIcon"/>
-            <div className="nav-right-links">
-              <Search />
-              <ul id="nav-mobile" >
-                <li><NavLink to={`/collections/${status}`} activeClassName='activeNavLinks' onClick={() => this.handleViewing()}>Collections</NavLink></li>
-                <Links />
-              </ul>
-            </div>
-          </div>
-        </nav>
-        <TransitionGroup className='transitionSideMenu'>
-          {showMenu ?
-            <CSSTransition
-              in={showMenu}
-              appear={true}
-              key='sideMenu'
-              timeout={300}
-              classNames="sideMenuAnimate"
-              mountOnEnter
-              unmountOnExit >
-              <SideMenu />
-            </CSSTransition> : null}
-        </TransitionGroup>
-      </React.Fragment>
-    )
-  }
+    toggleMenu = () => {
+        const {
+            search: { mediaType, filterType, currentPage },
+            collections: { status }, toggleSideMenu, history,
+        } = this.props;
+
+        // get pathName and change url state to prevent BackButton action
+        let pathName = history.location.pathname;
+        if (pathName.includes('/page=')) {
+            history.push(`/${mediaType}/${filterType}/${currentPage}/sideMenu=1`);
+        } else {
+            history.push(`/collections/${status}/sideMenu=1`);
+        }
+        toggleSideMenu();
+    };
+
+    handleViewing = () => {
+        const { search: { viewing }, currentlyViewing } = this.props;
+        if (viewing) {
+            currentlyViewing();
+        }
+    };
+
+    render() {
+        const {
+            collections: { status }, showMenu,
+            search: { mediaType, filterType, currentPage, searching, searchText },
+        } = this.props;
+
+        const navHidden = !this.state.visible ? 'nav--hidden' : '';
+
+        // const pathToDisplay = searching ? `/search=${searchText}` : `/${mediaType}/${filterType}/${currentPage}`;
+        const pathToDisplay = '/movie/now_playing/page=1';
+
+        return (
+            <React.Fragment>
+                <nav className={`nav ${navHidden}`}>
+                    <div className="nav-wrapper layout">
+                        <div className="hamburger-container" onClick={() => this.toggleMenu()}>
+                            <p className="hamburger"></p>
+                        </div>
+                        <NavLink to={pathToDisplay} className="brand-logo material-icons center MovieIcon"/>
+                        <div className="nav-right-links">
+                            <Search/>
+                            <ul id="nav-mobile">
+                                <li><NavLink to={`/collections/${status}`} activeClassName="activeNavLinks"
+                                             onClick={() => this.handleViewing()}>Collections</NavLink></li>
+                                <Links/>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <TransitionGroup className="transitionSideMenu">
+                    {showMenu ?
+                        <CSSTransition
+                            in={showMenu}
+                            appear={true}
+                            key="sideMenu"
+                            timeout={300}
+                            classNames="sideMenuAnimate"
+                            mountOnEnter
+                            unmountOnExit>
+                            <SideMenu/>
+                        </CSSTransition> : null}
+                </TransitionGroup>
+            </React.Fragment>
+        );
+    }
 }
 
 const mapStateToProps = (state) => {
-  return {
-    // auth state
-    uid: state.firebase.auth.uid,
+    return {
+        // auth state
+        uid: state.firebase.auth.uid,
 
-    // search state
-    search: state.search,
+        // search state
+        search: state.search,
 
-    // collections state
-    collections: state.collections,
+        // collections state
+        collections: state.collections,
 
-    // side menu state
-    showMenu: state.sideMenu.showMenu
-  }
-}
+        // side menu state
+        showMenu: state.sideMenu.showMenu,
+    };
+};
 
 const mapDispatchToProps = dispatch => {
-  return {
-    // collectionActions
-    getCollectionFromFirestore: () => dispatch(actions.getCollectionFromFirestore()),
+    return {
+        // collectionActions
+        getCollectionFromFirestore: () => dispatch(actions.getCollectionFromFirestore()),
 
-    // fetchFilteredMediaAction
-    currentlyViewing: () => dispatch(actions.currentlyViewing()),
+        // fetchFilteredMediaAction
+        currentlyViewing: () => dispatch(actions.currentlyViewing()),
 
-    //sideMenuActions
-    toggleSideMenu: () => dispatch(actions.toggleSideMenu()),
-  }
-}
-
+        //sideMenuActions
+        toggleSideMenu: () => dispatch(actions.toggleSideMenu()),
+    };
+};
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(React.memo(withRouter(Navbar)));

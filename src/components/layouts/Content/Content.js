@@ -100,7 +100,7 @@ class Content extends Component {
         } else if (!pathName.includes('/collections')) {
             currentlyViewing();
         } else {
-            history.push(`/${mediaType}/${filterType}/page=${currentPage}`);
+            history.push(`/${mediaType}/${filterType}/${currentPage}`);
             fetchFilteredMedia(mediaType, filterType);
         }
     }
@@ -122,7 +122,7 @@ class Content extends Component {
         } else if (searchText) {
             history.push(`/search=${searchText}`);
         } else {
-            history.push(`/${mediaType}/${filterType}/page=${currentPage}`);
+            history.push(`/${mediaType}/${filterType}/${currentPage}`);
         }
 
         hideModal();
